@@ -9,8 +9,8 @@ export default interface Reservation extends Model {
     description: string,
     room: Room,
     user: User,
-    plannedStart: Date,
-    plannedEnd: Date,
-    actualStart: null | Date,
-    actualEnd: null | Date,
+    plannedStart: string,
+    plannedEnd: string,
+    actualStart: null | string,
+    actualEnd: null | string,
 }
