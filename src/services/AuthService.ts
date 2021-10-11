@@ -18,37 +18,51 @@ interface LoginResult {
 
 class AuthService extends Service {
 
-    async login(email: string, password: string) {
+    async login(email: string, password: string):Promise<LoginResult> {
 
         function respond(obj: ResponseData) {
-            return <string>loginMessges[obj.statusCode ?? 0]
-                ?? <string>obj?.error?.description;
+            return loginMessges[obj.statusCode ?? 0] as string
+                ?? obj?.error?.description as string;
         }
 
         try {
-            const response = <ResponseData>await this.post(
+            const response = await this.post(
                 '/users/auth',
                 {
                     'email': email,
                     'password': password
                 }
-            );
-            // response = resp;
+            ) as ResponseData;
+
             // set the token to local storage
             if (response.data) {
                 localStorage.setItem(this._TOKEN_NAME, response.data);
             }
 
-            return <LoginResult>{ message: respond(response), success: true };
+            return { message: respond(response), success: true };
         } catch (err: any) {
-            return <LoginResult>{ message: respond(err), success: false };
+            return { message: respond(err), success: false };
         }
     }
 
-    logout() {
+    logout():void {
         localStorage.removeItem(this._TOKEN_NAME);
     }
 
+    async hasSession():Promise<boolean> {
+        if (localStorage.getItem(this._TOKEN_NAME)) {
+            try {
+                const resp = await this.get('/users/me'); // change to ping
+                if (resp.statusCode === 200)
+                    return true;
+
+            } catch (err: any) {
+                if (err.statusCode === 401)
+                    return false;
+            }
+        }
+        return false
+    }
 
 }
 

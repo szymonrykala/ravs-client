@@ -32,10 +32,13 @@ export default abstract class Service {
 
     _BASE_URL: string = 'http://localhost:8081/v1';
     _TOKEN_NAME: string = 'auth_token';
-    _AUTH_TOKEN: string;
 
     constructor() {
-        this._AUTH_TOKEN = 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
+        // this._AUTH_TOKEN = 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
+    }
+
+    get authToken(){
+        return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
     async _fetch(fetchObject: FetchData) {
@@ -48,13 +51,13 @@ export default abstract class Service {
                 credentials: 'omit',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': this._AUTH_TOKEN,
+                    'Authorization': this.authToken,
                     // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify(fetchObject.body)
             }
         );
-        const data = <ResponseData>await response.json();
+        const data = await response.json() as ResponseData;
 
         if (!response.ok) {
             console.error(`${response.status}\t${data?.error?.type}\t${data?.error?.description}`);

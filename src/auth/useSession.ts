@@ -4,5 +4,5 @@ import { sessionContext, SessionContextInterface } from "./sessionProvider";
 
 
 export default function useSession() {
-  return <SessionContextInterface>useContext(sessionContext);
+  return useContext(sessionContext) as SessionContextInterface;
 }
