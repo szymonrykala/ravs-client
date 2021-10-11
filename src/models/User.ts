@@ -3,13 +3,20 @@ import Image from './Image';
 import Access from './Access';
 
 
-export default interface User extends Model {
+interface BaseUser extends Model{
     email: string,
     name: string,
     surname: string,
     activated: boolean,
     deleted: boolean,
     image: Image,
-    access: number | Access,
-    metadata?: object
+}
+
+export default interface User extends BaseUser {
+    access: number
+}
+
+export interface SessionUser extends BaseUser {
+    access: Access,
+    metadata: object
 }
