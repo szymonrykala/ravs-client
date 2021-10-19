@@ -19,7 +19,7 @@ import AppDrawer from './shared/components/Drawer';
 
 
 function App() {
-	
+
 	const [open, setOpen] = React.useState(false);
 
 	const toggleDrawer = (
@@ -41,14 +41,16 @@ function App() {
 	return (
 		<div className="App">
 			<Theme>
-				<SessionProvider>
+				<SessionProvider >
 					<BrowserRouter>
 						<NavigationBar toggleDrawer={toggleDrawer} />
 						<AppDrawer
 							open={open}
 							toggleOpen={toggleDrawer}
 						/>
-						<Container>
+						<Container
+							sx={{ backgroundColor: 'secondary.dark' }}
+						>
 							<Tabs />
 						</Container>
 						<Footer />
