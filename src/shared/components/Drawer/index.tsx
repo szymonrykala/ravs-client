@@ -1,10 +1,12 @@
-import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Divider, Drawer, ListItem, ListItemText } from "@mui/material";
 import React from "react";
 import MainDrawerList from "./MainDrawerList";
 import DrawerPanel from "./DrawerPanel";
 import AvatarView from './AvatarView';
 import useSession from "../../../auth/useSession";
 import ResourcesList from "./ResourcesList";
+import AddressMap from "../../../models/AddressMap";
+import AddressService from "../../../services/AddressService";
 
 
 interface AppDrawerProps {
@@ -14,6 +16,12 @@ interface AppDrawerProps {
 
 export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
     const { user } = useSession();
+    const [resources, setResources] = React.useState<AddressMap[]>([]);
+
+    React.useEffect(() => {
+        AddressService.getResourcesMap()
+            .then(setResources);
+    }, [])
 
     return (
         <Drawer
@@ -33,7 +41,7 @@ export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
                         Zasoby
                     </ListItemText>
                 </ListItem>
-                <ResourcesList />
+                <ResourcesList resourcesMap={resources} />
 
             </DrawerPanel>
         </Drawer>
