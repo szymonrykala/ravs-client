@@ -51,7 +51,7 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
             </ListItemButton>
 
             <Collapse in={open} timeout="auto" sx={props.sx}>
-                <List>
+                <List disablePadding>
                     {props.children}
                 </List>
             </Collapse>
