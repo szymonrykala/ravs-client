@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 
 import { SessionUser } from "../models/User";
 
-import AuthService from "../services/AuthService";
+import AuthService, { LoginResult } from "../services/AuthService";
 import UserService from "../services/UserService";
 
 
@@ -13,9 +13,10 @@ interface SessionProviderProps {
 
 export interface SessionContextInterface {
     user: SessionUser | null,
-    login: (email: string, password: string) => string,
+    login: (email: string, password: string) => Promise<LoginResult>,
     logout: () => void
 }
+
 
 export const sessionContext: any = createContext(null);
 
@@ -34,7 +35,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         checkIfUserHasSession();
     }, []);
 
-    const login = async (email: string, password: string) => {
+    const login = async (email: string, password: string): Promise<LoginResult> => {
 
         const { message, success } = await AuthService.login(email, password);
 
@@ -43,7 +44,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             setUser(sessionUser);
         }
 
-        return message;
+        return { message, success } as LoginResult;
     }
 
     const logout = () => {

@@ -10,7 +10,7 @@ const loginMessges: StatusMessages = {
     500: 'Wystąpił błąd, przepraszamy.'
 }
 
-interface LoginResult {
+export interface LoginResult {
     message: string,
     success: boolean
 }
