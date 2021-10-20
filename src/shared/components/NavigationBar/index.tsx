@@ -11,6 +11,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountMenu from './AccountMenu';
 import useSession from '../../../auth/useSession';
 import { Avatar } from '@mui/material';
+import RouterLink from '../RouterLink';
+import paths from '../../path';
 
 
 interface NavigationBarProps {
@@ -46,8 +48,15 @@ export default function NavigationBar(props: NavigationBarProps) {
 							<MenuIcon />
 						</IconButton>
 					)}
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Ravs
+					<Typography variant="h4" component="h1" sx={{ 
+						flexGrow: 1,
+						fontFamily: "Dancing Script, cursive",
+						}}>
+						<RouterLink 
+							to={user ? paths.HOME : paths.WELCOME}
+						>
+							Rav System
+						</RouterLink>
 					</Typography>
 					{user && (
 						<div>

@@ -1,4 +1,5 @@
 import { Grid, List, ListItem } from "@mui/material";
+import paths from "../../path";
 import RouterLink from "../RouterLink/index";
 
 
@@ -10,16 +11,16 @@ interface LinkListItem {
 
 const linksList: LinkListItem[][] = [
     [
-        { name: 'FAQ', link: '/app/faq' },
-        { name: 'Logowanie', link: '/login' },
-        { name: 'Rejestracja', link: '/register' },
-        { name: 'Aktywacja Konta', link: '/activate' },
+        { name: 'FAQ', link: paths.FAQ },
+        { name: 'Logowanie', link: paths.LOGIN },
+        { name: 'Rejestracja', link: paths.REGISTER },
+        { name: 'Aktywacja Konta', link: paths.ACTIVATE },
 
     ],
     [
-        { name: 'Home', link: '/app/home' },
-        { name: 'Profil', link: '/app/me' },
-        { name: 'Infrastruktura', link: '/app/addresses' },
+        { name: 'Home', link: paths.HOME },
+        { name: 'Profil', link: paths.MY_PROFILE },
+        { name: 'Zasoby', link: paths.INFRASTRUCTURE },
     ]
 ];
 
@@ -31,7 +32,6 @@ export default function Links() {
         <Grid
             sx={{
                 backgroundColor: "primary.main",
-
             }}
 
             container
@@ -43,7 +43,7 @@ export default function Links() {
                 <List>
                     {list.map(({ name, link }) => <ListItem key={name}>
                         <RouterLink
-                            style={{ color:'#dedeff' }}
+                            style={{ color: '#dedeff' }}
                             to={link}>
                             {name}
                         </RouterLink>

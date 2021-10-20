@@ -21,7 +21,12 @@ import { red, blue, indigo } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    primary: indigo
+    primary: indigo,
+    secondary:{
+      dark: "#f5f5f5",
+      main: "#304ffe",
+      light: "#fff"
+    }
   },
   // typography:{
 

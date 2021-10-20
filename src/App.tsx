@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -12,7 +12,7 @@ import SessionProvider from './auth/sessionProvider'
 import Tabs from './tabs';
 import Footer from './shared/components/Footer';
 import NavigationBar from './shared/components/NavigationBar';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import React from 'react';
 import AppDrawer from './shared/components/Drawer';
 
@@ -39,25 +39,23 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<Theme>
+		<Theme>
+			<Box component="div" className="App" sx={{ backgroundColor: 'secondary.dark' }}>
 				<SessionProvider >
-					<BrowserRouter>
+					<BrowserRouter basename='/'>
 						<NavigationBar toggleDrawer={toggleDrawer} />
 						<AppDrawer
 							open={open}
 							toggleOpen={toggleDrawer}
 						/>
-						<Container
-							sx={{ backgroundColor: 'secondary.dark' }}
-						>
+						<Container>
 							<Tabs />
 						</Container>
 						<Footer />
 					</BrowserRouter>
 				</SessionProvider>
-			</Theme>
-		</div>
+			</Box>
+		</Theme>
 	);
 }
 

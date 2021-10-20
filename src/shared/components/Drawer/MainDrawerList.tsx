@@ -6,6 +6,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import React from "react";
 import Access from "../../../models/Access";
 import RouterLink from "../RouterLink";
+import paths from "../../path";
 
 
 
@@ -19,19 +20,19 @@ interface NavListItem {
 const navListItems: NavListItem[] = [
   {
     label: "Panel Główny",
-    href: '/app/home',
-    icon: <HomeIcon color="primary"/>
+    href: paths.HOME,
+    icon: <HomeIcon color="primary" />
   }, {
     label: "Moje Konto",
-    href: '/app/me',
-    icon: <AccountIcon color="primary"/>
+    href: paths.MY_PROFILE,
+    icon: <AccountIcon color="primary" />
   }
 ]
 
 const settingsItem: NavListItem = {
   label: 'Ustawienia Platformy',
-  href: '/app/settings',
-  icon: <SettingsIcon color="primary"/>
+  href: paths.SETTINGS,
+  icon: <SettingsIcon color="primary" />
 };
 
 

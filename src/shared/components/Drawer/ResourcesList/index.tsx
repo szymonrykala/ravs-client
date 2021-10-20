@@ -3,6 +3,7 @@ import MapIcon from '@mui/icons-material/Map';
 
 import { List } from "@mui/material";
 import AddressMap from "../../../../models/AddressMap";
+import paths from '../../../path';
 import CollapseableListItem from "./CollapseableListItem";
 import RoomListItem from "./RoomListItem";
 
@@ -21,14 +22,14 @@ export default function ResourcesList({
                 <CollapseableListItem
                     key={id}
                     name={name}
-                    href={`/app${href}`}
+                    href={`${paths.HOME}${href}`}
                     icon={<MapIcon color="primary" />}
                 >
                     {buildings.map(({ id, name, href, rooms }) =>
                         <CollapseableListItem
                             key={id}
                             name={name}
-                            href={`/app${href}`}
+                            href={`${paths.HOME}${href}`}
                             icon={<BungalowIcon color="primary" />}
                             sx={{
                                 pl: 4,

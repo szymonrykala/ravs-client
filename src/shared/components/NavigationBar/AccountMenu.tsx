@@ -1,5 +1,6 @@
 import { Menu, MenuItem } from "@mui/material";
 import useSession from "../../../auth/useSession";
+import paths from "../../path";
 import RouterLink from "../RouterLink/index";
 
 
@@ -10,8 +11,8 @@ interface AccountMenuProps {
 }
 
 const links = [
-    { name: "Mój Profil", link: "/app/me" },
-    { name: "Panel Główny", link: "/app/home" },
+    { name: "Mój Profil", link: paths.MY_PROFILE },
+    { name: "Panel Główny", link: paths.HOME },
 ]
 
 
