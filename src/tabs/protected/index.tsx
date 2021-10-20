@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import AnimatedRouterSwitch from "../../shared/components/AnimatedRouterSwitch";
 import paths from "../../shared/path";
 
 
@@ -14,7 +15,7 @@ export default function () {
             display: 'flex',
             height: '65%',
         }}>
-            <Switch>
+            <AnimatedRouterSwitch>
                 <Route path={paths.ROOM}>
                     pokój
                 </Route>
@@ -37,7 +38,7 @@ export default function () {
                     home
                 </Route>
                 <Route path="*"><Redirect to={paths.HOME} /></Route>
-            </Switch>
+            </AnimatedRouterSwitch>
         </Box>
     );
 }

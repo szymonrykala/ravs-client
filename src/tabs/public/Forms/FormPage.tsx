@@ -19,8 +19,8 @@ export default function FormPage(props: FormPageProps) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: 'secondary.light',
-                    padding:'65px 35px',
-                    borderRadius:'10px'
+                    padding: '65px 35px',
+                    borderRadius: '10px'
                 }}
             >
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
