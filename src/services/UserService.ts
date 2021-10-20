@@ -1,5 +1,5 @@
 import { SessionUser } from "../models/User";
-import Service, { StatusMessages } from "./Service";
+import Service, { ServiceFormData, StatusMessages } from "./Service";
 
 
 // const loginMessges: StatusMessages = {
@@ -9,12 +9,19 @@ import Service, { StatusMessages } from "./Service";
 // }
 
 
-interface RegisterUserData {
+export interface RegisterUserData extends ServiceFormData {
     email: string,
     password: string,
     name: string,
     surname: string
 }
+
+export interface ActivationData extends ServiceFormData {
+    email: string,
+    password: string,
+    code: string,
+}
+
 
 
 class UserService extends Service {
@@ -30,6 +37,17 @@ class UserService extends Service {
         return resp.data;
     }
 
+    async activate(data: ActivationData) {
+        const resp = await this.patch('/users', data);
+        return resp.data;
+    }
+
+    async generateKey(email: string) {
+        const resp = await this.post('/users/key', {
+            email: email
+        });
+        return resp.data;
+    }
 }
 
 

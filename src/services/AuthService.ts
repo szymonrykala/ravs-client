@@ -1,4 +1,4 @@
-import Service, { ResponseData, StatusMessages } from "./Service";
+import Service, { ResponseData, ServiceFormData, StatusMessages } from "./Service";
 
 
 
@@ -16,9 +16,16 @@ export interface LoginResult {
 }
 
 
+export interface LoginFormData extends ServiceFormData {
+    email: string,
+    password: string
+}
+
+
+
 class AuthService extends Service {
 
-    async login(email: string, password: string):Promise<LoginResult> {
+    async login(data: LoginFormData): Promise<LoginResult> {
 
         function respond(obj: ResponseData) {
             return loginMessges[obj.statusCode ?? 0] as string
@@ -29,8 +36,8 @@ class AuthService extends Service {
             const response = await this.post(
                 '/users/auth',
                 {
-                    'email': email,
-                    'password': password
+                    'email': data.email,
+                    'password': data.password
                 }
             ) as ResponseData;
 
@@ -45,11 +52,11 @@ class AuthService extends Service {
         }
     }
 
-    logout():void {
+    logout(): void {
         localStorage.removeItem(this._TOKEN_NAME);
     }
 
-    async hasSession():Promise<boolean> {
+    async hasSession(): Promise<boolean> {
         if (localStorage.getItem(this._TOKEN_NAME)) {
             try {
                 const resp = await this.get('/users/me'); // change to ping

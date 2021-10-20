@@ -1,6 +1,8 @@
 
 
-const BASE_URL: string = 'http://localhost:8081/v1';
+export interface ServiceFormData {
+    [index: string]: string | number | boolean
+}
 
 
 interface FetchData {
@@ -37,7 +39,7 @@ export default abstract class Service {
         // this._AUTH_TOKEN = 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
-    get authToken(){
+    get authToken() {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
