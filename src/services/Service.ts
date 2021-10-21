@@ -16,13 +16,16 @@ interface ErrorData {
     description: string
 }
 
-export interface ResponseData {
+interface ResponseData {
     statusCode: number,
     data?: any,
     error?: ErrorData
 }
 
-
+export interface APIResponse {
+    statusCode: number,
+    data?: object | string | number | null,
+}
 
 export interface StatusMessages {
     [index: number]: string
@@ -43,7 +46,7 @@ export default abstract class Service {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
-    async _fetch(fetchObject: FetchData) {
+    async _fetch(fetchObject: FetchData): Promise<APIResponse> {
         const response = await fetch(
             this._BASE_URL + fetchObject.endpoint,
             {
@@ -60,24 +63,23 @@ export default abstract class Service {
             }
         );
         const data = await response.json() as ResponseData;
+        
+        console.debug(data);
 
         if (!response.ok) {
             console.error(`${response.status}\t${data?.error?.type}\t${data?.error?.description}`);
             throw data;
         }
 
-        return data;
+        return data as APIResponse;
 
     }
 
     async get(endpoint: string, query = {}) {
-
         return await this._fetch({
             method: 'GET',
             endpoint: endpoint + new URLSearchParams(query).toString()
         });
-
-        // return response;
     }
 
     async post(endpoint: string, body: object) {
@@ -86,7 +88,6 @@ export default abstract class Service {
             endpoint: endpoint,
             body: body
         });
-        // return response;
     }
 
     async patch(endpoint: string, body: object) {
@@ -95,7 +96,6 @@ export default abstract class Service {
             endpoint: endpoint,
             body: body
         });
-        // return response;
     }
 
     async delete(endpoint: string) {
@@ -103,6 +103,5 @@ export default abstract class Service {
             method: 'DELETE',
             endpoint: endpoint
         });
-        // return response;
     }
 }

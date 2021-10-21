@@ -1,12 +1,5 @@
 import { SessionUser } from "../models/User";
-import Service, { ServiceFormData, StatusMessages } from "./Service";
-
-
-// const loginMessges: StatusMessages = {
-//     200: 'Sukces',
-//     400: 'Hasło jest niepoprawne',
-//     401: 'Użytkownik nie istnieje',
-// }
+import Service, { APIResponse, ServiceFormData, StatusMessages } from "./Service";
 
 
 export interface RegisterUserData extends ServiceFormData {
@@ -22,6 +15,11 @@ export interface ActivationData extends ServiceFormData {
     code: string,
 }
 
+export interface ChangePasswordData extends ServiceFormData{
+    code: string,
+    newPassword: string,
+    email: string
+}
 
 
 class UserService extends Service {
@@ -33,20 +31,21 @@ class UserService extends Service {
     }
 
     async register(data: RegisterUserData) {
-        const resp = await this.post('/users', data);
-        return resp.data;
+        return await this.post('/users', data);
     }
 
     async activate(data: ActivationData) {
-        const resp = await this.patch('/users', data);
-        return resp.data;
+        return await this.patch('/users/activate', data);
     }
 
     async generateKey(email: string) {
-        const resp = await this.post('/users/key', {
+        return await this.post('/users/key', {
             email: email
         });
-        return resp.data;
+    }
+
+    async changePassword(data: ChangePasswordData) {
+        return await this.patch('/users/password', data) as APIResponse;
     }
 }
 

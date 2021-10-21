@@ -1,19 +1,5 @@
-import Service, { ResponseData, ServiceFormData, StatusMessages } from "./Service";
+import Service, { APIResponse, ServiceFormData, StatusMessages } from "./Service";
 
-
-
-// custom login method messages
-const loginMessges: StatusMessages = {
-    200: 'Zalogowano!',
-    400: 'Hasło jest niepoprawne.',
-    404: 'Użytkownik nie istnieje.',
-    500: 'Wystąpił błąd, przepraszamy.'
-}
-
-export interface LoginResult {
-    message: string,
-    success: boolean
-}
 
 
 export interface LoginFormData extends ServiceFormData {
@@ -25,31 +11,21 @@ export interface LoginFormData extends ServiceFormData {
 
 class AuthService extends Service {
 
-    async login(data: LoginFormData): Promise<LoginResult> {
-
-        function respond(obj: ResponseData) {
-            return loginMessges[obj.statusCode ?? 0] as string
-                ?? obj?.error?.description as string;
-        }
-
-        try {
-            const response = await this.post(
-                '/users/auth',
-                {
-                    'email': data.email,
-                    'password': data.password
-                }
-            ) as ResponseData;
-
-            // set the token to local storage
-            if (response.data) {
-                localStorage.setItem(this._TOKEN_NAME, response.data);
+    async login(data: LoginFormData): Promise<APIResponse> {
+        const response = await this.post(
+            '/users/auth',
+            {
+                'email': data.email,
+                'password': data.password
             }
+        );
 
-            return { message: respond(response), success: true };
-        } catch (err: any) {
-            return { message: respond(err), success: false };
+        // set the token to local storage
+        if (response.data) {
+            localStorage.setItem(this._TOKEN_NAME, response.data.toString());
         }
+
+        return response;
     }
 
     logout(): void {

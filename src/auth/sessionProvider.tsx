@@ -2,7 +2,8 @@ import React, { createContext, useState } from "react";
 
 import { SessionUser } from "../models/User";
 
-import AuthService, { LoginResult } from "../services/AuthService";
+import AuthService, { LoginFormData } from "../services/AuthService";
+import { APIResponse } from "../services/Service";
 import UserService from "../services/UserService";
 
 
@@ -13,7 +14,7 @@ interface SessionProviderProps {
 
 export interface SessionContextInterface {
     user: SessionUser | null,
-    login: (email: string, password: string) => Promise<LoginResult>,
+    login: (data: LoginFormData) => Promise<APIResponse>,
     logout: () => void
 }
 
@@ -35,16 +36,16 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         checkIfUserHasSession();
     }, []);
 
-    const login = async (email: string, password: string): Promise<LoginResult> => {
+    const login = async (data: LoginFormData): Promise<APIResponse> => {
 
-        const { message, success } = await AuthService.login(email, password);
+        const resp = await AuthService.login(data);
 
-        if (success) {
+        if (resp.statusCode === 200) {
             const sessionUser = await UserService.getMe();
             setUser(sessionUser);
         }
 
-        return { message, success } as LoginResult;
+        return resp;
     }
 
     const logout = () => {
