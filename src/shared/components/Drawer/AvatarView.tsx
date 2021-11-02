@@ -1,6 +1,7 @@
 import { Avatar, Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { SessionUser } from "../../../models/User";
+import ImageService from "../../../services/ImageService";
 
 
 interface AvatarViewProps {
@@ -24,7 +25,7 @@ export default function AvatarView({
         >
             <Avatar
                 alt={`${user?.name} ${user?.surname}`}
-                src={user?.image.path}
+                src={ImageService.getLink(user?.image)}
                 sx={{
                     width: '96px',
                     height: '96px',
