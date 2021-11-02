@@ -12,7 +12,7 @@ import { TableFooter, Typography } from '@mui/material';
 import LogRow from './LogRow';
 import { LogsTabBar } from './LogsTabBar';
 import { useMyTablePagination } from '../MyTablePagination';
-
+import { useLocation } from "react-router-dom";
 
 
 const LOGS_PARAMS: string = 'logs-query-params';
@@ -38,6 +38,7 @@ interface LogsTabProps {
 export default function LogsTab({
     logsGetter
 }: LogsTabProps) {
+    const location = useLocation();
     const { tablePaginationComponent, pagination, setPagination } = useMyTablePagination();
     const [queryParams, setQueryParams] = React.useState<LogsQueryParams>(queryParamsConfig);
     const [logs, setLogs] = React.useState<Log[]>([]);
@@ -57,7 +58,7 @@ export default function LogsTab({
         getLogs();
 
         localStorage.setItem(LOGS_PARAMS, JSON.stringify(queryParams));
-    }, [queryParams, pagination.currentPage, pagination.itemsOnPage]);
+    }, [queryParams, pagination.currentPage, pagination.itemsOnPage, location.key]);
 
 
     return (
