@@ -1,4 +1,5 @@
-import Service, { APIResponse, ServiceFormData, StatusMessages } from "./Service";
+import { APIResponse } from "./interfaces";
+import Service, { ServiceFormData, StatusMessages } from "./Service";
 
 
 
@@ -34,20 +35,11 @@ class AuthService extends Service {
 
     async hasSession(): Promise<boolean> {
         if (localStorage.getItem(this._TOKEN_NAME)) {
-            try {
-                const resp = await this.get('/users/me'); // change to ping
-                if (resp.statusCode === 200)
-                    return true;
-
-            } catch (err: any) {
-                if (err.statusCode === 401)
-                    return false;
-            }
+            await this.get('/users/me'); // change to ping
+            return true
         }
         return false
     }
-
 }
-
 
 export default new AuthService();

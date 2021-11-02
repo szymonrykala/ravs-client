@@ -1,8 +1,13 @@
+import paths from "../shared/path";
+import APIServiceError from "./APIServiceError";
+import { APIResponse } from "./interfaces";
 
 
 export interface ServiceFormData {
     [index: string]: string | number | boolean
 }
+
+
 
 
 interface FetchData {
@@ -16,20 +21,18 @@ interface ErrorData {
     description: string
 }
 
-interface ResponseData {
+export interface ResponseData {
     statusCode: number,
     data?: any,
     error?: ErrorData
 }
 
-export interface APIResponse {
-    statusCode: number,
-    data?: object | string | number | null,
-}
+
 
 export interface StatusMessages {
     [index: number]: string
 }
+
 
 
 
@@ -42,18 +45,18 @@ export default abstract class Service {
         // this._AUTH_TOKEN = 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
-    get authToken() {
+    private get authToken() {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
-    async _fetch(fetchObject: FetchData): Promise<APIResponse> {
+    private async _fetch(fetchObject: FetchData): Promise<APIResponse> {
         const response = await fetch(
             this._BASE_URL + fetchObject.endpoint,
             {
                 method: fetchObject.method,
                 cache: 'no-cache',
                 mode: 'cors',
-                credentials: 'omit',
+                // credentials: 'omit',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': this.authToken,
@@ -63,26 +66,53 @@ export default abstract class Service {
             }
         );
         const data = await response.json() as ResponseData;
-        
+
         console.debug(data);
+
+        // redirect to login page while unauthorized
+        if (response.status === 401) window.location.href =  paths.LOGIN;
 
         if (!response.ok) {
             console.error(`${response.status}\t${data?.error?.type}\t${data?.error?.description}`);
-            throw data;
+            throw new APIServiceError(data);
         }
 
         return data as APIResponse;
-
     }
 
-    async get(endpoint: string, query = {}) {
+    protected async sendImage(endpoint: string, formBody: FormData) {
+        const resp = await fetch(
+            this._BASE_URL + endpoint,
+            {
+                method: "POST",
+                cache: 'no-cache',
+                mode: 'cors',
+                body: formBody,
+                headers: {
+                    'Authorization': this.authToken,
+                }
+            }
+        );
+
+        const data = await resp.json() as ResponseData;
+        console.debug(data);
+
+        if (!resp.ok) {
+            console.error(`${resp.status}\t${data?.error?.type}\t${data?.error?.description}`);
+            throw new APIServiceError(data);
+        }
+
+        return data as APIResponse;
+    }
+
+    protected async get(endpoint: string, query = {}) {
         return await this._fetch({
             method: 'GET',
-            endpoint: endpoint + new URLSearchParams(query).toString()
+            endpoint: endpoint + '?' + new URLSearchParams(query).toString()
         });
     }
 
-    async post(endpoint: string, body: object) {
+    protected async post(endpoint: string, body: object) {
         return await this._fetch({
             method: 'POST',
             endpoint: endpoint,
@@ -90,7 +120,7 @@ export default abstract class Service {
         });
     }
 
-    async patch(endpoint: string, body: object) {
+    protected async patch(endpoint: string, body: object) {
         return await this._fetch({
             method: 'PATCH',
             endpoint: endpoint,

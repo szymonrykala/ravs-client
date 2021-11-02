@@ -1,5 +1,6 @@
 import { SessionUser } from "../models/User";
-import Service, { APIResponse, ServiceFormData, StatusMessages } from "./Service";
+import { APIResponse } from "./interfaces";
+import Service, { ServiceFormData, StatusMessages } from "./Service";
 
 
 export interface RegisterUserData extends ServiceFormData {
@@ -15,7 +16,7 @@ export interface ActivationData extends ServiceFormData {
     code: string,
 }
 
-export interface ChangePasswordData extends ServiceFormData{
+export interface ChangePasswordData extends ServiceFormData {
     code: string,
     newPassword: string,
     email: string
