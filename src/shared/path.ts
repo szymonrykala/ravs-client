@@ -7,7 +7,6 @@ interface AppPathsInterface {
     ACTIVATE: string,
     REMIND_PASSWORD: string,
     FAQ: string,
-    WELCOME: string,
 
     HOME: string,
     SETTINGS: string,
@@ -19,16 +18,16 @@ interface AppPathsInterface {
 };
 
 const paths: { [index: string]: string } = {
-    PUBLIC: '/account',
-    WELCOME: '/welcome',
+    PUBLIC: '/public',
     FAQ: '/faq',
     HOME: '/app',
 }
 
+
 paths.LOGIN = paths.PUBLIC + '/login';
 paths.REGISTER = paths.PUBLIC + '/register';
 paths.ACTIVATE = paths.PUBLIC + '/activate';
-paths.REMIND_PASSWORD = paths.PUBLIC + '/remind';
+paths.REMIND_PASSWORD = paths.PUBLIC + '/passwd';
 
 paths.SETTINGS = paths.HOME + '/settings';
 paths.MY_PROFILE = paths.HOME + '/me';
