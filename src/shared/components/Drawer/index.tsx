@@ -32,7 +32,7 @@ export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
                 <MainDrawerList access={user?.access} />
 
                 <Divider />
-                <ListItem onClick={(ev: React.MouseEvent) => ev.stopPropagation()}>
+                <ListItem onClick={(ev: React.MouseEvent) => ev.stopPropagation()} component="div">
                     <ListItemText>
                         Zasoby
                     </ListItemText>

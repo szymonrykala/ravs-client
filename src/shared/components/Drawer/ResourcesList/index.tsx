@@ -18,6 +18,7 @@ export default function ResourcesList() {
                     name={name}
                     href={`${paths.HOME}${href}`}
                     icon={<MapIcon color="primary" />}
+                    sx={{width:'100%'}}
                 >
                     {buildings.map(({ id, name, href, rooms }) =>
                         <CollapseableListItem
@@ -27,6 +28,7 @@ export default function ResourcesList() {
                             icon={<BungalowIcon color="primary" />}
                             sx={{
                                 pl: 6,
+                                width:'inherit',
                                 backgroundColor: 'grey.100'
                             }}
                         >

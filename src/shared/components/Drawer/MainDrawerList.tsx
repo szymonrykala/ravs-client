@@ -53,7 +53,7 @@ export default function MainDrawerList(props: { access?: Access }) {
     <List>
       {
         result.map(({ label, href, icon }, key) => (
-          <ListItem button key={key}>
+          <ListItem button key={key} component="li">
             <ListItemIcon >
               {icon}
             </ListItemIcon>

@@ -1,8 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
-import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import AppLink from "../../AppLink";
-import RouterLink from "../../RouterLink";
 
 
 
@@ -18,8 +17,10 @@ interface CallapsableListItemProps {
 export default function CollapseableListItem(props: CallapsableListItemProps) {
     const [open, setOpen] = React.useState<boolean>(false);
 
+    const OPENED_NAME = React.useMemo(() => `${props.name}-nav-item`, [props.name]);
+
     React.useEffect(() => {
-        const wasOpened = localStorage.getItem(`${props.name}_nav_item`);
+        const wasOpened = localStorage.getItem(OPENED_NAME);
         if (wasOpened) {
             try {
                 setOpen(JSON.parse(wasOpened));
@@ -32,14 +33,14 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
     const handleOpen = (ev: React.MouseEvent) => {
         ev.stopPropagation()
         const newOpen = !open;
-        localStorage.setItem(`${props.name}_nav_item`, JSON.stringify(newOpen));
+        localStorage.setItem(OPENED_NAME, JSON.stringify(newOpen));
         setOpen(newOpen)
     };
 
-    const label = props.href ? <AppLink to={props.href} sx={{color:"text.primary"}}>{props.name}</AppLink> : props.name;
+    const label = props.href ? <AppLink to={props.href} sx={{ color: "text.primary" }}>{props.name}</AppLink> : props.name;
 
     return (
-        <>
+        <ListItem disablePadding component="li" sx={{ flexDirection: 'column', alignItems: 'flex-start' }}>
             <ListItemButton sx={props.sx}>
                 {props.icon &&
                     <ListItemIcon>
@@ -56,6 +57,6 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
                     {props.children}
                 </List>
             </Collapse>
-        </>
+        </ListItem>
     );
 }
