@@ -1,20 +1,19 @@
 import React from "react";
 import useSession from "../../auth/useSession";
-import AddressMap from "../../models/AddressMap";
+import AddressMap, { MapItem } from "../../models/AddressMap";
 import AddressService from "../../services/AddressService";
 import useNotification from "../NotificationContext/useNotification";
+import { ResourceMapContextValue } from "./ResourceMapOCntextValue";
 
 
 
-export interface ResourceMapContext {
-    resourceMap: AddressMap[],
-    reloadMap: () => void
-}
 
-
-export const resourceMapContext = React.createContext<ResourceMapContext>({
+export const resourceMapContext = React.createContext<ResourceMapContextValue>({
     resourceMap: [],
-    reloadMap: () => { }
+    reloadMap: () => { },
+    getRoomLink: (roomId: number) => '',
+    getBuildingLink: (bildingId: number) => '',
+    allRooms: []
 });
 
 
@@ -44,9 +43,25 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
         user && loadResourceMap();
     }, [user]);
 
+    const getRoomLink = (roomId: number): string =>
+        '/app' + resourceMap.map(addr => addr.buildings.map(bld => bld.rooms))
+            .flat(2)
+            .find(item => item.id === roomId)
+            ?.href ?? '';
+
+    const allRooms = React.useMemo(() =>
+        resourceMap.map(addr => addr.buildings.map(bld => bld.rooms)).flat(2)
+        , [resourceMap]);
+
+    const getBuildingLink = (buildingId: number): string =>
+        '/app' + resourceMap.map(addr => addr.buildings)
+            .flat(2)
+            .find(item => item.id === buildingId)
+            ?.href ?? ''
+
 
     return (
-        <resourceMapContext.Provider value={{ resourceMap, reloadMap }}>
+        <resourceMapContext.Provider value={{ resourceMap, reloadMap, allRooms, getRoomLink, getBuildingLink }}>
             {props.children}
         </resourceMapContext.Provider>
     );

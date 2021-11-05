@@ -1,7 +1,8 @@
 import React from "react";
-import { resourceMapContext, ResourceMapContext } from "./ResourceMapContextProvider";
+import { resourceMapContext } from "./ResourceMapContextProvider";
+import { ResourceMapContextValue } from "./ResourceMapOCntextValue";
 
 
 export default function useResourceMap() {
-    return React.useContext(resourceMapContext) as ResourceMapContext;
+    return React.useContext(resourceMapContext) as ResourceMapContextValue;
 }
