@@ -26,8 +26,8 @@ export default function ResourcesList() {
                             href={`${paths.HOME}${href}`}
                             icon={<BungalowIcon color="primary" />}
                             sx={{
-                                pl: 4,
-                                backgroundColor: 'secondary.dark'
+                                pl: 6,
+                                backgroundColor: 'grey.100'
                             }}
                         >
                             {rooms.map((roomEntry, key) => <RoomListItem key={key} {...roomEntry} />)}

@@ -1,6 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
+import AppLink from "../../AppLink";
 import RouterLink from "../../RouterLink";
 
 
@@ -35,7 +36,7 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
         setOpen(newOpen)
     };
 
-    const label = props.href ? <RouterLink to={props.href}>{props.name}</RouterLink> : props.name;
+    const label = props.href ? <AppLink to={props.href} sx={{color:"text.primary"}}>{props.name}</AppLink> : props.name;
 
     return (
         <>
