@@ -52,6 +52,16 @@ class RoomService extends Service {
         return await this.get(`${this.path}/requests`, queryParams);
     }
 
+    public async updateRFID(key: string) {
+        return this.patch(`${this.path}/keys`, {
+            "RFIDTag": key
+        });
+    }
+
+    public deleteRFIDTag(){
+        return this.delete(`${this.path}/keys`);
+    }
+
     public async uploadImage(image: Blob) {
         const formData = new FormData();
         formData.append(

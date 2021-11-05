@@ -8,7 +8,6 @@ export enum RoomTypes {
     LECTURE = "Sala wykładowa"
 }
 
-// export type RoomType = "Sala wykładowa" | "Sala laboratoryjna" | "Sala konferencyjna";
 export type RoomType = RoomTypes.LABORATORY | RoomTypes.CONFERENCE | RoomTypes.LECTURE;
 
 interface BaseRoom extends Model {
@@ -19,7 +18,7 @@ interface BaseRoom extends Model {
     floor: number,
     blocked: boolean,
     occupied: boolean,
-    hasNFCTag: boolean
+    RFIDTag: null | string
 }
 
 export default interface Room extends BaseRoom {
