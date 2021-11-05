@@ -13,6 +13,7 @@ import useSession from '../../../auth/useSession';
 import { Avatar } from '@mui/material';
 import RouterLink from '../RouterLink';
 import paths from '../../path';
+import ImageService from '../../../services/ImageService';
 
 
 interface NavigationBarProps {
@@ -48,11 +49,11 @@ export default function NavigationBar(props: NavigationBarProps) {
 							<MenuIcon />
 						</IconButton>
 					)}
-					<Typography variant="h4" component="h1" sx={{ 
+					<Typography variant="h4" component="h1" sx={{
 						flexGrow: 1,
 						fontFamily: "Dancing Script, cursive",
-						}}>
-						<RouterLink 
+					}}>
+						<RouterLink
 							to={user ? paths.HOME : paths.WELCOME}
 						>
 							Rav System
@@ -70,7 +71,7 @@ export default function NavigationBar(props: NavigationBarProps) {
 							>
 								<Avatar
 									alt={user.name}
-									src={user.image.path}
+									src={ImageService.getLink(user.image)}
 									sx={{ width: 42, height: 42 }}
 								/>
 							</IconButton>
