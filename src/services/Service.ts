@@ -69,8 +69,11 @@ export default abstract class Service {
 
         console.debug(data);
 
-        // redirect to login page while unauthorized
-        if (response.status === 401) window.location.href =  paths.LOGIN;
+        // if user is not authenticated - 
+        // redirect to let sessionContext to resolve redirections
+        if (response.status === 401 && !fetchObject.endpoint.match('\/auth|me')) {
+            window.location.reload();
+        }
 
         if (!response.ok) {
             console.error(`${response.status}\t${data?.error?.type}\t${data?.error?.description}`);

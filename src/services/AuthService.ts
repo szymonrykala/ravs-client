@@ -33,10 +33,19 @@ class AuthService extends Service {
         localStorage.removeItem(this._TOKEN_NAME);
     }
 
+    hasToken(): boolean {
+        return Boolean(localStorage.getItem(this._TOKEN_NAME));
+    }
+
     async hasSession(): Promise<boolean> {
-        if (localStorage.getItem(this._TOKEN_NAME)) {
-            await this.get('/users/me'); // change to ping
-            return true
+        try {
+            if (this.hasToken()) {
+                await this.get('/users/me'); // change to ping
+                return true
+            }
+        } catch (err: any) {
+            // localStorage.removeItem(this._TOKEN_NAME);
+            
         }
         return false
     }
