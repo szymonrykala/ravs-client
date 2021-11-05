@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { SxProps } from '@mui/system';
+import { Paper } from '@mui/material';
 
 
 const style = {
@@ -12,8 +13,9 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   borderRadius: "10px",
-  minWidth: 250,
-  bgcolor: 'background.paper',
+  width: '95%',
+  maxHeight: "95vh",
+  overflow: 'auto',
   boxShadow: 24,
   p: 4,
 };
@@ -24,7 +26,7 @@ interface GenericModalProps {
   ariaLabel: string,
   ariaDescription: string,
   sx?: SxProps,
-  onClose: () => void
+  onClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function GenericModal({
@@ -44,9 +46,9 @@ export default function GenericModal({
       }}
     >
       <Fade in={open}>
-        <Box sx={{ ...style, ...sx }}>
+        <Paper sx={{ ...style, ...sx }}>
           {children}
-        </Box>
+        </Paper>
       </Fade>
     </Modal>
   );
