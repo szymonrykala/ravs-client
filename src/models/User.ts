@@ -9,7 +9,7 @@ interface BaseUser extends Model{
     surname: string,
     activated: boolean,
     deleted: boolean,
-    lastActivity: boolean,
+    lastActivity: string,
     image: Image,
 }
 
