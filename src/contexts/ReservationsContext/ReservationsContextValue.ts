@@ -3,10 +3,8 @@ import { APIResponse } from "../../services/interfaces";
 import { ReservationsQueryParams } from "../../services/ReservationService";
 
 export default interface ReservationsContextValue {
-    setLoader: (
-        callback: (queryParams: ReservationsQueryParams) => Promise<APIResponse>
-    ) => void,
-    setQueryParams: (params: ReservationsQueryParams) => void,
+    setLoader: React.Dispatch<React.SetStateAction<((queryParams: ReservationsQueryParams) => Promise<APIResponse>) | undefined>>,
+    setQueryParams: React.Dispatch<React.SetStateAction<ReservationsQueryParams>>,
     reservations: Reservation[]
 }
 
