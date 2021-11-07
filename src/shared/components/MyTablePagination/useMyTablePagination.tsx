@@ -10,10 +10,10 @@ export default function useMyTablePagination() {
         pagesCount: 0
     });
 
-    const tablePaginationComponent = <MyTablePagination
+    const tablePaginationComponent = React.useMemo(() => <MyTablePagination
         paginationSetter={setPagination}
         pagination={pagination}
-    />;
+    />, [pagination]);
 
     return { tablePaginationComponent, pagination, setPagination }
 }

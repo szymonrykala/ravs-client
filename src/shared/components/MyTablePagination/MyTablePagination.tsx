@@ -1,4 +1,5 @@
 import { TablePagination } from "@mui/material";
+import React from "react";
 import { APIPagination } from "../../../services/interfaces";
 import TablePaginationActions from "./TablePaginationActions";
 
@@ -11,18 +12,22 @@ export default function MyTablePagination({
     paginationSetter, pagination
 }: TableFooterPaginationProps) {
 
-    const handlePageChange = (
+    const handlePageChange = React.useCallback((
         event: React.MouseEvent<HTMLButtonElement> | null,
         newPage: number
-    ) => paginationSetter({ ...pagination, currentPage: newPage });
+    ) => paginationSetter(old => ({ ...old, currentPage: newPage }))
+        , []);
 
 
-    const handleChangeRowsPerPage = (
+    const handleChangeRowsPerPage = React.useCallback((
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => paginationSetter({ ...pagination, itemsOnPage: Number(event.target.value) });
+    ) => paginationSetter(old => ({ ...old, itemsOnPage: Number(event.target.value) }))
+        , []);
 
 
-    const displayCount = ({ from, to, count }: any) => `${from}-${to} z ${count !== -1 ? count: `więcej niż ${to}`}`
+    const displayCount = React.useCallback(({ from, to, count }: any) =>
+        `${from}-${to} z ${count !== -1 ? count : `więcej niż ${to}`}`
+        , []);
 
 
     return (
