@@ -18,7 +18,7 @@ export default function AppLink(props: AppLinkProps) {
             display='flex'
             {...props}
         >
-            {props.withIcon && <LinkIcon fontSize="small" /> + '&nbsp;'}
+            {props.withIcon && <><LinkIcon fontSize="small" />&nbsp;</>}
             {props.children}
         </Link >
     );
