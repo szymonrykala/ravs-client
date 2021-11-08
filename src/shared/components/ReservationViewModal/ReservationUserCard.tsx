@@ -12,7 +12,7 @@ interface ReservationUserCardProps {
 
 export default function ReservationUserCard({ user }: ReservationUserCardProps) {
     return (
-        <Card >
+        <Card aria-label="Rezerwujący użytkownik" sx={{minHeight:'170px'}}>
             <CardHeader
                 avatar={<Avatar
                     sx={{ width: 56, height: 56 }}
@@ -21,7 +21,11 @@ export default function ReservationUserCard({ user }: ReservationUserCardProps) 
                 />}
                 title={`${user.name} ${user.surname}`}
                 subheader={
-                    <Link href={`mailto:${user.email}`}>
+                    <Link
+                        aria-label="wyślij email"
+                        title="wyślij email"
+                        href={`mailto:${user.email}`}
+                    >
                         {user.email}
                     </Link>
                 }
@@ -29,18 +33,23 @@ export default function ReservationUserCard({ user }: ReservationUserCardProps) 
                     <RouterLink
                         to={`/users/${user.id}`}
                         aria-label='Pokaż użytkownika'
+                        title='Pokaż użytkownika'
                     >
                         <LaunchIcon />
                     </RouterLink>
                 }
             />
             <CardContent>
-                <Typography variant="body2" fontSize="smaller" color='text.secondary'>
+                <Typography
+                    variant="body2"
+                    fontSize="smaller"
+                    color='text.secondary'
+                    aria-label='Data ostatniej aktywności'
+                    title='Data ostatniej aktywności'
+                >
                     Ostatnia aktywność: {displayDate(user.lastActivity)}
                 </Typography>
-
             </CardContent>
-
         </Card>
     );
 }

@@ -33,6 +33,8 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                 objectName={props.reservation.title}
                 onSuccess={onDelete}
             />
+
+
             <GenericModal
                 open={props.open}
                 onClose={props.onClose}
@@ -62,13 +64,28 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         <Button
                             onClick={() => setDeleteModalOpen(true)}
                             color='error'
+                            title="Usuń"
+                            aria-label="Usuń"
                         >
                             Usuń
                         </Button>
-                        <Button>
+                        <Button
+                            color='warning'
+                            title="Unieważnij"
+                            aria-label="Unieważnij"
+                        >
+                            Unieważnij
+                        </Button>
+                        <Button
+                            title="Edytuj"
+                            aria-label="Edytuj"
+                        >
                             Edytuj
                         </Button>
-                        <Button>
+                        <Button
+                            title="Odbij klucz"
+                            aria-label="Odbij klucz"
+                        >
                             Odbij klucz
                         </Button>
                     </ButtonGroup>
@@ -92,12 +109,19 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                             },
                         ].map(({ title, text }) => <span>
                             <Typography component="h3" variant="subtitle1">{title}</Typography>
-                            <Typography variant="body1" color='text.secondary'>{text}</Typography>
+
+                            <Typography
+                                variant="body1"
+                                color='text.secondary'
+                                textAlign='justify'
+                            >
+                                {text}
+                            </Typography>
                         </span>
                         )
                     }
 
-                    <Grid container >
+                    <Grid container>
                         {
                             [
                                 { title: 'Użytkownik:', component: <ReservationUserCard user={props.reservation.user} /> },

@@ -1,6 +1,5 @@
 import { Card, CardHeader, CardContent, Typography, Box, CardMedia } from "@mui/material";
 import ImageService from "../../../services/ImageService";
-import { Link as RouterLink } from 'react-router-dom';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Room from "../../../models/Room";
 import React from "react";
@@ -20,7 +19,7 @@ export default function ReservationRoomCard({ room }: ReservationRoomCardProps) 
     const buildingLink = React.useMemo(() => getBuildingLink(room.building), [room.building]);
 
     return (
-        <Card sx={{ display: 'flex' }}>
+        <Card sx={{ display: 'flex', minHeight:'170px' }}>
             <CardMedia
                 component='img'
                 image={ImageService.getLink(room.image)}
@@ -38,17 +37,25 @@ export default function ReservationRoomCard({ room }: ReservationRoomCardProps) 
                         pt: 1, pb: 0
                     }}
                     action={
-                        <RouterLink
+                        <AppLink
                             to={roomLink}
                             aria-label='Otwórz stronę Pokoju'
+                            title='Otwórz stronę Pokoju'
                         >
                             <LaunchIcon />
-                        </RouterLink>
+                        </AppLink>
                     }
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        <AppLink to={buildingLink}>pokaż budynek</AppLink>
+                        <AppLink
+                            withIcon
+                            to={buildingLink}
+                            aria-label="Pokaż budynek"
+                            title="Pokaż budynek"
+                        >
+                            pokaż budynek
+                        </AppLink>
                         Aktualnie {room.occupied ? 'zajęta' : 'wolna'}<br />
                         Piętro&nbsp;{room.floor}<br />
                     </Typography >
