@@ -6,7 +6,7 @@ export default interface PaginationContextValue {
     pagination: APIPagination
 }
 
-export const paginationContextDefaults: PaginationContextValue = {
+export let paginationContextDefaults: PaginationContextValue = {
     setPagination: (
         value: APIPagination | ((old: APIPagination) => APIPagination)
     ) => undefined,
