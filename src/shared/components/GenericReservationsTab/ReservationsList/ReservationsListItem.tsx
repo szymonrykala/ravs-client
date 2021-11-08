@@ -25,14 +25,19 @@ export function ReservationListItem({
 
     return (
         <TableRow >
-            <TableCell align="left" >
+            <TableCell align="left" sx={{ p: '1%' }}>
                 <ListItem component='div'>
-                    <ListItemAvatar>
+                    <ListItemAvatar
+                        title={reservation.user.email}
+                        aria-label={reservation.user.email}
+                    >
                         <AppLink to={dynamicPaths.toUser(reservation.user.id)}>
                             <Avatar src={ImageService.getLink(reservation.user.image)} />
                         </AppLink>
                     </ListItemAvatar>
                     <ListItemText
+                        title="Tytuł i czas rozpoczęcia"
+                        aria-label="Tytuł i czas rozpoczęcia"
                         primary={reservation.title}
                         secondary={displayDate(reservation.actualStart ?? reservation.plannedStart) +
                             ' - ' + ReservationService.resolveStatus(reservation)}
@@ -42,7 +47,10 @@ export function ReservationListItem({
             <TableCell sx={{
                 width: 'fit-content'
             }}>
-                <IconButton>
+                <IconButton
+                    title="Otwórz widok"
+                    aria-label="Otwórz widok"
+                >
                     <OpenInFullIcon onClick={onClick} />
                 </IconButton>
             </TableCell>
