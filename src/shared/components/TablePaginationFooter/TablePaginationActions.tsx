@@ -36,7 +36,7 @@ export default function TablePaginationActions(props: TablePaginationActionsProp
 
     
     const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage)));
+        onPageChange(event, Math.max(0, Math.floor(count / rowsPerPage)-1));
     };
 
     return (
@@ -45,6 +45,7 @@ export default function TablePaginationActions(props: TablePaginationActionsProp
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 0}
                 aria-label="pierwsza strona"
+                title="pierwsza strona"
             >
                 {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
             </IconButton>
@@ -52,6 +53,7 @@ export default function TablePaginationActions(props: TablePaginationActionsProp
                 onClick={handleBackButtonClick}
                 disabled={page === 0}
                 aria-label="poprzednia strona"
+                title="poprzednia strona"
             >
                 {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
@@ -59,6 +61,7 @@ export default function TablePaginationActions(props: TablePaginationActionsProp
                 onClick={handleNextButtonClick}
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
                 aria-label="następna strona"
+                title="następna strona"
             >
                 {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
@@ -66,6 +69,7 @@ export default function TablePaginationActions(props: TablePaginationActionsProp
                 onClick={handleLastPageButtonClick}
                 disabled={page >= Math.ceil(count / rowsPerPage)-1}
                 aria-label="ostatnia strona"
+                title="ostatnia strona"
             >
                 {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
             </IconButton>
