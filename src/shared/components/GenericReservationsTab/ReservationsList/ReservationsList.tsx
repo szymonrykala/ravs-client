@@ -33,7 +33,7 @@ export default function ReservationsList() {
                     {
                         reservations.map(item => <ReservationListItem
                             key={item.id}
-                            onClick={() => showReservation(item)}
+                            onClick={() => showReservation(item.id)}
                             reservation={item}
                         />)
                     }
