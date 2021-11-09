@@ -15,6 +15,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import useNotification from "../../../contexts/NotificationContext/useNotification";
 
+
 interface CreateReservationFormProps {
     roomId?: number
     onCancel: () => void
@@ -31,23 +32,26 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
         roomId: props.roomId ?? 0
     });
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+
+    const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setData((old) => ({
             ...old,
             [event.target.name]: event.target.value
         }));
-    }
+    }, []);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    
+    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
             await ReservationService.createOne(data);
             notify("Rezerwacja utworzona prawidłowo!", 'success');
+            props.onCancel()
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }
+    }, [data]);
 
     return (
         <Grid container component="form" spacing={2} onSubmit={handleSubmit}>
@@ -56,7 +60,7 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
                     Tworzenie rezerwacji
                 </Typography>
                 <Typography variant="body2" color='text.secondary' pb={2}>
-                    Stwórz rezerwacjię w wybranym przez siebie pokoju. Aby zobaczyć zmiany, przeładu
+                    Stwórz rezerwację w wybranym przez siebie pokoju. Aby zobaczyć zmiany, przeładu
                 </Typography>
             </Grid>
             <Grid item xs={12}>

@@ -15,10 +15,6 @@ export default function CreateReservationModal(props: CreateReservationModalProp
             ariaLabel='Tworzenie rezerwacji'
             ariaDescription='Okno do tworzenia rezerwacji'
             onClose={props.onClose}
-            sx={{
-                maxWidth: "500px",
-                overflow:'hidden'
-            }}
         >
             <CreateReservationForm
                 roomId={props.roomId}
