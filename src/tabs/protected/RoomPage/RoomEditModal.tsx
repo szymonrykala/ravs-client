@@ -18,7 +18,7 @@ export default function RoomEditModal({
             ariaLabel="usuwanie obiektu"
             ariaDescription="Okno modalne do usuwania obiektu po kliknięciu zatwierdź"
             sx={{
-                maxWidth: "400px",
+                maxWidth: "450px",
             }}
         >
             <RoomEditForm

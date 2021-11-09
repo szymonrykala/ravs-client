@@ -5,11 +5,14 @@ import { RoomUpdateParams } from "../../../../services/RoomService";
 
 
 export default interface RoomContextValue {
-    room: Room | DetailedRoom,
+    room: DetailedRoom,
     updateRoom: (body: RoomUpdateParams) => void,
     deleteRoom: () => Promise<void>,
     getLogs: (queryParms: LogsQueryParams) => Promise<APIResponse | undefined>,
     uploadImage: (image: Blob) => Promise<void>,
     deleteImage: (image: Image) => Promise<void>,
-    getChartsData: (query: any) => Promise<APIResponse>
+    getChartsData: (query: any) => Promise<APIResponse>,
+    updateRFIDTag: (key: string) => Promise<boolean>,
+    deleteRFIDTag: () => Promise<void>,
+    setOccupied: (state: boolean) => void,
 }

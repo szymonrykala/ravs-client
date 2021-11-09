@@ -6,6 +6,7 @@ import useNotification from "../../../../contexts/NotificationContext/useNotific
 import RoomContextValue from "./RoomContextValue";
 import { LogsQueryParams } from "../../../../services/interfaces";
 import Image from "../../../../models/Image";
+import LoadingView from "../../../../shared/components/LoadingView";
 
 
 interface RoomContextProviderProps {
@@ -20,20 +21,31 @@ export default function RoomContextProvider({
 }: RoomContextProviderProps) {
     const notify = useNotification();
     const urlParams = useParams<RoomViewParams>();
-    const [room, setRoom] = React.useState<Room | DetailedRoom>();
+    const [room, setRoom] = React.useState<DetailedRoom>();
 
     React.useLayoutEffect(() => {
         RoomService.setPath(urlParams);
+
+        return () => { }
     }, [urlParams.roomId]);
 
     React.useEffect(() => {
-        getRoom();
+        RoomService.getView()
+            .then(resp => setRoom(resp.data as DetailedRoom));
+
+        // getRoom();
+        return () => { }
     }, [urlParams.roomId]);
 
     const getRoom = async () => {
         const resp = await RoomService.getView();
-        setRoom(resp.data as Room | DetailedRoom);
+        setRoom(resp.data as DetailedRoom);
     }
+
+    const setOccupied = (state: boolean) => {
+        if (room)
+            setRoom({ ...room, occupied: state });
+    };
 
     const updateRoom = async (body: RoomUpdateParams) => {
         try {
@@ -90,6 +102,32 @@ export default function RoomContextProvider({
         return RoomService.getChartsData(query)
     }
 
+    const updateRFIDTag = async (key: string) => {
+        try {
+            await RoomService.updateRFID(key);
+            room && setRoom({ ...room, RFIDTag: key });
+            notify("Przypisano tag RFID", 'success');
+            return true;
+        } catch (err: any) {
+            notify(err.description, 'error');
+            return false;
+        }
+    }
+
+    const deleteRFIDTag = async () => {
+        try {
+            await RoomService.deleteRFIDTag();
+            room && setRoom({ ...room, RFIDTag: null });
+            notify("Usunięto tag RFID", "success");
+        } catch (err: any) {
+            notify(err.description, 'error');
+        }
+    }
+
+    const loaded = React.useMemo(() => {
+        return Boolean(room);
+    }, [room]);
+
     return (
         <RoomContext.Provider value={{
             room,
@@ -98,9 +136,16 @@ export default function RoomContextProvider({
             getLogs,
             uploadImage,
             deleteImage,
-            getChartsData
+            getChartsData,
+            updateRFIDTag,
+            deleteRFIDTag,
+            setOccupied
         } as RoomContextValue}>
-            {children}
+            <LoadingView
+                open={!loaded}
+                text="Ładowanie Sali"
+            />
+            {loaded && children}
         </RoomContext.Provider>
     );
 }

@@ -3,8 +3,8 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material';
-import CancelIcon from '@mui/icons-material/Cancel';
 import { RoomUpdateParams } from '../../../services/RoomService';
+import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
 import Room, { DetailedRoom, RoomType, RoomTypes } from '../../../models/Room';
 import { useRoomContext } from './RoomContext';
@@ -92,7 +92,8 @@ export default function RoomEditForm({
                     onUpload={uploadImage}
                     onDelete={deleteImage}
                 />
-                <Typography variant="subtitle1" p="15px 0px 5px 0px">
+                <Divider sx={{m:"15px 0px"}}/>
+                <Typography variant="subtitle1" >
                     Dane Sali:
                 </Typography>
                 <Grid container spacing={1} component="form" onSubmit={handleSubmit} >
