@@ -9,6 +9,13 @@ import React from 'react';
 import ReservationUserCard from './ReservationUserCard';
 import ReservationRoomCard from './ReservationRoomCard';
 import DeleteModal from '../DeleteModal';
+import { CopyForm, EditForm, PingNFCForm } from "./ModalForms";
+import { useReservations } from "../../../contexts/ReservationsContext";
+
+import DeleteIcon from '@mui/icons-material/Delete';
+import CopyIcon from '@mui/icons-material/CopyAll';
+import NFCIcon from '@mui/icons-material/Nfc';
+import { Edit } from "@mui/icons-material";
 
 
 
@@ -18,11 +25,19 @@ interface ReservationViewModalProps {
     onClose: () => void
 }
 
-export default function ReservationViewModal(props: ReservationViewModalProps) {
-    const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
 
-    const onDelete = () => {
-        setDeleteModalOpen(false);
+export default function ReservationViewModal(props: ReservationViewModalProps) {
+    const { deleteReservation } = useReservations();
+
+    const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
+    const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
+    const [nfcModalOpen, setNFCModalOpen] = React.useState<boolean>(false);
+    const [copyModalOpen, setCopyModalOpen] = React.useState<boolean>(false);
+
+    const onDelete = async () => {
+        if (await deleteReservation(props.reservation.id)) {
+            setDeleteModalOpen(false);
+        }
     }
 
     return (
@@ -32,6 +47,24 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                 onClose={() => setDeleteModalOpen(false)}
                 objectName={props.reservation.title}
                 onSuccess={onDelete}
+            />
+
+            <EditForm
+                open={editModalOpen}
+                onClose={() => setEditModalOpen(false)}
+                reservation={props.reservation}
+            />
+
+            <CopyForm
+                open={copyModalOpen}
+                onClose={() => setCopyModalOpen(false)}
+                reservation={props.reservation}
+            />
+
+            <PingNFCForm
+                open={nfcModalOpen}
+                onClose={() => setNFCModalOpen(false)}
+                reservationId={props.reservation.id}
             />
 
 
@@ -62,6 +95,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
 
                     <ButtonGroup>
                         <Button
+                            startIcon={<DeleteIcon />}
                             onClick={() => setDeleteModalOpen(true)}
                             color='error'
                             title="Usuń"
@@ -70,19 +104,24 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                             Usuń
                         </Button>
                         <Button
-                            color='warning'
-                            title="Unieważnij"
-                            aria-label="Unieważnij"
-                        >
-                            Unieważnij
-                        </Button>
-                        <Button
+                            startIcon={<Edit />}
+                            onClick={() => setEditModalOpen(true)}
                             title="Edytuj"
                             aria-label="Edytuj"
                         >
                             Edytuj
                         </Button>
                         <Button
+                            startIcon={<CopyIcon />}
+                            onClick={() => setCopyModalOpen(true)}
+                            title="Kopiuj rezerwację"
+                            aria-label="Kopiuj rezerwację"
+                        >
+                            Kopiuj
+                        </Button>
+                        <Button
+                            startIcon={<NFCIcon />}
+                            onClick={() => setNFCModalOpen(true)}
                             title="Odbij klucz"
                             aria-label="Odbij klucz"
                         >
@@ -96,13 +135,16 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                                 text: `${displayDate(props.reservation.plannedStart)} - ${displayDate(props.reservation.plannedEnd)}`
                             }, {
                                 title: 'Faktyczny czas:',
-                                text: `${props.reservation.actualStart ?
-                                    displayDate(props.reservation.actualStart)
-                                    : 'jeszcze się nie rozpoczęła'
-                                    } - ${props.reservation.actualEnd ?
+                                text: <>
+                                    Rozpoczęto: {props.reservation.actualStart ?
+                                        displayDate(props.reservation.actualStart)
+                                        : 'NIE'
+                                    }<br />
+                                    Zakończono: {props.reservation.actualEnd ?
                                         displayDate(props.reservation.actualEnd)
-                                        : ' jeszcze się nie zakończyła'
-                                    }`
+                                        : 'NIE'
+                                    }
+                                </>
                             }, {
                                 title: 'Opis:',
                                 text: props.reservation.description

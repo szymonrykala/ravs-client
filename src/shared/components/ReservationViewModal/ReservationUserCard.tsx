@@ -4,6 +4,7 @@ import ImageService from "../../../services/ImageService";
 import { displayDate } from "../../utils";
 import { Link as RouterLink } from 'react-router-dom';
 import LaunchIcon from '@mui/icons-material/Launch';
+import { dynamicPaths } from "../../path";
 
 
 interface ReservationUserCardProps {
@@ -12,7 +13,7 @@ interface ReservationUserCardProps {
 
 export default function ReservationUserCard({ user }: ReservationUserCardProps) {
     return (
-        <Card aria-label="Rezerwujący użytkownik" sx={{minHeight:'170px'}}>
+        <Card aria-label="Rezerwujący użytkownik" sx={{ minHeight: '170px' }}>
             <CardHeader
                 avatar={<Avatar
                     sx={{ width: 56, height: 56 }}
@@ -31,7 +32,7 @@ export default function ReservationUserCard({ user }: ReservationUserCardProps) 
                 }
                 action={
                     <RouterLink
-                        to={`/users/${user.id}`}
+                        to={dynamicPaths.toUser(user.id)}
                         aria-label='Pokaż użytkownika'
                         title='Pokaż użytkownika'
                     >
