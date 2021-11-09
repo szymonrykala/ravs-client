@@ -26,7 +26,13 @@ const theme = createTheme({
     },
     MuiButton: {
       defaultProps: {
-        variant: 'outlined'
+        variant: 'text',
+      }
+    },
+    MuiButtonGroup: {
+      defaultProps: {
+        variant: 'outlined',
+        size: 'large'
       }
     }
   },
