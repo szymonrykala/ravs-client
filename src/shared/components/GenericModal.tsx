@@ -15,6 +15,7 @@ const style = {
   borderRadius: "10px",
   width: '95%',
   maxHeight: "95vh",
+  maxWidth: '500px',
   overflow: 'auto',
   boxShadow: 24,
   p: 4,
