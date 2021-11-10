@@ -2,6 +2,6 @@ import Reservation from "../../models/Reservation";
 
 
 export default interface ModalContextValue {
-    showReservation: (reserv: Reservation) => void,
+    showReservation: (id: number) => void,
     reservation: Reservation | null
 }
