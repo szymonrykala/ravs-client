@@ -1,7 +1,7 @@
 import { Menu, MenuItem } from "@mui/material";
 import useSession from "../../../auth/useSession";
 import paths from "../../path";
-import RouterLink from "../RouterLink/index";
+import AppLink from "../AppLink";
 
 
 
@@ -37,9 +37,9 @@ export default function AccountMenu({ trigger, handleClose }: AccountMenuProps) 
         >
             {links.map(({ name, link }, i) =>
                 <MenuItem key={i} onClick={handleClose}>
-                    <RouterLink to={link}>
+                    <AppLink to={link}>
                         {name}
-                    </RouterLink>
+                    </AppLink>
                 </MenuItem>)}
 
             <MenuItem onClick={() => {

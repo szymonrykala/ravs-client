@@ -5,8 +5,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import React from "react";
 import Access from "../../../models/Access";
-import RouterLink from "../RouterLink";
 import paths from "../../path";
+import AppLink from "../AppLink";
 
 
 
@@ -58,7 +58,7 @@ export default function MainDrawerList(props: { access?: Access }) {
               {icon}
             </ListItemIcon>
             <ListItemText primary={
-              <RouterLink to={href}>{label}</RouterLink>
+              <AppLink to={href}>{label}</AppLink>
             } />
           </ListItem>
         ))

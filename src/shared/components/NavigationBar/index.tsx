@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,9 +10,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountMenu from './AccountMenu';
 import useSession from '../../../auth/useSession';
 import { Avatar } from '@mui/material';
-import RouterLink from '../RouterLink';
 import paths from '../../path';
 import ImageService from '../../../services/ImageService';
+import AppLink from '../AppLink';
 
 
 interface NavigationBarProps {
@@ -53,11 +52,11 @@ export default function NavigationBar(props: NavigationBarProps) {
 						flexGrow: 1,
 						fontFamily: "Dancing Script, cursive",
 					}}>
-						<RouterLink
+						<AppLink
 							to={user ? paths.HOME : paths.WELCOME}
 						>
 							Rav System
-						</RouterLink>
+						</AppLink>
 					</Typography>
 					{user && (
 						<div>

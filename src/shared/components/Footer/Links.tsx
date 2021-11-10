@@ -1,6 +1,6 @@
 import { Grid, List, ListItem } from "@mui/material";
 import paths from "../../path";
-import RouterLink from "../RouterLink/index";
+import AppLink from "../AppLink";
 
 
 interface LinkListItem {
@@ -42,11 +42,13 @@ export default function Links() {
             {linksList.map((list, index) => <Grid key={index} item>
                 <List>
                     {list.map(({ name, link }) => <ListItem key={name}>
-                        <RouterLink
-                            style={{ color: '#dedeff' }}
-                            to={link}>
+                        <AppLink
+                            to={link}
+                            withIcon
+                            sx={{ color: 'background.default' }}
+                        >
                             {name}
-                        </RouterLink>
+                        </AppLink>
                     </ListItem>)}
                 </List>
             </Grid>)}
