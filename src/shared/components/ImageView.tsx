@@ -21,7 +21,7 @@ export default function ImageView({
             sx={{
                 display: 'inline-block',
                 width: "100%",
-                borderRadius: "10px",
+                borderRadius: ({ shape }) => shape.borderRadius,
                 ...sx
             }}
         />

@@ -76,7 +76,8 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                 sx={{
                     maxWidth: '1000px',
                     width: '95%',
-                    minHeight: '80%'
+                    minHeight: '80%',
+                    mt: '4vw'
                 }}
             >
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

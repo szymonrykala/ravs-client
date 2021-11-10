@@ -7,7 +7,7 @@ export default function Copyright() {
             align="center"
             sx={{
                 backgroundColor: "primary.dark",
-                padding: '15px 0px',
+                padding: 2,
                 color: "primary.light"
             }}
         >

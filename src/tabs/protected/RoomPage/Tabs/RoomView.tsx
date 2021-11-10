@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Container, Grid, Stack, Typography } from "@mui/material";
+import { Button, ButtonGroup, Grid, Stack, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -27,6 +27,7 @@ export default function RoomView({
 
 }: RoomViewProps) {
     const { room, deleteRoom, deleteRFIDTag } = useRoomContext();
+
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
     const [rfidTagModalOpen, setRfidTagModalOpen] = React.useState<boolean>(false);
@@ -35,7 +36,7 @@ export default function RoomView({
 
     return (
         !Boolean(room) ? <Loading /> :
-            <Container >
+            <>
                 <DeleteModal
                     objectName={room.name}
                     open={deleteModalOpen}
@@ -60,7 +61,7 @@ export default function RoomView({
                 />
 
                 <Stack spacing={3}>
-                    <Grid container spacing={3} paddingTop="20px" >
+                    <Grid container spacing={3}>
                         <Grid item xs={12} md={6}>
                             <ImageView
                                 image={room.image}
@@ -96,7 +97,7 @@ export default function RoomView({
                             Edycja
                         </Button>
                         <Button
-                        startIcon={<AddIcon/>}
+                            startIcon={<AddIcon />}
                             onClick={() => setCreateReservationModalOpen(true)}
                             color='success'
                         >
@@ -104,13 +105,11 @@ export default function RoomView({
                         </Button>
                     </ButtonGroup>
 
-
-
-                    <Typography sx={{ color: "gray", fontSize: "smaller" }}>
+                    <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
                         Utworzono: {displayDate(room._created)}<br />
                         Ostatnia aktualizacja: {displayDate(room._updated)}
                     </Typography>
                 </Stack>
-            </Container>
+            </>
     );
 }

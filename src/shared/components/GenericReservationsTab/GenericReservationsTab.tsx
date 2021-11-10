@@ -12,7 +12,7 @@ export default function GenericReservationsTab(props: GenericReservationsTab) {
     return (
         <PaginationContextProvider>
             <ReservationsContext>
-                <Stack rowGap={4} >
+                <Stack rowGap={5} >
                     {props.children}
                 </Stack>
             </ReservationsContext>

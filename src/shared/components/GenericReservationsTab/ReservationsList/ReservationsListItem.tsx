@@ -25,7 +25,7 @@ export function ReservationListItem({
 
     return (
         <TableRow >
-            <TableCell align="left" sx={{ p: '1%' }}>
+            <TableCell align="left" sx={{ p: '1vw' }}>
                 <ListItem component='div'>
                     <ListItemAvatar
                         title={reservation.user.email}

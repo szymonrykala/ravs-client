@@ -19,11 +19,13 @@ export default function AnimatedRouterSwitch(props: TransitionProps) {
             className="switch-wrapper"
             runOnMount={true}
             sx={{
-                display: 'flex',
-                flexDirection: 'column',
+                // display: 'flex',
+                // flexDirection: 'column',
                 width: '100%',
-                alignItems: 'center',
-                height: '65%',
+                // backgroundColor:"red",
+                // position:'relative',
+                // alignItems: 'center',
+                // height: '100%',
             }}>
             {props.children}
         </Box>

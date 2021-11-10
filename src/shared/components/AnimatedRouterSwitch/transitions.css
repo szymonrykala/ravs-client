@@ -5,5 +5,6 @@
 }
 
 .switch-wrapper > div {
-  position: absolute;
+  /* position: absolute; */
+  width: inherit;
 }

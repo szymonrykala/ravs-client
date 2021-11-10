@@ -60,13 +60,17 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
             spacing={2}
         >
             <Grid item xs={12} sm={9}>
-                <StyledImage src={uploadedImage ? URL.createObjectURL(uploadedImage) : ImageService.getLink(props.image)} alt='' />
+                <StyledImage
+                    src={uploadedImage ? URL.createObjectURL(uploadedImage) : ImageService.getLink(props.image)}
+                    alt=''
+                    sx={{ borderRadius: (theme) => theme.shape.borderRadius }}
+                />
             </Grid>
             <Grid item xs={12} sm={3} sx={{
                 display: "flex",
                 flexWrap: "wrap",
                 alignItems: "center",
-                justifyContent: "space-around",
+                justifyContent: "space-between",
             }}>
                 <label htmlFor="upload-obrazu">
                     <Input
@@ -75,7 +79,10 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
                         type="file"
                         onChange={handleImageUpload}
                     />
-                    <Button color="primary" variant="outlined" component="span">
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        component="span">
                         Wybierz zdjęcie
                     </Button>
                 </label>

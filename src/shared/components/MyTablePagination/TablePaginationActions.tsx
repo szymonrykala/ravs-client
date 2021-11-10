@@ -1,4 +1,3 @@
-// import { useTheme } from "@emotion/react";
 import { KeyboardArrowRight, KeyboardArrowLeft } from '@mui/icons-material';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import FirstPageIcon from '@mui/icons-material/FirstPage';

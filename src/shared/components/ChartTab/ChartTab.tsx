@@ -22,7 +22,7 @@ export default function ChartTab({
 }: ChartTabProps) {
     return (
         <Box>
-            <Typography id={id} variant="h5" color="text.primary" sx={{ paddingTop: "45px", paddingBottom: "15px" }}>
+            <Typography id={id} variant="h5" color="text.primary" sx={{ paddingTop: 4.5, paddingBottom: 1.5 }}>
                 {title}
             </Typography>
             <Paper elevation={3}>

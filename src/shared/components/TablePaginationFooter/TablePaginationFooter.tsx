@@ -1,4 +1,4 @@
-import { TableFooter, TablePagination, TableRow } from "@mui/material";
+import { TablePagination } from "@mui/material";
 import React from "react";
 import usePagination from "../../../contexts/PaginationContext/usePagination";
 import TablePaginationActions from "./TablePaginationActions";
@@ -50,6 +50,7 @@ export default function TablePaginationFooter({
             onPageChange={handlePageChange}
             onRowsPerPageChange={handleChangeRowsPerPage}
             ActionsComponent={TablePaginationActions}
+            sx={{ border: '0px' }}
         />
 
     );

@@ -47,7 +47,7 @@ export default function ReservationTabBar() {
                             onChange={(value: Date | null) => value && setCustomDate(value)}
                             renderInput={(params) => <TextField {...params} />}
                         />
-                        <Button variant='outlined' type='submit' sx={{ m: "0px 10px" }}>
+                        <Button variant='outlined' type='submit' sx={{ ml: 1 }}>
                             OK
                         </Button>
                     </Box>

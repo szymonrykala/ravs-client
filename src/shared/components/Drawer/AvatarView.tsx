@@ -19,7 +19,7 @@ export default function AvatarView({
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                padding: '15px',
+                padding: 2,
                 color: 'primary.dark'
             }}
         >
@@ -27,11 +27,11 @@ export default function AvatarView({
                 alt={`${user?.name} ${user?.surname}`}
                 src={ImageService.getLink(user?.image)}
                 sx={{
-                    width: '96px',
-                    height: '96px',
+                    width: '120px',
+                    height: '120px',
                     fontSize: '36px',
-                    margin: '15px auto',
-                    backgroundColor: 'primary.main'
+                    mt: 2,
+                    mb: 2,
                 }}
             />
             <Typography>

@@ -13,7 +13,7 @@ export default function ReservationsList() {
 
     return (
         <TableContainer component={Box}>
-            <Table aria-label="Tabela rezerwacji">
+            <Table aria-label="Tabela rezerwacji" size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>Rezerwacje</TableCell>
@@ -39,7 +39,7 @@ export default function ReservationsList() {
                     }
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
+                    <TableRow >
                         <TablePaginationFooter />
                     </TableRow>
                 </TableFooter>

@@ -16,7 +16,15 @@ const theme = createTheme({
       dark: "#f5f5f5",
       main: "#304ffe",
       light: "#fff"
+    },
+    background: {
+      default: '#f5f5f5',
+      paper: '#fff'
     }
+  },
+  // spacing: 10,
+  shape: {
+    borderRadius: "10px"
   },
   components: {
     MuiCssBaseline: {
@@ -27,7 +35,8 @@ const theme = createTheme({
     MuiButton: {
       defaultProps: {
         variant: 'text',
-      }
+        // size: 'large'
+      },
     },
     MuiButtonGroup: {
       defaultProps: {

@@ -87,102 +87,104 @@ export default function RoomEditForm({
 
     return (
         data && <>
-            <Box sx={{ mt: 1 }}>
+            <Stack spacing={2}>
                 <ImageUploadField image={room.image}
                     onUpload={uploadImage}
                     onDelete={deleteImage}
                 />
-                <Divider sx={{m:"15px 0px"}}/>
-                <Typography variant="subtitle1" >
-                    Dane Sali:
-                </Typography>
-                <Grid container spacing={1} component="form" onSubmit={handleSubmit} >
-                    <Grid item xs={12}>
-                        <TextField
-                            margin="dense"
-                            required
-                            fullWidth
-                            id="name"
-                            label="Nazwa"
-                            name="name"
-                            autoFocus
-                            value={data.name}
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth>
-                            <InputLabel id="room-type">Typ Sali</InputLabel>
-                            <Select
-                                labelId="room-type"
-                                id="roomType"
-                                value={data.roomType}
-                                name="roomType"
-                                label="Typ Sali"
-                                onChange={handleSelectChange}
-                            >
-                                {Object.values(RoomTypes).map(val => <MenuItem key={val} value={val}>{val}</MenuItem>)}
-
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={6} >
-                        <TextField
-                            margin="dense"
-                            required
-                            name="seatsCount"
-                            label="Ilość miejsc"
-                            type="number"
-                            id="seatsCount"
-                            value={data.seatsCount}
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <TextField
-                            margin="dense"
-                            required
-                            name="floor"
-                            label="Piętro"
-                            type="number"
-                            id="floor"
-                            value={data.floor}
-                            onChange={handleChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth>
-                            <InputLabel id="wybierz-budynek">Budynek</InputLabel>
-                            <Select
-                                labelId="wybierz-budynek"
-                                name="buildingId"
-                                value={data.buildingId}
-                                label="Budynek"
-                                onChange={handleSelectChange}
-                            >
-                                {buildings.map(({ name, id }) => <MenuItem key={name} value={id} >Budynek &nbsp;{name} </MenuItem>)}
-                            </Select>
-                        </FormControl>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            labelPlacement="start"
-                            control={<Switch id="room-blocked" name="blocked"
-                                inputProps={{ 'aria-label': 'controlled' }}
+                <Divider />
+                <span>
+                    <Typography variant="subtitle1" >
+                        Dane Sali:
+                    </Typography>
+                    <Grid container spacing={1} component="form" onSubmit={handleSubmit} >
+                        <Grid item xs={12}>
+                            <TextField
+                                margin="dense"
+                                required
+                                fullWidth
+                                id="name"
+                                label="Nazwa"
+                                name="name"
+                                autoFocus
+                                value={data.name}
                                 onChange={handleChange}
-                                checked={!data.blocked}
-                            />}
-                            label="Dostępność Sali"
-                        />
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl fullWidth>
+                                <InputLabel id="room-type">Typ Sali</InputLabel>
+                                <Select
+                                    labelId="room-type"
+                                    id="roomType"
+                                    value={data.roomType}
+                                    name="roomType"
+                                    label="Typ Sali"
+                                    onChange={handleSelectChange}
+                                >
+                                    {Object.values(RoomTypes).map(val => <MenuItem key={val} value={val}>{val}</MenuItem>)}
+
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6} >
+                            <TextField
+                                margin="dense"
+                                required
+                                name="seatsCount"
+                                label="Ilość miejsc"
+                                type="number"
+                                id="seatsCount"
+                                value={data.seatsCount}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <TextField
+                                margin="dense"
+                                required
+                                name="floor"
+                                label="Piętro"
+                                type="number"
+                                id="floor"
+                                value={data.floor}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl fullWidth>
+                                <InputLabel id="wybierz-budynek">Budynek</InputLabel>
+                                <Select
+                                    labelId="wybierz-budynek"
+                                    name="buildingId"
+                                    value={data.buildingId}
+                                    label="Budynek"
+                                    onChange={handleSelectChange}
+                                >
+                                    {buildings.map(({ name, id }) => <MenuItem key={name} value={id} >Budynek &nbsp;{name} </MenuItem>)}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                labelPlacement="start"
+                                control={<Switch id="room-blocked" name="blocked"
+                                    inputProps={{ 'aria-label': 'controlled' }}
+                                    onChange={handleChange}
+                                    checked={!data.blocked}
+                                />}
+                                label="Dostępność Sali"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Stack direction="row" justifyContent="space-around" mt={1.5}>
+                                <Button startIcon={<CancelIcon />} onClick={onCancel}>Zamknij</Button>
+                                <Button startIcon={<SaveIcon />} type="submit" color="success">Zapisz</Button>
+                            </Stack>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Stack direction="row" justifyContent="space-around" pt="15px">
-                            <Button startIcon={<CancelIcon />} onClick={onCancel}>Zamknij</Button>
-                            <Button startIcon={<SaveIcon />} type="submit" color="success">Zapisz</Button>
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </Box>
+                </span>
+            </Stack>
         </>
     );
 }

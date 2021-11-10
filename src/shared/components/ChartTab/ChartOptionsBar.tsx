@@ -69,7 +69,6 @@ export default function ChartOptionsBar({
                     Zakres czasu:
                 </Typography>
                 <SelectButtonGroup
-                    size='small'
                     onSelectedChange={handleButtonChange}
                     buttons={predefinedButtons}
                     defaultButtonIndex={1}

@@ -195,9 +195,10 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         sx={{
                             border: '1px solid',
                             borderColor: 'grey.400',
-                            borderRadius: '5px',
-                            padding: '5px',
-                            maxHeight: '300px',
+                            borderRadius: ({ shape }) => shape.borderRadius,
+                            padding: 0.5,
+                            bgcolor: 'background.default',
+                            maxHeight: '200px',
                             overflow: 'auto',
                         }}>
                         {copyDates.length === 0 && <Typography textAlign='center' component='p'>
@@ -241,7 +242,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                    <Stack direction="row" justifyContent="space-around" pt="15px">
+                    <Stack direction="row" justifyContent="space-around" mt={2}>
                         <Button startIcon={<CancelIcon />} onClick={closeForm}>Zamknij</Button>
                         <Button startIcon={<SaveIcon />} type="submit" color="success">Zatwierdź</Button>
                     </Stack>

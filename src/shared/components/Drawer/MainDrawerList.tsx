@@ -46,7 +46,7 @@ export default function MainDrawerList(props: { access?: Access }) {
       navListItems.push(settingsItem);
     }
     return navListItems;
-  }, [])
+  }, [props])
 
 
   return (

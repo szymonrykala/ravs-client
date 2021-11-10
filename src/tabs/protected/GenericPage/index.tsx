@@ -5,7 +5,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TabPanel from './TabPanel';
-import { Fade } from '@mui/material';
 
 
 interface GenericPageProps {
@@ -61,7 +60,12 @@ export default function GenericPage(props: GenericPageProps) {
 
   return (
     <>
-      <Box sx={{ bgcolor: 'background.paper', m: "15px 0px", borderRadius: "10px", pb: "15px" }}>
+      <Box sx={{
+        bgcolor: 'background.paper',
+        borderRadius: (theme) => theme.shape.borderRadius,
+        p: 2.5,
+        mb: 2
+      }}>
         {props.view}
       </Box>
 

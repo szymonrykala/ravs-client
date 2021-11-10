@@ -1,25 +1,10 @@
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { SxProps } from '@mui/system';
 import { Paper } from '@mui/material';
 
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  borderRadius: "10px",
-  width: '95%',
-  maxHeight: "95vh",
-  maxWidth: '500px',
-  overflow: 'auto',
-  boxShadow: 24,
-  p: 4,
-};
 
 interface GenericModalProps {
   children: React.ReactNode | React.ReactNodeArray,
@@ -45,12 +30,29 @@ export default function GenericModal({
       BackdropProps={{
         timeout: 500,
       }}
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        overflow: 'auto'
+      }}
     >
       <Fade in={open}>
-        <Paper sx={{ ...style, ...sx }}>
+        <Paper sx={{
+          bgcolor: 'background.paper',
+          position: 'absolute' as 'absolute',
+          borderRadius: (theme) => theme.shape.borderRadius,
+          width: '95%',
+          mt: '10vw',
+          maxWidth: '500px',
+          // overflow: 'auto',
+          boxShadow: 24,
+          p: 3,
+          ...sx
+        }}>
           {children}
         </Paper>
       </Fade>
-    </Modal>
+    </Modal >
   );
 }

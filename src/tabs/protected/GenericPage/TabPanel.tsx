@@ -19,7 +19,9 @@ export default function TabPanel(props: TabPanelProps) {
             aria-labelledby={`full-width-tab-${index}`}
             sx={{
                 bgcolor: "background.paper",
-                borderRadius: "10px", m: "15px 0px", p: "25px"
+                borderRadius: (theme) => theme.shape.borderRadius,
+                mt: 1.5,
+                p: 2
             }}
             {...other}
         >

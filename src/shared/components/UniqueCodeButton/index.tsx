@@ -48,9 +48,9 @@ export default function UniqueCodeButton(props: UniqueCodeButtonProps) {
             display="flex"
         >
             <Button sx={{
-                backgroundColor: "primary.50",
+                bgcolor: "primary.50",
                 "&:hover": {
-                    backgroundColor: "primary.100",
+                    bgcolor: "primary.100",
                 }
             }}
                 onClick={handleSubmit} >
@@ -61,7 +61,7 @@ export default function UniqueCodeButton(props: UniqueCodeButtonProps) {
                 sx={{
                     display: "flex",
                     alignItems: 'center',
-                    ml: "5px"
+                    ml: 1
                 }}
             >
                 <Typography

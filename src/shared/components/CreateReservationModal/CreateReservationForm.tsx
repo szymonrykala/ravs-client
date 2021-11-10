@@ -125,7 +125,7 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
                 </FormControl>
             </Grid>
             <Grid item xs={12}>
-                <Stack direction="row" justifyContent="space-around" pt="15px">
+                <Stack direction="row" justifyContent="space-around" mt={1.5}>
                     <Button startIcon={<CancelIcon />} onClick={props.onCancel}>Zamknij</Button>
                     <Button startIcon={<SaveIcon />} type="submit" color="success">Zatwierdź</Button>
                 </Stack>
