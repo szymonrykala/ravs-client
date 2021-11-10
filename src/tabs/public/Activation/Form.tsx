@@ -7,19 +7,21 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { Link as ReactRouterLink, Redirect } from 'react-router-dom';
 
-import paths from '../../../../shared/path';
-import UserService, { ActivationData } from '../../../../services/UserService';
-import UniqueCodeButton from '../../../../shared/components/UniqueCodeButton';
-import { activationReducer } from './activationReducer';
-import { initialReducerResult } from '../../../../shared/reducreInterfaces';
+import paths from '../../../shared/path';
+import UserService, { ActivationData } from '../../../services/UserService';
+import UniqueCodeButton from '../../../shared/components/UniqueCodeButton';
+// import { activationReducer } from './activationReducer';
+import { initialReducerResult } from '../../../shared/reducreInterfaces';
+import useNotification from '../../../contexts/NotificationContext/useNotification';
 
 
 
-export default function ActivationForm() {
-    const [result, dispatchResult] = React.useReducer(
-        activationReducer,
-        initialReducerResult
-    );
+export default function Form() {
+    const notify = useNotification();
+    // const [result, dispatchResult] = React.useReducer(
+    //     activationReducer,
+    //     initialReducerResult
+    // );
 
     const [data, setData] = React.useState<ActivationData>({
         email: localStorage.getItem('email')?.toString() ?? '',
@@ -31,13 +33,15 @@ export default function ActivationForm() {
         event.preventDefault();
 
         try {
-            const resp = await UserService.activate(data);
-            dispatchResult(resp);
+            await UserService.activate(data);
+            notify("Twoje konto zostało aktywowane", 'success',
+                () => setTimeout(() => <Redirect to={paths.LOGIN} />, 2000)
+            );
         } catch (err: any) {
-            dispatchResult({
-                statusCode: err.statusCode,
-                payload: err.error.description
-            })
+            let message = err.description;
+            if (err.code === 404) message = "Taki użytkownik nie istnieje";
+
+            notify(message, 'error');
         }
     };
 
@@ -47,7 +51,6 @@ export default function ActivationForm() {
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            {result.success && <Redirect to={paths.LOGIN} />}
             <TextField
                 margin="normal"
                 required
@@ -89,9 +92,6 @@ export default function ActivationForm() {
                 email={data.email}
                 text="Jeżeli nie otrzymałeś kodu mailem, naciśnij przycisk."
             />
-            <Typography sx={{ mt: "15px", color: "red" }}>
-                {result.message}
-            </Typography>
             <Button
                 type="submit"
                 fullWidth

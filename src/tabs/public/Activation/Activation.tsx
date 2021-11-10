@@ -1,6 +1,6 @@
-import FormPage from "./FormPage";
+import FormPage from "../FormPage";
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import ActivationForm from "./Forms/ActivationForm";
+import Form from "./Form";
 
 
 export default function ActivationPage(){ 
@@ -9,7 +9,7 @@ export default function ActivationPage(){
         title='Aktywacja konta'
         icon={<LockOpenIcon />}
     >
-        <ActivationForm/>
+        <Form/>
     </FormPage>
     );
 }

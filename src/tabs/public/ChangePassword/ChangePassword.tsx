@@ -1,10 +1,10 @@
-import FormPage from "./FormPage";
-import RemindPassowordForm from "./Forms/RemindPassowordForm";
+import FormPage from "../FormPage";
+import RemindPassowordForm from "./Form";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 
-export default function RemindPasswordPage() {
+export default function ChangePassword() {
     return (
         <FormPage
             title="Zmiana Hasła"

@@ -18,7 +18,7 @@ export default function FormPage(props: FormPageProps) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    backgroundColor: 'secondary.light',
+                    backgroundColor: 'background.paper',
                     padding: '35px',
                     borderRadius: '10px'
                 }}

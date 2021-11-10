@@ -1,20 +1,16 @@
-import { Button, Grid, Link, TextField, Typography } from "@mui/material";
+import { Button, Grid, Link, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import UniqueCodeButton from "../../../../shared/components/UniqueCodeButton";
+import UniqueCodeButton from "../../../shared/components/UniqueCodeButton";
 import React from "react";
 import FormStep from "./FormStep";
-import { remindPasswordReducer } from "./remindPasswordReducer";
-import UserService, { ChangePasswordData } from "../../../../services/UserService";
-import { initialReducerResult } from "../../../../shared/reducreInterfaces";
+import UserService, { ChangePasswordData } from "../../../services/UserService";
 import { Redirect, Link as ReactRouterLink } from 'react-router-dom';
-import paths from "../../../../shared/path";
+import paths from "../../../shared/path";
+import useNotification from "../../../contexts/NotificationContext/useNotification";
 
 
-export default function RemindPassowordForm() {
-    const [result, dispatchResult] = React.useReducer(
-        remindPasswordReducer,
-        initialReducerResult
-    );
+export default function Form() {
+    const notify = useNotification();
 
     const [data, setData] = React.useState<ChangePasswordData>({
         email: localStorage.getItem('email')?.toString() ?? '',
@@ -32,20 +28,21 @@ export default function RemindPassowordForm() {
         event.preventDefault();
 
         try {
-            const resp = await UserService.changePassword(data);
-            dispatchResult(resp);
+            await UserService.changePassword(data);
+            notify("Hasło zostało zmienione", 'success',
+                () => setTimeout(() => <Redirect to={paths.LOGIN} />, 2000)
+            );
         } catch (err: any) {
-            dispatchResult({
-                statusCode: err.statusCode,
-                payload: err.error.description
-            })
+            let message = err.description;
+            if (err.code === 404) message = "Taki użytkownik nie istnieje";
+
+            notify(message, 'error');
         }
 
     };
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            {result.success && <Redirect to={paths.LOGIN} />}
             <FormStep
                 title="1. Wygeneruj Kod"
                 text="Podaj swój aders email i naciśnij przycisk by otrzymać email i kodem."
@@ -96,9 +93,6 @@ export default function RemindPassowordForm() {
                     autoComplete="email-code"
                 />
             </FormStep>
-            <Typography sx={{ mt: "15px", color: result.success ? "green" : "red" }}>
-                {result.message}
-            </Typography>
             <Button
                 type="submit"
                 fullWidth

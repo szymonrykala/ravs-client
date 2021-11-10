@@ -6,24 +6,24 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import useSession from '../../../../auth/useSession';
+import useSession from '../../../auth/useSession';
 import { Typography } from '@mui/material';
 import { Redirect, Link as ReactRouterLink } from 'react-router-dom';
-import { LoginFormData } from '../../../../services/AuthService';
+import { LoginFormData } from '../../../services/AuthService';
 
-import paths from '../../../../shared/path';
-import { loginReducer } from './loginReducer';
-import { initialReducerResult } from '../../../../shared/reducreInterfaces';
+import paths from '../../../shared/path';
+// import { loginReducer } from './loginReducer';
+import { initialReducerResult } from '../../../shared/reducreInterfaces';
 
 
 
-export default function LoginForm() {
+export default function Form() {
     const { login } = useSession();
 
-    const [result, dispatchLogin] = React.useReducer(
-        loginReducer,
-        initialReducerResult
-    );
+    // const [result, dispatchLogin] = React.useReducer(
+    //     loginReducer,
+    //     initialReducerResult
+    // );
 
     const [remember, setRemember] = React.useState<boolean>(true);
     const [data, setData] = React.useState<LoginFormData>({
@@ -35,25 +35,16 @@ export default function LoginForm() {
         setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (remember) localStorage.setItem('email', data.email);
-
-        try {
-            const resp = await login(data);
-            dispatchLogin(resp);
-        } catch (err: any) {
-            dispatchLogin({
-                statusCode: err.statusCode,
-                payload: err?.error?.description
-            });
-        }
+        login(data);
     };
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-            {result.success && <Redirect to={paths.HOME} />}
+            {/* {result.success && <Redirect to={paths.HOME} />} */}
             <TextField
                 margin="normal"
                 required
@@ -88,9 +79,9 @@ export default function LoginForm() {
                 />}
                 label="Zapamiętaj mnie"
             />
-            <Typography color={result.success ? "green" : "red"}>
+            {/* <Typography color={result.success ? "green" : "red"}>
                 {result.message}
-            </Typography>
+            </Typography> */}
             <Button
                 type="submit"
                 fullWidth

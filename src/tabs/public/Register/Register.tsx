@@ -1,15 +1,15 @@
-import FormPage from "./FormPage";
+import FormPage from "../FormPage";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import RegisterForm from "./Forms/RegisterForm";
+import Form from "./Form";
 
 
-export default function RegisterPage() {
+export default function Register() {
     return (
         <FormPage
             title='Rejestracja'
             icon={<AccountCircleIcon />}
         >
-            <RegisterForm />
+            <Form />
         </FormPage>
     );
 }
