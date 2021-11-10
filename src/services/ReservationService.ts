@@ -9,16 +9,52 @@ export interface ReservationsQueryParams extends PaginationQueryParams {
     search?: string
 }
 
+export interface CreateReservationData {
+    title: string,
+    description: string,
+    plannedStart: Date,
+    plannedEnd: Date,
+    roomId?: number
+}
+
+export interface UpdateReservationData {
+    [index: string]: any,
+    title?: string,
+    description?: string,
+    plannedStart?: Date,
+    plannedEnd?: Date,
+    roomId?: number
+}
+
+
 class ReservationService extends Service {
 
-    async getForRoom(
+    getForRoom(
         { addressId, buildingId, roomId }: RoomViewParams,
         queryParams?: ReservationsQueryParams
     ) {
-        return await this.get(
+        return this.get(
             `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}/reservations`,
             queryParams
         );
+    }
+
+    createOne(data: CreateReservationData) {
+        return this.post('/reservations', data)
+    }
+
+    update(id: number, data: UpdateReservationData) {
+        return this.patch(`/reservations/${id}`, data);
+    }
+
+    pingKey(id: number, key: string) {
+        return this.patch(`/reservations/${id}/keys`, {
+            RFIDTag: key
+        });
+    }
+
+    remove(id: number) {
+        return this.delete(`/reservations/${id}`);
     }
 
     resolveStatus(reservation: Reservation): string {
