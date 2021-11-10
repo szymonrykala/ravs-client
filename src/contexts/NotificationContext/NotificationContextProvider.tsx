@@ -42,8 +42,8 @@ export default function NotificationContextProvider({
 
             <Snackbar
                 anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
+                    vertical: 'top',
+                    horizontal: 'center',
                 }}
                 open={open} autoHideDuration={10000} onClose={closeSnack}>
                 <Alert onClose={closeSnack} severity={severity} sx={{ width: '100%' }}>
