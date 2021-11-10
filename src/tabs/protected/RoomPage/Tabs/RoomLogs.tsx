@@ -1,4 +1,4 @@
-import LogsTab from "../../../../shared/components/LogsTab";
+import GenericLogsTab from "../../../../shared/components/GenericLogsTab";
 import { useRoomContext } from "../RoomContext";
 
 
@@ -6,6 +6,6 @@ export default function RoomLogs() {
     const { getLogs } = useRoomContext();
 
     return (
-        <LogsTab logsGetter={getLogs} />
+        <GenericLogsTab logsGetter={getLogs} />
     );
 }

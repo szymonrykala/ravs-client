@@ -1,23 +1,19 @@
 import { Grid, FormControl, InputLabel, Select, MenuItem, Input } from "@mui/material";
+import React from "react";
+import { useQueryParams } from "../../../contexts/QueryParamsContext";
 import { LogsQueryParams } from "../../../services/interfaces";
-// import { LogsQueryParams } from "../../../services/LogService";
 
 
-export interface LogsTabBarProps {
-    setParams: React.Dispatch<React.SetStateAction<LogsQueryParams>>,
-    params: LogsQueryParams
-}
+
+export function LogsTabBar() {
+    const { queryParams, setQueryParams } = useQueryParams<LogsQueryParams>();
 
 
-export function LogsTabBar({
-    setParams,
-    params
-}: LogsTabBarProps) {
-
-    function handleChange(evt: any) {
+    const handleChange = React.useCallback((evt: any) => {
         evt.preventDefault();
-        setParams({ ...params, [evt.target.name]: evt.target.value });
-    }
+        setQueryParams(old => ({ ...old, [evt.target.name]: evt.target.value }));
+    }, [])
+
 
     return (
         <Grid container component="form" columnSpacing={3}>
@@ -27,7 +23,7 @@ export function LogsTabBar({
                     <Select
                         labelId="wybierz-metode"
                         id="metoda"
-                        value={params.method}
+                        value={queryParams.method}
                         name="method"
                         label="wybierz-metode"
                         onChange={handleChange}
