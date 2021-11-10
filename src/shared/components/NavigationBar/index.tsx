@@ -54,6 +54,12 @@ export default function NavigationBar(props: NavigationBarProps) {
 					}}>
 						<AppLink
 							to={user ? paths.HOME : paths.WELCOME}
+							sx={{
+								color: 'background.default',
+								'&:hover': {
+									textDecoration: 'none'
+								}
+							}}
 						>
 							Rav System
 						</AppLink>
