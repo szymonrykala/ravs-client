@@ -108,31 +108,31 @@ export default abstract class Service {
         return data as APIResponse;
     }
 
-    protected async get(endpoint: string, query = {}) {
-        return await this._fetch({
+    protected get(endpoint: string, query = {}) {
+        return this._fetch({
             method: 'GET',
             endpoint: endpoint + '?' + new URLSearchParams(query).toString()
         });
     }
 
-    protected async post(endpoint: string, body: object) {
-        return await this._fetch({
+    protected post(endpoint: string, body: object) {
+        return this._fetch({
             method: 'POST',
             endpoint: endpoint,
             body: body
         });
     }
 
-    protected async patch(endpoint: string, body: object) {
-        return await this._fetch({
+    protected patch(endpoint: string, body: object) {
+        return this._fetch({
             method: 'PATCH',
             endpoint: endpoint,
             body: body
         });
     }
 
-    async delete(endpoint: string) {
-        return await this._fetch({
+    protected delete(endpoint: string) {
+        return this._fetch({
             method: 'DELETE',
             endpoint: endpoint
         });
