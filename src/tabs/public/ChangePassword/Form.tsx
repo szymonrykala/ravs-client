@@ -19,12 +19,12 @@ export default function Form() {
     });
 
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
-    };
+    const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }));
+    }, []);
 
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
@@ -38,8 +38,7 @@ export default function Form() {
 
             notify(message, 'error');
         }
-
-    };
+    }, [data]);
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

@@ -6,21 +6,14 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import UserService, { RegisterUserData } from '../../../../services/UserService';
-// import paths from '../../../../shared/path';
 import { Link as ReactRouterLink, Redirect } from 'react-router-dom';
 import useNotification from '../../../contexts/NotificationContext/useNotification';
 import UserService, { RegisterUserData } from '../../../services/UserService';
 import paths from '../../../shared/path';
-// import useNotification from '../../../../contexts/NotificationContext/useNotification';
 
 
 export default function Form() {
     const notify = useNotification();
-    // const [result, dispatchResult] = React.useReducer(
-    //     registerReducer,
-    //     initialReducerResult
-    // );
 
     const [data, setData] = React.useState<RegisterUserData>({
         email: "",
@@ -29,30 +22,28 @@ export default function Form() {
         surname: ""
     });
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
-    };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }));
+    }, []);
+
+
+    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            const resp = await UserService.register(data);
+            await UserService.register(data);
             notify("Zarejestrowano", 'success', () => <Redirect to={paths.ACTIVATE} />);
         } catch (err: any) {
             let message = err.description;
             // if (err.code === 422) message = "Wprowadzono nieprawidłowe dane";
 
             notify(message, 'error');
-            // dispatchResult({
-            //     statusCode: err.statusCode,
-            //     payload: err.description
-            // })
         }
-    };
+    }, [data]);
+
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            {/* {result.success && } */}
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -111,9 +102,6 @@ export default function Form() {
                     />
                 </Grid>
             </Grid>
-            {/* <Typography sx={{ mt: "15px", color: result.success ? "green" : "red" }}>
-                {result.message}
-            </Typography> */}
             <Button
                 type="submit"
                 fullWidth

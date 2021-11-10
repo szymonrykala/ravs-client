@@ -4,24 +4,16 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
 import { Link as ReactRouterLink, Redirect } from 'react-router-dom';
-
 import paths from '../../../shared/path';
 import UserService, { ActivationData } from '../../../services/UserService';
 import UniqueCodeButton from '../../../shared/components/UniqueCodeButton';
-// import { activationReducer } from './activationReducer';
-import { initialReducerResult } from '../../../shared/reducreInterfaces';
 import useNotification from '../../../contexts/NotificationContext/useNotification';
 
 
 
 export default function Form() {
     const notify = useNotification();
-    // const [result, dispatchResult] = React.useReducer(
-    //     activationReducer,
-    //     initialReducerResult
-    // );
 
     const [data, setData] = React.useState<ActivationData>({
         email: localStorage.getItem('email')?.toString() ?? '',
@@ -29,9 +21,8 @@ export default function Form() {
         code: ''
     })
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         try {
             await UserService.activate(data);
             notify("Twoje konto zostało aktywowane", 'success',
@@ -43,11 +34,11 @@ export default function Form() {
 
             notify(message, 'error');
         }
-    };
+    }, [data]);
 
-    function onChange(e: React.ChangeEvent<HTMLInputElement>): void {
-        setData({ ...data, [e.currentTarget.name]: e.currentTarget.value });
-    };
+    const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }))
+    }, []);
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
