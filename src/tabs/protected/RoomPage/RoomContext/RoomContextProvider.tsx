@@ -1,11 +1,12 @@
 import React, { createContext } from "react";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { DetailedRoom } from "../../../../models/Room";
 import RoomService, { RoomUpdateParams, RoomViewParams } from "../../../../services/RoomService";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import RoomContextValue from "./RoomContextValue";
 import { LogsQueryParams } from "../../../../services/interfaces";
 import Image from "../../../../models/Image";
+import useResourceMap from "../../../../contexts/ResourceMapContext/useResourceMap";
 
 
 interface RoomContextProviderProps {
@@ -18,6 +19,7 @@ export const RoomContext: any = createContext(null);
 export default function RoomContextProvider({
     children
 }: RoomContextProviderProps) {
+    const { getBuildingLink } = useResourceMap();
     const notify = useNotification();
     const urlParams = useParams<RoomViewParams>();
     const [room, setRoom] = React.useState<DetailedRoom>();
@@ -51,10 +53,10 @@ export default function RoomContextProvider({
     const setOccupied = React.useCallback((state: boolean) => {
         setRoom(old => {
             if (old)
-            return { ...old, occupied: state };
+                return { ...old, occupied: state };
         });
     }, []);
-    
+
 
     const updateRoom = React.useCallback(async (body: RoomUpdateParams) => {
         try {
@@ -75,9 +77,10 @@ export default function RoomContextProvider({
             await RoomService.remove();
             notify("Sala usunięta", 'success');
         } catch (err: any) {
-            notify(err.description, 'error');
+            room &&
+                notify(err.description, 'error', () => <Redirect to={getBuildingLink(room.building.id)} />);
         }
-    }, [notify]);
+    }, [notify, room]);
 
 
     const uploadImage = React.useCallback(async (image: Blob) => {
