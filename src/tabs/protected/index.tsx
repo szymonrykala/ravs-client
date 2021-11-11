@@ -1,5 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import paths from "../../shared/path";
+import BuildingPage from "./BuildingPage";
 import GenericPage from "./GenericPage";
 import RoomPage from "./RoomPage";
 
@@ -10,9 +11,7 @@ export default function ProtectedPages() {
     return (
         <Switch>
             <Route path={paths.ROOM} component={RoomPage} />
-            <Route path={paths.BUILDING}>
-                budynek
-            </Route>
+            <Route path={paths.BUILDING} component={BuildingPage} />
             <Route path={paths.ADDRESS}>
                 adres
             </Route>

@@ -1,4 +1,5 @@
 import Reservation from "../models/Reservation";
+import { BuildingViewParams } from "./BuildingService";
 import { PaginationQueryParams } from "./interfaces";
 import { RoomViewParams } from "./RoomService";
 import Service from "./Service";
@@ -35,6 +36,16 @@ class ReservationService extends Service {
     ) {
         return this.get(
             `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}/reservations`,
+            queryParams
+        );
+    }
+
+    getForBuilding(
+        { addressId, buildingId }: BuildingViewParams,
+        queryParams?: ReservationsQueryParams
+    ) {
+        return this.get(
+            `/addresses/${addressId}/buildings/${buildingId}/reservations`,
             queryParams
         );
     }
