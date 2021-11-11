@@ -8,7 +8,7 @@ export default function RoomPage() {
     return (
         <RoomContextProvider>
             <GenericPage
-                label="Pokój, statystyki, rezerwacje, logi, edycja pokoju"
+                label="Strona Pokoju, statystyki, rezerwacje, logi, edycja pokoju"
                 view={<ViewTab />}
                 logs={<LogsTab />}
                 reservations={<ReservationsTab />}
