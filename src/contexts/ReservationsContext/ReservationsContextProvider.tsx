@@ -27,7 +27,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const notify = useNotification();
     const { pagination, setPagination } = usePagination();
     const { getRoomLink } = useResourceMap();
-    const { setOccupied } = useRoomContext();
+    const roomContext = useRoomContext();
 
     const [loading, setLoading] = React.useState<boolean>(false);
     const [reservations, setReservations] = React.useState<Reservation[]>([]);
@@ -79,14 +79,14 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
                 return Object.assign([], old);
             });
 
-            setOccupied && setOccupied(!reservation.room.occupied);
+            roomContext && roomContext.setOccupied(!reservation.room.occupied);
             resp.data && notify(resp.data.toString(), 'success');
         } catch (err: any) {
             notify(err.description, 'error');
             return false;
         }
         return true;
-    }, [reservations, setOccupied, notify]);
+    }, [reservations, roomContext, notify]);
 
 
     const createReservation = React.useCallback(async (data: CreateReservationData) => {
