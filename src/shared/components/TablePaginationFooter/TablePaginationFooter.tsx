@@ -4,31 +4,24 @@ import usePagination from "../../../contexts/PaginationContext/usePagination";
 import TablePaginationActions from "./TablePaginationActions";
 
 
-interface TableFooterPaginationProps {
 
-}
-
-export default function TablePaginationFooter({
-
-}: TableFooterPaginationProps) {
+export default function TablePaginationFooter() {
     const { setPagination, pagination } = usePagination()
 
-    const handlePageChange = React.useCallback((
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number
-    ) => setPagination(old => ({ ...old, currentPage: newPage }))
-        , []);
+
+    const handlePageChange = React.useCallback((event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+        setPagination(old => ({ ...old, currentPage: newPage }));
+    }, [setPagination]);
 
 
-    const handleChangeRowsPerPage = React.useCallback((
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => setPagination(old => ({ ...old, itemsOnPage: Number(event.target.value) }))
-        , []);
+    const handleChangeRowsPerPage = React.useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setPagination(old => ({ ...old, itemsOnPage: Number(event.target.value) }));
+    }, [setPagination]);
 
 
-    const displayCount = React.useCallback(({ from, to, count }: any) =>
-        `${from}-${to} z ${count !== -1 ? count : `więcej niż ${to}`}`
-        , []);
+    const displayCount = React.useCallback(({ from, to, count }: any) => {
+        return `${from}-${to} z ${count !== -1 ? count : `więcej niż ${to}`}`;
+    }, []);
 
 
     return (

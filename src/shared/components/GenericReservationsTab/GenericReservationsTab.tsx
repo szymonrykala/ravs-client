@@ -4,11 +4,11 @@ import ReservationsContext from "../../../contexts/ReservationsContext";
 
 
 
-interface GenericReservationsTab {
-    children: React.ReactNode | React.ReactNodeArray
+interface GenericReservationsTabProps {
+    children: React.ReactNode | React.ReactNode[]
 }
 
-export default function GenericReservationsTab(props: GenericReservationsTab) {
+export default function GenericReservationsTab(props: GenericReservationsTabProps) {
     return (
         <PaginationContextProvider>
             <ReservationsContext>

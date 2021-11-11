@@ -26,11 +26,11 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
 
 
-    async function checkIfUserHasSession(): Promise<void> {
+    const checkIfUserHasSession = React.useCallback(async () => {
+        setLoading(true);
         if (AuthService.hasToken()) {
             try {
-                const hasSession = await AuthService.hasSession();
-                if (hasSession) {
+                if (await AuthService.hasSession()) {
                     const sessionUser = await UserService.getMe();
                     setUser(sessionUser);
                     notify("Witaj ponownie!", 'info');
@@ -44,14 +44,16 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             notify('Witaj!', 'info', () => <Redirect to={paths.WELCOME} />);
         }
         setLoading(false)
-    }
+    }, [notify]);
+
 
     React.useEffect(() => {
         checkIfUserHasSession();
         return () => { }
-    }, []);
+    }, [checkIfUserHasSession]);
 
-    const login = async (data: LoginFormData): Promise<void> => {
+
+    const login = React.useCallback(async (data: LoginFormData): Promise<void> => {
         try {
             await AuthService.login(data);
             const sessionUser = await UserService.getMe();
@@ -65,13 +67,15 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
             notify(message, "error");
         }
-    }
+    }, [notify]);
 
-    const logout = () => {
+
+    const logout = React.useCallback(() => {
         AuthService.logout();
         setUser(null);
         notify("Pomyślnie wylogowano!", "success", () => <Redirect to={paths.WELCOME} />);
-    };
+    }, [notify]);
+
 
     return (
         <>
@@ -80,7 +84,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
                 text="Ładowanie Sesji..."
             />
             <sessionContext.Provider value={{ user, login, logout } as SessionValue}>
-                {children}
+                {!loading && children}
             </sessionContext.Provider>
         </>
     );

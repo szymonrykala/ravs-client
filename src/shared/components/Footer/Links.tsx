@@ -1,4 +1,5 @@
 import { Grid, List, ListItem } from "@mui/material";
+import React from "react";
 import paths from "../../path";
 import AppLink from "../AppLink";
 
@@ -28,6 +29,21 @@ const linksList: LinkListItem[][] = [
 
 export default function Links() {
 
+    const links = React.useMemo(() =>
+        linksList.map((list, index) => <Grid key={index} item>
+            <List>
+                {list.map(({ name, link }) => <ListItem key={name}>
+                    <AppLink
+                        to={link}
+                        withIcon
+                        sx={{ color: 'background.default' }}
+                    >
+                        {name}
+                    </AppLink>
+                </ListItem>)}
+            </List>
+        </Grid>), []);
+
     return (
         <Grid
             sx={{
@@ -39,19 +55,7 @@ export default function Links() {
             justifyContent="space-evenly"
             alignItems="flex-start"
         >
-            {linksList.map((list, index) => <Grid key={index} item>
-                <List>
-                    {list.map(({ name, link }) => <ListItem key={name}>
-                        <AppLink
-                            to={link}
-                            withIcon
-                            sx={{ color: 'background.default' }}
-                        >
-                            {name}
-                        </AppLink>
-                    </ListItem>)}
-                </List>
-            </Grid>)}
+            {links}
         </Grid>
     );
 }

@@ -1,5 +1,6 @@
 import { Alert, AlertProps, Snackbar } from "@mui/material";
 import React, { createContext } from "react";
+import NotificationContextValue, { NotificationContextDefault } from "./NotificationContextValue";
 
 
 
@@ -8,7 +9,7 @@ interface NotificationContextProviderProps {
 }
 
 
-export const notificationContext: any = createContext(null);
+export const notificationContext: any = createContext<NotificationContextValue>(NotificationContextDefault);
 
 
 export default function NotificationContextProvider({
@@ -19,13 +20,15 @@ export default function NotificationContextProvider({
     const [severity, setSeverity] = React.useState<AlertProps["severity"]>("error");
     const [component, setComponent] = React.useState<React.ReactNode>();
 
-    const closeSnack = () => {
+
+    const closeSnack = React.useCallback(() => {
         setOpen(false);
         setMessage('');
         setComponent(null);
-    }
+    }, []);
 
-    const setSnack = (
+
+    const setSnack = React.useCallback((
         message: string,
         _severity: AlertProps["severity"] = "error",
         componentCallback: () => null | React.ReactNode = () => null
@@ -34,7 +37,8 @@ export default function NotificationContextProvider({
         setMessage(message);
         setOpen(true);
         setComponent(componentCallback());
-    }
+    }, []);
+
 
     return (
         <notificationContext.Provider value={setSnack}>

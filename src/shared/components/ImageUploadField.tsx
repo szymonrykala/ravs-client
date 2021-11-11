@@ -1,5 +1,4 @@
-import { PhotoCamera } from "@mui/icons-material";
-import { Stack, Button, IconButton, Grid, Box } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import React from "react";
 import useNotification from "../../contexts/NotificationContext/useNotification";
@@ -7,7 +6,6 @@ import Image from "../../models/Image";
 import ImageService from "../../services/ImageService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import { APIResponse } from "../../services/interfaces";
 
 const Input = styled('input')({
     display: 'none',
@@ -27,30 +25,34 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
     const notify = useNotification();
     const [uploadedImage, setUploadedImage] = React.useState<Blob>();
 
-    const handleSubmit = async (evt: React.FormEvent) => {
+
+    const handleSubmit = React.useCallback(async (evt: React.FormEvent) => {
         evt.preventDefault();
         if (!uploadedImage) {
             notify("Najpierw załaduj nowy obraz", "warning");
             return;
         }
         await props.onUpload(uploadedImage);
-    }
+    }, [uploadedImage, props, notify]);
 
-    const handleImageUpload = (evt: any) => {
+
+    const handleImageUpload = React.useCallback((evt: any) => {
         if (evt.target.files && evt.target.files[0]) {
             const img = evt.target.files[0];
             setUploadedImage(img);
         }
-    }
+    }, []);
 
-    const handleRemoveImgae = async () => {
+
+    const handleRemoveImgae = React.useCallback(async () => {
         try {
             props.image && await props.onDelete(props.image);
             notify("Obraz usunięty, załaduj ponownie aby zobaczyć rezultat.", "success");
         } catch (err: any) {
             notify(err.description, "error");
         }
-    }
+    }, [props, notify]);
+
 
     return (
         <Grid container component="form"
@@ -102,7 +104,6 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
                     Zapisz
                 </Button>
             </Grid>
-            {/* </label> */}
         </Grid>
     )
 }

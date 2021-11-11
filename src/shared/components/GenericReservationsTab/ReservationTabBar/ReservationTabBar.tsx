@@ -20,13 +20,17 @@ export default function ReservationTabBar() {
     const { setQueryParams } = useReservations();
     const [customDate, setCustomDate] = React.useState(new Date());
 
-    const handleButtonChange = (value: string) =>
-        setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: value }));
 
-    const handleSubmitCustomDate = (evt: React.FormEvent) => {
+    const handleButtonChange = React.useCallback((value: string) => {
+        return setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: value }));
+    }, [setQueryParams]);
+
+
+    const handleSubmitCustomDate = React.useCallback((evt: React.FormEvent) => {
         evt.preventDefault();
         setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: customDate.toISOString() }))
-    }
+    }, [customDate, setQueryParams])
+
 
     return (
         <>

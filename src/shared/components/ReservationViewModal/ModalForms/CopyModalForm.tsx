@@ -62,7 +62,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
     const closeForm = React.useCallback(() => {
         props.onClose();
         // setCopyDates([]);
-    }, []);
+    }, [props]);
 
 
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
@@ -80,7 +80,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
         const processed = await Promise.all(createCalls);
         setCopyDates(processed);
 
-    }, [data, copyDates]);
+    }, [data, copyDates, createReservation]);
 
 
     const handleDeleteCopyDate = React.useCallback((index: number) => {
@@ -92,7 +92,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
 
 
     const handleAddDate = React.useCallback(() => {
-        if (copyDates.find(item => item == dates)) return;
+        if (copyDates.find(item => item === dates)) return;
 
         setCopyDates(old => {
             old.push({
@@ -101,7 +101,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
             });
             return Object.assign([], old);
         });
-    }, [dates]);
+    }, [dates, copyDates]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {

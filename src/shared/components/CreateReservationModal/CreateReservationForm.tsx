@@ -40,7 +40,7 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
         }));
     }, []);
 
-    
+
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -51,7 +51,8 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [data]);
+    }, [data, notify, props]);
+
 
     return (
         <Grid container component="form" spacing={2} onSubmit={handleSubmit}>

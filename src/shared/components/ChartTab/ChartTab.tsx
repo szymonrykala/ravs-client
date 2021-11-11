@@ -25,7 +25,10 @@ export default function ChartTab({
             <Typography id={id} variant="h5" color="text.primary" sx={{ paddingTop: 4.5, paddingBottom: 1.5 }}>
                 {title}
             </Typography>
-            <Paper elevation={3}>
+            <Paper
+                elevation={2}
+                sx={{ borderRadius: ({ shape }) => shape.borderRadius }}
+            >
                 <Grid container columnSpacing={3}>
                     {charts.map((chart, index) =>
                         <Grid key={index} item xs={12} md={6}>

@@ -32,7 +32,7 @@ export default function QueryParamsContextProvider<T>(props: QueryParamsContextP
 
     React.useEffect(() => {
         localStorage.setItem(props.name, JSON.stringify(queryParams));
-    }, [queryParams]);
+    }, [queryParams, props.name]);
 
     return (
         <queryParamsContext.Provider value={{ queryParams, setQueryParams }}>

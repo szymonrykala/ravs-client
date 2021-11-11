@@ -1,9 +1,8 @@
-import { Box, Button, ButtonGroup, ButtonGroupProps, Chip, Link, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Chip, Link, Stack, TextField, Typography } from "@mui/material";
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import React from "react";
 import { APIResponse } from "../../../services/interfaces";
 import SelectButtonGroup, { SelectButtonInterface } from "../SelectButtonGroup";
-import { useLocation } from "react-router-dom";
 
 
 const predefinedButtons: SelectButtonInterface[] = [
@@ -24,13 +23,13 @@ interface ChartTabBarProps {
 export default function ChartOptionsBar({
     links, dataSetter, dataGetter
 }: ChartTabBarProps) {
-    const location = useLocation();
     const [customDates, setCustomDates] = React.useState<{ from: Date | null, to: Date | null }>({
         from: new Date(),
         to: new Date()
     });
 
-    const getChartsData = async (queryParams: any) => {
+
+    const getChartsData = React.useCallback(async (queryParams: any) => {
         try {
             const resp = await dataGetter(queryParams); //use provided async getter to get Data
             dataSetter(resp?.data); //set data to parent component state
@@ -38,29 +37,34 @@ export default function ChartOptionsBar({
         } catch (err: any) {
             console.error(err);
         }
-    }
+        console.log('wowowoowowowowowowow')
+    }, [dataGetter, dataSetter]);
+
+
+    const handleButtonChange = React.useCallback(async (buttonValue: string) => {
+        await getChartsData({
+            from: buttonValue,
+            to: "now"
+        });
+    }, [getChartsData]);
+
+
+    const handleSubmitCustomDate = React.useCallback(async (evt: any) => {
+        evt.preventDefault();
+        await getChartsData({
+            from: customDates.from?.toISOString(),
+            to: customDates.to?.toISOString()
+        });
+    }, [customDates.from, customDates.to]);
+
 
     React.useEffect(() => {
         getChartsData({
             from: "1 month ago",
             to: "now"
         });
-    }, [location.key]);
+    }, [getChartsData]);
 
-    const handleButtonChange = async (buttonValue: string) => {
-        await getChartsData({
-            from: buttonValue,
-            to: "now"
-        });
-    }
-
-    const handleSubmitCustomDate = async (evt: any) => {
-        evt.preventDefault();
-        await getChartsData({
-            from: customDates.from?.toISOString(),
-            to: customDates.to?.toISOString()
-        });
-    }
 
     return (
         <Stack direction="column" spacing={2}>

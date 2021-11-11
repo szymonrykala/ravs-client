@@ -16,9 +16,11 @@ export default function SelectButtonGroup({
 }: SelectButtonGroupProps) {
     const [button, setButton] = React.useState<SelectButtonInterface>(buttons[defaultButtonIndex]);
 
+    // console.log(onSelectedChange)
     React.useEffect(() => {
         onSelectedChange(button.value);
-    }, [button]);
+    }, [button.value, onSelectedChange]);
+
 
     return (
         <ButtonGroup variant="outlined" size={size}>

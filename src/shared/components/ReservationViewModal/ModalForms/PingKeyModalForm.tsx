@@ -16,7 +16,7 @@ export default function PingKeyModalForm(props: PingKeyModalFormProps) {
 
     const handleKeyScan = React.useCallback(
         async (key: string) => pingKeyForReservation(props.reservationId, key)
-        , [props.reservationId]);
+        , [props, pingKeyForReservation]);
 
 
     return (

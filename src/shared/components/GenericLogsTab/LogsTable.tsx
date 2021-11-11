@@ -9,7 +9,6 @@ import Log from '../../../models/Log';
 import { APIResponse, LogsQueryParams } from '../../../services/interfaces';
 import { TableFooter, Typography } from '@mui/material';
 import LogRow from './LogRow';
-import { useLocation } from "react-router-dom";
 import { usePagination } from '../../../contexts/PaginationContext';
 import TablePaginationFooter from '../TablePaginationFooter';
 import { useQueryParams } from '../../../contexts/QueryParamsContext';
@@ -24,26 +23,28 @@ interface LogsTabProps {
 export default function LogsTable({
     logsGetter
 }: LogsTabProps) {
-    const location = useLocation();
     const { queryParams } = useQueryParams<LogsQueryParams>();
     const { pagination, setPagination } = usePagination();
     const [logs, setLogs] = React.useState<Log[]>([]);
 
 
-    async function getLogs() {
+    const getLogs = React.useCallback(async () => {
         if (!queryParams) return;
 
-        const resp = await logsGetter({ ...queryParams, ...pagination });
+        const resp = await logsGetter({
+            ...queryParams,
+            itemsOnPage: pagination.itemsOnPage,
+            currentPage: pagination.currentPage
+        });
         resp?.pagination && setPagination(resp.pagination);
 
         setLogs(resp?.data as Log[]);
-    }
+    }, [queryParams, pagination.itemsOnPage, pagination.currentPage, logsGetter, setPagination]);
 
 
     React.useEffect(() => {
         getLogs();
-
-    }, [queryParams, pagination.currentPage, pagination.itemsOnPage, location.key]);
+    }, [getLogs]);
 
 
     return (

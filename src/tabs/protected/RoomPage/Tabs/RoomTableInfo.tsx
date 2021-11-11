@@ -1,7 +1,6 @@
 import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
-import Room, { DetailedRoom } from "../../../../models/Room";
+import { DetailedRoom } from "../../../../models/Room";
 import AppLink from "../../../../shared/components/AppLink";
 import YesNoIcon from "../../../../shared/components/YesNoIcon";
 
@@ -48,7 +47,8 @@ export default function RoomTableInfo({
                 value: <YesNoIcon value={!room.blocked} />
             },
         ];
-    }, [room]);
+    }, [room, deleteTag]);
+
 
     return (
         <TableContainer >

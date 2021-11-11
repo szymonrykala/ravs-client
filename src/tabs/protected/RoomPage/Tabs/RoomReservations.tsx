@@ -8,14 +8,8 @@ import ReservationsList from "../../../../shared/components/GenericReservationsT
 import ReservationTabBar from "../../../../shared/components/GenericReservationsTab/ReservationTabBar";
 
 
-interface ReservationsTabProps {
-    // room: DetailedRoom | Room
-}
 
-
-export default function RoomReservations({
-    // room
-}: ReservationsTabProps) {
+export default function RoomReservations() {
 
 
     return (
@@ -37,9 +31,11 @@ function LogicLoader() {
         return ReservationService.getForRoom(params, queryParams);
     }, [params]);
 
+
     React.useEffect(() => {
         setLoader(reservationsLoader);
-    }, [params.roomId,]);
+    }, [reservationsLoader, setLoader]);
+
 
     return null;
 }

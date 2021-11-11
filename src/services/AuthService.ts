@@ -1,5 +1,5 @@
 import { APIResponse } from "./interfaces";
-import Service, { ServiceFormData, StatusMessages } from "./Service";
+import Service, { ServiceFormData } from "./Service";
 
 
 

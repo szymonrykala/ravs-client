@@ -33,15 +33,16 @@ export default function EditModalForm(props: EditModalFormProps) {
     const closeForm = React.useCallback(() => {
         props.onClose();
         setData({});
-    }, []);
+    }, [props]);
 
 
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const success = await updateReservation(props.reservation.id, data);
-        if (success) closeForm();
-    }, [props, data]);
+        if (await updateReservation(props.reservation.id, data))
+            closeForm();
+
+    }, [props, data, closeForm, updateReservation]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {

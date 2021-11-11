@@ -1,6 +1,6 @@
 import React from "react";
 import useSession from "../../auth/useSession";
-import AddressMap, { MapItem } from "../../models/AddressMap";
+import AddressMap from "../../models/AddressMap";
 import AddressService from "../../services/AddressService";
 import useNotification from "../NotificationContext/useNotification";
 import { ResourceMapContextValue } from "./ResourceMapOCntextValue";
@@ -18,7 +18,7 @@ export const resourceMapContext = React.createContext<ResourceMapContextValue>({
 
 
 interface ResourceMapContextProviderProps {
-    children?: React.ReactNodeArray
+    children?: React.ReactNode[]
 }
 
 export default function ResourceMapContextProvider(props: ResourceMapContextProviderProps) {
@@ -26,14 +26,14 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
     const { user } = useSession();
     const notify = useNotification();
 
-    const loadResourceMap = async (): Promise<void> => {
+    const loadResourceMap = React.useCallback(async (): Promise<void> => {
         try {
             const resp = await AddressService.getResourcesMap();
             resp?.data && setResources(resp.data as any);
         } catch (err: any) {
             notify(err.description, "error");
         }
-    }
+    }, [notify]);
 
     const reloadMap = (): void => {
         loadResourceMap();
@@ -41,23 +41,27 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
 
     React.useEffect(() => {
         user && loadResourceMap();
-    }, [user]);
+    }, [user, loadResourceMap]);
 
-    const getRoomLink = (roomId: number): string =>
-        '/app' + resourceMap.map(addr => addr.buildings.map(bld => bld.rooms))
+
+    const getRoomLink = React.useCallback((roomId: number): string => {
+        return '/app' + resourceMap.map(addr => addr.buildings.map(bld => bld.rooms))
             .flat(2)
             .find(item => item.id === roomId)
             ?.href ?? '';
+    }, [resourceMap]);
 
-    const allRooms = React.useMemo(() =>
-        resourceMap.map(addr => addr.buildings.map(bld => bld.rooms)).flat(2)
-        , [resourceMap]);
+    const allRooms = React.useMemo(() => {
+        return resourceMap.map(addr => addr.buildings.map(bld => bld.rooms)).flat(2)
+    }, [resourceMap]);
 
-    const getBuildingLink = (buildingId: number): string =>
-        '/app' + resourceMap.map(addr => addr.buildings)
+
+    const getBuildingLink = React.useCallback((buildingId: number): string => {
+        return '/app' + resourceMap.map(addr => addr.buildings)
             .flat(2)
             .find(item => item.id === buildingId)
-            ?.href ?? ''
+            ?.href ?? '';
+    }, [resourceMap]);
 
 
     return (

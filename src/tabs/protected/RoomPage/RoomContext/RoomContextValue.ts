@@ -1,5 +1,5 @@
 import Image from "../../../../models/Image";
-import Room, { DetailedRoom } from "../../../../models/Room";
+import { DetailedRoom } from "../../../../models/Room";
 import { APIResponse, LogsQueryParams } from "../../../../services/interfaces";
 import { RoomUpdateParams } from "../../../../services/RoomService";
 

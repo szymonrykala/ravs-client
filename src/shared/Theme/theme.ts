@@ -24,7 +24,7 @@ const theme = createTheme({
   },
   // spacing: 10,
   shape: {
-    borderRadius: "10px"
+    borderRadius: 4
   },
   components: {
     MuiCssBaseline: {
@@ -35,6 +35,7 @@ const theme = createTheme({
     MuiButton: {
       defaultProps: {
         variant: 'text',
+        sx: { borderRadius: ({ shape }) => Number(shape.borderRadius) }
         // size: 'large'
       },
     },

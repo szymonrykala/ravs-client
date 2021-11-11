@@ -20,11 +20,11 @@ function getDefaults() {
 export const paginationContext = React.createContext<PaginationContextValue>(paginationContextDefaults);
 
 interface PaginationContextProviderProps {
-    children: React.ReactNode | React.ReactNodeArray
+    children: React.ReactNode | React.ReactNode[]
 }
 
 export default function PaginationContextProvider(props: PaginationContextProviderProps) {
-    const [pagination, setPagination] = React.useState<APIPagination>(getDefaults().pagination);
+    const [pagination, setPagination] = React.useState<APIPagination>(() => getDefaults().pagination);
 
 
     React.useEffect(() => {

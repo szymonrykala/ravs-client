@@ -1,9 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
-
 import { Link as LinkIcon } from "@mui/icons-material";
-
 import { Link, LinkProps } from "@mui/material";
-import { SxProps } from "@mui/system";
 
 
 interface AppLinkProps extends LinkProps {
@@ -11,7 +8,8 @@ interface AppLinkProps extends LinkProps {
     withIcon?: boolean,
 }
 
-export default function AppLink({ withIcon, ...restProps }: AppLinkProps) {
+export default function AppLink(props: AppLinkProps) {
+    const { withIcon, ...restProps } = props;
     return (
         <Link
             component={RouterLink}

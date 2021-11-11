@@ -38,7 +38,7 @@ export default function Form() {
 
             notify(message, 'error');
         }
-    }, [data]);
+    }, [data, notify]);
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

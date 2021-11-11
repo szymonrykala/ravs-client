@@ -18,7 +18,7 @@ export const reservationsContext = React.createContext(defaultContextValue);
 
 
 interface ReservationsContextProviderProps {
-    children: React.ReactNode | React.ReactNodeArray
+    children: React.ReactNode | React.ReactNode[]
 }
 
 
@@ -54,14 +54,14 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             notify(err.description ?? err.message, 'error');
         }
         setLoading(false);
-    }, [loader, queryParams]);
+    }, [loader, queryParams, notify, setPagination]);
 
 
-    const triggerReload = () => setQueryParams(old => ({ ...old }));
+    const triggerReload = () => setQueryParams(old => Object.assign({}, old));
 
 
     const pingKeyForReservation = React.useCallback(async (id: number, key: string) => {
-        try {            
+        try {
             const reservation = reservations.find(item => item.id === id);
             if (!reservation) return false;
 
@@ -78,14 +78,15 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
                 });
                 return Object.assign([], old);
             });
-            setOccupied(!reservation.room.occupied);
-            notify(resp.data, 'success');
+
+            setOccupied && setOccupied(!reservation.room.occupied);
+            resp.data && notify(resp.data.toString(), 'success');
         } catch (err: any) {
             notify(err.description, 'error');
             return false;
         }
         return true;
-    }, [reservations]);
+    }, [reservations, setOccupied, notify]);
 
 
     const createReservation = React.useCallback(async (data: CreateReservationData) => {
@@ -99,7 +100,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             return false;
         }
         return true
-    }, []);
+    }, [notify]);
 
 
     const deleteReservation = React.useCallback(async (reservationId: number) => {
@@ -111,7 +112,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             return false;
         }
         return true;
-    }, []);
+    }, [notify]);
 
 
     const updateReservation = React.useCallback(async (id: number, data: UpdateReservationData) => {
@@ -148,20 +149,22 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             return false;
         }
         return true;
-    }, []);
+    }, [getRoomLink, notify]);
+
+
+    // when loading function is recalculated - trigger the loading
+    React.useEffect(() => {
+        load();
+    }, [load]);
 
 
     React.useEffect(() => {
         setQueryParams(old => ({
             ...old,
-            ...pagination
+            itemsOnPage: pagination.itemsOnPage,
+            currentPage: pagination.currentPage
         }));
     }, [pagination.itemsOnPage, pagination.currentPage]);
-
-
-    React.useEffect(() => {
-        load();
-    }, [queryParams]);
 
 
     return (

@@ -25,7 +25,7 @@ export default function DeleteModal({
             return;
         }
         onSuccess();
-    }, [objectName, input]);
+    }, [objectName, input, onSuccess, notify]);
 
     return (
         <GenericModal

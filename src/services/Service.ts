@@ -1,4 +1,3 @@
-import paths from "../shared/path";
 import APIServiceError from "./APIServiceError";
 import { APIResponse } from "./interfaces";
 
@@ -41,9 +40,6 @@ export default abstract class Service {
     _BASE_URL: string = 'http://localhost:8081/v1';
     _TOKEN_NAME: string = 'auth_token';
 
-    constructor() {
-        // this._AUTH_TOKEN = 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
-    }
 
     private get authToken() {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
@@ -76,7 +72,7 @@ export default abstract class Service {
         }
 
         if (!response.ok) {
-            console.error(`${response.status}\t${data?.error?.type}\t${data?.error?.description}`);
+            console.error(`${response.status} ${data?.error?.type} ${data?.error?.description}`);
             throw new APIServiceError(data);
         }
 

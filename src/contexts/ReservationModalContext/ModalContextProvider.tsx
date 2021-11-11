@@ -1,5 +1,4 @@
 import React from "react";
-import Reservation from "../../models/Reservation";
 import ReservationViewModal from "../../shared/components/ReservationViewModal";
 import { useReservations } from "../ReservationsContext";
 import ModalContextValue from "./ModalContextValue";
@@ -12,7 +11,7 @@ export const ReservationModalViewContext = React.createContext<ModalContextValue
 
 
 interface ModalContextProviderProps {
-    children: React.ReactNode | React.ReactNodeArray
+    children: React.ReactNode | React.ReactNode[]
 }
 
 export default function ModalContextProvider(props: ModalContextProviderProps) {
@@ -26,13 +25,13 @@ export default function ModalContextProvider(props: ModalContextProviderProps) {
         if (reservationId) {
             return reservations.find(({ id }) => id === reservationId);
         }
-    }, [reservations.length, reservationId]) ?? null;
+    }, [reservations, reservationId]) ?? null;
 
 
-    const showReservation = (id: number) => {
+    const showReservation = React.useCallback((id: number) => {
         setReservationId(id);
         setModalOpen(true);
-    }
+    }, []);
 
 
     return (

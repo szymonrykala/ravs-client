@@ -1,9 +1,6 @@
-import { RedoRounded } from "@mui/icons-material";
-import { Box, Divider } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router";
 import { WeeklyStatsItem, MonthlyStatsItem, UserStatsItem } from "../../../../models/Stats";
-import RoomService, { RoomViewParams } from "../../../../services/RoomService";
 import ChartTab, { ChartOptionsBar } from "../../../../shared/components/ChartTab";
 import { useRoomContext } from "../RoomContext";
 
@@ -25,16 +22,14 @@ const roomChartLinks: { name: string, href: string }[] = [
     { name: "użytkownicy", href: "#users" },
 ]
 
+
 export default function RoomCharts() {
-    const params = useParams<RoomViewParams>();
     const { getChartsData } = useRoomContext();
-    const [data, setData] = React.useState<RoomChartsDtaInterface>();
-
-    // React.useEffect(() => {
-    //     RoomService.setPath(params);
-    // }, [params.roomId]);
-
-    // const getRoomChartsData = async (query: any) => await RoomService.getChartsData(query);
+    const [data, setData] = React.useState<RoomChartsDtaInterface>({
+        perWeek: [],
+        perMonth: [],
+        users: []
+    });
 
 
     const weekCharts = React.useMemo(() => {
@@ -43,14 +38,14 @@ export default function RoomCharts() {
             averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
             allTime: [["Dzień", "Czas"]]
         }
-        if (!data) return obj;
 
         obj.reservationsCount.push(...data.perWeek.map((item) => [item.dayLabel, item.reservationsCount]))
         obj.allTime.push(...data.perWeek.map((item) => [item.dayLabel, item.allTimeMinutes]))
         obj.averageTimes.push(...data.perWeek.map((item) => [item.dayLabel, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
 
         return obj;
-    }, [data?.perWeek]);
+    }, [data]);
+
 
     const monthCharts = React.useMemo(() => {
         let obj: ChartObject = {
@@ -58,14 +53,14 @@ export default function RoomCharts() {
             averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
             allTime: [["Dzień", "Czas"]]
         }
-        if (!data) return obj;
 
         obj.reservationsCount.push(...data.perMonth.map((item) => [item.dayOfMonth, item.reservationsCount]))
         obj.allTime.push(...data.perMonth.map((item) => [item.dayOfMonth, item.allTimeMinutes]))
         obj.averageTimes.push(...data.perMonth.map((item) => [item.dayOfMonth, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
 
         return obj;
-    }, [data?.perMonth]);
+    }, [data]);
+
 
     const userCharts = React.useMemo(() => {
         let obj: ChartObject = {
@@ -73,18 +68,17 @@ export default function RoomCharts() {
             averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
             allTime: [["Dzień", "Czas"]]
         }
-        if (!data) return obj;
 
         obj.reservationsCount.push(...data.users.map((item) => [item.email, item.reservationsCount]))
         obj.allTime.push(...data.users.map((item) => [item.email, item.allTimeMinutes]))
         obj.averageTimes.push(...data.users.map((item) => [item.email, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
 
         return obj;
-    }, [data?.users]);
+    }, [data]);
 
 
     return (
-        <Box>
+        <Stack spacing={4}>
             <ChartOptionsBar links={roomChartLinks} dataSetter={setData} dataGetter={getChartsData} />
             <ChartTab
                 id="users"
@@ -111,7 +105,6 @@ export default function RoomCharts() {
                     }
                 ]}
             />
-            <Divider />
             <ChartTab
                 id="weekly"
                 title="Ze względu na dzień tygodnia"
@@ -137,7 +130,6 @@ export default function RoomCharts() {
                     }
                 ]}
             />
-            <Divider />
             <ChartTab
                 id="monthly"
                 title="Ze względu na dzień miesiąca"
@@ -163,6 +155,6 @@ export default function RoomCharts() {
                     }
                 ]}
             />
-        </Box>
+        </Stack>
     );
 }

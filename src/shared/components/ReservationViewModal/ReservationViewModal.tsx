@@ -150,7 +150,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                                 title: 'Opis:',
                                 text: props.reservation.description
                             },
-                        ].map(({ title, text }) => <span>
+                        ].map(({ title, text }, index) => <span key={index}>
                             <Typography component="h3" variant="subtitle1">{title}</Typography>
 
                             <Typography
@@ -169,8 +169,8 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                             [
                                 { title: 'Użytkownik:', component: <ReservationUserCard user={props.reservation.user} /> },
                                 { title: 'Zarezerwowana sala:', component: <ReservationRoomCard room={props.reservation.room} /> },
-                            ].map(({ title, component }) =>
-                                <Grid item xs={12} lg={6} pr='10px'>
+                            ].map(({ title, component },index) =>
+                                <Grid key={index} item xs={12} lg={6} pr='10px'>
                                     <Typography sx={{ p: '25px 0px 10px 0px', color: 'text.secondary' }} variant='subtitle2'>{title}</Typography>
                                     {component}
                                 </Grid>)

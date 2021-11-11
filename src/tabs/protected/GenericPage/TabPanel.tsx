@@ -1,22 +1,25 @@
 import { Box } from "@mui/material";
+import React from "react";
 
 
 interface TabPanelProps {
     children?: React.ReactNode;
     dir?: string;
-    index: number;
-    value: number;
+    hidden: boolean,
+    key: number
 }
 
-export default function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
 
-    return (
+export default function TabPanel(props: TabPanelProps) {
+    const { children, hidden, key, ...other } = props;
+
+    // should component update
+    const render = React.useMemo(() =>
         <Box
             role="tabpanel"
-            hidden={value !== index}
-            id={`full-width-tabpanel-${index}`}
-            aria-labelledby={`full-width-tab-${index}`}
+            hidden={hidden}
+            id={`full-width-tabpanel-${key}`}
+            aria-labelledby={`full-width-tab-${key}`}
             sx={{
                 bgcolor: "background.paper",
                 borderRadius: (theme) => theme.shape.borderRadius,
@@ -27,5 +30,7 @@ export default function TabPanel(props: TabPanelProps) {
         >
             {children}
         </Box>
-    );
+        , [hidden, key, children, other]);
+
+    return render;
 }

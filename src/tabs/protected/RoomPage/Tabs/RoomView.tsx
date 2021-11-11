@@ -9,23 +9,15 @@ import { displayDate } from "../../../../shared/utils";
 import RoomTableInfo from "./RoomTableInfo";
 import React from "react";
 import DeleteModal from "../../../../shared/components/DeleteModal";
-import RoomEditModal from "../RoomEditModal";
 import { useRoomContext } from "../RoomContext";
 import Loading from "../../../../shared/components/Loading";
 import NfcIcon from '@mui/icons-material/Nfc';
-import RfidModalRorm from "../RfidModalForm";
 import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
+import { RfidForm, RoomEditForm } from "../Forms";
 
 
 
-interface RoomViewProps {
-    // room: DetailedRoom
-}
-
-
-export default function RoomView({
-
-}: RoomViewProps) {
+export default function RoomView() {
     const { room, deleteRoom, deleteRFIDTag } = useRoomContext();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
@@ -44,12 +36,12 @@ export default function RoomView({
                     onSuccess={deleteRoom}
                 />
 
-                <RoomEditModal
+                <RoomEditForm
                     open={editModalOpen}
                     onClose={() => setEditModalOpen(false)}
                 />
 
-                <RfidModalRorm
+                <RfidForm
                     open={rfidTagModalOpen}
                     onClose={() => setRfidTagModalOpen(false)}
                 />

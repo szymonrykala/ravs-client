@@ -15,11 +15,11 @@ interface ReservationRoomCardProps {
 export default function ReservationRoomCard({ room }: ReservationRoomCardProps) {
     const { getRoomLink, getBuildingLink } = useResourceMap();
 
-    const roomLink = React.useMemo(() => getRoomLink(room.id), [room.id]);
-    const buildingLink = React.useMemo(() => getBuildingLink(room.building), [room.building]);
+    const roomLink = React.useMemo(() => getRoomLink(room.id), [room.id, getRoomLink]);
+    const buildingLink = React.useMemo(() => getBuildingLink(room.building), [room.building, getBuildingLink]);
 
     return (
-        <Card sx={{ display: 'flex', minHeight:'170px' }}>
+        <Card sx={{ display: 'flex', minHeight: '170px' }}>
             <CardMedia
                 component='img'
                 image={ImageService.getLink(room.image)}

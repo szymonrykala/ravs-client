@@ -1,6 +1,6 @@
-import GenericModal from "../../../shared/components/GenericModal";
-import { useRoomContext } from "./RoomContext";
-import RfidForm from "../../../shared/components/RfidForm";
+import GenericModal from "../../../../shared/components/GenericModal";
+import RfidForm from "../../../../shared/components/RfidForm";
+import { useRoomContext } from "../RoomContext";
 
 
 interface RfidModalRormProps {

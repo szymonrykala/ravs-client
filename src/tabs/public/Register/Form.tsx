@@ -39,7 +39,7 @@ export default function Form() {
 
             notify(message, 'error');
         }
-    }, [data]);
+    }, [data, notify]);
 
 
     return (

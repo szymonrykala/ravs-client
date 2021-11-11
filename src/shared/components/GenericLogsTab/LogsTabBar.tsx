@@ -12,7 +12,7 @@ export function LogsTabBar() {
     const handleChange = React.useCallback((evt: any) => {
         evt.preventDefault();
         setQueryParams(old => ({ ...old, [evt.target.name]: evt.target.value }));
-    }, [])
+    }, [setQueryParams])
 
 
     return (

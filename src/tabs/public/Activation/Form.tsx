@@ -34,7 +34,7 @@ export default function Form() {
 
             notify(message, 'error');
         }
-    }, [data]);
+    }, [notify, data]);
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }))

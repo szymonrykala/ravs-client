@@ -1,16 +1,14 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material';
-import { RoomUpdateParams } from '../../../services/RoomService';
+import { RoomUpdateParams } from '../../../../services/RoomService';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveIcon from '@mui/icons-material/Save';
-import Room, { DetailedRoom, RoomType, RoomTypes } from '../../../models/Room';
-import { useRoomContext } from './RoomContext';
-import ImageUploadField from '../../../shared/components/ImageUploadField';
-import { useResourceMap } from '../../../contexts/ResourceMapContext';
-import { BuildingItem } from '../../../models/AddressMap';
+import Room, { DetailedRoom, RoomType, RoomTypes } from '../../../../models/Room';
+import { useRoomContext } from '../RoomContext';
+import ImageUploadField from '../../../../shared/components/ImageUploadField';
+import { useResourceMap } from '../../../../contexts/ResourceMapContext';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -40,12 +38,12 @@ export default function RoomEditForm({
     });
 
 
-    const buildings: { name: string, id: number }[]
-        = React.useMemo(() => {
-            return resourceMap.map(address => address.buildings).flat(2).map(({ id, name }) => ({ name, id }));
-        }, [resourceMap]);
+    const buildings: { name: string, id: number }[] = React.useMemo(() => {
+        return resourceMap.map(address => address.buildings).flat(2).map(({ id, name }) => ({ name, id }));
+    }, [resourceMap]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+
+    const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         let value: string | number | boolean = event.target.value;
 
         switch (event.target.name) {
@@ -60,30 +58,33 @@ export default function RoomEditForm({
                 break;
         }
 
-        setData({
-            ...data,
+        setData((old: RoomUpdateParams) => ({
+            ...old,
             [event.currentTarget.name]: value
-        });
-    }
+        }));
+    }, []);
 
-    const handleSelectChange = (event: SelectChangeEvent<RoomType | number>): void => {
+
+    const handleSelectChange = React.useCallback((event: SelectChangeEvent<RoomType | number>): void => {
         let value: string | number = event.target.value;
         if (event.target.name === 'buildingId') value = Number(value);
 
-        event.target && setData({
-            ...data,
+        event.target && setData((old: RoomUpdateParams) => ({
+            ...old,
             [event.target.name]: value
-        });
-    }
+        }));
+    }, []);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+    const handleSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         updateRoom(data);
 
         if (getBuildingId(room) !== data.buildingId) {
             reloadMap();
         }
-    }
+    }, [room, data, updateRoom, reloadMap]);
+
 
     return (
         data && <>

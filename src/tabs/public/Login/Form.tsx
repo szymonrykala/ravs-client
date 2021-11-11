@@ -22,16 +22,19 @@ export default function Form() {
         password: '',
     });
 
+
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }));
+        setData(old => ({ ...old, [e.target.name]: e.target.value }));
     }, []);
+
 
     const handleSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (remember) localStorage.setItem('email', data.email);
         login(data);
-    }, []);
+    }, [data, login, remember]);
+
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

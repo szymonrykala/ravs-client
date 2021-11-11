@@ -1,4 +1,4 @@
-import GenericModal from "../../../shared/components/GenericModal";
+import GenericModal from "../../../../shared/components/GenericModal";
 import RoomEditForm from "./RoomEditForm";
 
 
