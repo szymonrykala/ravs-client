@@ -2,8 +2,8 @@ import BungalowIcon from '@mui/icons-material/Bungalow';
 import MapIcon from '@mui/icons-material/Map';
 
 import { List } from "@mui/material";
-import { useResourceMap } from '../../../../contexts/ResourceMapContext';
-import paths from '../../../path';
+import { useResourceMap } from '../../../../../contexts/ResourceMapContext';
+import paths from '../../../../path';
 import CollapseableListItem from "./CollapseableListItem";
 import RoomListItem from "./RoomListItem";
 

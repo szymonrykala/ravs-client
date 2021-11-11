@@ -1,7 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Box, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
-import AppLink from "../../AppLink";
+import AppLink from "../../../AppLink";
 
 
 
@@ -28,7 +28,7 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
                 console.error("do not edit localStorage variables manualy!");
             }
         }
-    }, []);
+    }, [OPENED_NAME]);
 
     const handleOpen = (ev: React.MouseEvent) => {
         ev.stopPropagation()

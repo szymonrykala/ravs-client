@@ -1,7 +1,8 @@
 import { Menu, MenuItem } from "@mui/material";
-import useSession from "../../../auth/useSession";
-import paths from "../../path";
-import AppLink from "../AppLink";
+import React from "react";
+import useSession from "../../../../auth/useSession";
+import paths from "../../../path";
+import AppLink from "../../AppLink";
 
 
 
@@ -19,6 +20,16 @@ const links = [
 export default function AccountMenu({ trigger, handleClose }: AccountMenuProps) {
     const { logout } = useSession();
 
+    const linksComp = React.useMemo(() => {
+        return links.map(({ name, link }, i) =>
+            <MenuItem key={i} onClick={handleClose}>
+                <AppLink to={link}>
+                    {name}
+                </AppLink>
+            </MenuItem>)
+    }, [handleClose]);
+
+
     return (
         <Menu
             id="menu-appbar"
@@ -35,12 +46,7 @@ export default function AccountMenu({ trigger, handleClose }: AccountMenuProps) 
             open={Boolean(trigger)}
             onClose={handleClose}
         >
-            {links.map(({ name, link }, i) =>
-                <MenuItem key={i} onClick={handleClose}>
-                    <AppLink to={link}>
-                        {name}
-                    </AppLink>
-                </MenuItem>)}
+            {linksComp}
 
             <MenuItem onClick={() => {
                 handleClose();

@@ -3,7 +3,7 @@ import React from "react";
 import MainDrawerList from "./MainDrawerList";
 import DrawerPanel from "./DrawerPanel";
 import AvatarView from './AvatarView';
-import useSession from "../../../auth/useSession";
+import useSession from "../../../../auth/useSession";
 import ResourcesList from "./ResourcesList";
 
 

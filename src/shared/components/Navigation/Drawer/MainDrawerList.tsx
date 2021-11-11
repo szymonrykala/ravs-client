@@ -4,9 +4,9 @@ import AccountIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import React from "react";
-import Access from "../../../models/Access";
-import paths from "../../path";
-import AppLink from "../AppLink";
+import Access from "../../../../models/Access";
+import paths from "../../../path";
+import AppLink from "../../AppLink";
 
 
 

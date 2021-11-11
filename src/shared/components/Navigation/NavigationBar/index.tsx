@@ -8,11 +8,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 
 import AccountMenu from './AccountMenu';
-import useSession from '../../../auth/useSession';
+import useSession from '../../../../auth/useSession';
 import { Avatar } from '@mui/material';
-import paths from '../../path';
-import ImageService from '../../../services/ImageService';
-import AppLink from '../AppLink';
+import paths from '../../../path';
+import ImageService from '../../../../services/ImageService';
+import AppLink from '../../AppLink';
 
 
 interface NavigationBarProps {
@@ -24,13 +24,13 @@ export default function NavigationBar(props: NavigationBarProps) {
 	const { user } = useSession();
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-	const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleMenu = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
 		setAnchorEl(event.currentTarget);
-	};
+	}, []);
 
-	const handleClose = () => {
+	const handleClose = React.useCallback(() => {
 		setAnchorEl(null);
-	};
+	}, []);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
