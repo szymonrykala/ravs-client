@@ -1,5 +1,6 @@
 import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 import { DetailedRoom } from "../../../../models/Room";
 import AppLink from "../../../../shared/components/AppLink";
 import YesNoIcon from "../../../../shared/components/YesNoIcon";
@@ -14,6 +15,8 @@ interface RoomTableInfoProps {
 export default function RoomTableInfo({
     room, deleteTag
 }: RoomTableInfoProps) {
+    const { getBuildingLink } = useResourceMap();
+
     const tableRows = React.useMemo(() => {
         return [
             {
@@ -33,7 +36,7 @@ export default function RoomTableInfo({
                 value: room.seatsCount
             }, {
                 label: "Budynek",
-                value: <AppLink to=''> {room.building.name} </AppLink>
+                value: <AppLink withIcon to={getBuildingLink(room.building.id)}> {room.building.name} </AppLink>
             }, {
                 label: "Aktualnie wolny",
                 value: <YesNoIcon value={!room.occupied} />
@@ -50,6 +53,16 @@ export default function RoomTableInfo({
     }, [room, deleteTag]);
 
 
+    const RenderedRows = React.useMemo(() => {
+        return tableRows.map(({ label, value }, index) =>
+            <TableRow key={index}>
+                <TableCell sx={{ color: "gray" }} align="left">{label}</TableCell>
+                <TableCell sx={{ color: "primary.main", fontWeight: "bold" }} align="left">{value}</TableCell>
+            </TableRow>
+        )
+    }, [tableRows])
+
+
     return (
         <TableContainer >
             <Table aria-label="simple table" size="small" >
@@ -60,12 +73,7 @@ export default function RoomTableInfo({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {tableRows.map(({ label, value }, index) =>
-                        <TableRow key={index}>
-                            <TableCell sx={{ color: "gray" }} align="left">{label}</TableCell>
-                            <TableCell sx={{ color: "primary.main", fontWeight: "bold" }} align="left">{value}</TableCell>
-                        </TableRow>
-                    )}
+                    {RenderedRows}
                 </TableBody>
             </Table>
         </TableContainer>
