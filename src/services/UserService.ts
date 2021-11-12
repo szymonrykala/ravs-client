@@ -22,6 +22,10 @@ export interface ChangePasswordData extends ServiceFormData {
     email: string
 }
 
+export interface UserViewParams {
+    userId: string;
+}
+
 
 class UserService extends Service {
 

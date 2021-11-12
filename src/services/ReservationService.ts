@@ -1,8 +1,10 @@
 import Reservation from "../models/Reservation";
+import { AddressViewParams } from "./AddressService";
 import { BuildingViewParams } from "./BuildingService";
 import { PaginationQueryParams } from "./interfaces";
 import { RoomViewParams } from "./RoomService";
 import Service from "./Service";
+import { UserViewParams } from "./UserService";
 
 
 export interface ReservationsQueryParams extends PaginationQueryParams {
@@ -30,45 +32,48 @@ export interface UpdateReservationData {
 
 class ReservationService extends Service {
 
-    getForRoom(
-        { addressId, buildingId, roomId }: RoomViewParams,
-        queryParams?: ReservationsQueryParams
+
+    public getReservations(
+        urlParams: RoomViewParams | BuildingViewParams | AddressViewParams | UserViewParams,
+        queryParams: ReservationsQueryParams
     ) {
-        return this.get(
-            `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}/reservations`,
-            queryParams
-        );
+        let endp = '';
+
+        if ('addressId' in urlParams) {
+            endp += `/addresses/${urlParams.addressId}`;
+
+            if ('buildingId' in urlParams) {
+                endp += `/buildings/${urlParams.buildingId}`;
+
+                if ('roomId' in urlParams) endp += `/rooms/${urlParams.roomId}`;
+            }
+        } else if ('userId' in urlParams) {
+            endp += `/users/${urlParams.userId}`
+        }
+
+        return this.get(`${endp}/reservations`, queryParams);
     }
 
-    getForBuilding(
-        { addressId, buildingId }: BuildingViewParams,
-        queryParams?: ReservationsQueryParams
-    ) {
-        return this.get(
-            `/addresses/${addressId}/buildings/${buildingId}/reservations`,
-            queryParams
-        );
-    }
 
-    createOne(data: CreateReservationData) {
+    public createOne(data: CreateReservationData) {
         return this.post('/reservations', data)
     }
 
-    update(id: number, data: UpdateReservationData) {
+    public update(id: number, data: UpdateReservationData) {
         return this.patch(`/reservations/${id}`, data);
     }
 
-    pingKey(id: number, key: string) {
+    public pingKey(id: number, key: string) {
         return this.patch(`/reservations/${id}/keys`, {
             RFIDTag: key
         });
     }
 
-    remove(id: number) {
+    public remove(id: number) {
         return this.delete(`/reservations/${id}`);
     }
 
-    resolveStatus(reservation: Reservation): string {
+    public resolveStatus(reservation: Reservation): string {
         const now = new Date();
         const { actualStart, plannedStart, actualEnd, plannedEnd } = reservation;
 

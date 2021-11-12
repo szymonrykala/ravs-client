@@ -28,7 +28,7 @@ function LogicLoader() {
     const { setLoader } = useReservations();
 
     const reservationsLoader = React.useCallback(async (queryParams: ReservationsQueryParams) => {
-        return ReservationService.getForRoom(params, queryParams);
+        return ReservationService.getReservations(params, queryParams);
     }, [params]);
 
 
