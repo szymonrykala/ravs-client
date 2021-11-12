@@ -1,16 +1,11 @@
-import { Button, ButtonGroup, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ImageView from "../../../../shared/components/ImageView";
-
 import { displayDate } from "../../../../shared/utils";
-// import RoomTableInfo from "./RoomTableInfo";
 import React from "react";
 import DeleteModal from "../../../../shared/components/DeleteModal";
-
-import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
 import { useBuilding } from "../BuildingContext";
 import BuildingViewTable from "./BuildingViewTable";
 
@@ -56,8 +51,8 @@ export default function BuildingView() {
             <Stack spacing={3}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Typography variant="h3" color="primary.main">
-                            Budynek {building.name}
+                        <Typography variant="h4" component='h1' color="primary.main">
+                            Budynek: {building.name}
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -71,7 +66,7 @@ export default function BuildingView() {
                     </Grid>
                 </Grid>
 
-                <ButtonGroup>
+                <Box>
                     <Button
                         onClick={() => setDeleteModalOpen(true)}
                         startIcon={<DeleteIcon />}
@@ -80,19 +75,19 @@ export default function BuildingView() {
                         Usuń
                     </Button>
                     <Button
-                        // onClick={() => setEditModalOpen(true)}
+                        onClick={() => setEditModalOpen(true)}
                         startIcon={<EditIcon />}
                     >
                         Edycja
                     </Button>
                     <Button
                         startIcon={<AddIcon />}
-                        // onClick={() => setCreateReservationModalOpen(true)}
+                        onClick={() => setCreateRoomModalOpen(true)}
                         color='success'
                     >
                         Stwórz salę
                     </Button>
-                </ButtonGroup>
+                </Box>
 
                 <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
                     Utworzono: {displayDate(building._created)}<br />
