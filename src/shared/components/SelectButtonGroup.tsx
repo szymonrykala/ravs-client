@@ -29,6 +29,7 @@ export default function SelectButtonGroup({
     const renderedButtons = React.useMemo(() => {
         return buttons.map(({ value, name }) =>
             <FormControlLabel
+                key={name}
                 value={value}
                 control={<Radio />}
                 label={name}
