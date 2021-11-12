@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, ButtonGroupProps } from "@mui/material";
+import { ButtonGroupProps, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import React from "react";
 
 export interface SelectButtonInterface {
@@ -12,30 +12,44 @@ export interface SelectButtonGroupProps extends ButtonGroupProps {
 }
 
 export default function SelectButtonGroup({
-    size, onSelectedChange, buttons, defaultButtonIndex
+    onSelectedChange, buttons, defaultButtonIndex
 }: SelectButtonGroupProps) {
-    const [button, setButton] = React.useState<SelectButtonInterface>(buttons[defaultButtonIndex]);
+    const [value, setValue] = React.useState(buttons[defaultButtonIndex].value);
 
-    // console.log(onSelectedChange)
     React.useEffect(() => {
-        onSelectedChange(button.value);
-    }, [button.value, onSelectedChange]);
+        onSelectedChange(value);
+    }, [value, onSelectedChange]);
+
+
+    const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue((event.target as HTMLInputElement).value);
+    }, []);
+
+
+    const renderedButtons = React.useMemo(() => {
+        return buttons.map(({ value, name }) =>
+            <FormControlLabel
+                value={value}
+                control={<Radio />}
+                label={name}
+                aria-label={name}
+                title={name}
+            />
+        )
+    }, [buttons]);
 
 
     return (
-        <ButtonGroup variant="outlined" size={size}>
-            {
-                buttons
-                    .map((item) =>
-                        <Button
-                            key={item.name}
-                            variant={(button.value === item.value) ? 'contained' : 'outlined'}
-                            onClick={() => setButton(item)}
-                        >
-                            {item.name}
-                        </Button>
-                    )
-            }
-        </ButtonGroup>
+        <FormControl component="fieldset">
+            <RadioGroup
+                row
+                aria-label="wybór opcji"
+                name="wybór zdefiniowanej opcji"
+                value={value}
+                onChange={handleChange}
+            >
+                {renderedButtons}
+            </RadioGroup>
+        </FormControl>
     );
 }
