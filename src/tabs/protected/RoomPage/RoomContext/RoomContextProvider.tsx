@@ -75,10 +75,9 @@ export default function RoomContextProvider({
     const deleteRoom = React.useCallback(async () => {
         try {
             await RoomService.remove();
-            notify("Sala usunięta", 'success');
+            room && notify("Sala usunięta", 'success', () => <Redirect to={getBuildingLink(room.building.id)} />);
         } catch (err: any) {
-            room &&
-                notify(err.description, 'error', () => <Redirect to={getBuildingLink(room.building.id)} />);
+            notify(err.description, 'error');
         }
     }, [notify, room]);
 
