@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Grid, Stack, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -53,22 +53,23 @@ export default function RoomView() {
                 />
 
                 <Stack spacing={3}>
-                    <Grid container spacing={3}>
+                    <Typography variant="h4" component='h1' color="primary.main">
+                        Sala: {room.name}
+                    </Typography>
+
+                    <Grid container>
                         <Grid item xs={12} md={6}>
                             <ImageView
                                 image={room.image}
                                 title="zdjęcie sali"
                             />
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Typography variant="h3" color="primary.main">
-                                <small>Sala</small> {room.name}
-                            </Typography>
+                        <Grid item xs={12} md={6} paddingLeft='1vw'>
                             <RoomTableInfo room={room} deleteTag={deleteRFIDTag} />
                         </Grid>
                     </Grid>
 
-                    <ButtonGroup>
+                    <Box>
                         <Button
                             onClick={() => setDeleteModalOpen(true)}
                             startIcon={<DeleteIcon />}
@@ -95,7 +96,7 @@ export default function RoomView() {
                         >
                             Zarezerwuj
                         </Button>
-                    </ButtonGroup>
+                    </Box>
 
                     <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
                         Utworzono: {displayDate(room._created)}<br />
