@@ -41,6 +41,7 @@ export default function GenericPage(props: GenericPageProps) {
 		console.info("GenericPage: ponowne rozliczanie dostępu do komponentów");
 
 		const panels: TabPanelListItem[] = [
+			// {name:"widok" ,component: props.view}m
 			{ name: 'rezerwacje', component: props.reservations },
 			{ name: 'statystyki', component: props.stats },
 			{ name: 'logi', component: props.logs },
@@ -62,14 +63,12 @@ export default function GenericPage(props: GenericPageProps) {
 
 	return (
 		<>
-			<Box sx={{
-				bgcolor: 'background.paper',
-				borderRadius: (theme) => theme.shape.borderRadius,
-				p: 2.5,
-				mb: 2
-			}}>
+			<TabPanel
+				key={-1}
+				hidden={false}
+			>
 				{props.view}
-			</Box>
+			</TabPanel>
 
 			<Tabs
 				value={tabIndex}
@@ -83,7 +82,7 @@ export default function GenericPage(props: GenericPageProps) {
 
 			</Tabs>
 
-			<SwipeableViews		
+			<SwipeableViews
 				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
 				index={tabIndex}
 				onChangeIndex={handleChangeIndex}

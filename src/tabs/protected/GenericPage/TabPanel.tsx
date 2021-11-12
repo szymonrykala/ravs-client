@@ -24,7 +24,7 @@ export default function TabPanel(props: TabPanelProps) {
                 bgcolor: "background.paper",
                 borderRadius: (theme) => theme.shape.borderRadius,
                 mt: 1.5,
-                p: 2
+                p: '2vw'
             }}
             {...other}
         >
