@@ -3,7 +3,7 @@ import GenericModal from "../GenericModal";
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Box, ButtonGroup, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { displayDate } from '../../utils';
 import React from 'react';
 import ReservationUserCard from './ReservationUserCard';
@@ -94,7 +94,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         {props.reservation.title}
                     </Typography>
 
-                    <ButtonGroup>
+                    <Box>
                         <Button
                             startIcon={<DeleteIcon />}
                             onClick={() => setDeleteModalOpen(true)}
@@ -128,7 +128,8 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         >
                             Odbij klucz
                         </Button>
-                    </ButtonGroup>
+                    </Box>
+
                     {
                         [
                             {
@@ -169,7 +170,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                             [
                                 { title: 'Użytkownik:', component: <ReservationUserCard user={props.reservation.user} /> },
                                 { title: 'Zarezerwowana sala:', component: <ReservationRoomCard room={props.reservation.room} /> },
-                            ].map(({ title, component },index) =>
+                            ].map(({ title, component }, index) =>
                                 <Grid key={index} item xs={12} lg={6} pr='10px'>
                                     <Typography sx={{ p: '25px 0px 10px 0px', color: 'text.secondary' }} variant='subtitle2'>{title}</Typography>
                                     {component}
