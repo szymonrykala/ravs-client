@@ -37,13 +37,18 @@ export default function RoomCharts() {
     const weekCharts = React.useMemo(() => {
         let obj: ChartObject = {
             reservationsCount: [["Dzień", "Ilość rezerwacji"]],
-            averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
-            allTime: [["Dzień", "Czas"]]
+            times: [["Dzień", "Czas rzeczywisty", "Średni czas planowanny", "Średni czas rzeczywisty"]],
         }
 
         obj.reservationsCount.push(...data.perWeek.map((item) => [item.dayLabel, item.reservationsCount]))
-        obj.allTime.push(...data.perWeek.map((item) => [item.dayLabel, item.allTimeMinutes]))
-        obj.averageTimes.push(...data.perWeek.map((item) => [item.dayLabel, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
+        obj.times.push(...data.perWeek.map((item) =>
+            [
+                item.dayLabel,
+                item.allTimeMinutes,
+                item.averagePlannedTimeMinutes,
+                item.averageActualTimeMinutes
+            ]
+        ))
 
         return obj;
     }, [data]);
@@ -52,13 +57,16 @@ export default function RoomCharts() {
     const monthCharts = React.useMemo(() => {
         let obj: ChartObject = {
             reservationsCount: [["Dzień", "Ilość rezerwacji"]],
-            averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
-            allTime: [["Dzień", "Czas"]]
+            times: [["Dzień", "Czas rzeczywisty", "Średni czas planowanny", "Średni czas rzeczywisty"]],
         }
 
         obj.reservationsCount.push(...data.perMonth.map((item) => [item.dayOfMonth, item.reservationsCount]))
-        obj.allTime.push(...data.perMonth.map((item) => [item.dayOfMonth, item.allTimeMinutes]))
-        obj.averageTimes.push(...data.perMonth.map((item) => [item.dayOfMonth, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
+        obj.times.push(...data.perMonth.map((item) => [
+            item.dayOfMonth,
+            item.allTimeMinutes,
+            item.averagePlannedTimeMinutes,
+            item.averageActualTimeMinutes
+        ]))
 
         return obj;
     }, [data]);
@@ -66,14 +74,17 @@ export default function RoomCharts() {
 
     const userCharts = React.useMemo(() => {
         let obj: ChartObject = {
-            reservationsCount: [["Dzień", "Ilość rezerwacji"]],
-            averageTimes: [["Dzień", "Planowanny czas", "Faktyczny czas"]],
-            allTime: [["Dzień", "Czas"]]
+            reservationsCount: [["Użytkownik", "Ilość rezerwacji"]],
+            times: [["Użytkownik", "Czas rzeczywisty", "Średni czas planowanny", "Średni czas rzeczywisty"]],
         }
 
         obj.reservationsCount.push(...data.users.map((item) => [item.email, item.reservationsCount]))
-        obj.allTime.push(...data.users.map((item) => [item.email, item.allTimeMinutes]))
-        obj.averageTimes.push(...data.users.map((item) => [item.email, item.averagePlannedTimeMinutes, item.averageActualTimeMinutes]))
+        obj.times.push(...data.users.map((item) => [
+            item.email,
+            item.allTimeMinutes,
+            item.averagePlannedTimeMinutes,
+            item.averageActualTimeMinutes
+        ]))
 
         return obj;
     }, [data]);
@@ -94,14 +105,8 @@ export default function RoomCharts() {
                         vTitle: "Ilość rezerwacji"
                     }, {
                         type: "ColumnChart",
-                        title: 'Średni czas rezerwacji',
-                        data: userCharts.averageTimes,
-                        hTitle: "Użytkownik",
-                        vTitle: 'Czas rezerwacji [m]'
-                    }, {
-                        type: "ColumnChart",
-                        title: 'Suma czasu rezerwacji użytkownika',
-                        data: userCharts.allTime,
+                        title: 'Czas rezerwacji',
+                        data: userCharts.times,
                         hTitle: "Użytkownik",
                         vTitle: 'Czas rezerwacji [m]'
                     }
@@ -112,23 +117,17 @@ export default function RoomCharts() {
                 title="Ze względu na dzień tygodnia"
                 charts={[
                     {
-                        type: "ColumnChart",
-                        title: "Średnia Ilość rezerwacji na dzień tygodnia",
+                        type: "PieChart",
+                        title: "Średnia Ilość rezerwacji",
                         data: weekCharts.reservationsCount,
                         hTitle: "Dzień tygodnia",
                         vTitle: "Ilość rezerwacji"
                     }, {
                         type: "ColumnChart",
-                        title: 'Średni czas rezerwacji',
-                        data: weekCharts.averageTimes,
+                        title: 'Czas rezerwacji',
+                        data: weekCharts.times,
                         hTitle: "Dzień tygodnia",
-                        vTitle: 'Czas rezerwacji [m]'
-                    }, {
-                        type: "ColumnChart",
-                        title: 'Suma czasu rezerwacji na dzień tygodnia',
-                        data: weekCharts.allTime,
-                        hTitle: "Dzień tygodnia",
-                        vTitle: 'Czas rezerwacji [m]'
+                        vTitle: 'Czas reserwacji [m]'
                     }
                 ]}
             />
@@ -140,19 +139,13 @@ export default function RoomCharts() {
                         type: "ColumnChart",
                         title: "Średnia Ilość rezerwacji na dzień miesiąca",
                         data: monthCharts.reservationsCount,
-                        hTitle: "Dzień tygodnia",
+                        hTitle: "Dzień miesiąca",
                         vTitle: "Ilość rezerwacji"
                     }, {
                         type: "ColumnChart",
                         title: 'Średni czas rezerwacji',
-                        data: monthCharts.averageTimes,
-                        hTitle: "Dzień tygodnia",
-                        vTitle: 'Czas rezerwacji [m]'
-                    }, {
-                        type: "ColumnChart",
-                        title: 'Suma czasu rezerwacji na dzień miesiąca',
-                        data: monthCharts.allTime,
-                        hTitle: "Dzień tygodnia",
+                        data: monthCharts.times,
+                        hTitle: "Dzień miesiąca",
                         vTitle: 'Czas rezerwacji [m]'
                     }
                 ]}
