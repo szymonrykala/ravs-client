@@ -21,29 +21,33 @@ class BuildingService extends Service {
         this._path = `/addresses/${addressId}/buildings/${buildingId}`;
     }
 
-    public async getCurrentOne() {
-        return await this.get(this.path);
+    public getCurrentOne() {
+        return this.get(this.path);
     }
 
-    public async remove() {
-        return await this.delete(this.path);
+    public remove() {
+        return this.delete(this.path);
     }
 
-    public async getChartsData(query: DatesQueryParams) {
-        return await this.get(`${this.path}/stats`, query);
+    public getChartsData(query: DatesQueryParams) {
+        return this.get(`${this.path}/stats`, query);
     }
 
-    public async getLogs(queryParams?: LogsQueryParams) {
-        return await this.get(`${this.path}/requests`, queryParams);
+    public getLogs(queryParams?: LogsQueryParams) {
+        return this.get(`${this.path}/requests`, queryParams);
     }
 
-    public async uploadImage(image: Blob) {
+    public getRoomsInBuilding() {
+        return this.get(`${this.path}/rooms`);
+    }
+
+    public uploadImage(image: Blob) {
         const formData = new FormData();
         formData.append(
             'file',
             image
         );
-        return await this.sendImage(`${this.path}/images`, formData);
+        return this.sendImage(`${this.path}/images`, formData);
     }
 
     async removeImage(image: Image) {

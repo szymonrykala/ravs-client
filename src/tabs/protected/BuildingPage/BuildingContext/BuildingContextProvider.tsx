@@ -1,12 +1,13 @@
 import React from "react";
 import { Redirect, useParams } from "react-router-dom";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import { DetailedBuilding } from "../../../../models/Building";
+import Building, { DetailedBuilding } from "../../../../models/Building";
 import BuildingService, { BuildingViewParams } from "../../../../services/BuildingService";
 import Image from '../../../../models/Image';
 import { LogsQueryParams } from "../../../../services/interfaces";
 import BuildingContextValue from "./BuildingContextValue";
 import { dynamicPaths } from "../../../../shared/path";
+import Room from "../../../../models/Room";
 
 
 interface BuildingContextProviderProps {
@@ -38,6 +39,16 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     React.useEffect(() => {
         getBuilding();
     }, [getBuilding]);
+
+
+    const getRoomsInBuilding = React.useCallback(async () => {
+        try {
+            const resp = await BuildingService.getRoomsInBuilding();
+            return resp.data as Room[];
+        } catch (err: any) {
+            return [];
+        }
+    }, [urlParams.buildingId])
 
 
     const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
@@ -99,7 +110,8 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
             getChartsData,
             uploadImage,
             deleteImage,
-            deleteBuilding
+            deleteBuilding,
+            getRoomsInBuilding,
         } as BuildingContextValue}>
 
             {props.children}

@@ -1,12 +1,8 @@
-import { Chip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
-import { useResourceMap } from "../../../../contexts/ResourceMapContext";
-import { DetailedBuilding } from "../../../../models/Building";
-// import { DetailedBuilding } from "../../../../models/Room";
-import AppLink from "../../../../shared/components/AppLink";
-import YesNoIcon from "../../../../shared/components/YesNoIcon";
-import { dynamicPaths } from "../../../../shared/path";
-import { displayDate } from "../../../../shared/utils";
+import { DetailedBuilding } from "../../../../../models/Building";
+import AppLink from "../../../../../shared/components/AppLink";
+import { dynamicPaths } from "../../../../../shared/path";
 
 
 interface BuildingViewTableProps {

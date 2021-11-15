@@ -2,12 +2,13 @@ import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
-import ImageView from "../../../../shared/components/ImageView";
-import { displayDate } from "../../../../shared/utils";
+import ImageView from "../../../../../shared/components/ImageView";
+import { displayDate } from "../../../../../shared/utils";
 import React from "react";
-import DeleteModal from "../../../../shared/components/DeleteModal";
-import { useBuilding } from "../BuildingContext";
+import DeleteModal from "../../../../../shared/components/DeleteModal";
+import { useBuilding } from "../../BuildingContext";
 import BuildingViewTable from "./BuildingViewTable";
+import ScrollableRoomsList from "./ScrollableRoomsList";
 
 
 
@@ -88,6 +89,8 @@ export default function BuildingView() {
                         Stwórz salę
                     </Button>
                 </Box>
+
+                <ScrollableRoomsList />
 
                 <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
                     Utworzono: {displayDate(building._created)}<br />
