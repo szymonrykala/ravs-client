@@ -20,6 +20,7 @@ import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
 import { displayDate } from "../../../utils";
 import { CreateReservationData } from "../../../../services/ReservationService";
+import useNotification from "../../../../contexts/NotificationContext/useNotification";
 
 
 interface CopyModalFormProps {
@@ -44,6 +45,7 @@ interface CopyReservationData {
 export default function CopyModalForm(props: CopyModalFormProps) {
     const { createReservation } = useReservations()
     const { allRooms } = useResourceMap();
+    const notify = useNotification();
 
     const [dates, setDates] = React.useState<DateTimeSlot>({
         color: '',
@@ -92,7 +94,10 @@ export default function CopyModalForm(props: CopyModalFormProps) {
 
 
     const handleAddDate = React.useCallback(() => {
-        if (copyDates.find(item => item === dates)) return;
+        if (copyDates.find(({ from, to }) => from === dates.from || to === dates.to)) {
+            notify("Daty powinny się różnić", 'error');
+            return;
+        };
 
         setCopyDates(old => {
             old.push({
