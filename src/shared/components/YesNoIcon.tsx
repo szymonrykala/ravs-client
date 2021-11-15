@@ -1,12 +1,20 @@
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelIcon, { } from '@mui/icons-material/Cancel';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-export default function YesNoIcon({
-    value
-}: { value: boolean }) {
+
+interface YesNoIconProps {
+    value: boolean,
+    title?: string,
+    fontSize?: 'small' | 'medium' | 'large',
+}
+
+
+export default function YesNoIcon(props: YesNoIconProps) {
+    const { value, ...rest } = props;
+
     return (
         value ?
-            <CheckCircleOutlineIcon color="success" />
-            : <CancelIcon sx={{ color: "red" }} />
+            <CheckCircleOutlineIcon color="success" {...rest} />
+            : <CancelIcon sx={{ color: "red" }} {...rest} />
     )
 }
