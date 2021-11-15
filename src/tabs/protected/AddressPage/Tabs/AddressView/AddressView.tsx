@@ -10,6 +10,7 @@ import { useAddress } from "../../AddressContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+import ScrollableBuildingsList from "./ScrollableBuildingsList";
 
 
 
@@ -66,6 +67,8 @@ export default function AddressView() {
                         Dodaj budynek
                     </Button>
                 </Box>
+
+                <ScrollableBuildingsList />
 
                 <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
                     Utworzono: {displayDate(address._created)}<br />

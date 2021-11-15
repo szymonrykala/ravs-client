@@ -18,23 +18,27 @@ class AddressService extends Service {
         this._path = `/addresses/${addressId}`;
     }
 
-    public async getCurrentOne() {
-        return await this.get(this.path);
+    public getCurrentOne() {
+        return this.get(this.path);
     }
 
-    public async remove() {
-        return await this.delete(this.path);
+    public remove() {
+        return this.delete(this.path);
     }
 
-    public async getChartsData(query: DatesQueryParams) {
-        return await this.get(`${this.path}/buildings/stats`, query);
+    public getBuildings() {
+        return this.get(`${this.path}/buildings`);
     }
 
-    public async getLogs(queryParams?: LogsQueryParams) {
-        return await this.get(`${this.path}/requests`, queryParams);
+    public getChartsData(query: DatesQueryParams) {
+        return this.get(`${this.path}/buildings/stats`, query);
     }
 
-    async getResourcesMap() {
+    public getLogs(queryParams?: LogsQueryParams) {
+        return this.get(`${this.path}/requests`, queryParams);
+    }
+
+    public getResourcesMap() {
         return this.get('/addresses/resources');
     }
 }

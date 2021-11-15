@@ -6,6 +6,7 @@ import paths from "../../../../shared/path";
 import AddressService, { AddressViewParams } from "../../../../services/AddressService";
 import AddressContextValue from "./AddressContextValue";
 import Address from "../../../../models/Address";
+import Building from "../../../../models/Building";
 
 
 
@@ -40,6 +41,16 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     }, [getAddress]);
 
 
+    const getBuildingsInAddress = React.useCallback(async () => {
+        try {
+            const resp = await AddressService.getBuildings();
+            return resp.data as Building[];
+        } catch (err: any) {
+            return [];
+        }
+    }, [urlParams.addressId]);
+
+
     const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
         try {
             return await AddressService.getLogs(queryParams);
@@ -72,7 +83,8 @@ export default function AddressContextProvider(props: AddressContextProviderProp
             address,
             getLogs,
             getChartsData,
-            deleteAddress
+            deleteAddress,
+            getBuildingsInAddress
         } as AddressContextValue}>
 
             {props.children}
