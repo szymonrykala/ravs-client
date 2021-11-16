@@ -9,8 +9,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import CancelIcon from '@mui/icons-material/Cancel';
-import SaveIcon from '@mui/icons-material/Save';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 import React from "react";
@@ -21,6 +19,7 @@ import { IconButton } from "@mui/material";
 import { displayDate } from "../../../utils";
 import { CreateReservationData } from "../../../../services/ReservationService";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
+import FormGridContainer from "../../FormGridContainer";
 
 
 interface CopyModalFormProps {
@@ -67,8 +66,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
     }, [props]);
 
 
-    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const handleSubmit = React.useCallback(async () => {
 
         const createCalls = copyDates.map(async (date) => {
             const success = await createReservation({
@@ -123,18 +121,13 @@ export default function CopyModalForm(props: CopyModalFormProps) {
             ariaLabel="Okno do kopiowania rezerwacji"
             ariaDescription="Okno z formularzem służące do kopiowania rezerwacji"
         >
-            <Grid container spacing={2}
-                component='form'
+
+            <FormGridContainer
+                title='Kopiowanie rezerwacji'
+                subtitle="Skopiuj rezerwację dla wybranych przez siebie nowych dat."
                 onSubmit={handleSubmit}
+                onCancel={props.onClose}
             >
-                <Grid item xs={12}>
-                    <Typography variant='h4' pb={1}>
-                        Kopiowanie rezerwacji
-                    </Typography>
-                    <Typography variant="body2" color='text.secondary' pb={2}>
-                        Skopiuj rezerwację dla wybranych przez siebie nowych dat.
-                    </Typography>
-                </Grid>
                 <Grid item xs={12}>
                     <TextField
                         required
@@ -148,6 +141,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         onChange={handleChange}
                     />
                 </Grid>
+
                 <Grid item xs={12}>
                     <TextField
                         required
@@ -161,6 +155,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         onChange={handleChange}
                     />
                 </Grid>
+
                 <Grid item xs={12} sm={5}>
                     <MobileDateTimePicker
                         minDate={new Date()}
@@ -171,6 +166,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         renderInput={(params: any) => <TextField sx={{ width: '100%' }} {...params} />}
                     />
                 </Grid>
+
                 <Grid item xs={12} sm={5}>
                     <MobileDateTimePicker
                         minDate={new Date()}
@@ -181,6 +177,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         renderInput={(params) => <TextField sx={{ width: '100%' }} {...params} />}
                     />
                 </Grid>
+
                 <Grid item xs={12} sm={2}>
                     <Button
                         size='large'
@@ -194,6 +191,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         Dodaj
                     </Button>
                 </Grid>
+
                 <Grid item xs={12}>
                     <Stack
                         spacing={1}
@@ -231,6 +229,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         }
                     </Stack>
                 </Grid>
+
                 <Grid item xs={12}>
                     <FormControl fullWidth>
                         <InputLabel id="wybierz-salę">Sala</InputLabel>
@@ -246,13 +245,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
-                    <Stack direction="row" justifyContent="space-around" mt={2}>
-                        <Button startIcon={<CancelIcon />} onClick={closeForm}>Zamknij</Button>
-                        <Button startIcon={<SaveIcon />} type="submit" color="success">Zatwierdź</Button>
-                    </Stack>
-                </Grid>
-            </Grid>
+            </FormGridContainer>
 
         </GenericModal >
     );

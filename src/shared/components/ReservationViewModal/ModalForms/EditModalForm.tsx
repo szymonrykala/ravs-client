@@ -8,13 +8,10 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import CancelIcon from '@mui/icons-material/Cancel';
-import SaveIcon from '@mui/icons-material/Save';
 import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 import React from "react";
 import useReservations from "../../../../contexts/ReservationsContext/useReservations";
+import FormGridContainer from "../../FormGridContainer";
 
 
 interface EditModalFormProps {
@@ -36,10 +33,8 @@ export default function EditModalForm(props: EditModalFormProps) {
     }, [props]);
 
 
-    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        if (await updateReservation(props.reservation.id, data))
+    const handleSubmit = React.useCallback(async () => {
+        if (Object.keys(data).length === 0 || await updateReservation(props.reservation.id, data))
             closeForm();
 
     }, [props, data, closeForm, updateReservation]);
@@ -52,6 +47,7 @@ export default function EditModalForm(props: EditModalFormProps) {
         }));
     }, []);
 
+
     return (
         <GenericModal
             open={props.open}
@@ -59,9 +55,11 @@ export default function EditModalForm(props: EditModalFormProps) {
             ariaLabel="Okno do edycji rezerwacji"
             ariaDescription="Okno z formularzem służące do edycji rezerwacji"
         >
-            <Grid container spacing={2}
-                component='form'
+            <FormGridContainer
+                title='Edycja rezerwacji'
+                subtitle="Zmień właściwości pokoju i zatwierdź zmiany."
                 onSubmit={handleSubmit}
+                onCancel={props.onClose}
             >
                 <Grid item xs={12}>
                     <TextField
@@ -76,6 +74,7 @@ export default function EditModalForm(props: EditModalFormProps) {
                         onChange={handleChange}
                     />
                 </Grid>
+
                 <Grid item xs={12}>
                     <TextField
                         required
@@ -89,6 +88,7 @@ export default function EditModalForm(props: EditModalFormProps) {
                         onChange={handleChange}
                     />
                 </Grid>
+
                 <Grid item xs={12} sm={6}>
                     <MobileDateTimePicker
                         minDate={new Date()}
@@ -99,6 +99,7 @@ export default function EditModalForm(props: EditModalFormProps) {
                         renderInput={(params: any) => <TextField sx={{ width: '100%' }} {...params} />}
                     />
                 </Grid>
+
                 <Grid item xs={12} sm={6}>
                     <MobileDateTimePicker
                         minDate={new Date()}
@@ -109,6 +110,7 @@ export default function EditModalForm(props: EditModalFormProps) {
                         renderInput={(params) => <TextField sx={{ width: '100%' }} {...params} />}
                     />
                 </Grid>
+
                 <Grid item xs={12}>
                     <FormControl fullWidth>
                         <InputLabel id="wybierz-salę">Sala</InputLabel>
@@ -124,14 +126,7 @@ export default function EditModalForm(props: EditModalFormProps) {
                         </Select>
                     </FormControl>
                 </Grid>
-                <Grid item xs={12}>
-                    <Stack direction="row" justifyContent="space-around" pt="15px">
-                        <Button startIcon={<CancelIcon />} onClick={closeForm}>Zamknij</Button>
-                        <Button startIcon={<SaveIcon />} type="submit" color="success">Zatwierdź</Button>
-                    </Stack>
-                </Grid>
-            </Grid>
-
+            </FormGridContainer>
         </GenericModal>
     );
 }

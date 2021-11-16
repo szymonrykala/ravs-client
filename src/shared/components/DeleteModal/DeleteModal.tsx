@@ -19,6 +19,7 @@ export default function DeleteModal({
     const notify = useNotification();
     const [input, setInput] = React.useState<string>('');
 
+
     const handleConfirm = React.useCallback(async () => {
         if (input !== objectName) {
             notify("Wpisana nazwa jest niepoprawna", 'error');
@@ -26,6 +27,7 @@ export default function DeleteModal({
         }
         onSuccess();
     }, [objectName, input, onSuccess, notify]);
+
 
     return (
         <GenericModal
@@ -35,18 +37,17 @@ export default function DeleteModal({
             ariaDescription="Okno modalne do usuwania obiektu po kliknięciu zatwierdź"
             sx={{
                 maxWidth: "400px",
-
             }}
         >
             <Stack direction="column" spacing={3}>
-                <Typography variant="h5">
-                    Usuwanie {<b>{objectName}</b>}
+                <Typography variant="h5" color='primary.dark'>
+                    Usuwanie obiektu
                 </Typography>
-                <Typography variant="body1">
-                    1. Przepisz nazwę <b>{objectName}</b><br />
-                    2. Naciśnij 'Zatwierdź'<br />
+                <Typography variant="body1" color='text.secondary'>
+                    Tej operacji nie da się cofnąć.
                     <br />
-                    Tej operacji nie da się cofnąć. Jesteś pewien że chcesz usunąć <b>{objectName}</b>?
+                    1. Przepisz nazwę <b>{objectName}</b><br />
+                    2. Naciśnij 'Zatwierdź'
                 </Typography>
                 <TextField
                     id="resource-name"

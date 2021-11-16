@@ -66,10 +66,10 @@ export default function RfidForm(props: RfidFormProps) {
                 onChange={(evt: any) => setText(evt.target.value)}
             />
             <Box component="span" textAlign='center'>
-                <Typography variant="h6">
+                <Typography variant="h5" color='primary.dark'>
                     {props.headline}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" mt='5px'>
                     {props.bodyText}
                 </Typography>
             </Box>

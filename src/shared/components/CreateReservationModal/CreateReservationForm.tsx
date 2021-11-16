@@ -1,25 +1,23 @@
 import { MobileDateTimePicker } from "@mui/lab";
-import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import React from "react";
 import { useResourceMap } from "../../../contexts/ResourceMapContext";
 import ReservationService, { CreateReservationData } from "../../../services/ReservationService";
-import CancelIcon from '@mui/icons-material/Cancel';
-import SaveIcon from '@mui/icons-material/Save';
 import useNotification from "../../../contexts/NotificationContext/useNotification";
+import FormGridContainer from "../FormGridContainer";
+
 
 
 interface CreateReservationFormProps {
     roomId?: number
     onCancel: () => void
 }
+
 
 export default function CreateReservationForm(props: CreateReservationFormProps) {
     const notify = useNotification();
@@ -41,9 +39,7 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
     }, []);
 
 
-    const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
+    const handleSubmit = React.useCallback(async () => {
         try {
             await ReservationService.createOne(data);
             notify("Rezerwacja utworzona prawidłowo!", 'success');
@@ -55,23 +51,23 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
 
 
     return (
-        <Grid container component="form" spacing={2} onSubmit={handleSubmit}>
-            <Grid item xs={12}>
-                <Typography variant='h4' pb={1}>
-                    Tworzenie rezerwacji
-                </Typography>
-                <Typography variant="body2" color='text.secondary' pb={2}>
-                    Stwórz rezerwację w wybranym przez siebie pokoju. Aby zobaczyć zmiany, przeładu
-                </Typography>
-            </Grid>
+        <FormGridContainer
+            title='Tworzenie rezerwacji'
+            subtitle="Stwórz rezerwację w wybranym przez siebie pokoju. Aby zobaczyć zmiany, przeładu."
+            onSubmit={handleSubmit}
+            onCancel={props.onCancel}
+        >
             <Grid item xs={12}>
                 <TextField
+                    title="Tytuł rezerwacji"
+                    inputProps={{ pattern: '\w+', title: "Tytuł rezerwacji" }}
+                    autoFocus
                     required
                     fullWidth
-                    id="outlined-multiline-flexible"
-                    label="Tytuł"
-                    multiline
+                    // multiline
                     maxRows={4}
+                    label="Tytuł"
+                    id="outlined-multiline-flexible"
                     name='title'
                     value={data.title}
                     onChange={handleChange}
@@ -81,10 +77,10 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
                 <TextField
                     required
                     fullWidth
-                    id="outlined-multiline-flexible"
-                    label="Opis"
                     multiline
                     maxRows={20}
+                    label="Opis"
+                    id="outlined-multiline-flexible"
                     name='description'
                     value={data.description}
                     onChange={handleChange}
@@ -125,12 +121,6 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12}>
-                <Stack direction="row" justifyContent="space-around" mt={1.5}>
-                    <Button startIcon={<CancelIcon />} onClick={props.onCancel}>Zamknij</Button>
-                    <Button startIcon={<SaveIcon />} type="submit" color="success">Zatwierdź</Button>
-                </Stack>
-            </Grid>
-        </Grid>
+        </FormGridContainer>
     );
 }
