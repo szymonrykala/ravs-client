@@ -3,26 +3,23 @@ import useSession from "../../auth/useSession";
 import AddressMap from "../../models/AddressMap";
 import AddressService from "../../services/AddressService";
 import useNotification from "../NotificationContext/useNotification";
-import { ResourceMapContextValue } from "./ResourceMapOCntextValue";
+import ResourceMapContextValue from "./ResourceMapContextValue";
 
 
 
 
-export const resourceMapContext = React.createContext<ResourceMapContextValue>({
-    resourceMap: [],
-    reloadMap: () => { },
-    getRoomLink: (roomId: number) => '',
-    getBuildingLink: (bildingId: number) => '',
-    allRooms: []
-});
+export const resourceMapContext: any = React.createContext(null);
 
 
 interface ResourceMapContextProviderProps {
     children?: React.ReactNode[]
 }
 
+
 export default function ResourceMapContextProvider(props: ResourceMapContextProviderProps) {
     const [resourceMap, setResources] = React.useState<AddressMap[]>([]);
+    const [loaded, setLoaded] = React.useState<boolean>(false);
+
     const { user } = useSession();
     const notify = useNotification();
 
@@ -41,6 +38,7 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
 
     React.useEffect(() => {
         user && loadResourceMap();
+        setLoaded(true);
     }, [user, loadResourceMap]);
 
 
@@ -51,8 +49,19 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
             ?.href ?? '';
     }, [resourceMap]);
 
+
     const allRooms = React.useMemo(() => {
         return resourceMap.map(addr => addr.buildings.map(bld => bld.rooms)).flat(2)
+    }, [resourceMap]);
+
+
+    const allBuildings = React.useMemo(() => {
+        return resourceMap.map(addr => addr.buildings.map(({ name, href, id }) => ({ name, href, id }))).flat(2);
+    }, [resourceMap]);
+
+
+    const allAddresses = React.useMemo(() => {
+        return resourceMap.map(({ name, href, id }) => ({ name, href, id }));
     }, [resourceMap]);
 
 
@@ -64,8 +73,18 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
     }, [resourceMap]);
 
 
+    if (loaded === false) return null;
+
     return (
-        <resourceMapContext.Provider value={{ resourceMap, reloadMap, allRooms, getRoomLink, getBuildingLink }}>
+        <resourceMapContext.Provider value={{
+            resourceMap,
+            reloadMap,
+            allRooms,
+            getRoomLink,
+            getBuildingLink,
+            allAddresses,
+            allBuildings,
+        } as ResourceMapContextValue}>
             {props.children}
         </resourceMapContext.Provider>
     );
