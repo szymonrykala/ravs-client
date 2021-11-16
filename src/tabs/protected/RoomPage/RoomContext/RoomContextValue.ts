@@ -6,7 +6,7 @@ import { RoomUpdateParams } from "../../../../services/RoomService";
 
 export default interface RoomContextValue {
     room: DetailedRoom,
-    updateRoom: (body: RoomUpdateParams) => void,
+    updateRoom: (body: RoomUpdateParams) => Promise<boolean>,
     deleteRoom: () => Promise<void>,
     getLogs: (queryParms: LogsQueryParams) => Promise<APIResponse | undefined>,
     uploadImage: (image: Blob) => Promise<void>,

@@ -19,7 +19,7 @@ export const RoomContext: any = createContext(null);
 export default function RoomContextProvider({
     children
 }: RoomContextProviderProps) {
-    const { getBuildingLink } = useResourceMap();
+    const { getBuildingLink, reloadMap } = useResourceMap();
     const notify = useNotification();
     const urlParams = useParams<RoomViewParams>();
     const [room, setRoom] = React.useState<DetailedRoom>();
@@ -59,27 +59,41 @@ export default function RoomContextProvider({
 
 
     const updateRoom = React.useCallback(async (body: RoomUpdateParams) => {
+        if (!room) return false;
+
         try {
             await RoomService.update(body);
             setRoom(old => {
                 if (old)
                     return { ...old, ...body };
             });
-            notify("Sala zaktualizowana!", 'success');
+            notify("Sala została zaktualizowana", 'success');
+
+            if (('name' in body && body.name !== room.name)
+                || ('buildingId' in body && body.buildingId !== room?.building.id)
+            ) {
+                reloadMap();
+            }
+            return true;
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [notify]);
+        return false;
+    }, [notify, reloadMap, room]);
 
 
     const deleteRoom = React.useCallback(async () => {
+        if (!room) return;
+
         try {
             await RoomService.remove();
-            room && notify("Sala usunięta", 'success', () => <Redirect to={getBuildingLink(room.building.id)} />);
+            reloadMap();
+            notify("Sala została usunięta", 'success', () => <Redirect to={getBuildingLink(room.building.id)} />);
+
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [notify, room]);
+    }, [notify, room, reloadMap]);
 
 
     const uploadImage = React.useCallback(async (image: Blob) => {
@@ -95,7 +109,7 @@ export default function RoomContextProvider({
                         }
                     };
             });
-            notify("Pomyślnie zmieniono obraz!", 'success');
+            notify("Obraz został zmieniony", 'success');
             return resp;
         } catch (err: any) {
             notify(err.description, 'error');
@@ -116,7 +130,7 @@ export default function RoomContextProvider({
                     return { ...old, RFIDTag: key };
             });
 
-            notify("Przypisano tag RFID", 'success');
+            notify("Tag został przypisany", 'success');
             return true;
         } catch (err: any) {
             notify(err.description, 'error');
@@ -132,7 +146,7 @@ export default function RoomContextProvider({
                 if (old)
                     return { ...old, RFIDTag: null };
             });
-            notify("Usunięto tag RFID", "success");
+            notify("Tag został usunięty", "success");
         } catch (err: any) {
             notify(err.description, 'error');
         }

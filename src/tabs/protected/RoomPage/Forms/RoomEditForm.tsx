@@ -1,46 +1,29 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material';
+import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack } from '@mui/material';
 import { RoomUpdateParams } from '../../../../services/RoomService';
-import CancelIcon from '@mui/icons-material/Cancel';
-import SaveIcon from '@mui/icons-material/Save';
-import Room, { DetailedRoom, RoomType, RoomTypes } from '../../../../models/Room';
+import { RoomType, RoomTypes } from '../../../../models/Room';
 import { useRoomContext } from '../RoomContext';
 import ImageUploadField from '../../../../shared/components/ImageUploadField';
 import { useResourceMap } from '../../../../contexts/ResourceMapContext';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import GenericModal from '../../../../shared/components/GenericModal';
+import FormGridContainer from '../../../../shared/components/FormGridContainer';
+
 
 
 interface RoomEditFormProps {
-    onCancel: () => void
-}
-
-function getBuildingId(room: Room | DetailedRoom): number {
-    return (typeof room.building === 'number') ? room.building : room.building.id;
+    open: boolean,
+    onClose: () => void
 }
 
 
-export default function RoomEditForm({
-    onCancel
-}: RoomEditFormProps) {
+export default function RoomEditForm(props: RoomEditFormProps) {
     const { room, updateRoom, uploadImage, deleteImage } = useRoomContext();
-    const { resourceMap, reloadMap } = useResourceMap();
+    const { allBuildings } = useResourceMap();
 
-    const [data, setData] = React.useState<RoomUpdateParams>({
-        name: room.name,
-        roomType: room.roomType,
-        seatsCount: room.seatsCount,
-        floor: room.floor,
-        buildingId: getBuildingId(room),
-        blocked: room.blocked,
-    });
-
-
-    const buildings: { name: string, id: number }[] = React.useMemo(() => {
-        return resourceMap.map(address => address.buildings).flat(2).map(({ id, name }) => ({ name, id }));
-    }, [resourceMap]);
+    const [data, setData] = React.useState<RoomUpdateParams>({});
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,7 +43,7 @@ export default function RoomEditForm({
 
         setData((old: RoomUpdateParams) => ({
             ...old,
-            [event.currentTarget.name]: value
+            [event.target.name]: value
         }));
     }, []);
 
@@ -76,116 +59,120 @@ export default function RoomEditForm({
     }, []);
 
 
-    const handleSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        updateRoom(data);
-
-        if (getBuildingId(room) !== data.buildingId) {
-            reloadMap();
+    const handleSubmit = React.useCallback(async () => {
+        if (await updateRoom(data)) {
+            props.onClose();
         }
-    }, [room, data, updateRoom, reloadMap]);
+    }, [data, updateRoom, props.onClose]);
 
 
     return (
-        data && <>
+        <GenericModal
+            open={props.open}
+            onClose={props.onClose}
+            ariaLabel="usuwanie obiektu"
+            ariaDescription="Okno modalne do usuwania obiektu po kliknięciu zatwierdź"
+            sx={{
+                maxWidth: "450px",
+            }}
+        >
             <Stack spacing={2}>
                 <ImageUploadField image={room.image}
                     onUpload={uploadImage}
                     onDelete={deleteImage}
                 />
                 <Divider />
-                <span>
-                    <Typography variant="subtitle1" >
-                        Dane Sali:
-                    </Typography>
-                    <Grid container spacing={1} component="form" onSubmit={handleSubmit} >
-                        <Grid item xs={12}>
-                            <TextField
-                                margin="dense"
-                                required
-                                fullWidth
-                                id="name"
-                                label="Nazwa"
-                                name="name"
-                                autoFocus
-                                value={data.name}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="room-type">Typ Sali</InputLabel>
-                                <Select
-                                    labelId="room-type"
-                                    id="roomType"
-                                    value={data.roomType}
-                                    name="roomType"
-                                    label="Typ Sali"
-                                    onChange={handleSelectChange}
-                                >
-                                    {Object.values(RoomTypes).map(val => <MenuItem key={val} value={val}>{val}</MenuItem>)}
 
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={6} >
-                            <TextField
-                                margin="dense"
-                                required
-                                name="seatsCount"
-                                label="Ilość miejsc"
-                                type="number"
-                                id="seatsCount"
-                                value={data.seatsCount}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={6}>
-                            <TextField
-                                margin="dense"
-                                required
-                                name="floor"
-                                label="Piętro"
-                                type="number"
-                                id="floor"
-                                value={data.floor}
-                                onChange={handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <InputLabel id="wybierz-budynek">Budynek</InputLabel>
-                                <Select
-                                    labelId="wybierz-budynek"
-                                    name="buildingId"
-                                    value={data.buildingId}
-                                    label="Budynek"
-                                    onChange={handleSelectChange}
-                                >
-                                    {buildings.map(({ name, id }) => <MenuItem key={name} value={id} >Budynek &nbsp;{name} </MenuItem>)}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                labelPlacement="start"
-                                control={<Switch id="room-blocked" name="blocked"
-                                    inputProps={{ 'aria-label': 'controlled' }}
-                                    onChange={handleChange}
-                                    checked={!data.blocked}
-                                />}
-                                label="Dostępność Sali"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Stack direction="row" justifyContent="space-around" mt={1.5}>
-                                <Button startIcon={<CancelIcon />} onClick={onCancel}>Zamknij</Button>
-                                <Button startIcon={<SaveIcon />} type="submit" color="success">Zapisz</Button>
-                            </Stack>
-                        </Grid>
+                <FormGridContainer
+                    title='Edycja sali'
+                    subtitle="Zmień właściwości pokoju i zatwierdź zmiany."
+                    onSubmit={handleSubmit}
+                    onCancel={props.onClose}
+                >
+
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            id="name"
+                            label="Nazwa"
+                            name="name"
+                            autoFocus
+                            value={data.name ?? room.name}
+                            onChange={handleChange}
+                        />
                     </Grid>
-                </span>
+
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="room-type">Typ Sali</InputLabel>
+                            <Select
+                                labelId="room-type"
+                                id="roomType"
+                                value={data.roomType ?? room.roomType}
+                                name="roomType"
+                                label="Typ Sali"
+                                onChange={handleSelectChange}
+                            >
+                                {Object.values(RoomTypes).map(val => <MenuItem key={val} value={val}>{val}</MenuItem>)}
+
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={6} >
+                        <TextField
+                            required
+                            name="seatsCount"
+                            label="Ilość miejsc"
+                            type="number"
+                            id="seatsCount"
+                            value={data.seatsCount ?? room.seatsCount}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <TextField
+                            required
+                            name="floor"
+                            label="Piętro"
+                            type="number"
+                            id="floor"
+                            value={data.floor ?? room.floor}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="wybierz-budynek">Budynek</InputLabel>
+                            <Select
+                                labelId="wybierz-budynek"
+                                name="buildingId"
+                                value={data.buildingId ?? room.building.id}
+                                label="Budynek"
+                                onChange={handleSelectChange}
+                            >
+                                {allBuildings.map(({ name, id }) => <MenuItem key={name} value={id} >Budynek &nbsp;{name} </MenuItem>)}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <FormControlLabel
+                            labelPlacement="start"
+                            control={<Switch id="room-blocked" name="blocked"
+                                inputProps={{ 'aria-label': 'controlled' }}
+                                onChange={handleChange}
+                                checked={!(data.blocked ?? room.blocked)}
+                            />}
+                            label="Dostępność Sali"
+                        />
+                    </Grid>
+
+                </FormGridContainer>
             </Stack>
-        </>
+        </GenericModal>
     );
 }
