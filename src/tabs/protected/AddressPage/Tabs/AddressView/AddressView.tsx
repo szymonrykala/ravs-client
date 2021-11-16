@@ -9,8 +9,8 @@ import { displayDate } from "../../../../../shared/utils";
 import { useAddress } from "../../AddressContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
 import ScrollableBuildingsList from "./ScrollableBuildingsList";
+import { AddressEditForm } from "../../Forms";
 
 
 
@@ -28,6 +28,11 @@ export default function AddressView() {
                 open={deleteModalOpen}
                 onClose={() => setDeleteModalOpen(false)}
                 onSuccess={deleteAddress}
+            />
+
+            <AddressEditForm
+                open={editModalOpen}
+                onClose={() => setEditModalOpen(false)}
             />
 
             <Stack spacing={4}>
@@ -57,14 +62,6 @@ export default function AddressView() {
                         onClick={() => setEditModalOpen(true)}
                     >
                         Edycja
-                    </Button>
-
-                    <Button
-                        color='success'
-                        startIcon={<AddIcon />}
-                        onClick={() => setEditModalOpen(true)}
-                    >
-                        Dodaj budynek
                     </Button>
                 </Box>
 

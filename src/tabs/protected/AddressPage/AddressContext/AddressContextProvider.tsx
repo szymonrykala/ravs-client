@@ -3,10 +3,11 @@ import { Redirect, useParams } from "react-router-dom";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import { LogsQueryParams } from "../../../../services/interfaces";
 import paths from "../../../../shared/path";
-import AddressService, { AddressViewParams } from "../../../../services/AddressService";
+import AddressService, { AddressViewParams, UpdateAddressParams } from "../../../../services/AddressService";
 import AddressContextValue from "./AddressContextValue";
 import Address from "../../../../models/Address";
 import Building from "../../../../models/Building";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 
 
 
@@ -20,6 +21,8 @@ export const addressContext: any = React.createContext(null);
 
 export default function AddressContextProvider(props: AddressContextProviderProps) {
     const notify = useNotification();
+    const { reloadMap } = useResourceMap();
+
     const urlParams = useParams<AddressViewParams>();
 
     const [address, setAddress] = React.useState<Address>();
@@ -65,9 +68,34 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     }, [urlParams.addressId]);
 
 
+    const updateAddress = React.useCallback(async (data: UpdateAddressParams) => {
+        try {
+            await AddressService.update(data)
+
+            setAddress(old => {
+                return {
+                    ...old,
+                    ...data as Address
+                }
+            });
+
+            reloadMap()
+
+            notify('Adres zaktualizowany', 'success');
+            return true;
+
+        } catch (err: any) {
+            notify(err.description, 'error');
+        }
+        return false;
+    }, [notify])
+
+
+
     const deleteAddress = React.useCallback(async () => {
         try {
             await AddressService.remove();
+            reloadMap();
             notify("Adres został usunięty", 'success', () => <Redirect to={paths.HOME} />);
         } catch (err: any) {
             address &&
@@ -84,7 +112,8 @@ export default function AddressContextProvider(props: AddressContextProviderProp
             getLogs,
             getChartsData,
             deleteAddress,
-            getBuildingsInAddress
+            getBuildingsInAddress,
+            updateAddress
         } as AddressContextValue}>
 
             {props.children}

@@ -1,13 +1,23 @@
-import { Typography } from "@mui/material";
 import React from "react";
+import { useParams } from "react-router-dom";
+import useNotification from "../../../../../contexts/NotificationContext/useNotification";
+import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import Building from "../../../../../models/Building";
+import { AddressViewParams } from "../../../../../services/AddressService";
+import BuildingService, { BuildingCreateParams } from "../../../../../services/BuildingService";
 import ScrollableHorizaontalList, { BuildingListItem } from "../../../../../shared/components/ScrolableHorizaontalList";
 import { useAddress } from "../../AddressContext";
+import { CreateBuildingForm } from "../../Forms";
 
 
 export default function ScrollableBuildingsList() {
     const { getBuildingsInAddress } = useAddress();
+    const { reloadMap } = useResourceMap();
+    const notify = useNotification();
 
+    const urlParams = useParams() as AddressViewParams;
+
+    const [createBuildingModalOpen, setCreateBuildingModalOpen] = React.useState<boolean>(false);
     const [buildings, setBuildings] = React.useState<Building[]>();
 
 
@@ -22,16 +32,40 @@ export default function ScrollableBuildingsList() {
     }, [load]);
 
 
+    const createBuilding = React.useCallback(async (data: BuildingCreateParams) => {
+        try {
+            await BuildingService.create(urlParams, data);
+            load();
+            reloadMap();
+            notify('Nowa sala utworzona!', 'success');
+            return true;
+        } catch (err: any) {
+            notify(err.description, 'error');
+        }
+        return false;
+    }, [notify, reloadMap, load]);
+
+
+    const renderedBuildings = React.useMemo(() => {
+        return buildings?.map(item => <BuildingListItem key={item.id} building={item} />)
+    }, [buildings]);
+
+
     return (
-        <ScrollableHorizaontalList
-            title="Lista budynków:"
-        >
-            {buildings?.length === 0 && <Typography>
-                Brak budynków w tej lokalizacji
-            </Typography>}
+        <>
+            <CreateBuildingForm
+                addressId={Number(urlParams.addressId)}
+                open={createBuildingModalOpen}
+                onClose={() => setCreateBuildingModalOpen(false)}
+                handleCreateBuilding={createBuilding}
+            />
 
-            {buildings?.map(item => <BuildingListItem key={item.id} building={item} />)}
-
-        </ScrollableHorizaontalList>
+            <ScrollableHorizaontalList
+                title="Lista budynków:"
+                onAddItem={() => setCreateBuildingModalOpen(true)}
+            >
+                {renderedBuildings}
+            </ScrollableHorizaontalList>
+        </>
     );
 }

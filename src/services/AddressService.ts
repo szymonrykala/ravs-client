@@ -7,6 +7,25 @@ export interface AddressViewParams {
 }
 
 
+export interface UpdateAddressParams {
+    [index: string]: string | undefined,
+    country?: string,
+    town?: string,
+    postalCode?: string,
+    street?: string,
+    number?: string
+}
+
+
+export interface CreateAddressParams {
+    country: string,
+    town: string,
+    postalCode: string,
+    street?: string,
+    number?: string,
+}
+
+
 class AddressService extends Service {
     _path = '';
 
@@ -24,6 +43,14 @@ class AddressService extends Service {
 
     public remove() {
         return this.delete(this.path);
+    }
+
+    public update(data: UpdateAddressParams) {
+        return this.patch(this.path, data);
+    }
+
+    public create(data: CreateAddressParams) {
+        return this.post('/addresses', data);
     }
 
     public getBuildings() {
