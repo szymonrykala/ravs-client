@@ -10,3 +10,8 @@ export function displayDate(dateString: string): string {
 
     return format.format(date);
 }
+
+
+export const timeFormat = new Intl.DateTimeFormat('pl-PL', {
+    timeStyle: "medium"
+});
