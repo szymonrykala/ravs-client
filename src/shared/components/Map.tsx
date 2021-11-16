@@ -32,7 +32,7 @@ export default function Map({ address }: MapProps) {
         base.search = params.toString();
 
         return base.toString();
-    }, []);
+    }, [address]);
 
     return (
         <Box>
