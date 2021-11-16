@@ -5,6 +5,7 @@ import DrawerPanel from "./DrawerPanel";
 import AvatarView from './AvatarView';
 import useSession from "../../../../auth/useSession";
 import ResourcesList from "./ResourcesList";
+import CreateAddressButton from "./CreateAddressButton";
 
 
 interface AppDrawerProps {
@@ -44,6 +45,7 @@ export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
                 <ResourcesList />
 
             </DrawerPanel>
+            <CreateAddressButton />
         </Drawer>
     );
 }
