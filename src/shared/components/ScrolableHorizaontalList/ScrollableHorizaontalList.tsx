@@ -1,11 +1,12 @@
 import { List, Typography } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import Box from "@mui/system/Box";
 import React from "react";
+import { AddItemButton } from ".";
 
 
 interface ScrollableHorizaontalListProps {
-    children: React.ReactNode[],
+    onAddItem: () => void,
+    children: React.ReactNode[] | React.ReactNode,
     title: string
 }
 
@@ -28,6 +29,9 @@ export default function ScrollableHorizaontalList(props: ScrollableHorizaontalLi
                 minHeight: '160px',
             }}>
                 {props.children}
+                <AddItemButton
+                    onClick={props.onAddItem}
+                />
             </List>
         </Box>
     )
