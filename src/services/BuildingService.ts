@@ -1,12 +1,28 @@
 import { DatesQueryParams, LogsQueryParams } from "./interfaces";
 import Service from "./Service";
 import Image from "../models/Image";
+import { AddressViewParams } from "./AddressService";
 
 
 
 export interface BuildingViewParams {
     addressId: string,
     buildingId: string,
+}
+
+
+export interface BuildingUpdateParams {
+    [index: string]: string | number | undefined,
+    name?: string,
+    closeTime?: string,
+    openTime?: string,
+    addressId?: number
+}
+
+export interface BuildingCreateParams {
+    name: string,
+    closeTime: string,
+    openTime: string,
 }
 
 
@@ -27,6 +43,14 @@ class BuildingService extends Service {
 
     public remove() {
         return this.delete(this.path);
+    }
+
+    public update(data: BuildingUpdateParams) {
+        return this.patch(this.path, data);
+    }
+
+    public create({ addressId }: AddressViewParams, data: BuildingCreateParams) {
+        return this.post(`/addresses/${addressId}/buildings`, data)
     }
 
     public getChartsData(query: DatesQueryParams) {

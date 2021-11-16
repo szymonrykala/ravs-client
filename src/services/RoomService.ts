@@ -1,5 +1,6 @@
 import Image from "../models/Image";
 import { RoomType } from "../models/Room";
+import { BuildingViewParams } from "./BuildingService";
 import { DatesQueryParams, LogsQueryParams } from "./interfaces";
 import Service from "./Service";
 
@@ -12,13 +13,22 @@ export interface RoomViewParams {
 
 
 export interface RoomUpdateParams {
+    name?: string,
+    roomType?: RoomType,
+    seatsCount?: number,
+    floor?: number,
+    buildingId?: number,
+    blocked?: boolean,
+}
+
+
+export interface CreateRoomParams {
     name: string,
     roomType: RoomType,
     seatsCount: number,
-    floor: number,
-    buildingId: number,
-    blocked: boolean,
+    floor:number
 }
+
 
 
 class RoomService extends Service {
@@ -32,46 +42,50 @@ class RoomService extends Service {
         this._path = `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}`;
     }
 
-    public async getView() {
-        return await this.get(this.path);
+    public getView() {
+        return this.get(this.path);
     }
 
-    public async remove() {
-        return await this.delete(this.path);
+    public create({ addressId, buildingId }: BuildingViewParams, data: CreateRoomParams) {
+        return this.post(`/addresses/${addressId}/buildings/${buildingId}/rooms`, data);
     }
 
-    public async update(body: RoomUpdateParams) {
-        return await this.patch(this.path, body);
+    public remove() {
+        return this.delete(this.path);
     }
 
-    public async getChartsData(query: DatesQueryParams) {
-        return await this.get(`${this.path}/stats`, query);
+    public update(body: RoomUpdateParams) {
+        return this.patch(this.path, body);
     }
 
-    public async getLogs(queryParams?: LogsQueryParams) {
-        return await this.get(`${this.path}/requests`, queryParams);
+    public getChartsData(query: DatesQueryParams) {
+        return this.get(`${this.path}/stats`, query);
     }
 
-    public async updateRFID(key: string) {
+    public getLogs(queryParams?: LogsQueryParams) {
+        return this.get(`${this.path}/requests`, queryParams);
+    }
+
+    public updateRFID(key: string) {
         return this.patch(`${this.path}/keys`, {
             "RFIDTag": key
         });
     }
 
-    public deleteRFIDTag(){
+    public deleteRFIDTag() {
         return this.delete(`${this.path}/keys`);
     }
 
-    public async uploadImage(image: Blob) {
+    public uploadImage(image: Blob) {
         const formData = new FormData();
         formData.append(
             'file',
             image
         );
-        return await this.sendImage(`${this.path}/images`, formData);
+        return this.sendImage(`${this.path}/images`, formData);
     }
 
-    async removeImage(image: Image) {
+    public removeImage(image: Image) {
         return this.delete(`${this.path}/images/${image.id}`);
     }
 }
@@ -92,19 +106,19 @@ class RoomService extends Service {
 
 
 //     const methods = {
-//         getView: async () => roomService.getView(urlParams),
-//         remove: async () => {
+//         getView: () => roomService.getView(urlParams),
+//         remove: () => {
 //             try {
-//                 const resp = await roomService.remove(urlParams)
+//                 const resp = roomService.remove(urlParams)
 //                 notify("Sala usunięta", 'success');
 //                 return resp;
 //             } catch (err: any) {
 //                 notify(err.description, 'error');
 //             }
 //         },
-//         update: async (body: RoomUpdateParams) => {
+//         update: (body: RoomUpdateParams) => {
 //             try {
-//                 const resp = await roomService.update(urlParams, body)
+//                 const resp = roomService.update(urlParams, body)
 //                 notify("Sala zaktualizowana", 'success');
 //                 return resp;
 //             } catch (err: any) {
@@ -112,11 +126,11 @@ class RoomService extends Service {
 //             }
 //         },
 
-//         async getChartsData(
+//         getChartsData(
 //             { addressId, buildingId, roomId }: RoomViewParams,
 //             query: DatesQueryParams
 //         ) {
-//             return await this.get(
+//             return this.get(
 //                 `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}/stats`,
 //                 query
 //             );
