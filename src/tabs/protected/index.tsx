@@ -4,6 +4,7 @@ import AddressPage from "./AddressPage";
 import BuildingPage from "./BuildingPage";
 import GenericPage from "./GenericPage";
 import RoomPage from "./RoomPage";
+import SettingsPage from "./SettingsPage";
 
 
 
@@ -15,9 +16,8 @@ export default function ProtectedPages() {
             <Route path={paths.BUILDING} component={BuildingPage} />
             <Route path={paths.ADDRESS} component={AddressPage} />
 
-            <Route path={paths.SETTINGS}>
-                settings
-            </Route>
+            <Route path={paths.SETTINGS} component={SettingsPage} />
+
             <Route path={paths.INFRASTRUCTURE}>
                 Zasoby
             </Route>
@@ -25,7 +25,8 @@ export default function ProtectedPages() {
                 profil
             </Route>
             <Route path={paths.HOME}>
-                <GenericPage label="strona główna" />
+                {/* <GenericPage label="strona główna" /> */}
+                pzdroror
             </Route>
             <Route path={paths.HOME + '/*'}>
                 <Redirect to={paths.HOME} />
