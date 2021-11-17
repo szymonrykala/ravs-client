@@ -8,20 +8,9 @@ import Panel from './Panel';
 
 
 interface GenericPageProps {
-	label: string,
+	pages: { name: string, component: React.ReactNode }[],
 	view?: React.ReactNode | null,
-	edit?: React.ReactNode | null,
-	reservations?: React.ReactNode | null,
-	stats?: React.ReactNode | null,
-	logs?: React.ReactNode | null,
 }
-
-
-interface TabPanelListItem {
-	name: string,
-	component: React.ReactNode
-}
-
 
 function a11yProps(index: number) {
 	return {
@@ -37,22 +26,7 @@ export default function GenericPage(props: GenericPageProps) {
 	const [tabIndex, setTabIndex] = React.useState(0);
 
 
-	const tabPanels = React.useMemo(() => {
-		console.info("GenericPage: ponowne rozliczanie dostępu do komponentów");
-
-		const panels: TabPanelListItem[] = [
-			// {name:"widok" ,component: props.view}m
-			{ name: 'rezerwacje', component: props.reservations },
-			{ name: 'statystyki', component: props.stats },
-			{ name: 'logi', component: props.logs },
-		].filter(({ component }) => Boolean(component));
-
-		return panels;
-	}, [props.reservations, props.logs, props.stats]);
-
-
-
-	const handleChange = React.useCallback((event: React.SyntheticEvent, newValue: number) => {
+	const handleTabChange = React.useCallback((event: React.SyntheticEvent, newValue: number) => {
 		setTabIndex(newValue);
 	}, []);
 
@@ -61,22 +35,41 @@ export default function GenericPage(props: GenericPageProps) {
 		setTabIndex(index);
 	}, []);
 
+
+	const renderedTabs = React.useMemo(() => {
+		return props.pages.map((page, index) => <Tab key={index} label={page.name} {...a11yProps(index)} />)
+	}, [props.pages]);
+
+
+	const renderedTabPanels = React.useMemo(() => {
+		return props.pages.map((page, index) => <TabPanel
+			key={index}
+			hidden={tabIndex !== index}
+			dir={theme.direction}
+		>
+			{page.component}
+		</TabPanel>)
+	}, [props.pages, tabIndex]);
+
+
+	const renderedView = React.useMemo(() => {
+		return props.view ? <Panel>{props.view}</Panel> : null
+	}, [props.view]);
+
+
 	return (
 		<>
-			<Panel>
-				{props.view}
-			</Panel>
+			{renderedView}
 
 			<Tabs
 				value={tabIndex}
-				onChange={handleChange}
+				onChange={handleTabChange}
 				indicatorColor="primary"
 				variant="scrollable"
 				aria-label="Strona z budynkiem, pokojem, salą, adresem, logami, rezerwacjami i wykresami "
 				sx={{ borderBottom: 2, borderColor: 'divider' }}
 			>
-				{tabPanels.map((item, index) => <Tab key={index} label={item.name} {...a11yProps(index)} />)}
-
+				{renderedTabs}
 			</Tabs>
 
 			<SwipeableViews
@@ -84,15 +77,7 @@ export default function GenericPage(props: GenericPageProps) {
 				index={tabIndex}
 				onChangeIndex={handleChangeIndex}
 			>
-				{
-					tabPanels.map((item, index) => <TabPanel
-						key={index}
-						hidden={tabIndex !== index}
-						dir={theme.direction}
-					>
-						{item.component}
-					</TabPanel>)
-				}
+				{renderedTabPanels}
 			</SwipeableViews>
 		</>
 	);
