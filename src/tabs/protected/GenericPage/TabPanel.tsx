@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import Panel from "./Panel";
 
 
 interface TabPanelProps {
@@ -20,15 +21,11 @@ export default function TabPanel(props: TabPanelProps) {
             hidden={hidden}
             id={`full-width-tabpanel-${key}`}
             aria-labelledby={`full-width-tab-${key}`}
-            sx={{
-                bgcolor: "background.paper",
-                borderRadius: (theme) => theme.shape.borderRadius,
-                mt: 1.5,
-                p: '2vw'
-            }}
             {...other}
         >
-            {children}
+            <Panel>
+                {children}
+            </Panel>
         </Box>
         , [hidden, key, children, other]);
 
