@@ -44,6 +44,7 @@ export default function GenericPage(props: GenericPageProps) {
 	const renderedTabPanels = React.useMemo(() => {
 		return props.pages.map((page, index) => <TabPanel
 			key={index}
+			index={index}
 			hidden={tabIndex !== index}
 			dir={theme.direction}
 		>

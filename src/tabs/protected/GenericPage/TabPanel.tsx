@@ -7,27 +7,27 @@ interface TabPanelProps {
     children?: React.ReactNode;
     dir?: string;
     hidden: boolean,
-    key: number
+    index: number
 }
 
 
 export default function TabPanel(props: TabPanelProps) {
-    const { children, hidden, key, ...other } = props;
+    const { children, hidden, index, ...other } = props;
 
     // should component update
     const render = React.useMemo(() =>
         <Box
             role="tabpanel"
             hidden={hidden}
-            id={`full-width-tabpanel-${key}`}
-            aria-labelledby={`full-width-tab-${key}`}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
             <Panel>
                 {children}
             </Panel>
         </Box>
-        , [hidden, key, children, other]);
+        , [hidden, index, children, other]);
 
     return render;
 }
