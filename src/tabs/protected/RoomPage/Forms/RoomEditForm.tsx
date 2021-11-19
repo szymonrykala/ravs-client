@@ -70,8 +70,7 @@ export default function RoomEditForm(props: RoomEditFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="usuwanie obiektu"
-            ariaDescription="Okno modalne do usuwania obiektu po kliknięciu zatwierdź"
+            aria-label="Okno usuwania obiektu"
             sx={{
                 maxWidth: "450px",
             }}

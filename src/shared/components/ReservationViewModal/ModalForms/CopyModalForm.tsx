@@ -118,8 +118,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
         <GenericModal
             open={props.open}
             onClose={closeForm}
-            ariaLabel="Okno do kopiowania rezerwacji"
-            ariaDescription="Okno z formularzem służące do kopiowania rezerwacji"
+            aria-label="Okno do kopiowania rezerwacji"
         >
 
             <FormGridContainer

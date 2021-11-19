@@ -9,20 +9,16 @@ import { Paper } from '@mui/material';
 interface GenericModalProps {
   children: React.ReactNode | React.ReactNodeArray,
   open: boolean,
-  ariaLabel: string,
-  ariaDescription: string,
   sx?: SxProps,
   onClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function GenericModal({
-  children, open, ariaLabel, ariaDescription, sx, onClose
+  children, open, sx, onClose
 }: GenericModalProps) {
 
   return (
     <Modal
-      aria-labelledby={ariaLabel}
-      aria-describedby={ariaDescription}
       open={open}
       onClose={onClose}
       closeAfterTransition

@@ -12,8 +12,7 @@ export default function CreateReservationModal(props: CreateReservationModalProp
     return (
         <GenericModal
             open={props.open}
-            ariaLabel='Tworzenie rezerwacji'
-            ariaDescription='Okno do tworzenia rezerwacji'
+            aria-label='Okno do tworzenia rezerwacji'
             onClose={props.onClose}
         >
             <CreateReservationForm

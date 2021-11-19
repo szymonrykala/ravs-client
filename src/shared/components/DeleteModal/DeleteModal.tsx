@@ -9,7 +9,7 @@ import GenericModal from "../GenericModal";
 interface DeleteModalProps {
     open: boolean,
     onClose: () => void,
-    objectName: string
+    objectName: string,
     onSuccess: () => void
 }
 
@@ -26,15 +26,21 @@ export default function DeleteModal({
             return;
         }
         onSuccess();
+        setInput('');
     }, [objectName, input, onSuccess, notify]);
+
+
+    const close = React.useCallback(() => {
+        setInput('');
+        onClose();
+    }, [onClose]);
 
 
     return (
         <GenericModal
             open={open}
-            onClose={onClose}
-            ariaLabel="usuwanie obiektu"
-            ariaDescription="Okno modalne do usuwania obiektu po kliknięciu zatwierdź"
+            onClose={close}
+            aria-label="Okno do usuwania obiektu"
             sx={{
                 maxWidth: "400px",
             }}
@@ -57,8 +63,8 @@ export default function DeleteModal({
                     onChange={(evt) => setInput(evt.target.value)}
                 />
                 <Stack direction="row" justifyContent="space-around">
-                    <Button startIcon={<CancelIcon />} onClick={onClose}>Anuluj</Button>
-                    <Button startIcon={<DeleteIcon />} onClick={handleConfirm} color="error">Zatwierdź</Button>
+                    <Button startIcon={<CancelIcon />} onClick={close}>Anuluj</Button>
+                    <Button startIcon={<DeleteIcon color="inherit" />} onClick={handleConfirm} color="error">Zatwierdź</Button>
                 </Stack>
             </Stack>
         </GenericModal>

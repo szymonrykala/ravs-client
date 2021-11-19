@@ -52,8 +52,7 @@ export default function EditModalForm(props: EditModalFormProps) {
         <GenericModal
             open={props.open}
             onClose={closeForm}
-            ariaLabel="Okno do edycji rezerwacji"
-            ariaDescription="Okno z formularzem służące do edycji rezerwacji"
+            aria-label="Okno do edycji rezerwacji"
         >
             <FormGridContainer
                 title='Edycja rezerwacji'

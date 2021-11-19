@@ -60,8 +60,7 @@ export default function CreateBuildingForm(props: CreateBuildingFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Edycja budynku"
-            ariaDescription="Okno modalne do edycji budynku"
+            aria-label="Okno do tworzenia budynku"
         >
             <FormGridContainer
                 title='Dodaj nowy budynek!'

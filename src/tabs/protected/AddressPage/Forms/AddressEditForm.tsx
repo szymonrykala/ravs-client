@@ -46,8 +46,7 @@ export default function AddressEditForm(props: AddressEditFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Edycja budynku"
-            ariaDescription="Okno modalne do edycji budynku"
+            aria-label="Okno do edycji budynku"
         >
             <FormGridContainer
                 title='Edycja adresu'

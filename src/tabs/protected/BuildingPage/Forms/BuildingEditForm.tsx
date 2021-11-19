@@ -96,8 +96,7 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Edycja budynku"
-            ariaDescription="Okno modalne do edycji budynku"
+            aria-label="Okno edycji budynku"
         >
             <Stack spacing={3}>
 

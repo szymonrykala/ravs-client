@@ -15,8 +15,7 @@ export default function RfidModalRorm(props: RfidModalRormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Przypisanie tagu RFID"
-            ariaDescription="Okno modalne do przypisywania tagu RFID dla sali"
+            aria-label="Okno przypisania tagu RFID"
             sx={{
                 maxWidth: "400px"
             }}

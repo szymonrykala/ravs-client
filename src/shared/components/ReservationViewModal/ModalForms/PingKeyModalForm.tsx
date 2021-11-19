@@ -23,8 +23,7 @@ export default function PingKeyModalForm(props: PingKeyModalFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Okno do edycji rezerwacji"
-            ariaDescription="Okno z formularzem służące do edycji rezerwacji"
+            aria-label="Okno do edycji rezerwacji"
             sx={{ maxWidth: '400px' }}
         >
             <RfidForm

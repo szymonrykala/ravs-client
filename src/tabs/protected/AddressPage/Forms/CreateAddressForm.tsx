@@ -51,8 +51,7 @@ export default function CreateAddressForm(props: CreateAddressFormProps) {
         <GenericModal
             open={props.open}
             onClose={props.onClose}
-            ariaLabel="Tworzenie adresu"
-            ariaDescription="Okno modalne do tworzenia nowych adresów"
+            aria-label="Okno do tworzenia adresu"
         >
             <FormGridContainer
                 title='Dodaj nowy adres!'

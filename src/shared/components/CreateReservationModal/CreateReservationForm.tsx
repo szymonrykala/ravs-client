@@ -60,7 +60,7 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
             <Grid item xs={12}>
                 <TextField
                     title="Tytuł rezerwacji"
-                    inputProps={{ pattern: '\w+', title: "Tytuł rezerwacji" }}
+                    inputProps={{ title: "Tytuł rezerwacji" }}
                     autoFocus
                     required
                     fullWidth

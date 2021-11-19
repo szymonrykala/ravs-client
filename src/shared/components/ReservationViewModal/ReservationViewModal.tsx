@@ -71,8 +71,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
             <GenericModal
                 open={props.open}
                 onClose={props.onClose}
-                ariaLabel="Widok Rezerwacji"
-                ariaDescription="Okno modalne z kartą widoku rezerwacji"
+                aria-label="Widok Rezerwacji"
                 sx={{
                     maxWidth: '1000px',
                     width: '95%',
