@@ -15,7 +15,8 @@ interface AppPathsInterface {
     ADDRESS: string,
     BUILDING: string,
     ROOM: string,
-    USERS: string
+    USERS: string,
+    ACCESS: string,
 };
 
 
@@ -41,6 +42,7 @@ paths.REGISTER = paths.PUBLIC + '/register';
 paths.ACTIVATE = paths.PUBLIC + '/activate';
 paths.REMIND_PASSWORD = paths.PUBLIC + '/passwd';
 
+paths.ACCESS = paths.HOME + '/accesses'
 paths.SETTINGS = paths.HOME + '/settings';
 paths.MY_PROFILE = paths.HOME + '/me';
 

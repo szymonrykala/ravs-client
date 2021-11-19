@@ -2,6 +2,8 @@ import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import PeopleIcon from '@mui/icons-material/People';
 
 import React from "react";
 import Access from "../../../../models/Access";
@@ -21,32 +23,47 @@ const navListItems: NavListItem[] = [
   {
     label: "Panel Główny",
     href: paths.HOME,
-    icon: <HomeIcon color="primary" />
+    icon: <HomeIcon />
   }, {
     label: "Moje Konto",
     href: paths.MY_PROFILE,
-    icon: <AccountIcon color="primary" />
+    icon: <AccountIcon />
   }
-]
+];
+
 
 const settingsItem: NavListItem = {
   label: 'Ustawienia Platformy',
   href: paths.SETTINGS,
-  icon: <SettingsIcon color="primary" />
+  icon: <SettingsIcon />
+};
+
+
+const accessLinkItem: NavListItem = {
+  label: 'Klasy dostępu',
+  href: paths.ACCESS,
+  icon: <VerifiedUserIcon />
+};
+
+
+const usersLinkItem: NavListItem = {
+  label: 'Użytkownicy',
+  href: paths.USERS,
+  icon: <PeopleIcon />
 };
 
 
 export default function MainDrawerList(props: { access?: Access }) {
 
   const result = React.useMemo(() => {
-    if (
-      props.access?.owner
-      && navListItems.filter(({ href }) => href === settingsItem.href).length === 0
-    ) {
-      navListItems.push(settingsItem);
-    }
-    return navListItems;
-  }, [props])
+    let list = Object.assign([], navListItems);
+
+    list.push(usersLinkItem);
+    list.push(accessLinkItem);
+    list.push(settingsItem);
+
+    return list;
+  }, [props.access]);
 
 
   return (

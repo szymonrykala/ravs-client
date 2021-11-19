@@ -1,8 +1,8 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import paths from "../../shared/path";
+import AccessPage from "./AccessPage";
 import AddressPage from "./AddressPage";
 import BuildingPage from "./BuildingPage";
-import GenericPage from "./GenericPage";
 import RoomPage from "./RoomPage";
 import SettingsPage from "./SettingsPage";
 
@@ -17,6 +17,7 @@ export default function ProtectedPages() {
             <Route path={paths.ADDRESS} component={AddressPage} />
 
             <Route path={paths.SETTINGS} component={SettingsPage} />
+            <Route path={paths.ACCESS} component={AccessPage} />
 
             <Route path={paths.INFRASTRUCTURE}>
                 Zasoby
