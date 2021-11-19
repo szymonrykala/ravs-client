@@ -41,20 +41,20 @@ export default function NavigationBar(props: NavigationBarProps) {
 							onClick={props.toggleDrawer}
 							size="large"
 							edge="start"
-							color="inherit"
 							aria-label="menu"
-							sx={{ mr: 2 }}
+							sx={{ mr: 2, color: "background.default" }}
 						>
-							<MenuIcon />
+							<MenuIcon color='inherit' />
 						</IconButton>
 					)}
-					<Typography variant="h4" component="h1" sx={{
+					<Typography variant="h4" component="span" sx={{
 						flexGrow: 1,
 						fontFamily: "Dancing Script, cursive",
 					}}>
 						<AppLink
 							to={user ? paths.HOME : paths.WELCOME}
 							sx={{
+								width: 'fit-content',
 								color: 'background.default',
 								'&:hover': {
 									textDecoration: 'none'
