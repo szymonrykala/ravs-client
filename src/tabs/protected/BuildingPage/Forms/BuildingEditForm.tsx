@@ -74,7 +74,7 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (Object.keys(data).length === 0 || await updateBuilding(data)) {
+        if (await updateBuilding(data)) {
             close();
         }
 

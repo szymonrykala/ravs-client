@@ -36,7 +36,7 @@ export default function AddressEditForm(props: AddressEditFormProps) {
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (Object.keys(data).length === 0 || await updateAddress(data)) {
+        if (await updateAddress(data)) {
             close();
         }
     }, [data]);

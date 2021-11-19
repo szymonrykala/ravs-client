@@ -137,7 +137,8 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
 
     const deleteImage = React.useCallback(async (image: Image) => {
         await BuildingService.removeImage(image);
-    }, []);
+        reloadMap()
+    }, [reloadMap]);
 
 
     if (!Boolean(building)) return null;

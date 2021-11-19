@@ -10,11 +10,9 @@ import usePagination from "../PaginationContext/usePagination";
 import ReservationModalContext from "../ReservationModalContext";
 import useResourceMap from "../ResourceMapContext/useResourceMap";
 import ReservationsContextValue from "./ReservationsContextValue";
-import { defaultContextValue } from "./ReservationsContextValue";
 
 
-
-export const reservationsContext = React.createContext(defaultContextValue);
+export const reservationsContext: any = React.createContext(null);
 
 
 interface ReservationsContextProviderProps {
@@ -29,7 +27,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const { getRoomLink } = useResourceMap();
     const roomContext = useRoomContext();
 
-    const [loading, setLoading] = React.useState<boolean>(false);
+    const [loading, setLoading] = React.useState<boolean>(true);
     const [reservations, setReservations] = React.useState<Reservation[]>([]);
 
     const [queryParams, setQueryParams] = React.useState<ReservationsQueryParams>({});
@@ -44,7 +42,6 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
 
     const load = React.useCallback(async () => {
         if (loader === undefined) return;
-        setLoading(true);
         try {
             const resp = await loader(queryParams);
 
@@ -53,7 +50,6 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
         } catch (err: any) {
             notify(err.description ?? err.message, 'error');
         }
-        setLoading(false);
     }, [loader, queryParams, notify, setPagination]);
 
 
@@ -80,7 +76,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             });
 
             roomContext && roomContext.setOccupied(!reservation.room.occupied);
-            resp.data && notify(resp.data.toString(), 'success');
+            resp?.data && notify(resp.data.toString(), 'success');
         } catch (err: any) {
             notify(err.description, 'error');
             return false;
@@ -121,7 +117,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
 
             //update state
             setReservations((old: Reservation[]) => {
-                old.forEach(item => {
+                return old.map(item => {
                     if (item.id === id)
                         ['plannedStart', 'plannedEnd', 'description', 'title']
                             .forEach(field => {
@@ -129,8 +125,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
                                     item[field] = data[field];
                                 }
                             });
+                    return item;
                 });
-                return old;
             });
 
             // when reservation room is changing
@@ -154,7 +150,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
 
     // when loading function is recalculated - trigger the loading
     React.useEffect(() => {
-        load();
+        load()
+            .finally(() => setLoading(false));
     }, [load]);
 
 
@@ -166,6 +163,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
         }));
     }, [pagination.itemsOnPage, pagination.currentPage]);
 
+
+    if (loading) return null;
 
     return (
         <>

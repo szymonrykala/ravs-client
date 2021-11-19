@@ -12,13 +12,3 @@ export default interface ReservationsContextValue {
     createReservation: (data: CreateReservationData) => Promise<boolean>,
     pingKeyForReservation: (id: number, key: string) => Promise<boolean>
 }
-
-export const defaultContextValue: ReservationsContextValue = {
-    setLoader: async (params) => { },
-    setQueryParams: (params) => { },
-    reservations: [],
-    updateReservation: async (id, data) => false,
-    deleteReservation: async (reservationId: number) => false,
-    createReservation: async (data) => false,
-    pingKeyForReservation: async (id: number, key: string) => false,
-}

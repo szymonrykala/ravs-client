@@ -120,6 +120,8 @@ export default abstract class Service {
     }
 
     protected patch(endpoint: string, body: object) {
+        if (Object.keys(body).length === 0) return;
+
         return this._fetch({
             method: 'PATCH',
             endpoint: endpoint,

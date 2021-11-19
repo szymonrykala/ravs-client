@@ -26,6 +26,24 @@ interface ReservationViewModalProps {
 }
 
 
+function TextSection(props: {
+    title: string, children: React.ReactNode | React.ReactNode[]
+}) {
+    return (
+        <span>
+            <Typography component="h3" variant="subtitle1">{props.title}</Typography>
+            <Typography
+                variant="body1"
+                color='text.secondary'
+                textAlign='justify'
+            >
+                {props.children}
+            </Typography>
+        </span>
+    );
+}
+
+
 export default function ReservationViewModal(props: ReservationViewModalProps) {
     const { deleteReservation } = useReservations();
 
@@ -95,7 +113,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
 
                     <Box>
                         <Button
-                            startIcon={<DeleteIcon />}
+                            startIcon={<DeleteIcon color='inherit' />}
                             onClick={() => setDeleteModalOpen(true)}
                             color='error'
                             title="Usuń"
@@ -129,40 +147,24 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         </Button>
                     </Box>
 
-                    {
-                        [
-                            {
-                                title: 'Planowany czas:',
-                                text: `${displayDate(props.reservation.plannedStart)} - ${displayDate(props.reservation.plannedEnd)}`
-                            }, {
-                                title: 'Faktyczny czas:',
-                                text: <>
-                                    Rozpoczęto: {props.reservation.actualStart ?
-                                        displayDate(props.reservation.actualStart)
-                                        : 'NIE'
-                                    }<br />
-                                    Zakończono: {props.reservation.actualEnd ?
-                                        displayDate(props.reservation.actualEnd)
-                                        : 'NIE'
-                                    }
-                                </>
-                            }, {
-                                title: 'Opis:',
-                                text: props.reservation.description
-                            },
-                        ].map(({ title, text }, index) => <span key={index}>
-                            <Typography component="h3" variant="subtitle1">{title}</Typography>
+                    <TextSection title='Planowany czas:'>
+                        {`${displayDate(props.reservation.plannedStart)} - ${displayDate(props.reservation.plannedEnd)}`}
+                    </TextSection>
 
-                            <Typography
-                                variant="body1"
-                                color='text.secondary'
-                                textAlign='justify'
-                            >
-                                {text}
-                            </Typography>
-                        </span>
-                        )
-                    }
+                    <TextSection title='Faktyczny czas:'>
+                        Rozpoczęto: {props.reservation.actualStart ?
+                            displayDate(props.reservation.actualStart)
+                            : 'NIE'
+                        }<br />
+                        Zakończono: {props.reservation.actualEnd ?
+                            displayDate(props.reservation.actualEnd)
+                            : 'NIE'
+                        }
+                    </TextSection>
+
+                    <TextSection title='Opis:'>
+                        {props.reservation.description}
+                    </TextSection>
 
                     <Grid container>
                         {

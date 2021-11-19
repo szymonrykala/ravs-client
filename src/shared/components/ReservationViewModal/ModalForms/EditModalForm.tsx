@@ -34,8 +34,10 @@ export default function EditModalForm(props: EditModalFormProps) {
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (Object.keys(data).length === 0 || await updateReservation(props.reservation.id, data))
+        if (await updateReservation(props.reservation.id, data)){
             closeForm();
+            setData({});
+        }
 
     }, [props, data, closeForm, updateReservation]);
 
