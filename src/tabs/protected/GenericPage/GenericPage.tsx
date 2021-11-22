@@ -8,7 +8,7 @@ import Panel from './Panel';
 
 
 interface GenericPageProps {
-	pages: { name: string, component: React.ReactNode }[],
+	pages?: { name: string, component: React.ReactNode }[],
 	view?: React.ReactNode | null,
 }
 
@@ -37,12 +37,12 @@ export default function GenericPage(props: GenericPageProps) {
 
 
 	const renderedTabs = React.useMemo(() => {
-		return props.pages.map((page, index) => <Tab key={index} label={page.name} {...a11yProps(index)} />)
+		return props.pages?.map((page, index) => <Tab key={index} label={page.name} {...a11yProps(index)} />)
 	}, [props.pages]);
 
 
 	const renderedTabPanels = React.useMemo(() => {
-		return props.pages.map((page, index) => <TabPanel
+		return props.pages?.map((page, index) => <TabPanel
 			key={index}
 			index={index}
 			hidden={tabIndex !== index}
@@ -62,24 +62,26 @@ export default function GenericPage(props: GenericPageProps) {
 		<>
 			{renderedView}
 
-			<Tabs
-				value={tabIndex}
-				onChange={handleTabChange}
-				indicatorColor="primary"
-				variant="scrollable"
-				aria-label="Strona z budynkiem, pokojem, salą, adresem, logami, rezerwacjami i wykresami "
-				sx={{ borderBottom: 2, borderColor: 'divider' }}
-			>
-				{renderedTabs}
-			</Tabs>
+			{renderedTabs && <>
+				<Tabs
+					value={tabIndex}
+					onChange={handleTabChange}
+					indicatorColor="primary"
+					variant="scrollable"
+					aria-label="Strona z budynkiem, pokojem, salą, adresem, logami, rezerwacjami i wykresami "
+					sx={{ borderBottom: 2, borderColor: 'divider' }}
+				>
+					{renderedTabs}
+				</Tabs>
 
-			<SwipeableViews
-				axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-				index={tabIndex}
-				onChangeIndex={handleChangeIndex}
-			>
-				{renderedTabPanels}
-			</SwipeableViews>
+				<SwipeableViews
+					axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+					index={tabIndex}
+					onChangeIndex={handleChangeIndex}
+				>
+					{renderedTabPanels}
+				</SwipeableViews>
+			</>}
 		</>
 	);
 }
