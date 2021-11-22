@@ -14,6 +14,7 @@ import Loading from "../../../../shared/components/Loading";
 import NfcIcon from '@mui/icons-material/Nfc';
 import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
 import { RfidForm, RoomEditForm } from "../Forms";
+import DatesFooter from "../../../../shared/components/DatesFooter";
 
 
 
@@ -98,10 +99,7 @@ export default function RoomView() {
                         </Button>
                     </Box>
 
-                    <Typography sx={{ color: "text.secondary", fontSize: "smaller" }}>
-                        Utworzono: {displayDate(room._created)}<br />
-                        Ostatnia aktualizacja: {displayDate(room._updated)}
-                    </Typography>
+                    <DatesFooter model={room} />
                 </Stack>
             </>
     );
