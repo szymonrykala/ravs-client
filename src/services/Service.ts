@@ -3,7 +3,7 @@ import { APIResponse } from "./interfaces";
 
 
 export interface ServiceFormData {
-    [index: string]: string | number | boolean
+    [index: string]: string | number | boolean | undefined | object
 }
 
 

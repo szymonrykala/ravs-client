@@ -9,7 +9,11 @@ import paths from "../../../shared/path";
 import useNotification from "../../../contexts/NotificationContext/useNotification";
 
 
-export default function Form() {
+interface FormProps {
+    onSuccess?: () => void
+}
+
+export default function Form(props: FormProps) {
     const notify = useNotification();
 
     const [data, setData] = React.useState<ChangePasswordData>({
@@ -20,7 +24,7 @@ export default function Form() {
 
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }));
+        setData(old => ({ ...old, [e.target.name]: e.target.value }));
     }, []);
 
 
@@ -29,6 +33,9 @@ export default function Form() {
 
         try {
             await UserService.changePassword(data);
+
+            if (props.onSuccess) props.onSuccess();
+
             notify("Hasło zostało zmienione", 'success',
                 () => setTimeout(() => <Redirect to={paths.LOGIN} />, 2000)
             );

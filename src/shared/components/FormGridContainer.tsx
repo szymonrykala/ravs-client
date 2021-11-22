@@ -53,7 +53,7 @@ export default function FormGridContainer(props: FormGridContainerProps) {
                         <Button
                             aria-label="Zatwierdź"
                             title='Zatwierdź'
-                            startIcon={<SaveIcon />}
+                            startIcon={<SaveIcon color='inherit' />}
                             type="submit"
                             color="success"
                         >
