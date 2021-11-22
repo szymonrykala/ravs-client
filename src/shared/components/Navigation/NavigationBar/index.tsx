@@ -52,7 +52,7 @@ export default function NavigationBar(props: NavigationBarProps) {
 						fontFamily: "Dancing Script, cursive",
 					}}>
 						<AppLink
-							to={user ? paths.HOME : paths.WELCOME}
+							to={user ? paths.HOME : paths.PUBLIC}
 							sx={{
 								width: 'fit-content',
 								color: 'background.default',
