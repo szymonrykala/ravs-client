@@ -80,7 +80,7 @@ export default function AccessesList() {
                             <TableRow>
                                 <TableCell>nr id</TableCell>
                                 <TableCell align="left">nazwa</TableCell>
-                                <TableCell align="left">opcje</TableCell>
+                                <TableCell align="center">opcje</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

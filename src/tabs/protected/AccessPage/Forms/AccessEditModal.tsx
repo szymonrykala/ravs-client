@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import Access from "../../../../models/Access";
 import { AccessUpdateParams } from "../../../../services/AccessService";
+import DatesFooter from "../../../../shared/components/DatesFooter";
 import FormGridContainer from "../../../../shared/components/FormGridContainer";
 import GenericModal from "../../../../shared/components/GenericModal";
 
@@ -124,7 +125,9 @@ export default function AccessEditModal(props: AccessEditModalProps) {
                         </Grid>
                     )
                 }
-
+                <Grid item xs={12} ml={2}>
+                    <DatesFooter model={props.access} />
+                </Grid>
             </FormGridContainer>
         </GenericModal>
     )

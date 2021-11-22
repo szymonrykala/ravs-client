@@ -21,11 +21,20 @@ export default function RowItem(props: RowItemProps) {
         >
             <TableCell component="th" scope="row">{props.id}</TableCell>
             <TableCell align="left">{props.name}</TableCell>
-            <TableCell align="left">
-                <IconButton onClick={props.onDelete}>
+            <TableCell align="center">
+                <IconButton 
+                title='Usuń klasę dostępu'
+                aria-label='Usuń klasę dostępu'
+                color='error' 
+                onClick={props.onDelete}
+                >
                     <DeleteIcon />
                 </IconButton>
-                <IconButton onClick={props.onSelect}>
+                <IconButton
+                    title='Otwórz w oknie'
+                    aria-label='Otwórz w oknie'
+                    onClick={props.onSelect}
+                >
                     <OpenInNewIcon />
                 </IconButton>
             </TableCell>

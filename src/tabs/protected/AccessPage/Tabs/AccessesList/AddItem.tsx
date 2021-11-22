@@ -16,8 +16,12 @@ export default function AddItem(props: AddItemProps) {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
             <TableCell colSpan={12} align="left">
-                <IconButton onClick={props.onClick}>
-                    <AddCircleIcon fontSize='large'/>
+                <IconButton
+                    title="Dodaj klasę dostępu"
+                    aria-label='Dodaj klasę dostępu'
+                    onClick={props.onClick}
+                >
+                    <AddCircleIcon fontSize='large' />
                 </IconButton>
             </TableCell>
         </TableRow>
