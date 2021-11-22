@@ -1,5 +1,6 @@
+import Image from "../models/Image";
 import { SessionUser } from "../models/User";
-import { APIResponse } from "./interfaces";
+import { APIResponse, DatesQueryParams, LogsQueryParams, PaginationQueryParams } from "./interfaces";
 import Service, { ServiceFormData } from "./Service";
 
 
@@ -22,35 +23,100 @@ export interface ChangePasswordData extends ServiceFormData {
     email: string
 }
 
+export interface UpdateUserParams extends ServiceFormData {
+    name?: string,
+    surname?: string,
+    metadata?: object
+}
+
 export interface UserViewParams {
     userId: string;
 }
 
+export interface UserQueryParams extends PaginationQueryParams {
+    [index: string]: any,
+    accessId?: number,
+    deleted?: boolean,
+    search?: string,
+    activated?: boolean,
+}
+
 
 class UserService extends Service {
+    _path = '/users';
 
-    async getMe() {
+    get path(): string {
+        return this._path;
+    }
+
+    public setPath({ userId }: UserViewParams) {
+        this._path = `/users/${userId}`;
+    }
+
+    public getCurrentOne() {
+        return this.get(this.path);
+    }
+
+    public async getMe() {
         const resp = await this.get('/users/me');
-
         return resp.data as SessionUser;
     }
 
-    async register(data: RegisterUserData) {
-        return await this.post('/users', data);
+    public getUsers(data?: UserQueryParams) {
+        return this.get('/users', data);
     }
 
-    async activate(data: ActivationData) {
-        return await this.patch('/users/activate', data);
+    public register(data: RegisterUserData) {
+        return this.post('/users', data);
     }
 
-    async generateKey(email: string) {
-        return await this.post('/users/key', {
+    public activate(data: ActivationData) {
+        return this.patch('/users/activate', data);
+    }
+
+    public generateKey(email: string) {
+        return this.post('/users/key', {
             email: email
         });
     }
 
-    async changePassword(data: ChangePasswordData) {
-        return await this.patch('/users/password', data) as APIResponse;
+    public updateAccess(userId: number, accessId: number) {
+        return this.patch(`/users/${userId}/access`, {
+            accessId: accessId
+        })
+    }
+
+    public update(data: UpdateUserParams) {
+        return this.patch(this.path, data);
+    }
+
+    public remove() {
+        return this.delete(this.path);
+    }
+
+    public uploadImage(image: Blob) {
+        const formData = new FormData();
+        formData.append(
+            'file',
+            image
+        );
+        return this.sendImage(`${this.path}/images`, formData);
+    }
+
+    public removeImage(image: Image) {
+        return this.delete(`${this.path}/images/${image.id}`);
+    }
+
+    public getLogs(queryParams: LogsQueryParams) {
+        return this.get(this.path + '/requests', queryParams);
+    }
+
+    public getChartsData(query: DatesQueryParams) {
+        return this.get(this.path + '/stats', query);
+    }
+
+    public changePassword(data: ChangePasswordData) {
+        return this.patch('/users/password', data);
     }
 }
 

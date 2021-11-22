@@ -16,7 +16,7 @@ interface UniqueCodeButtonProps {
 function resolveColor(value: null | boolean): string {
     if (value === null) return "inherit";
     if (value === true) return "green";
-    return "red";
+    return "error";
 }
 
 
@@ -36,8 +36,8 @@ export default function UniqueCodeButton(props: UniqueCodeButtonProps) {
 
         } catch (err: any) {
             dispatchResult({
-                statusCode: err.statusCode,
-                payload: err.error.description
+                statusCode: err.code,
+                payload: err.description
             });
         }
     };

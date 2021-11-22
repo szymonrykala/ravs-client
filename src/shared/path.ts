@@ -44,9 +44,10 @@ paths.REMIND_PASSWORD = paths.PUBLIC + '/passwd';
 
 paths.ACCESS = paths.HOME + '/accesses'
 paths.SETTINGS = paths.HOME + '/settings';
-paths.MY_PROFILE = paths.HOME + '/me';
 
 paths.USERS = paths.HOME + '/users';
+paths.USER = paths.USERS + '/:userId';
+paths.MY_PROFILE = paths.USERS + '/me';
 paths.INFRASTRUCTURE = paths.HOME + '/infrastructure';
 paths.ADDRESS = paths.HOME + '/addresses/:addressId';
 paths.BUILDING = paths.ADDRESS + '/buildings/:buildingId';

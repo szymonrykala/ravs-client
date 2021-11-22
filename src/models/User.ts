@@ -3,7 +3,7 @@ import Image from './Image';
 import Access from './Access';
 
 
-interface BaseUser extends Model{
+interface BaseUser extends Model {
     email: string,
     name: string,
     surname: string,
@@ -13,11 +13,14 @@ interface BaseUser extends Model{
     image: Image,
 }
 
-export default interface User extends BaseUser {
-    access: number
+export interface DetailedUser extends BaseUser {
+    access: Access,
 }
 
-export interface SessionUser extends BaseUser {
-    access: Access,
+export default interface User extends BaseUser {
+    access: number,
+}
+
+export interface SessionUser extends DetailedUser {
     metadata: object
 }

@@ -46,6 +46,10 @@ export function statusReducer(state: ButtonStatus, action: Action): ButtonStatus
                 message: "Musisz podać adres email"
             };
         default:
-            throw new Error();
+            return {
+                success: false,
+                message: action.payload
+            };
+            // throw new Error();
     }
 }
