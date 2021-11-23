@@ -20,7 +20,7 @@ function initQueryParams<T>(keyName: string, defaultValue: T): T {
 interface QueryParamsContextProviderProps<T> {
     default: T,
     name: string,
-    children: React.ReactNodeArray | React.ReactNode
+    children: React.ReactNode[] | React.ReactNode
 }
 
 
