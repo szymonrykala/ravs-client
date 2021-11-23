@@ -3,10 +3,10 @@ import paths from "../../shared/path";
 import AccessPage from "./AccessPage";
 import AddressPage from "./AddressPage";
 import BuildingPage from "./BuildingPage";
-import ProfilePage from "./ProfilePage";
 import RoomPage from "./RoomPage";
 import SettingsPage from "./SettingsPage";
 import UserPage from "./UserPage";
+import UsersPage from "./UsersPage";
 
 
 
@@ -21,6 +21,7 @@ export default function ProtectedPages() {
             <Route path={paths.SETTINGS} component={SettingsPage} />
             <Route path={paths.ACCESS} component={AccessPage} />
             <Route path={paths.USER} component={UserPage} />
+            <Route path={paths.USERS} component={UsersPage} />
 
             <Route path={paths.INFRASTRUCTURE}>
                 Zasoby

@@ -115,6 +115,10 @@ class UserService extends Service {
         return this.get(this.path + '/stats', query);
     }
 
+    public getUsersChartsData(query: DatesQueryParams) {
+        return this.get('/users/stats', query);
+    }
+
     public changePassword(data: ChangePasswordData) {
         return this.patch('/users/password', data);
     }
