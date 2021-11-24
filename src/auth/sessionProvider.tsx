@@ -5,6 +5,8 @@ import useNotification from "../contexts/NotificationContext/useNotification";
 import { SessionUser } from "../models/User";
 
 import AuthService, { LoginFormData } from "../services/AuthService";
+import MetadataService from "../services/MetadataService";
+import StorageService from "../services/StorageService";
 import UserService from "../services/UserService";
 import LoadingView from "../shared/components/LoadingView";
 import paths from "../shared/path";
@@ -58,6 +60,12 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             await AuthService.login(data);
             const sessionUser = await UserService.getMe();
             setUser(sessionUser);
+
+            // config services which require identity data
+            StorageService.setIdentity(sessionUser.id);
+            MetadataService.metadata = sessionUser.metadata;
+            MetadataService.userId = sessionUser.id;
+
             notify("Pomyślnie zalogowano!", "success", () => <Redirect to={paths.HOME} />);
 
         } catch (err: any) {

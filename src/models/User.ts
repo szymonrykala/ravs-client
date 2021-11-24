@@ -1,6 +1,7 @@
 import Model from './Model';
 import Image from './Image';
 import Access from './Access';
+import Metadata from './Metadata';
 
 
 interface BaseUser extends Model {
@@ -22,5 +23,5 @@ export default interface User extends BaseUser {
 }
 
 export interface SessionUser extends DetailedUser {
-    metadata: object
+    metadata: Metadata
 }
