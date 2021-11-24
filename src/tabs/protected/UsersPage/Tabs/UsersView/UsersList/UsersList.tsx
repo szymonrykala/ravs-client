@@ -36,7 +36,7 @@ export default function UsersList() {
                         </TableRow>
                     }
                     {
-                        users.map(item => <UserListItem user={item} />)
+                        users.map((item, index) => <UserListItem key={index} user={item} />)
                     }
                 </TableBody>
                 <TableFooter>

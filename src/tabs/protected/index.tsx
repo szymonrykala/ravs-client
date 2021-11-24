@@ -3,6 +3,7 @@ import paths from "../../shared/path";
 import AccessPage from "./AccessPage";
 import AddressPage from "./AddressPage";
 import BuildingPage from "./BuildingPage";
+import HomePage from "./HomePage";
 import RoomPage from "./RoomPage";
 import SettingsPage from "./SettingsPage";
 import UserPage from "./UserPage";
@@ -22,13 +23,10 @@ export default function ProtectedPages() {
             <Route path={paths.ACCESS} component={AccessPage} />
             <Route path={paths.USER} component={UserPage} />
             <Route path={paths.USERS} component={UsersPage} />
+            <Route path={paths.HOME} component={HomePage}/>
 
             <Route path={paths.INFRASTRUCTURE}>
                 Zasoby
-            </Route>
-            <Route path={paths.HOME}>
-                {/* <GenericPage label="strona główna" /> */}
-                pzdroror
             </Route>
             <Route path={paths.HOME + '/*'}>
                 <Redirect to={paths.HOME} />

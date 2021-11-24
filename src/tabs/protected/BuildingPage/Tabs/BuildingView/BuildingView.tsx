@@ -9,6 +9,8 @@ import { useBuilding } from "../../BuildingContext";
 import BuildingViewTable from "./BuildingViewTable";
 import ScrollableRoomsList from "./ScrollableRoomsList";
 import { BuildingEditForm } from "../../Forms";
+import FavouriteButton from "../../../../../shared/components/FavouriteButton";
+import { FavType } from "../../../../../models/Metadata";
 
 
 
@@ -69,6 +71,12 @@ export default function BuildingView() {
                     >
                         Edycja
                     </Button>
+                    <FavouriteButton data={{
+                        id: building.id,
+                        name: building.name,
+                        type: FavType.Building,
+                        addressId: building.address.id,
+                    }} />
                 </Box>
 
                 <ScrollableRoomsList />

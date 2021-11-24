@@ -5,7 +5,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ImageView from "../../../../shared/components/ImageView";
 
-import { displayDate } from "../../../../shared/utils";
 import RoomTableInfo from "./RoomTableInfo";
 import React from "react";
 import DeleteModal from "../../../../shared/components/DeleteModal";
@@ -15,6 +14,8 @@ import NfcIcon from '@mui/icons-material/Nfc';
 import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
 import { RfidForm, RoomEditForm } from "../Forms";
 import DatesFooter from "../../../../shared/components/DatesFooter";
+import FavouriteButton from "../../../../shared/components/FavouriteButton";
+import { FavType } from "../../../../models/Metadata";
 
 
 
@@ -53,11 +54,14 @@ export default function RoomView() {
                     onClose={() => setCreateReservationModalOpen(false)}
                 />
 
-                <Stack spacing={3}>
-                    <Typography variant="h4" component='h1' color="primary.main">
-                        Sala: {room.name}
-                    </Typography>
 
+                <Stack spacing={3}>
+                    <Box display='flex'>
+                        <Typography variant="h4" component='h1' color="primary.main">
+                            Sala: {room.name}
+                        </Typography>
+
+                    </Box>
                     <Grid container>
                         <Grid item xs={12} md={6}>
                             <ImageView
@@ -97,6 +101,13 @@ export default function RoomView() {
                         >
                             Zarezerwuj
                         </Button>
+                        <FavouriteButton data={{
+                            id: room.id,
+                            name: room.name,
+                            type: FavType.Room,
+                            addressId: room.building.address,
+                            buildingId: room.building.id
+                        }} />
                     </Box>
 
                     <DatesFooter model={room} />
