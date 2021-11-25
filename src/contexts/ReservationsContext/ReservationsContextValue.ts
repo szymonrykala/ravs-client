@@ -5,7 +5,6 @@ import { CreateReservationData, ReservationsQueryParams, UpdateReservationData }
 
 export default interface ReservationsContextValue {
     setLoader: React.Dispatch<React.SetStateAction<((queryParams: ReservationsQueryParams) => Promise<APIResponse>) | undefined>>,
-    setQueryParams: React.Dispatch<React.SetStateAction<ReservationsQueryParams>>,
     reservations: Reservation[],
     updateReservation: (id: number, data: UpdateReservationData) => Promise<boolean>,
     deleteReservation: (reservationId: number) => Promise<boolean>,

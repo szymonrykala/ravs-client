@@ -7,6 +7,7 @@ import LoadingView from "../../shared/components/LoadingView";
 import { useRoomContext } from "../../tabs/protected/RoomPage/RoomContext";
 import useNotification from "../NotificationContext/useNotification";
 import usePagination from "../PaginationContext/usePagination";
+import { useQueryParams } from "../QueryParamsContext";
 import ReservationModalContext from "../ReservationModalContext";
 import useResourceMap from "../ResourceMapContext/useResourceMap";
 import ReservationsContextValue from "./ReservationsContextValue";
@@ -26,11 +27,11 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const { pagination, setPagination } = usePagination();
     const { getRoomLink } = useResourceMap();
     const roomContext = useRoomContext();
+    const { queryParams, setQueryParams } = useQueryParams<ReservationsQueryParams>();
 
     const [loading, setLoading] = React.useState<boolean>(true);
     const [reservations, setReservations] = React.useState<Reservation[]>([]);
 
-    const [queryParams, setQueryParams] = React.useState<ReservationsQueryParams>({});
     const [loader, _setLoader] = React.useState<(queryParams: ReservationsQueryParams) => Promise<APIResponse>>();
 
 
@@ -69,8 +70,10 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
 
                     if (item.actualStart) {
                         item.actualEnd = new Date().toISOString();
+                    } else {
+                        item.actualStart = new Date().toISOString();
                     }
-                    item.actualStart = new Date().toISOString();
+
                 });
                 return Object.assign([], old);
             });
@@ -175,7 +178,6 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             <reservationsContext.Provider value={{
                 setLoader,
                 reservations,
-                setQueryParams,
                 updateReservation,
                 deleteReservation,
                 createReservation,
