@@ -21,7 +21,10 @@ export default function NotificationContextProvider({
     const [component, setComponent] = React.useState<React.ReactNode>();
 
 
-    const closeSnack = React.useCallback(() => {
+    const closeSnack = React.useCallback((event?: React.SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
         setOpen(false);
         setMessage('');
         setComponent(null);
@@ -49,7 +52,7 @@ export default function NotificationContextProvider({
                     vertical: 'top',
                     horizontal: 'center',
                 }}
-                open={open} autoHideDuration={10000} onClose={closeSnack}>
+                open={open} autoHideDuration={6000} onClose={closeSnack}>
                 <Alert onClose={closeSnack} severity={severity} sx={{ width: '100%' }}>
                     {message}
                 </Alert>
