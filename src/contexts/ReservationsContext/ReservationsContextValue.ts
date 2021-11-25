@@ -1,10 +1,8 @@
 import Reservation from "../../models/Reservation";
-import { APIResponse } from "../../services/interfaces";
-import { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
+import { CreateReservationData, UpdateReservationData } from "../../services/ReservationService";
 
 
 export default interface ReservationsContextValue {
-    setLoader: React.Dispatch<React.SetStateAction<((queryParams: ReservationsQueryParams) => Promise<APIResponse>) | undefined>>,
     reservations: Reservation[],
     updateReservation: (id: number, data: UpdateReservationData) => Promise<boolean>,
     deleteReservation: (reservationId: number) => Promise<boolean>,

@@ -1,2 +1,2 @@
 export { default } from './ModalContextProvider';
-export { default as useReservationContext } from './useReservationModalContext';
+export { default as useReservationModal } from './useReservationModalContext';

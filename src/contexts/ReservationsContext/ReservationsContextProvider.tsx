@@ -1,8 +1,12 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
+import useSession from "../../auth/useSession";
 import Reservation from "../../models/Reservation";
-import { APIResponse } from "../../services/interfaces";
+import { AddressViewParams } from "../../services/AddressService";
+import { BuildingViewParams } from "../../services/BuildingService";
 import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
+import { RoomViewParams } from "../../services/RoomService";
+import { UserViewParams } from "../../services/UserService";
 import LoadingView from "../../shared/components/LoadingView";
 import { useRoomContext } from "../../tabs/protected/RoomPage/RoomContext";
 import useNotification from "../NotificationContext/useNotification";
@@ -24,6 +28,14 @@ interface ReservationsContextProviderProps {
 
 export default function ReservationsContextProvider(props: ReservationsContextProviderProps) {
     const notify = useNotification();
+    const { user } = useSession();
+    const urlParams = useParams<(
+        UserViewParams |
+        AddressViewParams |
+        BuildingViewParams |
+        RoomViewParams |
+        {}
+    )>();
     const { pagination, setPagination } = usePagination();
     const { getRoomLink } = useResourceMap();
     const roomContext = useRoomContext();
@@ -32,26 +44,24 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const [loading, setLoading] = React.useState<boolean>(true);
     const [reservations, setReservations] = React.useState<Reservation[]>([]);
 
-    const [loader, _setLoader] = React.useState<(queryParams: ReservationsQueryParams) => Promise<APIResponse>>();
-
-
-    // proxy for setting loader function to the state
-    const setLoader = React.useCallback((callback: (queryParams: ReservationsQueryParams) => Promise<APIResponse>) => {
-        _setLoader(() => callback)
-    }, []);
-
 
     const load = React.useCallback(async () => {
-        if (loader === undefined) return;
         try {
-            const resp = await loader(queryParams);
+            let params = urlParams;
+            if (
+                Object.keys(params).length === 0 ||
+                ('userId' in urlParams && urlParams.userId === 'me')
+            ) {
+                params = { userId: `${user?.id}` }
+            }
+            const resp = await ReservationService.getReservations(params, queryParams);
 
             resp.pagination && setPagination(resp.pagination);
             setReservations(resp.data as Reservation[]);
         } catch (err: any) {
             notify(err.description ?? err.message, 'error');
         }
-    }, [loader, queryParams, notify, setPagination]);
+    }, [queryParams, notify, setPagination]);
 
 
     const triggerReload = () => setQueryParams(old => Object.assign({}, old));
@@ -176,7 +186,6 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
                 text="Ładowanie Rezerwacji"
             />
             <reservationsContext.Provider value={{
-                setLoader,
                 reservations,
                 updateReservation,
                 deleteReservation,

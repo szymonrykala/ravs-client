@@ -14,7 +14,7 @@ const buttons = [
     { name: 'Dziś', value: 'today' },
     { name: 'Ten tydzień', value: 'this week' },
     { name: 'Od wczoraj', value: 'yesterday' },
-]
+];
 
 
 export default function ReservationTabBar() {
