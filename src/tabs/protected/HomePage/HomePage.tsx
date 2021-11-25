@@ -1,23 +1,19 @@
 import { Grid } from "@mui/material";
 import Favourites from "./Favourites";
 import Notebook from "./Notebook";
+import HomeReservations from "./HomeReservations";
 
 
 
 export default function HomePage() {
-    // const { user } = useSession();
-
-    // React.useEffect(() => {
-        // MetadataService.setadata(user?.metadata ?? {});
-    // }, [user]);
-
-
     return (
         <Grid container spacing={2}>
             <Grid item xs={12} lg={8}>
-                lsta rezerwacji
+                <HomeReservations />
             </Grid>
-            <Grid item container spacing={2} xs={12} lg={4}>
+            <Grid item container spacing={2} xs={12} lg={4}
+                alignContent='flex-start'
+            >
                 <Grid item xs={12}>
                     <Notebook />
                 </Grid>
