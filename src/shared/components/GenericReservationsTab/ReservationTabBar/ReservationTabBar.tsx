@@ -4,22 +4,22 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import { useReservations } from "../../../../contexts/ReservationsContext";
+import { useQueryParams } from "../../../../contexts/QueryParamsContext";
 import { ReservationsQueryParams } from "../../../../services/ReservationService";
 import SelectButtonGroup from "../../SelectButtonGroup";
+import LazyInput from "../../LazyInput";
 
 
 const buttons = [
-    { name: 'Ostatnie rezerwacje', value: '10 minutes ago' },
-    { name: 'Następny dzień', value: 'tomorrow' },
-    { name: ' Z Wczoraj', value: 'yesterday' },
+    { name: 'Dziś', value: 'today' },
+    { name: 'Ten tydzień', value: 'this week' },
+    { name: 'Od wczoraj', value: 'yesterday' },
 ]
 
 
 export default function ReservationTabBar() {
-    const { setQueryParams } = useReservations();
+    const { setQueryParams, queryParams } = useQueryParams<ReservationsQueryParams>();
     const [customDate, setCustomDate] = React.useState(new Date());
-
 
     const handleButtonChange = React.useCallback((value: string) => {
         return setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: value }));
@@ -32,29 +32,45 @@ export default function ReservationTabBar() {
     }, [customDate, setQueryParams])
 
 
+    const handleSearchFieldChange = React.useCallback((evt) => {
+        setQueryParams(old => ({ ...old, search: evt.target.value }));
+    }, []);
+
+
     return (
         <>
-            <Grid container rowSpacing={5} alignItems='center'>
-                <Grid item xs={12} md={8}>
+            <Grid container
+                component='form'
+                onSubmit={handleSubmitCustomDate}
+                spacing={2}
+                alignItems='center'
+            >
+                <Grid item xs={12} md={12}>
                     <SelectButtonGroup
                         onSelectedChange={handleButtonChange}
                         buttons={buttons}
                         defaultButtonIndex={0}
                     />
-                </Grid>
-                <Grid item xs={12} md={4} component='form' onSubmit={handleSubmitCustomDate}>
-                    <Box display='flex' >
+                    <Box display='inline-flex' >
                         <MobileDatePicker
                             label="Od daty"
                             inputFormat="yyyy-MM-dd"
                             value={customDate}
                             onChange={(value: Date | null) => value && setCustomDate(value)}
-                            renderInput={(params) => <TextField {...params} />}
+                            renderInput={(params) => <TextField {...params} size='small' />}
                         />
                         <Button variant='outlined' type='submit' sx={{ ml: 1 }}>
                             OK
                         </Button>
                     </Box>
+                </Grid>
+                <Grid item xs={12}>
+                    <LazyInput
+                        name="search"
+                        label='wyszuaj'
+                        value={queryParams.search ?? ''}
+                        onChange={handleSearchFieldChange}
+                    />
                 </Grid>
             </Grid>
         </>
