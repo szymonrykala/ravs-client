@@ -4,10 +4,11 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import { useQueryParams } from "../../../../contexts/QueryParamsContext";
-import { ReservationsQueryParams } from "../../../../services/ReservationService";
-import SelectButtonGroup from "../../SelectButtonGroup";
-import LazyInput from "../../LazyInput";
+import { useQueryParams } from "../../../contexts/QueryParamsContext";
+import { ReservationsQueryParams } from "../../../services/ReservationService";
+import SelectButtonGroup from "../SelectButtonGroup";
+import LazyInput from "../LazyInput";
+import { isDate } from "../../utils";
 
 
 const buttons = [
@@ -19,10 +20,11 @@ const buttons = [
 
 export default function ReservationTabBar() {
     const { setQueryParams, queryParams } = useQueryParams<ReservationsQueryParams>();
-    const [customDate, setCustomDate] = React.useState(new Date());
+
+    const [customDate, setCustomDate] = React.useState(new Date(isDate(queryParams.from) ? queryParams.from ?? 'xxx' : Date.now()));
 
     const handleButtonChange = React.useCallback((value: string) => {
-        return setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: value }));
+        setQueryParams((old: ReservationsQueryParams) => ({ ...old, from: value }));
     }, [setQueryParams]);
 
 
@@ -34,7 +36,7 @@ export default function ReservationTabBar() {
 
     const handleSearchFieldChange = React.useCallback((evt) => {
         setQueryParams(old => ({ ...old, search: evt.target.value }));
-    }, []);
+    }, [setQueryParams]);
 
 
     return (
@@ -47,9 +49,9 @@ export default function ReservationTabBar() {
             >
                 <Grid item xs={12} md={12}>
                     <SelectButtonGroup
-                        onSelectedChange={handleButtonChange}
+                        onChange={handleButtonChange}
                         buttons={buttons}
-                        defaultButtonIndex={0}
+                        value={isDate(queryParams.from) ? '' : queryParams?.from ?? buttons[0].value}
                     />
                     <Box display='inline-flex' >
                         <MobileDatePicker
@@ -59,7 +61,11 @@ export default function ReservationTabBar() {
                             onChange={(value: Date | null) => value && setCustomDate(value)}
                             renderInput={(params) => <TextField {...params} size='small' />}
                         />
-                        <Button variant='outlined' type='submit' sx={{ ml: 1 }}>
+                        <Button
+                            variant={queryParams?.from === customDate.toISOString() ? 'contained' : 'outlined'}
+                            type='submit'
+                            sx={{ ml: 1 }}
+                        >
                             OK
                         </Button>
                     </Box>

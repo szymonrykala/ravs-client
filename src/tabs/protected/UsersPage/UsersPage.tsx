@@ -22,7 +22,7 @@ export default function UsersPage() {
 
 
     return (
-        <PaginationContextProvider>
+        <PaginationContextProvider id='users-pagination'>
             <QueryParamsContext name="users-query-params" default={{ deleted: false, activated: true } as UserQueryParams}>
                 <UsersContext>
                     <GenericPage

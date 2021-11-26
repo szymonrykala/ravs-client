@@ -7,10 +7,8 @@ import { BuildingViewParams } from "../../services/BuildingService";
 import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
 import { RoomViewParams } from "../../services/RoomService";
 import { UserViewParams } from "../../services/UserService";
-import LoadingView from "../../shared/components/LoadingView";
 import { useRoomContext } from "../../tabs/protected/RoomPage/RoomContext";
 import useNotification from "../NotificationContext/useNotification";
-import usePagination from "../PaginationContext/usePagination";
 import { useQueryParams } from "../QueryParamsContext";
 import ReservationModalContext from "../ReservationModalContext";
 import useResourceMap from "../ResourceMapContext/useResourceMap";
@@ -27,7 +25,10 @@ interface ReservationsContextProviderProps {
 
 
 export default function ReservationsContextProvider(props: ReservationsContextProviderProps) {
+    const { queryParams, setQueryParams } = useQueryParams<ReservationsQueryParams>();
     const notify = useNotification();
+    const { getRoomLink } = useResourceMap();
+    const roomContext = useRoomContext();
     const { user } = useSession();
     const urlParams = useParams<(
         UserViewParams |
@@ -36,16 +37,13 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
         RoomViewParams |
         {}
     )>();
-    const { pagination, setPagination } = usePagination();
-    const { getRoomLink } = useResourceMap();
-    const roomContext = useRoomContext();
-    const { queryParams, setQueryParams } = useQueryParams<ReservationsQueryParams>();
 
-    const [loading, setLoading] = React.useState<boolean>(true);
-    const [reservations, setReservations] = React.useState<Reservation[]>([]);
+    const [reservations, setReservations] = React.useState<Reservation[]>();
 
 
     const load = React.useCallback(async () => {
+        // if user or queryParams (pagination etc) is not set then do nothing
+        if (Object.keys(queryParams).length === 0 || !user) return;
         try {
             let params = urlParams;
             if (
@@ -56,18 +54,36 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             }
             const resp = await ReservationService.getReservations(params, queryParams);
 
-            resp.pagination && setPagination(resp.pagination);
+            resp.pagination && setQueryParams((old) => ({
+                ...old,
+                pagesCount: resp.pagination?.pagesCount,
+            }));
             setReservations(resp.data as Reservation[]);
         } catch (err: any) {
             notify(err.description ?? err.message, 'error');
         }
-    }, [queryParams, notify, setPagination]);
+    }, [
+        queryParams.currentPage,
+        queryParams.itemsOnPage,
+        queryParams.from,
+        queryParams.search,
+        setQueryParams,
+        notify,
+        user
+    ]);
+
+
+    // when loading function is recalculated - trigger the loading
+    React.useEffect(() => {
+        load();
+    }, [load]);
 
 
     const triggerReload = () => setQueryParams(old => Object.assign({}, old));
 
 
     const pingKeyForReservation = React.useCallback(async (id: number, key: string) => {
+        if (!reservations) return;
         try {
             const reservation = reservations.find(item => item.id === id);
             if (!reservation) return false;
@@ -75,7 +91,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             const resp = await ReservationService.pingKey(id, key);
 
             setReservations(old => {
-                old.forEach(item => {
+                old && old.forEach(item => {
                     if (item.id !== id) return;
 
                     if (item.actualStart) {
@@ -115,7 +131,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const deleteReservation = React.useCallback(async (reservationId: number) => {
         try {
             await ReservationService.remove(reservationId);
-            setReservations(old => old.filter(({ id }) => id !== reservationId));
+            setReservations(old => old && old.filter(({ id }) => id !== reservationId));
         } catch (err: any) {
             notify(err.description, 'error');
             return false;
@@ -129,8 +145,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             await ReservationService.update(id, data); //call to API
 
             //update state
-            setReservations((old: Reservation[]) => {
-                return old.map(item => {
+            setReservations((old) => {
+                return old && old.map(item => {
                     if (item.id === id)
                         ['plannedStart', 'plannedEnd', 'description', 'title']
                             .forEach(field => {
@@ -161,41 +177,19 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     }, [getRoomLink, notify]);
 
 
-    // when loading function is recalculated - trigger the loading
-    React.useEffect(() => {
-        load()
-            .finally(() => setLoading(false));
-    }, [load]);
-
-
-    React.useEffect(() => {
-        setQueryParams(old => ({
-            ...old,
-            itemsOnPage: pagination.itemsOnPage,
-            currentPage: pagination.currentPage
-        }));
-    }, [pagination.itemsOnPage, pagination.currentPage]);
-
-
-    if (loading) return null;
+    if (!reservations) return null;
 
     return (
-        <>
-            <LoadingView
-                open={loading}
-                text="Ładowanie Rezerwacji"
-            />
-            <reservationsContext.Provider value={{
-                reservations,
-                updateReservation,
-                deleteReservation,
-                createReservation,
-                pingKeyForReservation,
-            } as ReservationsContextValue}>
-                <ReservationModalContext>
-                    {props.children}
-                </ReservationModalContext>
-            </reservationsContext.Provider>
-        </>
+        <reservationsContext.Provider value={{
+            reservations,
+            updateReservation,
+            deleteReservation,
+            createReservation,
+            pingKeyForReservation,
+        } as ReservationsContextValue}>
+            <ReservationModalContext>
+                {props.children}
+            </ReservationModalContext>
+        </reservationsContext.Provider>
     );
 }
