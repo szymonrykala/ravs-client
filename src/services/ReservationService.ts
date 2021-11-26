@@ -1,7 +1,7 @@
 import Reservation from "../models/Reservation";
 import { AddressViewParams } from "./AddressService";
 import { BuildingViewParams } from "./BuildingService";
-import { PaginationQueryParams } from "./interfaces";
+import { AppURLParams, PaginationQueryParams } from "./interfaces";
 import { RoomViewParams } from "./RoomService";
 import Service from "./Service";
 import { UserViewParams } from "./UserService";
@@ -51,23 +51,10 @@ class ReservationService extends Service {
     }
 
     public getReservations(
-        urlParams: {} | RoomViewParams | BuildingViewParams | AddressViewParams | UserViewParams,
+        urlParams: AppURLParams,
         queryParams: ReservationsQueryParams
     ) {
-        let endp = '';
-        if ('addressId' in urlParams) {
-            endp += `/addresses/${urlParams.addressId}`;
-
-            if ('buildingId' in urlParams) {
-                endp += `/buildings/${urlParams.buildingId}`;
-
-                if ('roomId' in urlParams) endp += `/rooms/${urlParams.roomId}`;
-            }
-        } else if ('userId' in urlParams) {
-            endp += `/users/${urlParams.userId}`
-        }
-
-        return this.get(`${endp}/reservations`, queryParams);
+        return this.get(`${this.preparePath(urlParams)}/reservations`, queryParams);
     }
 
 

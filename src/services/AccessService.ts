@@ -1,4 +1,4 @@
-import { LogsQueryParams } from "./interfaces";
+import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 
@@ -50,11 +50,6 @@ class AccessService extends Service {
     public create(data: AccessCreateParams) {
         return this.post(this.path, data)
     }
-
-    public getLogs(queryParams?: LogsQueryParams) {
-        return this.get(`${this.path}/requests`, queryParams);
-    }
-
 }
 
 export default new AccessService()

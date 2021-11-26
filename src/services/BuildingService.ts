@@ -1,7 +1,8 @@
-import { DatesQueryParams, LogsQueryParams } from "./interfaces";
+import { DatesQueryParams } from "./interfaces";
 import Service from "./Service";
 import Image from "../models/Image";
 import { AddressViewParams } from "./AddressService";
+import { LogsQueryParams } from "./LogService";
 
 
 
@@ -57,9 +58,6 @@ class BuildingService extends Service {
         return this.get(`${this.path}/stats`, query);
     }
 
-    public getLogs(queryParams?: LogsQueryParams) {
-        return this.get(`${this.path}/requests`, queryParams);
-    }
 
     public getRoomsInBuilding() {
         return this.get(`${this.path}/rooms`);

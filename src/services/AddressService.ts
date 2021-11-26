@@ -1,4 +1,5 @@
-import { DatesQueryParams, LogsQueryParams } from "./interfaces";
+import { DatesQueryParams } from "./interfaces";
+import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 
@@ -59,10 +60,6 @@ class AddressService extends Service {
 
     public getChartsData(query: DatesQueryParams) {
         return this.get(`${this.path}/buildings/stats`, query);
-    }
-
-    public getLogs(queryParams?: LogsQueryParams) {
-        return this.get(`${this.path}/requests`, queryParams);
     }
 
     public getResourcesMap() {

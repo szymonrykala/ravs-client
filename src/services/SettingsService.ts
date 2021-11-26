@@ -1,4 +1,5 @@
-import { DatesQueryParams, LogsQueryParams } from "./interfaces";
+import { DatesQueryParams } from "./interfaces";
+import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 
@@ -22,14 +23,9 @@ class SettingsService extends Service {
         return this.patch('/configurations', data);
     }
 
-    public getLogs(queryParams?: LogsQueryParams) {
-        return this.get('/configurations/requests', queryParams);
-    }
-
     public getEndpointsChartsData(query: DatesQueryParams) {
         return this.get('/requests/stats', query);
     }
-
 }
 
 export default new SettingsService();

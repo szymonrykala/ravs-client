@@ -1,3 +1,7 @@
+import { AddressViewParams } from "./AddressService";
+import { BuildingViewParams } from "./BuildingService";
+import { RoomViewParams } from "./RoomService";
+import { UserViewParams } from "./UserService";
 
 
 export interface RoomQueryParams {
@@ -24,17 +28,11 @@ export interface PaginationQueryParams {
     currentPage?: number
 }
 
-export interface LogsQueryParams extends PaginationQueryParams {
-    method?: "GET" | "POST" | "PATCH" | "DELETE",
-    userId?: string | number
-}
+export type AppURLParams = {} | RoomViewParams | BuildingViewParams | AddressViewParams | UserViewParams;
+
 
 export interface APIResponse {
     statusCode: number,
     data?: object | string | number | object[] | null,
     pagination?: APIPagination
 }
-
-// export interface LogServiceResponse extends APIResponse {
-//     pagination: APIPagination
-// }

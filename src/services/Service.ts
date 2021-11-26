@@ -1,5 +1,5 @@
 import APIServiceError from "./APIServiceError";
-import { APIResponse } from "./interfaces";
+import { APIResponse, AppURLParams } from "./interfaces";
 
 
 export interface ServiceFormData {
@@ -77,6 +77,36 @@ export default abstract class Service {
         }
 
         return data as APIResponse;
+    }
+
+    protected preparePath(urlParams: AppURLParams): string {
+        let endp = '';
+        let url = window.location.pathname;
+
+        const map = {
+            '/accesses': '/accesses',
+            '/settings': '/configurations',
+            '/users': '/users'
+        }
+
+        if (Object.keys(urlParams).length === 0) {
+            for (const [path, newPath] of Object.entries(map)) {
+                if (url.includes(path)) {
+                    endp = newPath;
+                }
+            }
+        } else if ('addressId' in urlParams) {
+            endp += `/addresses/${urlParams.addressId}`;
+
+            if ('buildingId' in urlParams) {
+                endp += `/buildings/${urlParams.buildingId}`;
+
+                if ('roomId' in urlParams) endp += `/rooms/${urlParams.roomId}`;
+            }
+        } else if ('userId' in urlParams) {
+            endp += `/users/${urlParams.userId}`
+        }
+        return endp;
     }
 
     protected async sendImage(endpoint: string, formBody: FormData) {

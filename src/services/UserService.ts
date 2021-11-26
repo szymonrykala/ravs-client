@@ -1,6 +1,7 @@
 import Image from "../models/Image";
 import { SessionUser } from "../models/User";
-import { APIResponse, DatesQueryParams, LogsQueryParams, PaginationQueryParams } from "./interfaces";
+import { APIResponse, DatesQueryParams, PaginationQueryParams } from "./interfaces";
+import { LogsQueryParams } from "./LogService";
 import Service, { ServiceFormData } from "./Service";
 
 
@@ -105,10 +106,6 @@ class UserService extends Service {
 
     public removeImage(image: Image) {
         return this.delete(`${this.path}/images/${image.id}`);
-    }
-
-    public getLogs(queryParams: LogsQueryParams) {
-        return this.get(this.path + '/requests', queryParams);
     }
 
     public getChartsData(query: DatesQueryParams) {

@@ -1,30 +1,26 @@
-import { APIPagination, RoomQueryParams } from "./interfaces";
-// import Service, { APIResponse, PaginationQueryParams } from "./Service";
+import { AppURLParams, PaginationQueryParams } from "./interfaces";
+import Service from "./Service";
 
 
+export interface LogsQueryParams extends PaginationQueryParams {
+    method?: "GET" | "POST" | "PATCH" | "DELETE",
+    userId?: string | number
+}
 
 
-// export interface LogServiceResponse extends APIResponse {
-//     pagination: APIPagination
-// }
+class LogService extends Service {
 
-// class LogService extends Service {
+    fetch(urlParams: AppURLParams, queryParams: LogsQueryParams) {
+        return this.get(
+            this.preparePath(urlParams) + '/requests',
+            queryParams
+        );
+    }
 
-//     async getForRoom(
-//         params: RoomQueryParams,
-//         queryParams?: LogsQueryParams
-//     ) {
-//         const { addressId, buildingId, roomId } = params;
-//         return await this.get(
-//             `/addresses/${addressId}/buildings/${buildingId}/rooms/${roomId}/requests`,
-//             queryParams
-//         ) as LogServiceResponse;
-//     }
-
-//     async getStats(){
-//         return await this.get(`/requests/stats`);
-//     }
-// }
+    async getStats() {
+        return await this.get(`/requests/stats`);
+    }
+}
 
 
-// export default new LogService();
+export default new LogService();

@@ -1,7 +1,8 @@
 import Image from "../models/Image";
 import { RoomType } from "../models/Room";
 import { BuildingViewParams } from "./BuildingService";
-import { DatesQueryParams, LogsQueryParams } from "./interfaces";
+import { DatesQueryParams } from "./interfaces";
+import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 
@@ -60,10 +61,6 @@ class RoomService extends Service {
 
     public getChartsData(query: DatesQueryParams) {
         return this.get(`${this.path}/stats`, query);
-    }
-
-    public getLogs(queryParams?: LogsQueryParams) {
-        return this.get(`${this.path}/requests`, queryParams);
     }
 
     public updateRFID(key: string) {
