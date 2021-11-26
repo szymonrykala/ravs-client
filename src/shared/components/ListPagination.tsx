@@ -1,23 +1,24 @@
 import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import { usePagination } from '../../contexts/PaginationContext';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-
+import { useQueryParams } from '../../contexts/QueryParamsContext';
+import { APIPagination } from '../../services/interfaces';
 
 
 export default function ListPagination() {
-    const { pagination, setPagination } = usePagination();
+    const { queryParams, setQueryParams } = useQueryParams<APIPagination>();
 
+    
     const handlePageChange = React.useCallback((event: React.ChangeEvent<unknown>, value: number) => {
-        setPagination(old => ({
+        setQueryParams(old => ({
             ...old,
             currentPage: value
         }));
     }, []);
 
     const handleCountChange = React.useCallback((event: SelectChangeEvent<number>, child: React.ReactNode) => {
-        setPagination(old => ({
+        setQueryParams(old => ({
             ...old,
             itemsOnPage: Number(event.target.value)
         }));
@@ -33,22 +34,20 @@ export default function ListPagination() {
             alignItems: 'center'
         }}>
             <Pagination
-                count={pagination.pagesCount}
+                count={queryParams.pagesCount}
                 size='small'
-                page={pagination.currentPage}
+                page={queryParams.currentPage}
                 onChange={handlePageChange}
             />
             <FormControl fullWidth sx={{ maxWidth: '100px' }}>
                 <InputLabel id="items-on-page-label">Na stronie</InputLabel>
                 <Select
-
                     size='small'
                     labelId="items-on-page-label"
                     id="items-on-page"
                     label="Na stronie"
-                    value={pagination.itemsOnPage}
+                    value={queryParams.itemsOnPage ?? 5}
                     onChange={handleCountChange}
-
                 >
                     {
                         [5, 10, 15, 20].map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)
