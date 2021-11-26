@@ -1,7 +1,8 @@
-import { Grid, FormControl, InputLabel, Select, MenuItem, Input } from "@mui/material";
+import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import React from "react";
 import { useQueryParams } from "../../../contexts/QueryParamsContext";
-import { LogsQueryParams } from "../../../services/interfaces";
+import { LogsQueryParams } from "../../../services/LogService";
+import LazyInput from "../LazyInput";
 
 
 
@@ -16,11 +17,12 @@ export function LogsTabBar() {
 
 
     return (
-        <Grid container component="form" columnSpacing={3}>
+        <Grid container component="form" spacing={3}>
             <Grid item xs={6} md={2}>
                 <FormControl fullWidth>
                     <InputLabel id="wybierz-metode">Metoda</InputLabel>
                     <Select
+                        size="small"
                         labelId="wybierz-metode"
                         id="metoda"
                         value={queryParams.method}
@@ -37,14 +39,12 @@ export function LogsTabBar() {
                 </FormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-                <FormControl fullWidth>
-                    <InputLabel id="Id użytkownika">Id użytkownika</InputLabel>
-                    <Input
-                        type="number"
-                        id="Id użytkownika"
-                        name="user"
-                    />
-                </FormControl>
+                <LazyInput
+                    label="id użytkownika"
+                    name='userId'
+                    value={queryParams.userId?.toString() ?? ''}
+                    onChange={(evt) => setQueryParams(old => ({ ...old, userId: evt.target.value }))}
+                />
             </Grid>
         </Grid>
     );

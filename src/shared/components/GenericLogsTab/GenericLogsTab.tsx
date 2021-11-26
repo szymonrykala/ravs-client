@@ -1,26 +1,22 @@
-import Box from "@mui/material/Box";
-import PaginationContextProvider from "../../../contexts/PaginationContext/PaginationContextProvider";
+import Stack from "@mui/material/Stack";
 import QueryParamsContextProvider from "../../../contexts/QueryParamsContext/QueryParamsContextProvider";
-import { APIResponse, LogsQueryParams } from "../../../services/interfaces";
+import ListPagination from "../ListPagination";
+import { LogsContext } from "./LogsContext";
 import { LogsTabBar } from "./LogsTabBar";
 import LogsTable from "./LogsTable";
 
 
 
-interface GenericLogsTabProps {
-    logsGetter: (queryParams: LogsQueryParams) => Promise<APIResponse | undefined>,
-}
-
-
-export default function GenericLogsTab(props: GenericLogsTabProps) {
+export default function GenericLogsTab() {
     return (
-        <Box>
-            <PaginationContextProvider>
-                <QueryParamsContextProvider name="logs-query-params" default={{ method: 'PATCH' }}>
+        <QueryParamsContextProvider name="logs-query-params" default={{ method: 'PATCH', itemsOnPage: 5 }}>
+            <LogsContext>
+                <Stack spacing={3}>
                     <LogsTabBar />
-                    <LogsTable logsGetter={props.logsGetter} />
-                </QueryParamsContextProvider>
-            </PaginationContextProvider>
-        </Box>
+                    <LogsTable />
+                    <ListPagination />
+                </Stack>
+            </LogsContext>
+        </QueryParamsContextProvider>
     );
 }

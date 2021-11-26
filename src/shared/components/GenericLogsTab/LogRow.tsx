@@ -18,10 +18,10 @@ export default function LogRow(props: LogRowProps) {
 
     return (
         <>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            <TableRow hover sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
                     <IconButton
-                        aria-label="szczegóły logu"
+                        aria-label="szczegóły zapytania"
                         size="small"
                         onClick={() => setOpen(!open)}
                     >
@@ -29,7 +29,7 @@ export default function LogRow(props: LogRowProps) {
                     </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">{row.id}</TableCell>
-                <TableCell align="left">{row.method}</TableCell>
+                {/* <TableCell align="left">{row.method}</TableCell> */}
                 <TableCell align="left">{row.endpoint}</TableCell>
                 <TableCell align="left">{Math.fround(row.time * 1000).toPrecision(6)}</TableCell>
             </TableRow>
