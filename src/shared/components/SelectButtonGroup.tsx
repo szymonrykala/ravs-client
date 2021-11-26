@@ -1,29 +1,23 @@
-import { ButtonGroupProps, FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
+import { FormControl, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import React from "react";
 
 export interface SelectButtonInterface {
     name: string, value: string
 }
 
-export interface SelectButtonGroupProps extends ButtonGroupProps {
-    onSelectedChange: (value: string) => void,
+export interface SelectButtonGroupProps {
+    onChange: (value: string) => void,
     buttons: SelectButtonInterface[],
-    defaultButtonIndex: number
+    value: string
 }
 
 export default function SelectButtonGroup({
-    onSelectedChange, buttons, defaultButtonIndex
+    onChange, buttons, value
 }: SelectButtonGroupProps) {
-    const [value, setValue] = React.useState(buttons[defaultButtonIndex].value);
-
-    React.useEffect(() => {
-        onSelectedChange(value);
-    }, [value, onSelectedChange]);
-
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value);
-    }, []);
+        onChange((event.target as HTMLInputElement).value);
+    }, [onChange]);
 
 
     const renderedButtons = React.useMemo(() => {
