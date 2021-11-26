@@ -1,7 +1,6 @@
 import React from "react";
 import { Redirect, useParams } from "react-router-dom";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import { LogsQueryParams } from "../../../../services/interfaces";
 import paths from "../../../../shared/path";
 import AddressService, { AddressViewParams, UpdateAddressParams } from "../../../../services/AddressService";
 import AddressContextValue from "./AddressContextValue";
@@ -54,15 +53,6 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     }, [urlParams.addressId]);
 
 
-    const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
-        try {
-            return await AddressService.getLogs(queryParams);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify, urlParams.addressId]);
-
-
     const getChartsData = React.useCallback(async (query: any) => {
         return AddressService.getChartsData(query)
     }, [urlParams.addressId]);
@@ -109,7 +99,6 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     return (
         <addressContext.Provider value={{
             address,
-            getLogs,
             getChartsData,
             deleteAddress,
             getBuildingsInAddress,

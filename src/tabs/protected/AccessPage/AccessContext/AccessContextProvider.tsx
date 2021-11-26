@@ -3,7 +3,7 @@ import { AccessContextValue } from ".";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import Access from "../../../../models/Access";
 import AccessService, { AccessCreateParams, AccessUpdateParams } from "../../../../services/AccessService";
-import { LogsQueryParams } from "../../../../services/interfaces";
+import { LogsQueryParams } from "../../../../services/LogService";
 import { EditForm } from "../Forms";
 
 
@@ -38,15 +38,6 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     React.useEffect(() => {
         load();
     }, [load]);
-
-
-    const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
-        try {
-            return AccessService.getLogs(queryParams);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, []);
 
 
     const updateAccess = React.useCallback(async (accessId: number, data: AccessUpdateParams) => {
@@ -127,7 +118,6 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     return (
         <accessContext.Provider value={{
             accessesList,
-            getLogs,
             updateAccess,
             deleteAccess,
             createAccess,

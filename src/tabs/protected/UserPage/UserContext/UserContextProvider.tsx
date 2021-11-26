@@ -4,7 +4,6 @@ import useSession from "../../../../auth/useSession";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import Image from "../../../../models/Image";
 import { DetailedUser } from "../../../../models/User";
-import { LogsQueryParams } from "../../../../services/interfaces";
 import UserService, { UpdateUserParams, UserViewParams } from "../../../../services/UserService";
 import paths from "../../../../shared/path";
 
@@ -44,15 +43,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     React.useEffect(() => {
         load()
     }, [load]);
-
-
-    const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
-        try {
-            return await UserService.getLogs(queryParams);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify, urlParams]); // urlParams, because we need to pass logs getter for a new room
 
 
     const getChartsData = React.useCallback((query: any) => {
@@ -128,7 +118,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     return (
         <userContext.Provider value={{
             user,
-            getLogs,
             getChartsData,
             deleteUser,
             updateUser,

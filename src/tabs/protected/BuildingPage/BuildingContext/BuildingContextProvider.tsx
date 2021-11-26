@@ -4,7 +4,6 @@ import useNotification from "../../../../contexts/NotificationContext/useNotific
 import { DetailedBuilding } from "../../../../models/Building";
 import BuildingService, { BuildingUpdateParams, BuildingViewParams } from "../../../../services/BuildingService";
 import Image from '../../../../models/Image';
-import { LogsQueryParams } from "../../../../services/interfaces";
 import BuildingContextValue from "./BuildingContextValue";
 import { dynamicPaths } from "../../../../shared/path";
 import Room from "../../../../models/Room";
@@ -51,15 +50,6 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
             return [];
         }
     }, [urlParams.buildingId])
-
-
-    const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
-        try {
-            return await BuildingService.getLogs(queryParams);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify, urlParams.buildingId]);
 
 
     const getChartsData = React.useCallback(async (query: any) => {
@@ -146,7 +136,6 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     return (
         <buildingContext.Provider value={{
             building,
-            getLogs,
             getChartsData,
             uploadImage,
             deleteImage,

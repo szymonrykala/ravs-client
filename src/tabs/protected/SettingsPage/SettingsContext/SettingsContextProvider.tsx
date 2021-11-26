@@ -1,7 +1,7 @@
 import React from "react";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import Settings from "../../../../models/Settings";
-import { DatesQueryParams, LogsQueryParams } from "../../../../services/interfaces";
+import { DatesQueryParams } from "../../../../services/interfaces";
 import SettingsService, { SettingsUpdateParams } from "../../../../services/SettingsService";
 import SettingsContextValue from "./SettingsContextValue";
 
@@ -47,15 +47,6 @@ export default function SettingsContextProvider(props: SettingsContextProviderPr
     }, [notify]);
 
 
-    const getLogs = React.useCallback(async (params: LogsQueryParams) => {
-        try {
-            return await SettingsService.getLogs(params);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify]);
-
-
     const getEndpointsData = React.useCallback(async (query: DatesQueryParams) => {
         return SettingsService.getEndpointsChartsData(query)
     }, []);
@@ -67,7 +58,6 @@ export default function SettingsContextProvider(props: SettingsContextProviderPr
         <settingsContext.Provider value={{
             settings,
             updateSettings,
-            getLogs,
             getEndpointsData
         } as SettingsContextValue}>
             {props.children}

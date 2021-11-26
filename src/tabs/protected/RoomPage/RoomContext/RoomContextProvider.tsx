@@ -4,7 +4,6 @@ import { DetailedRoom } from "../../../../models/Room";
 import RoomService, { RoomUpdateParams, RoomViewParams } from "../../../../services/RoomService";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import RoomContextValue from "./RoomContextValue";
-import { LogsQueryParams } from "../../../../services/interfaces";
 import Image from "../../../../models/Image";
 import useResourceMap from "../../../../contexts/ResourceMapContext/useResourceMap";
 
@@ -34,15 +33,6 @@ export default function RoomContextProvider({
         const resp = await RoomService.getView();
         setRoom(resp.data as DetailedRoom);
     }, [urlParams]); // recompute after change of room
-
-
-    const getLogs = React.useCallback(async (queryParams: LogsQueryParams) => {
-        try {
-            return await RoomService.getLogs(queryParams);
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify, urlParams]); // urlParams, because we need to pass logs getter for a new room
 
 
     const getChartsData = React.useCallback(async (query: any) => {
@@ -164,7 +154,6 @@ export default function RoomContextProvider({
             room,
             updateRoom,
             deleteRoom,
-            getLogs,
             uploadImage,
             deleteImage,
             getChartsData,

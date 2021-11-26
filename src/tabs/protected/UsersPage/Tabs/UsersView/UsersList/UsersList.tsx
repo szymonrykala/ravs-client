@@ -7,7 +7,7 @@ import TableFooter from "@mui/material/TableFooter";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import TablePaginationFooter from "../../../../../../shared/components/TablePaginationFooter";
+// import TablePaginationFooter from "../../../../../../shared/components/___TablePaginationFooter";
 import { useUsers } from "../../../UsersContext";
 import UserListItem from "./UserListItem";
 
@@ -41,7 +41,7 @@ export default function UsersList() {
                 </TableBody>
                 <TableFooter>
                     <TableRow >
-                        <TablePaginationFooter />
+                        {/* <TablePaginationFooter /> */}
                     </TableRow>
                 </TableFooter>
             </Table>
