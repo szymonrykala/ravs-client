@@ -87,22 +87,26 @@ export default function Chart<DataType>(props: ChartProps<DataType>) {
                 <BarChartIcon color='primary' />
 
             </Stack>
-            <Box
-                sx={{
-                    maxHeight: '400px',
-                    height: '40vh',
-                    minHeight: '300px',
-                    width: '100%',
-                }}>
+            {props.data.length === 0 ?
+                <Typography component='p' color='text.secondary'>
+                    Brak danych do nakreślenia wykresu
+                </Typography>
+                : <Box
+                    sx={{
+                        maxHeight: '400px',
+                        height: '40vh',
+                        minHeight: '300px',
+                        width: '100%',
+                    }}>
 
-                <ReactChart
-                    options={{
-                        data,
-                        primaryAxis,
-                        secondaryAxes,
-                    }}
-                />
-            </Box>
+                    <ReactChart
+                        options={{
+                            data,
+                            primaryAxis,
+                            secondaryAxes,
+                        }}
+                    />
+                </Box>}
         </Grid>
     )
 }
