@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardMedia } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RoomTableInfo from "./RoomTableInfo";
