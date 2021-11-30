@@ -1,22 +1,24 @@
-import Address from "../../models/Address";
-import { styled } from "@mui/system";
+import { styled, SxProps } from "@mui/system";
 import React from "react";
 import Box from "@mui/material/Box";
+import Address from "../../../../models/Address";
 
 
 
 interface MapProps {
-    address: Address
+    address: Address,
+    sx?: SxProps
 }
 
 const StyledIframe = styled('iframe')({
     width: '100%',
     height: '50vh',
-    maxHeight: '500px'
+    maxHeight: '450px',
+    minHeight: '300px'
 });
 
 
-export default function Map({ address }: MapProps) {
+export default function Map({ address, sx }: MapProps) {
 
     const url = React.useMemo(() => {
         const { street, number, town, country } = address;
@@ -39,6 +41,7 @@ export default function Map({ address }: MapProps) {
             <StyledIframe
                 src={url}
                 frameBorder="0"
+                sx={{ ...sx }}
             />
         </Box>
     );

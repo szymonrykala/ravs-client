@@ -1,16 +1,17 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useNotification from "../../../../../contexts/NotificationContext/useNotification";
-import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
-import Building from "../../../../../models/Building";
-import { AddressViewParams } from "../../../../../services/AddressService";
-import BuildingService, { BuildingCreateParams } from "../../../../../services/BuildingService";
-import ScrollableHorizaontalList, { BuildingListItem } from "../../../../../shared/components/ScrolableHorizaontalList";
-import { useAddress } from "../../AddressContext";
-import { CreateBuildingForm } from "../../Forms";
+import useNotification from "../../../../contexts/NotificationContext/useNotification";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import Building from "../../../../models/Building";
+import { AddressViewParams } from "../../../../services/AddressService";
+import BuildingService, { BuildingCreateParams } from "../../../../services/BuildingService";
+import ScrollableHorizaontalList, { BuildingListItem } from "../../../../shared/components/ScrolableHorizaontalList";
+import SmallCard from "../../../../shared/components/SmallCard";
+import { useAddress } from "../AddressContext";
+import { CreateBuildingForm } from "../Forms";
 
 
-export default function ScrollableBuildingsList() {
+export default function BuildingsList() {
     const { getBuildingsInAddress } = useAddress();
     const { reloadMap } = useResourceMap();
     const notify = useNotification();
@@ -60,12 +61,14 @@ export default function ScrollableBuildingsList() {
                 handleCreateBuilding={createBuilding}
             />
 
-            <ScrollableHorizaontalList
-                title="Lista budynków:"
-                onAddItem={() => setCreateBuildingModalOpen(true)}
-            >
-                {renderedBuildings}
-            </ScrollableHorizaontalList>
+            <SmallCard title='Budynki pod adresem' sx={{ bgcolor: 'transparent', p: 0 }}>
+                <ScrollableHorizaontalList
+                    onAddItem={() => setCreateBuildingModalOpen(true)}
+                >
+                    {renderedBuildings}
+                </ScrollableHorizaontalList>
+            </SmallCard>
+            <br />
         </>
     );
 }

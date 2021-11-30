@@ -15,9 +15,10 @@ function ActualLoader() {
     const { chartsData } = useCharts<BuildingsOrRoomsChartsData>();
 
     return (
-        <ChartSection defaultOpen title='Wykresy tygodniowe'>
+        <ChartSection defaultOpen title='Statystyki budynków'>
             <Chart
-                title='Ilość rezerwacji na dzień tygodnia'
+                fullWidth
+                title='Ilość rezerwacji'
                 data={chartsData.allReservations}
                 xKey='name'
                 y={[
@@ -25,7 +26,8 @@ function ActualLoader() {
                 ]}
             />
             <Chart
-                title="Czas wszystkich reserwacji w dany dzień"
+                fullWidth
+                title="Czas wszystkich reserwacji"
                 data={chartsData.allReservations}
                 xKey='name'
                 y={[
