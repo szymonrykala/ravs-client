@@ -1,74 +1,48 @@
-import Stack from "@mui/material/Stack";
-import React from "react";
-import ChartTab, { ChartOptionsBar } from "../../../../shared/components/ChartTab";
-import { useUsers } from "../UsersContext";
-
-
-
-interface ChartObject {
-    [index: string]: Array<number | string>[]
-}
-
-
-interface UserChartData {
-    id: number,
-    email: string,
-    reservationsCount: number,
-    averagePlannedTimeMinutes: number,
-    averageActualTimeMinutes: number,
-    allTimeMinutes: number
-}
+import { AllUsersChartsData } from "../../../../models/Stats";
+import { Chart, ChartSection, ChartsTab, useCharts } from "../../../../shared/components/Charts";
 
 
 
 export default function UsersCharts() {
-    const { getChartsData } = useUsers();
+    return (
+        <ChartsTab>
+            <ActualLoader />
+        </ChartsTab>
+    );
+}
 
-    const [data, setData] = React.useState<{ allUsers: UserChartData[] }>({
-        allUsers: []
-    });
 
-
-    const chartData = React.useMemo(() => {
-        let obj: ChartObject = {
-            reservationsCount: [["Użytkownik", "Ilość rezerwacji"]],
-            times: [["Użytkownik", "Czas rzeczywisty", "Średni czas planowanny", "Średni czas rzeczywisty"]],
-        };
-
-        obj.reservationsCount.push(...data.allUsers.map((item) => [item.email, item.reservationsCount]))
-        obj.times.push(...data.allUsers.map((item) => [
-            item.email,
-            item.allTimeMinutes,
-            item.averagePlannedTimeMinutes,
-            item.averageActualTimeMinutes
-        ]))
-
-        return obj;
-    }, [data]);
-
+function ActualLoader() {
+    const { chartsData } = useCharts<AllUsersChartsData>();
 
     return (
-        <Stack spacing={4}>
-            <ChartOptionsBar links={[]} dataSetter={setData} dataGetter={getChartsData} />
-            <ChartTab
-                id="users"
-                title="Ze względu na użytkowników"
-                charts={[
-                    {
-                        type: "PieChart",
-                        title: "Ilość rezerwacji na użytkownika",
-                        data: chartData.reservationsCount,
-                        hTitle: "Użytkownik",
-                        vTitle: "Ilość rezerwacji"
-                    }, {
-                        type: "ColumnChart",
-                        title: 'Czas rezerwacji',
-                        data: chartData.times,
-                        hTitle: "Użytkownik",
-                        vTitle: 'Czas rezerwacji [m]'
-                    }
+        <ChartSection defaultOpen title='Statystyki użytkowników'>
+            <Chart
+                title='Ilość rezerwacji na użytkownika'
+                data={chartsData.users}
+                xKey='email'
+                y={[
+                    { label: 'Ilość rezerwacji', key: 'reservationsCount' }
                 ]}
             />
-        </Stack>
+            <Chart
+                title="Czas wszystkich reserwacji w dany dzień"
+                data={chartsData.users}
+                xKey='email'
+                y={[
+                    { label: 'Czas całkowity', key: 'allTimeMinutes' },
+                ]}
+            />
+            <Chart
+                fullWidth
+                title="Średnie czasy rezerwacji"
+                data={chartsData.users}
+                xKey='email'
+                y={[
+                    { label: 'Średni planowany czas', key: 'avgPlannedTimeMinutes' },
+                    { label: 'Średni faktyczny czas', key: 'avgActualTimeMinutes' },
+                ]}
+            />
+        </ChartSection>
     );
 }
