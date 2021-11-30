@@ -1,17 +1,18 @@
 import React from "react";
-import Room from "../../../../../models/Room";
-import ScrollableHorizaontalList, { RoomListItem } from "../../../../../shared/components/ScrolableHorizaontalList";
-import { useBuilding } from "../../BuildingContext";
-import { CreateRoomForm } from "../../Forms";
-import RoomService, { CreateRoomParams } from "../../../../../services/RoomService";
+import Room from "../../../../models/Room";
+import ScrollableHorizaontalList, { RoomListItem } from "../../../../shared/components/ScrolableHorizaontalList";
+import { useBuilding } from "../BuildingContext";
+import { CreateRoomForm } from "../Forms";
+import RoomService, { CreateRoomParams } from "../../../../services/RoomService";
 import { useParams } from "react-router-dom";
-import { BuildingViewParams } from "../../../../../services/BuildingService";
-import useNotification from "../../../../../contexts/NotificationContext/useNotification";
-import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
+import { BuildingViewParams } from "../../../../services/BuildingService";
+import useNotification from "../../../../contexts/NotificationContext/useNotification";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import SmallCard from "../../../../shared/components/SmallCard";
 
 
 
-export default function ScrollableRoomsList() {
+export default function RoomsList() {
     const { getRoomsInBuilding } = useBuilding();
     const { reloadMap } = useResourceMap();
 
@@ -60,12 +61,14 @@ export default function ScrollableRoomsList() {
                 onClose={() => setCreateRoomModalOpen(false)}
             />
 
-            <ScrollableHorizaontalList
-                title="Lista sal:"
-                onAddItem={() => setCreateRoomModalOpen(true)}
-            >
-                {renderedRooms}
-            </ScrollableHorizaontalList>
+            <SmallCard title="Sale w budynku" sx={{ bgcolor: 'transparent', p: 0 }}>
+                <ScrollableHorizaontalList
+                    onAddItem={() => setCreateRoomModalOpen(true)}
+                >
+                    {renderedRooms}
+                </ScrollableHorizaontalList>
+            </SmallCard>
+            <br />
         </>
     );
 }

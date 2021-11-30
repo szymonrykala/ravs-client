@@ -1,17 +1,21 @@
+import Grid from "@mui/material/Grid";
 import React from "react";
-import GenericPage from "../GenericPage";
+import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import GenericReservationsTab from "../../../shared/components/GenericReservationsTab";
+import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import RoomOrBuildingChartTab from "../shared/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
-import { LogsTab, ReservationsTab, ViewTab } from "./Tabs";
+import BuildingCard from "./components/BuildingCard";
+import RoomsList from "./components/RoomsList";
 
 
 export default function BuildingPage() {
 
     const pages = React.useMemo(() => {
         let arr = [];
-        arr.push({ name: 'Rezerwacje', component: <ReservationsTab /> });
+        arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
         arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
-        arr.push({ name: 'Logi', component: <LogsTab /> });
+        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
     }, []);
@@ -19,10 +23,19 @@ export default function BuildingPage() {
 
     return (
         <BuildingContext>
-            <GenericPage
-                view={<ViewTab />}
-                pages={pages}
-            />
+            <Grid container spacing={2} flexWrap='wrap-reverse'>
+                <Grid item container xs={12} md={7} lg={8}>
+                    <Grid item xs={12}>
+                        <RoomsList />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SwipeableTabs tabs={pages} />
+                    </Grid>
+                </Grid>
+                <Grid item xs={12} md={5} lg={4}>
+                    <BuildingCard />
+                </Grid>
+            </Grid>
         </BuildingContext>
     );
 }
