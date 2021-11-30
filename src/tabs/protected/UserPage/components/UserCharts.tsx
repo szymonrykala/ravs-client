@@ -4,7 +4,7 @@ import MonthlyChartsSection from "../../shared/MonthlyChartsSection";
 import WeeklyChartsSection from "../../shared/WeeklyChartsSection";
 
 
-export default function UserStats() {
+export default function UserCharts() {
     return (
         <ChartsTab>
             <ActualLoader />
