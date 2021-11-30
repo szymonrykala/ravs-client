@@ -1,7 +1,6 @@
 import React from "react";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import Settings from "../../../../models/Settings";
-import { DatesQueryParams } from "../../../../services/interfaces";
 import SettingsService, { SettingsUpdateParams } from "../../../../services/SettingsService";
 import SettingsContextValue from "./SettingsContextValue";
 
@@ -47,18 +46,12 @@ export default function SettingsContextProvider(props: SettingsContextProviderPr
     }, [notify]);
 
 
-    const getEndpointsData = React.useCallback(async (query: DatesQueryParams) => {
-        return SettingsService.getEndpointsChartsData(query)
-    }, []);
-
-
     if (!settings) return null;
 
     return (
         <settingsContext.Provider value={{
             settings,
-            updateSettings,
-            getEndpointsData
+            updateSettings
         } as SettingsContextValue}>
             {props.children}
         </settingsContext.Provider>
