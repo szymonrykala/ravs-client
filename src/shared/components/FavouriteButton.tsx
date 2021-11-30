@@ -32,7 +32,7 @@ export default function FavouriteButton(props: FavouriteButtonProps) {
 
 
     return (
-        <IconButton onClick={addToFavourites} color='warning'>
+        <IconButton sx={{display:'inline'}} onClick={addToFavourites} color='warning'>
             {marked ? <StarIcon /> : <StarBorderIcon />}
         </IconButton>
     );

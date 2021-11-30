@@ -20,12 +20,6 @@ export default function RoomTableInfo({
     const tableRows = React.useMemo(() => {
         return [
             {
-                label: "Nazwa sali",
-                value: room.name
-            }, {
-                label: "Typ sali",
-                value: room.roomType
-            }, {
                 label: "Ilość miejsc",
                 value: room.seatsCount
             }, {
@@ -41,7 +35,7 @@ export default function RoomTableInfo({
                 label: "Aktualnie wolny",
                 value: <YesNoIcon value={!room.occupied} />
             }, {
-                label: "Przypisany tag RFID",
+                label: "Tag RFID",
                 value: room.RFIDTag ?
                     <Chip label={room.RFIDTag} onDelete={deleteTag} />
                     : <YesNoIcon value={false} />
@@ -55,8 +49,8 @@ export default function RoomTableInfo({
 
     const RenderedRows = React.useMemo(() => {
         return tableRows.map(({ label, value }, index) =>
-            <TableRow key={index}>
-                <TableCell sx={{ color: "gray" }} align="left">{label}</TableCell>
+            <TableRow hover key={index}>
+                <TableCell sx={{ color: "text.secondary" }} align="left">{label}</TableCell>
                 <TableCell sx={{ color: "primary.main", fontWeight: "bold" }} align="left">{value}</TableCell>
             </TableRow>
         )
@@ -65,7 +59,7 @@ export default function RoomTableInfo({
 
     return (
         <TableContainer >
-            <Table aria-label="simple table" size="small" >
+            <Table aria-label="room-info-table" size="small">
                 <TableHead sx={{ display: 'none' }}>
                     <TableRow>
                         <TableCell align="left">Właściwość</TableCell>

@@ -11,6 +11,7 @@ export default function WeeklyChartsSection(props: WeeklyChartsSectionProps) {
     return (
         <ChartSection title='Statystyki tygodniowe'>
             <Chart
+                fullWidth
                 resolveDay
                 title='Ilość rezerwacji na dzień tygodnia'
                 data={props.data}
@@ -20,6 +21,7 @@ export default function WeeklyChartsSection(props: WeeklyChartsSectionProps) {
                 ]}
             />
             <Chart
+                fullWidth
                 resolveDay
                 title="Faktyczny czas wszystkich rezerwacji"
                 data={props.data}

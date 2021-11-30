@@ -1,8 +1,10 @@
 import { RoomContextProvider } from "./RoomContext";
-import GenericPage from "../GenericPage";
-import { ReservationsTab, ViewTab, LogsTab } from "./Tabs";
+import { ReservationsTab, LogsTab, ViewCard } from "./Tabs";
 import React from "react";
 import RoomOrBuildingChartTab from "../shared/RoomOrBuildingChartTab";
+import Grid from "@mui/material/Grid";
+import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
+
 
 
 export default function RoomPage() {
@@ -19,10 +21,14 @@ export default function RoomPage() {
 
     return (
         <RoomContextProvider>
-            <GenericPage
-                view={<ViewTab />}
-                pages={pages}
-            />
+            <Grid container spacing={2} flexWrap='wrap-reverse'>
+                <Grid item xs={12} md={7} lg={8}>
+                    <SwipeableTabs tabs={pages} />
+                </Grid>
+                <Grid item xs={12} md={5} lg={4}>
+                    <ViewCard />
+                </Grid>
+            </Grid>
         </RoomContextProvider>
     );
 }

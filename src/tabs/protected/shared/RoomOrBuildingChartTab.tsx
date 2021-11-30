@@ -25,7 +25,7 @@ function ActualLoader() {
 
             <ChartSection defaultOpen title='Wykresy odnośnie użytkowników'>
                 <Chart
-                    fullWidth={chartsData.users.length > 6}
+                    fullWidth
                     title="Średnie czasy rezerwacji"
                     data={chartsData.users}
                     xKey='email'
@@ -35,7 +35,7 @@ function ActualLoader() {
                     ]}
                 />
                 <Chart
-                    fullWidth={chartsData.users.length > 6}
+                    fullWidth
                     title='Ilość rezerwacji użytkowników'
                     data={chartsData.users}
                     xKey='email'
@@ -44,7 +44,7 @@ function ActualLoader() {
                     ]}
                 />
                 <Chart
-                    fullWidth={chartsData.users.length > 6}
+                    fullWidth
                     title="Czas wszystkich reserwacji danego użytkownika"
                     data={chartsData.users}
                     xKey='email'
