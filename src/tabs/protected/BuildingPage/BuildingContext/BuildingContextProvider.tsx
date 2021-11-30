@@ -52,11 +52,6 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     }, [urlParams.buildingId])
 
 
-    const getChartsData = React.useCallback(async (query: any) => {
-        return BuildingService.getChartsData(query)
-    }, [urlParams.buildingId]);
-
-
     const updateBuilding = React.useCallback(async (data: BuildingUpdateParams) => {
         try {
             if (await BuildingService.update(data)) {
@@ -136,7 +131,6 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     return (
         <buildingContext.Provider value={{
             building,
-            getChartsData,
             uploadImage,
             deleteImage,
             deleteBuilding,

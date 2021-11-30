@@ -53,11 +53,6 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     }, [urlParams.addressId]);
 
 
-    const getChartsData = React.useCallback(async (query: any) => {
-        return AddressService.getChartsData(query)
-    }, [urlParams.addressId]);
-
-
     const updateAddress = React.useCallback(async (data: UpdateAddressParams) => {
         try {
             await AddressService.update(data)
@@ -99,7 +94,6 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     return (
         <addressContext.Provider value={{
             address,
-            getChartsData,
             deleteAddress,
             getBuildingsInAddress,
             updateAddress

@@ -22,10 +22,6 @@ class SettingsService extends Service {
     public update(data: SettingsUpdateParams) {
         return this.patch('/configurations', data);
     }
-
-    public getEndpointsChartsData(query: DatesQueryParams) {
-        return this.get('/requests/stats', query);
-    }
 }
 
 export default new SettingsService();

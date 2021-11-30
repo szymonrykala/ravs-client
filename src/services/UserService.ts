@@ -108,14 +108,6 @@ class UserService extends Service {
         return this.delete(`${this.path}/images/${image.id}`);
     }
 
-    public getChartsData(query: DatesQueryParams) {
-        return this.get(this.path + '/stats', query);
-    }
-
-    public getUsersChartsData(query: DatesQueryParams) {
-        return this.get('/users/stats', query);
-    }
-
     public changePassword(data: ChangePasswordData) {
         return this.patch('/users/password', data);
     }

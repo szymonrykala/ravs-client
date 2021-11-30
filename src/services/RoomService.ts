@@ -59,10 +59,6 @@ class RoomService extends Service {
         return this.patch(this.path, body);
     }
 
-    public getChartsData(query: DatesQueryParams) {
-        return this.get(`${this.path}/stats`, query);
-    }
-
     public updateRFID(key: string) {
         return this.patch(`${this.path}/keys`, {
             "RFIDTag": key

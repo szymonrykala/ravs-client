@@ -50,17 +50,11 @@ export default function UsersContextProvider(props: UsersContextProviderProps) {
     }, [load]);
 
 
-    const getChartsData = React.useCallback(async (query: any) => {
-        return UserService.getUsersChartsData(query)
-    }, []);
-
-
     if (!users) return null;
 
     return (
         <usersContext.Provider value={{
             users,
-            getChartsData,
         } as UsersContextValue}>
             {props.children}
         </usersContext.Provider>

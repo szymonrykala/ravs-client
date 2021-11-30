@@ -45,11 +45,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     }, [load]);
 
 
-    const getChartsData = React.useCallback((query: any) => {
-        return UserService.getChartsData(query)
-    }, [urlParams, notify]);
-
-
     const deleteUser = React.useCallback(async () => {
         try {
             await UserService.remove();
@@ -118,7 +113,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     return (
         <userContext.Provider value={{
             user,
-            getChartsData,
             deleteUser,
             updateUser,
             uploadImage,

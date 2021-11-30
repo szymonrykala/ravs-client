@@ -58,10 +58,6 @@ class AddressService extends Service {
         return this.get(`${this.path}/buildings`);
     }
 
-    public getChartsData(query: DatesQueryParams) {
-        return this.get(`${this.path}/buildings/stats`, query);
-    }
-
     public getResourcesMap() {
         return this.get('/addresses/resources');
     }

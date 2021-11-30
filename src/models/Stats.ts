@@ -41,6 +41,14 @@ export interface ReservedRoomStatItem extends StatsItem {
 }
 
 
+export interface EndpointStatItem {
+    method: string,
+    calls: number,
+    generalEndpoint: string,
+    avgTime: number,
+    timeForEndpoint: number
+}
+
 
 /*#===== C O L L E C T I O N S =====#*/
 export interface BuildingsOrRoomsChartsData {
@@ -67,4 +75,8 @@ export interface UserChartsData {
     weekly: DayStatsItem[],
     monthly: DayStatsItem[],
     reservedRooms: ReservedRoomStatItem[],
+}
+
+export interface EndpointChartsData {
+    endpoints: EndpointStatItem[]
 }

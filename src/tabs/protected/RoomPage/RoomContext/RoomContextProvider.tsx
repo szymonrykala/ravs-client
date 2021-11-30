@@ -35,11 +35,6 @@ export default function RoomContextProvider({
     }, [urlParams]); // recompute after change of room
 
 
-    const getChartsData = React.useCallback(async (query: any) => {
-        return RoomService.getChartsData(query)
-    }, [urlParams]);
-
-
     const setOccupied = React.useCallback((state: boolean) => {
         setRoom(old => {
             if (old)
@@ -156,7 +151,6 @@ export default function RoomContextProvider({
             deleteRoom,
             uploadImage,
             deleteImage,
-            getChartsData,
             updateRFIDTag,
             deleteRFIDTag,
             setOccupied

@@ -54,11 +54,6 @@ class BuildingService extends Service {
         return this.post(`/addresses/${addressId}/buildings`, data)
     }
 
-    public getChartsData(query: DatesQueryParams) {
-        return this.get(`${this.path}/stats`, query);
-    }
-
-
     public getRoomsInBuilding() {
         return this.get(`${this.path}/rooms`);
     }
