@@ -1,4 +1,5 @@
 import { Stack } from "@mui/material";
+import ListPagination from "../../../../../shared/components/ListPagination";
 import TabHeadLine from "../../../../../shared/components/TabHeadLine";
 import SearchBar from "./SearchBar";
 import UsersList from "./UsersList";
@@ -16,6 +17,8 @@ export default function UsersView() {
             <SearchBar />
 
             <UsersList />
+
+            <ListPagination />
         </Stack>
     );
 }

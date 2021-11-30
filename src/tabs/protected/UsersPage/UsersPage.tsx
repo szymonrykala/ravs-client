@@ -1,36 +1,38 @@
 import { QueryParamsContext } from "../../../contexts/QueryParamsContext";
 import { UserQueryParams } from "../../../services/UserService";
 import { UsersContext } from "./UsersContext";
-import GenericPage from "../GenericPage";
 import React from "react";
-import { ChartsTab, ViewTab } from "./Tabs";
-import PaginationContextProvider from "../../../contexts/PaginationContext/PaginationContextProvider";
-
+import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
+import UsersView from "./components/UsersView";
+import UsersCharts from "./components/UsersCharts";
 
 
 
 export default function UsersPage() {
 
-
     const pages = React.useMemo(() => {
         let arr = [];
-        arr.push({ name: 'Użytkownicy', component: <ViewTab /> });
-        arr.push({ name: 'Statystyki', component: <ChartsTab /> });
+        arr.push({ name: 'Użytkownicy', component: <UsersView /> });
+        arr.push({ name: 'Statystyki', component: <UsersCharts /> });
 
         return arr;
     }, []);
 
 
     return (
-        <PaginationContextProvider id='users-pagination'>
-            <QueryParamsContext name="users-query-params" default={{ deleted: false, activated: true } as UserQueryParams}>
-                <UsersContext>
-                    <GenericPage
-                        // view={}
-                        pages={pages}
-                    />
-                </UsersContext>
-            </QueryParamsContext>
-        </PaginationContextProvider>
+        <QueryParamsContext
+            name="users-query-params"
+            default={{
+                deleted: false,
+                activated: true,
+                search: '',
+                itemsOnPage: 10,
+                currentPage: 1
+            } as UserQueryParams}
+        >
+            <UsersContext>
+                <SwipeableTabs tabs={pages} />
+            </UsersContext>
+        </QueryParamsContext>
     );
 }

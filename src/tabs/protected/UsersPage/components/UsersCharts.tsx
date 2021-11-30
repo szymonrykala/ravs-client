@@ -18,6 +18,7 @@ function ActualLoader() {
     return (
         <ChartSection defaultOpen title='Statystyki użytkowników'>
             <Chart
+                fullWidth={chartsData.users.length >= 6}
                 title='Ilość rezerwacji na użytkownika'
                 data={chartsData.users}
                 xKey='email'
@@ -26,6 +27,7 @@ function ActualLoader() {
                 ]}
             />
             <Chart
+                fullWidth={chartsData.users.length >= 6}
                 title="Czas wszystkich reserwacji w dany dzień"
                 data={chartsData.users}
                 xKey='email'
