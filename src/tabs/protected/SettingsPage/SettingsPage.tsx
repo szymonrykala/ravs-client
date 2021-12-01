@@ -1,7 +1,10 @@
 import React from "react";
-import GenericPage from "../GenericPage";
+import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import { SettingsContext } from "./SettingsContext";
-import { EndpointsStatsTab, LogsTab, MainTab } from "./Tabs";
+import EndpointsStats from "./components/EndpointsStats";
+import SettingsMain from "./components/SettingsMain";
+
 
 
 export default function SettingsPage() {
@@ -9,18 +12,16 @@ export default function SettingsPage() {
 
     const pages = React.useMemo(() => {
         return [
-            { name: 'Ustawienia', component: <MainTab /> },
-            { name: 'Logi', component: <LogsTab /> },
-            { name: 'Endpointy', component: <EndpointsStatsTab /> }
+            { name: 'Ustawienia', component: < SettingsMain/> },
+            { name: 'Logi', component: <GenericLogsTab /> },
+            { name: 'Endpointy', component: <EndpointsStats /> }
         ];
     }, []);
 
 
     return (
         <SettingsContext>
-            <GenericPage
-                pages={pages}
-            />
+            <SwipeableTabs tabs={pages} />
         </SettingsContext>
     );
 }
