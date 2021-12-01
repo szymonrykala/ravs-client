@@ -2,11 +2,8 @@ import React from "react";
 import { Redirect, useParams } from "react-router-dom";
 import useSession from "../../auth/useSession";
 import Reservation from "../../models/Reservation";
-import { AddressViewParams } from "../../services/AddressService";
-import { BuildingViewParams } from "../../services/BuildingService";
+import { AppURLParams } from "../../services/interfaces";
 import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
-import { RoomViewParams } from "../../services/RoomService";
-import { UserViewParams } from "../../services/UserService";
 import { useRoomContext } from "../../tabs/protected/RoomPage/RoomContext";
 import useNotification from "../NotificationContext/useNotification";
 import { useQueryParams } from "../QueryParamsContext";
@@ -30,13 +27,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const { getRoomLink } = useResourceMap();
     const roomContext = useRoomContext();
     const { user } = useSession();
-    const urlParams = useParams<(
-        UserViewParams |
-        AddressViewParams |
-        BuildingViewParams |
-        RoomViewParams |
-        {}
-    )>();
+    const urlParams = useParams<AppURLParams>();
 
     const [reservations, setReservations] = React.useState<Reservation[]>();
 
@@ -68,6 +59,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
         queryParams.from,
         queryParams.search,
         setQueryParams,
+        urlParams,
         notify,
         user
     ]);
