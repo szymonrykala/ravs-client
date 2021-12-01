@@ -1,16 +1,17 @@
 import React from "react";
 import { APIPagination } from "../../services/interfaces";
+import StorageService from "../../services/StorageService";
 import PaginationContextValue, { paginationContextDefaults } from "./PaginationContextValue";
 
 
 const PAGINATION: string = 'pagination';
 
 
-function getDefaults() {
+function getDefaults(storageName: string) {
     try {
-        const value = localStorage.getItem(PAGINATION)
+        const value = StorageService.read(storageName)
         if (value)
-            paginationContextDefaults.pagination.itemsOnPage = JSON.parse(value);
+            paginationContextDefaults.pagination.itemsOnPage = value;
     } catch { }
     return paginationContextDefaults;
 }
@@ -20,15 +21,16 @@ function getDefaults() {
 export const paginationContext = React.createContext<PaginationContextValue>(paginationContextDefaults);
 
 interface PaginationContextProviderProps {
-    children: React.ReactNode | React.ReactNode[]
+    children: React.ReactNode | React.ReactNode[],
+    id: string,
 }
 
 export default function PaginationContextProvider(props: PaginationContextProviderProps) {
-    const [pagination, setPagination] = React.useState<APIPagination>(() => getDefaults().pagination);
+    const [pagination, setPagination] = React.useState<APIPagination>(getDefaults(PAGINATION + props.id).pagination);
 
 
     React.useEffect(() => {
-        localStorage.setItem(PAGINATION, JSON.stringify(pagination.itemsOnPage))
+        StorageService.save(PAGINATION + props?.id, pagination.itemsOnPage)
     }, [pagination.itemsOnPage]);
 
 
@@ -36,7 +38,7 @@ export default function PaginationContextProvider(props: PaginationContextProvid
         <paginationContext.Provider value={{
             pagination,
             setPagination
-        }}>
+        } as PaginationContextValue}>
             {props.children}
         </paginationContext.Provider>
     );

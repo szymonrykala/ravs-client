@@ -14,7 +14,7 @@ export default function AppLink(props: AppLinkProps) {
         <Link
             component={RouterLink}
             underline="hover"
-            display='flex'
+            display='inline-flex'
             {...restProps}
         >
             {withIcon && <><LinkIcon fontSize="small" />&nbsp;</>}
