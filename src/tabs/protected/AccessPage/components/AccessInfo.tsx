@@ -42,7 +42,7 @@ const explonations = [
 
 
 
-export default function AccessTab() {
+export default function AccessInfo() {
 
 
 

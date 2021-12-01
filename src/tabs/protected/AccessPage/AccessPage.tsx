@@ -1,7 +1,10 @@
 import React from "react";
-import GenericPage from "../GenericPage";
+import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import { AccessContext } from "./AccessContext";
-import { LogsTab, InfoTab, ListTab, UserAccessEditTab } from "./Tabs";
+import AccessesList from "./components/AccessesList";
+import AccessInfo from "./components/AccessInfo";
+import EditUsersAccess from "./components/EditUsersAccess";
 
 
 export default function AccessPage() {
@@ -9,10 +12,10 @@ export default function AccessPage() {
 
     const pages = React.useMemo(() => {
         let arr: any = [];
-        arr.push({ name: 'Informacje', component: <InfoTab /> });
-        arr.push({ name: 'Lista klas', component: <ListTab /> });
-        arr.push({ name: 'Administracja', component: <UserAccessEditTab /> });
-        arr.push({ name: 'Logi', component: <LogsTab /> });
+        arr.push({ name: 'Informacje', component: <AccessInfo /> });
+        arr.push({ name: 'Lista klas', component: <AccessesList /> });
+        arr.push({ name: 'Administracja', component: < EditUsersAccess /> });
+        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
     }, []);
@@ -20,9 +23,7 @@ export default function AccessPage() {
 
     return (
         <AccessContext>
-            <GenericPage
-                pages={pages}
-            />
-        </AccessContext>
+            <SwipeableTabs tabs={pages} />
+        </AccessContext >
     );
 }
