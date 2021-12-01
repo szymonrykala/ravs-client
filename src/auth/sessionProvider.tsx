@@ -27,6 +27,15 @@ export default function SessionProvider({ children }: SessionProviderProps) {
     const [user, setUser] = useState<SessionUser | null>(null);
 
 
+    const setUpUser = React.useCallback((user: SessionUser) => {
+        setUser(user);
+
+        // config services which require identity data
+        StorageService.setIdentity(user.id);
+        MetadataService.metadata = user.metadata;
+        MetadataService.userId = user.id;
+    }, []);
+
 
     const checkIfUserHasSession = React.useCallback(async () => {
         setLoading(true);
@@ -34,7 +43,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             try {
                 if (await AuthService.hasSession()) {
                     const sessionUser = await UserService.getMe();
-                    setUser(sessionUser);
+                    setUpUser(sessionUser);
                     notify("Witaj ponownie!", 'info');
                 } else {
                     notify('Twoja sesja wygasła', 'info', () => <Redirect to={paths.LOGIN} />);
@@ -59,12 +68,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         try {
             await AuthService.login(data);
             const sessionUser = await UserService.getMe();
-            setUser(sessionUser);
-
-            // config services which require identity data
-            StorageService.setIdentity(sessionUser.id);
-            MetadataService.metadata = sessionUser.metadata;
-            MetadataService.userId = sessionUser.id;
+            setUpUser(sessionUser);
 
             notify("Pomyślnie zalogowano!", "success", () => <Redirect to={paths.HOME} />);
 
