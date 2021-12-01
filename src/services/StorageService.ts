@@ -10,12 +10,16 @@ class StorageService {
     }
 
     private codeName(name: string) {
-        return btoa(name + this.id);
+        return btoa(encodeURI(name + this.id));
     }
 
     public save(name: string, value: any) {
         const str = JSON.stringify(value);
         localStorage.setItem(this.codeName(name), str);
+    }
+
+    public delete(name: string) {
+        localStorage.removeItem(this.codeName(name));
     }
 
     public read(name: string) {

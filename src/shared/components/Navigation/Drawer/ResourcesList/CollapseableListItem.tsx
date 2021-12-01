@@ -1,6 +1,7 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { Box, Collapse, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
+import StorageService from "../../../../../services/StorageService";
 import AppLink from "../../../AppLink";
 
 
@@ -20,21 +21,13 @@ export default function CollapseableListItem(props: CallapsableListItemProps) {
     const OPENED_NAME = React.useMemo(() => `${props.name}-nav-item`, [props.name]);
 
     React.useEffect(() => {
-        const wasOpened = localStorage.getItem(OPENED_NAME);
-        if (wasOpened) {
-            try {
-                setOpen(JSON.parse(wasOpened));
-            } catch {
-                console.error("do not edit localStorage variables manualy!");
-            }
-        }
+        setOpen(StorageService.read(OPENED_NAME));
     }, [OPENED_NAME]);
 
     const handleOpen = (ev: React.MouseEvent) => {
         ev.stopPropagation()
-        const newOpen = !open;
-        localStorage.setItem(OPENED_NAME, JSON.stringify(newOpen));
-        setOpen(newOpen)
+        StorageService.save(OPENED_NAME, !open);
+        setOpen(old => !old);
     };
 
     const label = props.href ? <AppLink to={props.href} sx={{ color: "text.primary" }}>{props.name}</AppLink> : props.name;
