@@ -3,7 +3,7 @@ import React from "react";
 import GenericLogsTab from "../../../shared/components/GenericLogsTab";
 import GenericReservationsTab from "../../../shared/components/GenericReservationsTab";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
-import RoomOrBuildingChartTab from "../shared/RoomOrBuildingChartTab";
+import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
 import BuildingCard from "./components/BuildingCard";
 import RoomsList from "./components/RoomsList";

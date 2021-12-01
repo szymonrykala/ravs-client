@@ -1,6 +1,6 @@
 import { RoomContextProvider } from "./RoomContext";
 import React from "react";
-import RoomOrBuildingChartTab from "../shared/RoomOrBuildingChartTab";
+import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import Grid from "@mui/material/Grid";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import GenericLogsTab from "../../../shared/components/GenericLogsTab";

@@ -1,7 +1,7 @@
 import { UserChartsData } from "../../../../models/Stats";
 import { Chart, ChartSection, ChartsTab, useCharts } from "../../../../shared/components/Charts";
-import MonthlyChartsSection from "../../shared/MonthlyChartsSection";
-import WeeklyChartsSection from "../../shared/WeeklyChartsSection";
+import MonthlyChartsSection from "../../components/MonthlyChartsSection";
+import WeeklyChartsSection from "../../components/WeeklyChartsSection";
 
 
 export default function UserCharts() {
