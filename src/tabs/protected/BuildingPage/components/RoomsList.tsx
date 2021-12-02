@@ -1,6 +1,6 @@
 import React from "react";
 import Room from "../../../../models/Room";
-import ScrollableHorizaontalList, { RoomListItem } from "../../../../shared/components/ScrolableHorizaontalList";
+import ScrollableList, { ScrollableListItem } from "../../../../shared/components/ScrollableList";
 import { useBuilding } from "../BuildingContext";
 import { CreateRoomForm } from "../Forms";
 import RoomService, { CreateRoomParams } from "../../../../services/RoomService";
@@ -49,7 +49,11 @@ export default function RoomsList() {
 
 
     const renderedRooms = React.useMemo(() => {
-        return rooms?.map(item => <RoomListItem key={item.id} room={item} />)
+        return rooms?.map(item => <ScrollableListItem
+            key={item.id}
+            primary={`Sala ${item.name}`}
+            link={`./${item.building}/rooms/${item.id}`}
+        />)
     }, [rooms])
 
 
@@ -61,12 +65,10 @@ export default function RoomsList() {
                 onClose={() => setCreateRoomModalOpen(false)}
             />
 
-            <SmallCard title="Sale w budynku" sx={{ bgcolor: 'transparent', p: 0 }}>
-                <ScrollableHorizaontalList
-                    onAddItem={() => setCreateRoomModalOpen(true)}
-                >
+            <SmallCard title="Sale w budynku">
+                <ScrollableList onAddItem={() => setCreateRoomModalOpen(true)}>
                     {renderedRooms}
-                </ScrollableHorizaontalList>
+                </ScrollableList>
             </SmallCard>
             <br />
         </>

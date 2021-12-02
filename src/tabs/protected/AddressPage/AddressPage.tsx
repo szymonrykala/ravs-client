@@ -24,16 +24,16 @@ export default function AddressPage() {
     return (
         <AddressContext>
             <Grid container spacing={2} flexWrap='wrap-reverse'>
-                <Grid item container xs={12} md={7} lg={8}>
+                <Grid item xs={12} md={7} lg={8}>
+                    <SwipeableTabs tabs={pages} />
+                </Grid>
+                <Grid item container spacing={2} xs={12} md={5} lg={4}>
                     <Grid item xs={12}>
+                        <AddressCard />
+                    </Grid>
+                    <Grid item xs={12} >
                         <BuildingsList />
                     </Grid>
-                    <Grid item xs={12}>
-                        <SwipeableTabs tabs={pages} />
-                    </Grid>
-                </Grid>
-                <Grid item xs={12} md={5} lg={4}>
-                    <AddressCard />
                 </Grid>
             </Grid>
         </AddressContext>

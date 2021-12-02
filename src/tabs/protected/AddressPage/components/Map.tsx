@@ -13,7 +13,7 @@ interface MapProps {
 const StyledIframe = styled('iframe')({
     width: '100%',
     height: '50vh',
-    maxHeight: '450px',
+    maxHeight: '400px',
     minHeight: '300px'
 });
 

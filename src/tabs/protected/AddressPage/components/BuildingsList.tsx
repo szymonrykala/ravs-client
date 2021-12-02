@@ -5,7 +5,7 @@ import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 import Building from "../../../../models/Building";
 import { AddressViewParams } from "../../../../services/AddressService";
 import BuildingService, { BuildingCreateParams } from "../../../../services/BuildingService";
-import ScrollableHorizaontalList, { BuildingListItem } from "../../../../shared/components/ScrolableHorizaontalList";
+import ScrollableList, { ScrollableListItem } from "../../../../shared/components/ScrollableList";
 import SmallCard from "../../../../shared/components/SmallCard";
 import { useAddress } from "../AddressContext";
 import { CreateBuildingForm } from "../Forms";
@@ -48,7 +48,10 @@ export default function BuildingsList() {
 
 
     const renderedBuildings = React.useMemo(() => {
-        return buildings?.map(item => <BuildingListItem key={item.id} building={item} />)
+        return buildings?.map(item => <ScrollableListItem key={item.id}
+            primary={`Budynek ${item.name}`}
+            link={`./${item.address}/buildings/${item.id}`}
+        />)
     }, [buildings]);
 
 
@@ -61,12 +64,12 @@ export default function BuildingsList() {
                 handleCreateBuilding={createBuilding}
             />
 
-            <SmallCard title='Budynki pod adresem' sx={{ bgcolor: 'transparent', p: 0 }}>
-                <ScrollableHorizaontalList
+            <SmallCard title='Budynki pod adresem'>
+                <ScrollableList
                     onAddItem={() => setCreateBuildingModalOpen(true)}
                 >
                     {renderedBuildings}
-                </ScrollableHorizaontalList>
+                </ScrollableList>
             </SmallCard>
             <br />
         </>
