@@ -1,5 +1,5 @@
 import React from "react";
-import ReservationViewModal from "../../shared/components/ReservationViewModal";
+import ReservationViewModal from "../../pages/protected/components/ReservationViewModal";
 import { useReservations } from "../ReservationsContext";
 import ModalContextValue from "./ModalContextValue";
 

@@ -1,4 +1,4 @@
-import GenericReservationsTab from "../../../shared/components/GenericReservationsTab";
+import GenericReservationsTab from "../components/GenericReservationsTab";
 import SmallCard from "../../../shared/components/SmallCard";
 
 

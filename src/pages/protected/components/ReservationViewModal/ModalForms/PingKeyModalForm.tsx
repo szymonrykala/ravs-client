@@ -1,6 +1,6 @@
-import GenericModal from "../../GenericModal";
-import RfidForm from "../../RfidForm";
-import { useReservations } from "../../../../contexts/ReservationsContext";
+import GenericModal from "../../../../../shared/components/GenericModal";
+import RfidForm from "../../../../../shared/components/RfidForm";
+import { useReservations } from "../../../../../contexts/ReservationsContext";
 import React from "react";
 
 

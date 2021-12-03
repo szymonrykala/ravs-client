@@ -1,10 +1,10 @@
 import { Card, CardHeader, Avatar, CardContent, Typography, Link } from "@mui/material";
-import User from "../../../models/User";
-import ImageService from "../../../services/ImageService";
-import { displayDate } from "../../utils";
+import User from "../../../../models/User";
+import ImageService from "../../../../services/ImageService";
+import { displayDate } from "../../../../shared/utils";
 import { Link as RouterLink } from 'react-router-dom';
 import LaunchIcon from '@mui/icons-material/Launch';
-import { dynamicPaths } from "../../path";
+import { dynamicPaths } from "../../../../shared/path";
 
 
 interface ReservationUserCardProps {

@@ -1,16 +1,16 @@
-import Reservation from "../../../models/Reservation";
-import GenericModal from "../GenericModal";
+import Reservation from "../../../../models/Reservation";
+import GenericModal from "../../../../shared/components/GenericModal";
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Box, Grid, Typography } from '@mui/material';
-import { displayDate } from '../../utils';
+import { displayDate } from '../../../../shared/utils';
 import React from 'react';
 import ReservationUserCard from './ReservationUserCard';
 import ReservationRoomCard from './ReservationRoomCard';
-import DeleteModal from '../DeleteModal';
+import DeleteModal from '../../../../shared/components/DeleteModal';
 import { CopyForm, EditForm, PingNFCForm } from "./ModalForms";
-import { useReservations } from "../../../contexts/ReservationsContext";
+import { useReservations } from "../../../../contexts/ReservationsContext";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import CopyIcon from '@mui/icons-material/CopyAll';

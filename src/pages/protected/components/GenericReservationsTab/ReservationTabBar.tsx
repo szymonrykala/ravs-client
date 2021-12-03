@@ -4,11 +4,11 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import { useQueryParams } from "../../../contexts/QueryParamsContext";
-import { ReservationsQueryParams } from "../../../services/ReservationService";
-import SelectButtonGroup from "../SelectButtonGroup";
-import LazyInput from "../LazyInput";
-import { isDate } from "../../utils";
+import { useQueryParams } from "../../../../contexts/QueryParamsContext";
+import { ReservationsQueryParams } from "../../../../services/ReservationService";
+import SelectButtonGroup from "../../../../shared/components/SelectButtonGroup";
+import LazyInput from "../../../../shared/components/LazyInput";
+import { isDate } from "../../../../shared/utils";
 
 
 const buttons = [

@@ -2,12 +2,12 @@ import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import AppLink from "../../AppLink";
-import Reservation from "../../../../models/Reservation";
-import { dynamicPaths } from "../../../path";
-import ImageService from "../../../../services/ImageService";
-import { displayDate } from "../../../utils";
-import ReservationService from "../../../../services/ReservationService";
+import AppLink from "../../../../../shared/components/AppLink";
+import Reservation from "../../../../../models/Reservation";
+import { dynamicPaths } from "../../../../../shared/path";
+import ImageService from "../../../../../services/ImageService";
+import { displayDate } from "../../../../../shared/utils";
+import ReservationService from "../../../../../services/ReservationService";
 
 
 interface ReservationListItemProps {

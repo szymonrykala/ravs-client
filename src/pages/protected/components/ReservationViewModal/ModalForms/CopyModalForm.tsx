@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import GenericModal from "../../GenericModal";
+import GenericModal from "../../../../../shared/components/GenericModal";
 import { MobileDateTimePicker } from "@mui/lab";
-import Reservation from "../../../../models/Reservation";
+import Reservation from "../../../../../models/Reservation";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -10,16 +10,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import React from "react";
-import useReservations from "../../../../contexts/ReservationsContext/useReservations";
+import useReservations from "../../../../../contexts/ReservationsContext/useReservations";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
-import { displayDate } from "../../../utils";
-import { CreateReservationData } from "../../../../services/ReservationService";
-import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import FormGridContainer from "../../FormGridContainer";
+import { displayDate } from "../../../../../shared/utils";
+import { CreateReservationData } from "../../../../../services/ReservationService";
+import useNotification from "../../../../../contexts/NotificationContext/useNotification";
+import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 
 
 interface CopyModalFormProps {

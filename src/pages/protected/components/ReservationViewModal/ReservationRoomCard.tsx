@@ -1,10 +1,10 @@
 import { Card, CardHeader, CardContent, Typography, Box, CardMedia } from "@mui/material";
-import ImageService from "../../../services/ImageService";
+import ImageService from "../../../../services/ImageService";
 import LaunchIcon from '@mui/icons-material/Launch';
-import Room from "../../../models/Room";
+import Room from "../../../../models/Room";
 import React from "react";
-import { useResourceMap } from "../../../contexts/ResourceMapContext";
-import AppLink from "../AppLink";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import AppLink from "../../../../shared/components/AppLink";
 
 
 

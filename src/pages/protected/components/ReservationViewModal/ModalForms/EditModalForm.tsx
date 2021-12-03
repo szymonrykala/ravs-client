@@ -1,17 +1,17 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import GenericModal from "../../GenericModal";
+import GenericModal from "../../../../../shared/components/GenericModal";
 import { MobileDateTimePicker } from "@mui/lab";
-import Reservation from "../../../../models/Reservation";
-import { UpdateReservationData } from "../../../../services/ReservationService";
+import Reservation from "../../../../../models/Reservation";
+import { UpdateReservationData } from "../../../../../services/ReservationService";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import React from "react";
-import useReservations from "../../../../contexts/ReservationsContext/useReservations";
-import FormGridContainer from "../../FormGridContainer";
+import useReservations from "../../../../../contexts/ReservationsContext/useReservations";
+import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 
 
 interface EditModalFormProps {

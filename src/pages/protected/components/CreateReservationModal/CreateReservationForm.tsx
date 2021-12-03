@@ -6,10 +6,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import { useResourceMap } from "../../../contexts/ResourceMapContext";
-import ReservationService, { CreateReservationData } from "../../../services/ReservationService";
-import useNotification from "../../../contexts/NotificationContext/useNotification";
-import FormGridContainer from "../FormGridContainer";
+import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import ReservationService, { CreateReservationData } from "../../../../services/ReservationService";
+import useNotification from "../../../../contexts/NotificationContext/useNotification";
+import FormGridContainer from "../../../../shared/components/FormGridContainer";
 
 
 

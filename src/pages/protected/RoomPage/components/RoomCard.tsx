@@ -7,7 +7,7 @@ import React from "react";
 import DeleteModal from "../../../../shared/components/DeleteModal";
 import { useRoomContext } from "../RoomContext";
 import Loading from "../../../../shared/components/Loading";
-import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
+import CreateReservationModal from "../../components/CreateReservationModal/CreateReservationModal";
 import { RoomEditForm } from "../Forms";
 import DatesFooter from "../../../../shared/components/DatesFooter";
 import FavouriteButton from "../../../../shared/components/FavouriteButton";

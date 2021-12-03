@@ -1,6 +1,6 @@
 import { List, ListItem, ListItemText } from "@mui/material";
-import useReservationModalContext from "../../../../contexts/ReservationModalContext/useReservationModalContext";
-import { useReservations } from "../../../../contexts/ReservationsContext";
+import useReservationModalContext from "../../../../../contexts/ReservationModalContext/useReservationModalContext";
+import { useReservations } from "../../../../../contexts/ReservationsContext";
 import ReservationListItem from "./ReservationsListItem";
 
 

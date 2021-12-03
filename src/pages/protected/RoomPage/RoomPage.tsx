@@ -4,7 +4,7 @@ import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import Grid from "@mui/material/Grid";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import GenericLogsTab from "../../../shared/components/GenericLogsTab";
-import GenericReservationsTab from "../../../shared/components/GenericReservationsTab";
+import GenericReservationsTab from "../components/GenericReservationsTab";
 import RoomCard from "./components/RoomCard";
 
 
