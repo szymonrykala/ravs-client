@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
-import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import AddressContext from "./AddressContext";

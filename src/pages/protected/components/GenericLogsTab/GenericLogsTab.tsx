@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack";
-import QueryParamsContextProvider from "../../../contexts/QueryParamsContext/QueryParamsContextProvider";
-import ListPagination from "../ListPagination";
+import QueryParamsContextProvider from "../../../../contexts/QueryParamsContext/QueryParamsContextProvider";
+import ListPagination from "../../../../shared/components/ListPagination";
 import { LogsContext } from "./LogsContext";
 import { LogsTabBar } from "./LogsTabBar";
 import LogsTable from "./LogsTable";

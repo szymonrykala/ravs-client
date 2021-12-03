@@ -3,7 +3,7 @@ import React from "react";
 import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import Grid from "@mui/material/Grid";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
-import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import RoomCard from "./components/RoomCard";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import GenericLogsTab from "../components/GenericLogsTab";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import { SettingsContext } from "./SettingsContext";
 import EndpointsStats from "./components/EndpointsStats";

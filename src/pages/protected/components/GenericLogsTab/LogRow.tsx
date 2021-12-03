@@ -2,8 +2,8 @@ import { TableRow, TableCell, IconButton, Collapse, Box } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "@mui/material";
-import Log from "../../../models/Log";
-import { displayDate } from "../../utils";
+import Log from "../../../../models/Log";
+import { displayDate } from "../../../../shared/utils";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 

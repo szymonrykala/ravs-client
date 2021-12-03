@@ -1,5 +1,5 @@
 import React from "react";
-import GenericLogsTab from "../../../shared/components/GenericLogsTab";
+import GenericLogsTab from "../components/GenericLogsTab";
 import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
 import { AccessContext } from "./AccessContext";
 import AccessesList from "./components/AccessesList";

@@ -1,8 +1,8 @@
 import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import React from "react";
-import { useQueryParams } from "../../../contexts/QueryParamsContext";
-import { LogsQueryParams } from "../../../services/LogService";
-import LazyInput from "../LazyInput";
+import { useQueryParams } from "../../../../contexts/QueryParamsContext";
+import { LogsQueryParams } from "../../../../services/LogService";
+import LazyInput from "../../../../shared/components/LazyInput";
 
 
 
