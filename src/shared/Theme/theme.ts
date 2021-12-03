@@ -1,6 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { darkScrollbar as scrollbar } from '@mui/material';
+import { color } from '@mui/system';
 
 
 const light = {
@@ -32,17 +33,33 @@ const theme = createTheme({
         body: scrollbar(light),
       },
     },
+    MuiTextField: {
+      defaultProps: {
+        size: 'medium',
+        variant: 'outlined',
+      }
+    },
+    MuiSelect: {
+      defaultProps: {
+        size: 'medium'
+      }
+    },
     MuiButton: {
       defaultProps: {
-        variant: 'text',
-        sx: { borderRadius: ({ shape }) => Number(shape.borderRadius) }
-        // size: 'large'
+        sx: {
+          borderRadius: ({ shape }) => Number(shape.borderRadius)/2
+        }
       },
     },
-    MuiButtonGroup: {
+
+    MuiSvgIcon: {
       defaultProps: {
-        variant: 'outlined',
-        size: 'large'
+        color: 'inherit',
+      }
+    },
+    MuiIconButton: {
+      defaultProps: {
+        color: 'primary'
       }
     }
   },
