@@ -76,7 +76,7 @@ export default function UserCard() {
                 />
                 <CardMedia
                     component="img"
-                    height="300"
+                    height="350"
                     image={ImageService.getLink(user.image)}
                     alt={user.email}
                 />

@@ -1,8 +1,5 @@
-import { DatesQueryParams } from "./interfaces";
 import Service from "./Service";
-import Image from "../models/Image";
 import { AddressViewParams } from "./AddressService";
-import { LogsQueryParams } from "./LogService";
 
 
 
@@ -57,20 +54,6 @@ class BuildingService extends Service {
     public getRoomsInBuilding() {
         return this.get(`${this.path}/rooms`);
     }
-
-    public uploadImage(image: Blob) {
-        const formData = new FormData();
-        formData.append(
-            'file',
-            image
-        );
-        return this.sendImage(`${this.path}/images`, formData);
-    }
-
-    async removeImage(image: Image) {
-        return this.delete(`${this.path}/images/${image.id}`);
-    }
-
 }
 
 export default new BuildingService()

@@ -20,7 +20,7 @@ interface RoomEditFormProps {
 
 
 export default function RoomEditForm(props: RoomEditFormProps) {
-    const { room, updateRoom, uploadImage, deleteImage } = useRoomContext();
+    const { room, updateRoom } = useRoomContext();
     const { allBuildings } = useResourceMap();
 
     const [data, setData] = React.useState<RoomUpdateParams>({});
@@ -76,10 +76,7 @@ export default function RoomEditForm(props: RoomEditFormProps) {
             }}
         >
             <Stack spacing={2}>
-                <ImageUploadField image={room.image}
-                    onUpload={uploadImage}
-                    onDelete={deleteImage}
-                />
+                <ImageUploadField image={room.image}/>
                 <Divider />
 
                 <FormGridContainer

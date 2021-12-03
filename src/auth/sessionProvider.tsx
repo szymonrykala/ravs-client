@@ -5,7 +5,9 @@ import useNotification from "../contexts/NotificationContext/useNotification";
 import { SessionUser } from "../models/User";
 
 import AuthService, { LoginFormData } from "../services/AuthService";
+import ImageService from "../services/ImageService";
 import MetadataService from "../services/MetadataService";
+import ReservationService from "../services/ReservationService";
 import StorageService from "../services/StorageService";
 import UserService from "../services/UserService";
 import LoadingView from "../shared/components/LoadingView";
@@ -34,6 +36,9 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         StorageService.setIdentity(user.id);
         MetadataService.metadata = user.metadata;
         MetadataService.userId = user.id;
+        ReservationService.userId = user.id;
+        ImageService.userId = user.id;
+        UserService.userId = user.id;
     }, []);
 
 

@@ -3,11 +3,11 @@ import { Redirect, useParams } from "react-router-dom";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import { DetailedBuilding } from "../../../../models/Building";
 import BuildingService, { BuildingUpdateParams, BuildingViewParams } from "../../../../services/BuildingService";
-import Image from '../../../../models/Image';
 import BuildingContextValue from "./BuildingContextValue";
 import { dynamicPaths } from "../../../../shared/path";
 import Room from "../../../../models/Room";
 import { useResourceMap } from "../../../../contexts/ResourceMapContext";
+import ImageService from "../../../../services/ImageService";
 
 
 interface BuildingContextProviderProps {
@@ -67,16 +67,16 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
                 }
 
                 setBuilding((old) => {
-                        old && Object.keys(data).forEach((key) => {
-                            switch (key) {
-                                case 'addressId':
-                                    old.address.id = Number(data[key]);
-                                    break;
-                                default:
-                                    old[key] = data[key];
-                                    break;
-                            }
-                        });
+                    old && Object.keys(data).forEach((key) => {
+                        switch (key) {
+                            case 'addressId':
+                                old.address.id = Number(data[key]);
+                                break;
+                            default:
+                                old[key] = data[key];
+                                break;
+                        }
+                    });
                     return Object.assign({}, old);
                 })
                 notify('Bydynek zaktualizowany', 'success');
@@ -99,40 +99,11 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     }, [notify, building]);
 
 
-    const uploadImage = React.useCallback(async (image: Blob) => {
-        try {
-            const resp = await BuildingService.uploadImage(image);
-            setBuilding(old => {
-                if (old && resp.data)
-                    return {
-                        ...old,
-                        image: {
-                            ...old.image,
-                            id: Number(resp.data)
-                        }
-                    };
-            });
-            notify("Pomyślnie zmieniono obraz!", 'success');
-            return resp;
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify]);
-
-
-    const deleteImage = React.useCallback(async (image: Image) => {
-        await BuildingService.removeImage(image);
-        reloadMap()
-    }, [reloadMap]);
-
-
     if (!Boolean(building)) return null;
 
     return (
         <buildingContext.Provider value={{
             building,
-            uploadImage,
-            deleteImage,
             deleteBuilding,
             getRoomsInBuilding,
             updateBuilding,

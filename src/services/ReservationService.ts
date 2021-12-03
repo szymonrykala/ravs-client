@@ -1,10 +1,6 @@
 import Reservation from "../models/Reservation";
-import { AddressViewParams } from "./AddressService";
-import { BuildingViewParams } from "./BuildingService";
 import { AppURLParams, PaginationQueryParams } from "./interfaces";
-import { RoomViewParams } from "./RoomService";
 import Service from "./Service";
-import { UserViewParams } from "./UserService";
 
 
 export interface ReservationsQueryParams extends PaginationQueryParams {

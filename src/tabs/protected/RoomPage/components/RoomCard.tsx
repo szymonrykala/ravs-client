@@ -7,9 +7,8 @@ import React from "react";
 import DeleteModal from "../../../../shared/components/DeleteModal";
 import { useRoomContext } from "../RoomContext";
 import Loading from "../../../../shared/components/Loading";
-import NfcIcon from '@mui/icons-material/Nfc';
 import CreateReservationModal from "../../../../shared/components/CreateReservationModal/CreateReservationModal";
-import { RfidForm, RoomEditForm } from "../Forms";
+import { RoomEditForm } from "../Forms";
 import DatesFooter from "../../../../shared/components/DatesFooter";
 import FavouriteButton from "../../../../shared/components/FavouriteButton";
 import { FavType } from "../../../../models/Metadata";
@@ -23,7 +22,6 @@ export default function RoomCard() {
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
-    const [rfidTagModalOpen, setRfidTagModalOpen] = React.useState<boolean>(false);
     const [createReservationModalOpen, setCreateReservationModalOpen] = React.useState<boolean>(false);
 
 
@@ -36,10 +34,6 @@ export default function RoomCard() {
             label: 'Edytuj',
             action: () => setEditModalOpen(true),
             icon: <EditIcon color='success' />
-        }, {
-            label: 'Dodaj tag RFID',
-            action: () => setDeleteModalOpen(true),
-            icon: <NfcIcon color='warning' />
         }, {
             label: 'Usuń',
             action: () => setDeleteModalOpen(true),
@@ -61,11 +55,6 @@ export default function RoomCard() {
                 <RoomEditForm
                     open={editModalOpen}
                     onClose={() => setEditModalOpen(false)}
-                />
-
-                <RfidForm
-                    open={rfidTagModalOpen}
-                    onClose={() => setRfidTagModalOpen(false)}
                 />
 
                 <CreateReservationModal
@@ -95,7 +84,7 @@ export default function RoomCard() {
                     />
                     <CardMedia
                         component="img"
-                        height="300"
+                        height="350"
                         image={ImageService.getLink(room.image)}
                         alt={room.name}
                     />

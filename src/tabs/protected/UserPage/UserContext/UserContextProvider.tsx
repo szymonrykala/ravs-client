@@ -2,7 +2,6 @@ import React from "react";
 import { Redirect, useParams } from "react-router-dom";
 import useSession from "../../../../auth/useSession";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import Image from "../../../../models/Image";
 import { DetailedUser } from "../../../../models/User";
 import UserService, { UpdateUserParams, UserViewParams } from "../../../../services/UserService";
 import paths from "../../../../shared/path";
@@ -83,31 +82,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     }, [notify]);
 
 
-    const uploadImage = React.useCallback(async (image: Blob) => {
-        try {
-            const resp = await UserService.uploadImage(image);
-            setUser(old => {
-                if (old && resp.data)
-                    return {
-                        ...old,
-                        image: {
-                            ...old.image,
-                            id: Number(resp.data)
-                        }
-                    };
-            });
-            notify("Obraz został zmieniony", 'success');
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify]);
-
-
-    const deleteImage = React.useCallback(async (image: Image) => {
-        await UserService.removeImage(image);
-    }, []);
-
-
     if (!user) return null;
 
     return (
@@ -115,8 +89,6 @@ export default function UserContextProvider(props: UserContextProviderProps) {
             user,
             deleteUser,
             updateUser,
-            uploadImage,
-            deleteImage,
         }}>
             {props.children}
         </userContext.Provider>

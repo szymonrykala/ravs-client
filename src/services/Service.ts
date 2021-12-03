@@ -39,9 +39,17 @@ export default abstract class Service {
 
     _BASE_URL: string = 'http://localhost:8081/v1';
     _TOKEN_NAME: string = 'auth_token';
+    _userId: number = -1;
 
+    public set userId(value: number) {
+        this._userId = value
+    }
 
-    private get authToken() {
+    public get userId(): number {
+        return this._userId;
+    }
+
+    protected get authToken() {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
 
@@ -82,7 +90,6 @@ export default abstract class Service {
     protected preparePath(urlParams: AppURLParams): string {
         let endp = '';
         let url = window.location.pathname;
-
         const map = {
             '/accesses': '/accesses',
             '/settings': '/configurations',
@@ -104,34 +111,13 @@ export default abstract class Service {
                 if ('roomId' in urlParams) endp += `/rooms/${urlParams.roomId}`;
             }
         } else if ('userId' in urlParams) {
-            endp += `/users/${urlParams.userId}`
+            if (urlParams.userId === 'me') {
+                endp += '/users/' + this.userId.toString();
+            } else {
+                endp += '/users/' + urlParams.userId;
+            }
         }
         return endp;
-    }
-
-    protected async sendImage(endpoint: string, formBody: FormData) {
-        const resp = await fetch(
-            this._BASE_URL + endpoint,
-            {
-                method: "POST",
-                cache: 'no-cache',
-                mode: 'cors',
-                body: formBody,
-                headers: {
-                    'Authorization': this.authToken,
-                }
-            }
-        );
-
-        const data = await resp.json() as ResponseData;
-        console.debug(data);
-
-        if (!resp.ok) {
-            console.error(`${resp.status}\t${data?.error?.type}\t${data?.error?.description}`);
-            throw new APIServiceError(data);
-        }
-
-        return data as APIResponse;
     }
 
     protected get(endpoint: string, query = {}) {

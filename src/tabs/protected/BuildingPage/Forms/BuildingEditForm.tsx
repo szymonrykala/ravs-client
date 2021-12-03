@@ -34,7 +34,7 @@ function timeToDate(value: string) {
 
 export default function BuildingEditForm(props: BuildingEditFormProps) {
     const { allAddresses } = useResourceMap();
-    const { updateBuilding, building, uploadImage, deleteImage } = useBuilding();
+    const { updateBuilding, building} = useBuilding();
 
     const [data, setData] = React.useState<BuildingUpdateParams>({});
 
@@ -100,10 +100,7 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
         >
             <Stack spacing={3}>
 
-                <ImageUploadField image={building.image}
-                    onUpload={uploadImage}
-                    onDelete={deleteImage}
-                />
+                <ImageUploadField image={building.image}/>
                 <Divider />
 
                 <FormGridContainer

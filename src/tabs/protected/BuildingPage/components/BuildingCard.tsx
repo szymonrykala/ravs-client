@@ -70,7 +70,7 @@ export default function BuildingView() {
                 />
                 <CardMedia
                     component="img"
-                    height="300"
+                    height="350"
                     image={ImageService.getLink(building.image)}
                     alt={building.name}
                 />

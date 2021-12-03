@@ -6,23 +6,30 @@ import Image from "../../models/Image";
 import ImageService from "../../services/ImageService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
+import { Redirect, useLocation, useParams } from "react-router-dom";
+import { UserViewParams } from "../../services/UserService";
+import { BuildingViewParams } from "../../services/BuildingService";
+import { RoomViewParams } from "../../services/RoomService";
 
 const Input = styled('input')({
     display: 'none',
 });
 
 const StyledImage = styled('img')({
-    width: "fill-available"
+    width: "fill-available",
+    maxHeight: '350px'
 });
 
 interface ImageUploadFieldProps {
     image?: Image,
-    onUpload: (image: Blob) => Promise<void>;
-    onDelete: (image: Image) => Promise<void>;
+    onUpload?: () => void;
+    onDelete?: () => void;
 }
 
 export default function ImageUploadField(props: ImageUploadFieldProps) {
     const notify = useNotification();
+    const location = useLocation();
+    const urlParams = useParams<UserViewParams | BuildingViewParams | RoomViewParams>();
     const [uploadedImage, setUploadedImage] = React.useState<Blob>();
 
 
@@ -32,8 +39,17 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
             notify("Najpierw załaduj nowy obraz", "warning");
             return;
         }
-        await props.onUpload(uploadedImage);
-    }, [uploadedImage, props, notify]);
+        try {
+            await ImageService.upload(urlParams, uploadedImage);
+            props.onUpload && props.onUpload();
+            notify("Obraz został zmieniony", 'success',
+                () => <Redirect to={location.pathname} /> // rerender the current page
+            );
+
+        } catch (err: any) {
+            notify(err.description, 'error');
+        }
+    }, [uploadedImage, props, notify, location]);
 
 
     const handleImageUpload = React.useCallback((evt: any) => {
@@ -46,12 +62,16 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
 
     const handleRemoveImgae = React.useCallback(async () => {
         try {
-            props.image && await props.onDelete(props.image);
-            notify("Obraz usunięty, załaduj ponownie aby zobaczyć rezultat.", "success");
+            await ImageService.remove(urlParams);
+            props.onDelete && props.onDelete();
+            notify("Przywrócono domyślny obraz, załaduj ponownie aby zobaczyć rezultat.", "success",
+                () => <Redirect to={location.pathname} /> // rerender the current page
+            );
+
         } catch (err: any) {
             notify(err.description, "error");
         }
-    }, [props, notify]);
+    }, [props, notify, location]);
 
 
     return (

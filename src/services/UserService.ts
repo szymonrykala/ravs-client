@@ -1,7 +1,5 @@
-import Image from "../models/Image";
 import { SessionUser } from "../models/User";
-import { APIResponse, DatesQueryParams, PaginationQueryParams } from "./interfaces";
-import { LogsQueryParams } from "./LogService";
+import { PaginationQueryParams } from "./interfaces";
 import Service, { ServiceFormData } from "./Service";
 
 
@@ -50,8 +48,8 @@ class UserService extends Service {
         return this._path;
     }
 
-    public setPath({ userId }: UserViewParams) {
-        this._path = `/users/${userId}`;
+    public setPath(urlParams: UserViewParams) {
+        this._path = this.preparePath(urlParams);
     }
 
     public getCurrentOne() {
@@ -93,19 +91,6 @@ class UserService extends Service {
 
     public remove() {
         return this.delete(this.path);
-    }
-
-    public uploadImage(image: Blob) {
-        const formData = new FormData();
-        formData.append(
-            'file',
-            image
-        );
-        return this.sendImage(`${this.path}/images`, formData);
-    }
-
-    public removeImage(image: Image) {
-        return this.delete(`${this.path}/images/${image.id}`);
     }
 
     public changePassword(data: ChangePasswordData) {

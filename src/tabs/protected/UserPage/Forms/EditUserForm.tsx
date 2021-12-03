@@ -20,7 +20,7 @@ interface EditUserFormProps {
 
 
 export default function EditUserForm(props: EditUserFormProps) {
-    const { updateUser, uploadImage, deleteImage } = useUser();
+    const { updateUser} = useUser();
 
     const [data, setData] = React.useState<UpdateUserParams>({});
 
@@ -56,10 +56,7 @@ export default function EditUserForm(props: EditUserFormProps) {
         >
             <Stack spacing={3}>
 
-                <ImageUploadField image={props.user.image}
-                    onUpload={uploadImage}
-                    onDelete={deleteImage}
-                />
+                <ImageUploadField image={props.user.image}/>
 
                 <Divider />
 

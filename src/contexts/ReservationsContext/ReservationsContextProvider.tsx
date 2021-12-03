@@ -33,16 +33,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
 
 
     const load = React.useCallback(async () => {
-        // if user or queryParams (pagination etc) is not set then do nothing
-        if (Object.keys(queryParams).length === 0 || !user) return;
         try {
             let params = urlParams;
-            if (
-                Object.keys(params).length === 0 ||
-                ('userId' in urlParams && urlParams.userId === 'me')
-            ) {
-                params = { userId: `${user?.id}` }
-            }
             const resp = await ReservationService.getReservations(params, queryParams);
 
             resp.pagination && setQueryParams((old) => ({

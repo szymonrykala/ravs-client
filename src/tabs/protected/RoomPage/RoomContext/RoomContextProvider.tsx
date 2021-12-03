@@ -6,6 +6,7 @@ import useNotification from "../../../../contexts/NotificationContext/useNotific
 import RoomContextValue from "./RoomContextValue";
 import Image from "../../../../models/Image";
 import useResourceMap from "../../../../contexts/ResourceMapContext/useResourceMap";
+import ImageService from "../../../../services/ImageService";
 
 
 interface RoomContextProviderProps {
@@ -81,32 +82,6 @@ export default function RoomContextProvider({
     }, [notify, room, reloadMap]);
 
 
-    const uploadImage = React.useCallback(async (image: Blob) => {
-        try {
-            const resp = await RoomService.uploadImage(image);
-            setRoom(old => {
-                if (old && resp.data)
-                    return {
-                        ...old,
-                        image: {
-                            ...old.image,
-                            id: Number(resp.data)
-                        }
-                    };
-            });
-            notify("Obraz został zmieniony", 'success');
-            return resp;
-        } catch (err: any) {
-            notify(err.description, 'error');
-        }
-    }, [notify]);
-
-
-    const deleteImage = React.useCallback(async (image: Image) => {
-        await RoomService.removeImage(image);
-    }, []);
-
-
     const updateRFIDTag = React.useCallback(async (key: string) => {
         try {
             await RoomService.updateRFID(key);
@@ -149,8 +124,6 @@ export default function RoomContextProvider({
             room,
             updateRoom,
             deleteRoom,
-            uploadImage,
-            deleteImage,
             updateRFIDTag,
             deleteRFIDTag,
             setOccupied
