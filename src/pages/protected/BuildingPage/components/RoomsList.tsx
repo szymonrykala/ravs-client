@@ -1,6 +1,6 @@
 import React from "react";
 import Room from "../../../../models/Room";
-import ScrollableList, { ScrollableListItem } from "../../../../shared/components/ScrollableList";
+import ScrollableList, { ScrollableListItem } from "../../components/ScrollableList";
 import { useBuilding } from "../BuildingContext";
 import { CreateRoomForm } from "../Forms";
 import RoomService, { CreateRoomParams } from "../../../../services/RoomService";

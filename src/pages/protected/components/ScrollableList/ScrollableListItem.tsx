@@ -1,6 +1,6 @@
 import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import AppLink from "../AppLink";
+import AppLink from "../../../../shared/components/AppLink";
 
 
 interface ScrollableListItemProps {

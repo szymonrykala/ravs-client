@@ -2,7 +2,7 @@ import { QueryParamsContext } from "../../../contexts/QueryParamsContext";
 import { UserQueryParams } from "../../../services/UserService";
 import { UsersContext } from "./UsersContext";
 import React from "react";
-import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
+import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import UsersView from "./components/UsersView";
 import UsersCharts from "./components/UsersCharts";
 

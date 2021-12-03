@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import React from "react";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
-import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
+import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
 import BuildingCard from "./components/BuildingCard";

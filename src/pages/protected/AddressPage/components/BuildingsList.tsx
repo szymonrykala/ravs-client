@@ -5,7 +5,7 @@ import { useResourceMap } from "../../../../contexts/ResourceMapContext";
 import Building from "../../../../models/Building";
 import { AddressViewParams } from "../../../../services/AddressService";
 import BuildingService, { BuildingCreateParams } from "../../../../services/BuildingService";
-import ScrollableList, { ScrollableListItem } from "../../../../shared/components/ScrollableList";
+import ScrollableList, { ScrollableListItem } from "../../components/ScrollableList";
 import SmallCard from "../../../../shared/components/SmallCard";
 import { useAddress } from "../AddressContext";
 import { CreateBuildingForm } from "../Forms";

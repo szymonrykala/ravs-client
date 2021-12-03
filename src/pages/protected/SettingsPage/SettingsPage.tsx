@@ -1,6 +1,6 @@
 import React from "react";
 import GenericLogsTab from "../components/GenericLogsTab";
-import SwipeableTabs from "../../../shared/components/SwipeableTabs/SwipeableTabs";
+import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import { SettingsContext } from "./SettingsContext";
 import EndpointsStats from "./components/EndpointsStats";
 import SettingsMain from "./components/SettingsMain";
