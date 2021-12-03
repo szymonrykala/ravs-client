@@ -1,5 +1,5 @@
 import { DayStatsItem } from "../../../models/Stats";
-import { Chart, ChartSection } from "../../../shared/components/Charts";
+import { Chart, ChartSection } from "./Charts";
 
 
 interface MonthlyChartsSectionProps {

@@ -1,4 +1,4 @@
-import { ChartsData } from "../../../../services/ChartService";
+import { ChartsData } from "../../../../../services/ChartService";
 
 
 export default interface ChartsContextValue<T> {

@@ -1,5 +1,5 @@
 import { BuildingOrRoomChartsData } from "../../../models/Stats";
-import { ChartsTab, Chart, ChartSection, useCharts } from "../../../shared/components/Charts";
+import { ChartsTab, Chart, ChartSection, useCharts } from "./Charts";
 import MonthlyChartsSection from "./MonthlyChartsSection";
 import WeeklyChartsSection from "./WeeklyChartsSection";
 

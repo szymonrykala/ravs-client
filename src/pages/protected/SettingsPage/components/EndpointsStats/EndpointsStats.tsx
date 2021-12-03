@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TabHeadLine from '../../../../../shared/components/TabHeadLine';
-import { ChartsContext } from '../../../../../shared/components/Charts/ChartsContext';
+import { ChartsContext } from '../../../components/Charts/ChartsContext';
 import SortableTable from './SortableTable';
 
 

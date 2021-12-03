@@ -1,10 +1,10 @@
 import { Box, Button, Chip, Link, Stack, TextField, Typography } from "@mui/material";
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import React from "react";
-import { APIResponse } from "../../../services/interfaces";
-import SelectButtonGroup, { SelectButtonInterface } from "../SelectButtonGroup";
-import { useQueryParams } from "../../../contexts/QueryParamsContext";
-import { ChartsQueryData } from "../../../services/ChartService";
+import { APIResponse } from "../../../../services/interfaces";
+import SelectButtonGroup, { SelectButtonInterface } from "../../../../shared/components/SelectButtonGroup";
+import { useQueryParams } from "../../../../contexts/QueryParamsContext";
+import { ChartsQueryData } from "../../../../services/ChartService";
 
 
 const predefinedButtons: SelectButtonInterface[] = [

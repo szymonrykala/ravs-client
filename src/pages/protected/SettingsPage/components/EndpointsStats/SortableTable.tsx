@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import TablePagination from '@mui/material/TablePagination';
-import { useCharts } from '../../../../../shared/components/Charts';
+import { useCharts } from '../../../components/Charts';
 import { EndpointChartsData, EndpointStatItem } from '../../../../../models/Stats';
 import EnhancedTableHead, { Order } from './EnhancedTableHead';
 

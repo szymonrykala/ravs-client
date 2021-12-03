@@ -1,5 +1,5 @@
 import { AllUsersChartsData } from "../../../../models/Stats";
-import { Chart, ChartSection, ChartsTab, useCharts } from "../../../../shared/components/Charts";
+import { Chart, ChartSection, ChartsTab, useCharts } from "../../components/Charts";
 
 
 

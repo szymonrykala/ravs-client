@@ -1,5 +1,5 @@
 import { UserChartsData } from "../../../../models/Stats";
-import { Chart, ChartSection, ChartsTab, useCharts } from "../../../../shared/components/Charts";
+import { Chart, ChartSection, ChartsTab, useCharts } from "../../components/Charts";
 import MonthlyChartsSection from "../../components/MonthlyChartsSection";
 import WeeklyChartsSection from "../../components/WeeklyChartsSection";
 
