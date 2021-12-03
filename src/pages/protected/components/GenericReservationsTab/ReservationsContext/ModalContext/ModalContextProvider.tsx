@@ -1,6 +1,6 @@
 import React from "react";
-import ReservationViewModal from "../../pages/protected/components/ReservationViewModal";
-import { useReservations } from "../ReservationsContext";
+import ReservationViewModal from "../../../ReservationViewModal";
+import { useReservations } from "..";
 import ModalContextValue from "./ModalContextValue";
 
 

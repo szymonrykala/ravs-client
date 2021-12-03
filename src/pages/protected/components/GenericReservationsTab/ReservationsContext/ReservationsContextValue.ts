@@ -1,5 +1,5 @@
-import Reservation from "../../models/Reservation";
-import { CreateReservationData, UpdateReservationData } from "../../services/ReservationService";
+import Reservation from "../../../../../models/Reservation";
+import { CreateReservationData, UpdateReservationData } from "../../../../../services/ReservationService";
 
 
 export default interface ReservationsContextValue {

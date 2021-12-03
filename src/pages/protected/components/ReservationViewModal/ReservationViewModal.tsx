@@ -10,7 +10,7 @@ import ReservationUserCard from './ReservationUserCard';
 import ReservationRoomCard from './ReservationRoomCard';
 import DeleteModal from '../../../../shared/components/DeleteModal';
 import { CopyForm, EditForm, PingNFCForm } from "./ModalForms";
-import { useReservations } from "../../../../contexts/ReservationsContext";
+import { useReservations } from "../GenericReservationsTab/ReservationsContext";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import CopyIcon from '@mui/icons-material/CopyAll';

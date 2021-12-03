@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import React from "react";
-import useReservations from "../../../../../contexts/ReservationsContext/useReservations";
+import useReservations from "../../GenericReservationsTab/ReservationsContext/useReservations";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";

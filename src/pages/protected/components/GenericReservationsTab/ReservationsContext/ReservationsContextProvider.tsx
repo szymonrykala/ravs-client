@@ -1,14 +1,14 @@
 import React from "react";
 import { Redirect, useParams } from "react-router-dom";
-import useSession from "../../auth/useSession";
-import Reservation from "../../models/Reservation";
-import { AppURLParams } from "../../services/interfaces";
-import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
-import { useRoomContext } from "../../pages/protected/RoomPage/RoomContext";
-import useNotification from "../NotificationContext/useNotification";
-import { useQueryParams } from "../QueryParamsContext";
-import ReservationModalContext from "../ReservationModalContext";
-import useResourceMap from "../ResourceMapContext/useResourceMap";
+import useSession from "../../../../../auth/useSession";
+import Reservation from "../../../../../models/Reservation";
+import { AppURLParams } from "../../../../../services/interfaces";
+import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../../../../services/ReservationService";
+import { useRoomContext } from "../../../RoomPage/RoomContext";
+import useNotification from "../../../../../contexts/NotificationContext/useNotification";
+import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
+import ReservationModalContext from "./ModalContext";
+import useResourceMap from "../../../../../contexts/ResourceMapContext/useResourceMap";
 import ReservationsContextValue from "./ReservationsContextValue";
 
 

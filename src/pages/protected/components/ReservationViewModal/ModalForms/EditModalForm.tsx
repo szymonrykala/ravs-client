@@ -10,7 +10,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import React from "react";
-import useReservations from "../../../../../contexts/ReservationsContext/useReservations";
+import useReservations from "../../GenericReservationsTab/ReservationsContext/useReservations";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 
 

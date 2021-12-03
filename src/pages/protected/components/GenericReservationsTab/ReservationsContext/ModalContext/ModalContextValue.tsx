@@ -1,4 +1,4 @@
-import Reservation from "../../models/Reservation";
+import Reservation from "../../../../../../models/Reservation";
 
 
 export default interface ModalContextValue {
