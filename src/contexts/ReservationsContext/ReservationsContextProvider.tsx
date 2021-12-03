@@ -4,7 +4,7 @@ import useSession from "../../auth/useSession";
 import Reservation from "../../models/Reservation";
 import { AppURLParams } from "../../services/interfaces";
 import ReservationService, { CreateReservationData, ReservationsQueryParams, UpdateReservationData } from "../../services/ReservationService";
-import { useRoomContext } from "../../tabs/protected/RoomPage/RoomContext";
+import { useRoomContext } from "../../pages/protected/RoomPage/RoomContext";
 import useNotification from "../NotificationContext/useNotification";
 import { useQueryParams } from "../QueryParamsContext";
 import ReservationModalContext from "../ReservationModalContext";

@@ -2,7 +2,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import React from "react";
-import { CreateAddressForm } from "../../../../tabs/protected/AddressPage/Forms";
+import { CreateAddressForm } from "../../../../pages/protected/AddressPage/Forms";
 import AddIcon from '@mui/icons-material/Add';
 
 

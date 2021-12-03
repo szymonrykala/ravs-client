@@ -73,7 +73,7 @@ export default function ReservationTabBar() {
                 <Grid item xs={12}>
                     <LazyInput
                         name="search"
-                        label='wyszuaj'
+                        label='wyszukaj'
                         value={queryParams.search ?? ''}
                         onChange={handleSearchFieldChange}
                     />

@@ -95,7 +95,7 @@ class ReservationService extends Service {
             if (start > now && start < now_plus15) return this.emitStatus('Powinna zostać odebrana', Colors.info);
 
             // nie została odbrana w czasie <planowany start + 15 minut>
-            if (start < now_plus15) return this.emitStatus('Nie odebrana.', Colors.error)
+            if (start < now_plus15) return this.emitStatus('Nieodebrana.', Colors.error)
 
             // rozpoczęła się
         } else if (actualStart) {

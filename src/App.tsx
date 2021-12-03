@@ -9,7 +9,7 @@ import './App.css';
 
 import Theme from './shared/Theme';
 import SessionProvider from './auth/sessionProvider'
-import Tabs from './tabs';
+import Tabs from './pages';
 import Footer from './shared/components/Footer';
 import { BrowserRouter } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
