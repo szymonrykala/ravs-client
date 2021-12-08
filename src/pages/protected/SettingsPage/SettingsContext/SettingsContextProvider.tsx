@@ -37,6 +37,10 @@ export default function SettingsContextProvider(props: SettingsContextProviderPr
     const updateSettings = React.useCallback(async (data: SettingsUpdateParams) => {
         try {
             await SettingsService.update(data);
+            setSettings(old => ({
+                ...old,
+                ...data as Settings
+            }))
             notify("Ustawienia zostały zaktualizowane", 'success');
             return true;
         } catch (err: any) {

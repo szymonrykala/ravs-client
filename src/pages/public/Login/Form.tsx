@@ -49,7 +49,6 @@ export default function Form() {
                 autoFocus
                 value={data.email}
                 onChange={onChange}
-                defaultValue={data.email}
             />
             <TextField
                 margin="normal"

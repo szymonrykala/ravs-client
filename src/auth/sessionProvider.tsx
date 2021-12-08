@@ -88,9 +88,9 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
 
     const logout = React.useCallback(() => {
+        notify("Pomyślnie wylogowano!", "success", () => <Redirect to={paths.WELCOME} />);
         AuthService.logout();
         setUser(null);
-        notify("Pomyślnie wylogowano!", "success", () => <Redirect to={paths.WELCOME} />);
     }, [notify]);
 
 

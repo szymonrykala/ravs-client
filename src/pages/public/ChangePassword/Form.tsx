@@ -7,6 +7,7 @@ import UserService, { ChangePasswordData } from "../../../services/UserService";
 import { Redirect, Link as ReactRouterLink } from 'react-router-dom';
 import paths from "../../../shared/path";
 import useNotification from "../../../contexts/NotificationContext/useNotification";
+import AppLink from "../../../shared/components/AppLink";
 
 
 interface FormProps {
@@ -34,10 +35,11 @@ export default function Form(props: FormProps) {
         try {
             await UserService.changePassword(data);
 
-            if (props.onSuccess) props.onSuccess();
-
             notify("Hasło zostało zmienione", 'success',
-                () => setTimeout(() => <Redirect to={paths.LOGIN} />, 2000)
+                () => setTimeout(() => {
+                    if (props.onSuccess) props.onSuccess();
+                    return <Redirect to={paths.LOGIN} />
+                }, 2000)
             );
         } catch (err: any) {
             let message = err.description;
@@ -109,9 +111,9 @@ export default function Form(props: FormProps) {
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item>
-                    <Link component={ReactRouterLink} to={paths.LOGIN} variant="body2" >
+                    <AppLink to={paths.LOGIN}>
                         Hasło zmienione? Zaloguj się!
-                    </Link>
+                    </AppLink>
                 </Grid>
             </Grid>
         </Box>

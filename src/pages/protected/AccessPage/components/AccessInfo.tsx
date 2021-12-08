@@ -47,8 +47,8 @@ export default function AccessInfo() {
 
 
     const rendered = React.useMemo(() => {
-        return explonations.map(({ field, text }) =>
-            <li>
+        return explonations.map(({ field, text }, id) =>
+            <li key={id}>
                 <Typography variant='subtitle1' component='h3'>
                     {field}
                 </Typography>

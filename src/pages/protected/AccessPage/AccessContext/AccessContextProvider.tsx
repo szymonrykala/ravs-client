@@ -3,7 +3,6 @@ import { AccessContextValue } from ".";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import Access from "../../../../models/Access";
 import AccessService, { AccessCreateParams, AccessUpdateParams } from "../../../../services/AccessService";
-import { LogsQueryParams } from "../../../../services/LogService";
 import { EditForm } from "../Forms";
 
 
@@ -89,7 +88,12 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
             const resp = await AccessService.create(data);
 
             setAccessesList(old => {
-                old?.unshift({ ...data, id: resp.data } as Access)
+                old?.unshift({
+                    ...data,
+                    id: resp.data,
+                    _created: (new Date()).toUTCString(),
+                    _updated: (new Date()).toUTCString(),
+                } as Access)
                 return Object.assign([], old);
             });
 

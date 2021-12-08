@@ -1,4 +1,3 @@
-import { abort } from "process";
 import Metadata, { FavouriteBuilding, FavouriteRoom } from "../models/Metadata";
 import StorageService from "./StorageService";
 import UserService from "./UserService";
@@ -38,7 +37,10 @@ class MetadataService {
     }
 
     public set metadata(value: Metadata) {
-        this.data = value;
+        this.data = {
+            ...this.data,
+            ...value
+        };
     }
 
     public get notes() {
@@ -65,6 +67,7 @@ class MetadataService {
             }
             return -1;
         });
+        console.log(this.data);
         this.save();
     }
 

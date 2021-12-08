@@ -10,6 +10,8 @@ import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
 import ReservationModalContext from "./ModalContext";
 import useResourceMap from "../../../../../contexts/ResourceMapContext/useResourceMap";
 import ReservationsContextValue from "./ReservationsContextValue";
+import paths from "../../../../../shared/path";
+import { UserViewParams } from "../../../../../services/UserService";
 
 
 export const reservationsContext: any = React.createContext(null);
@@ -35,6 +37,9 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const load = React.useCallback(async () => {
         try {
             let params = urlParams;
+            if (Object.keys(urlParams).length === 0 && window.location.pathname === paths.HOME) {
+                params = { userId: 'me' } as UserViewParams;
+            }
             const resp = await ReservationService.getReservations(params, queryParams);
 
             resp.pagination && setQueryParams((old) => ({

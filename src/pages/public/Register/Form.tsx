@@ -24,7 +24,7 @@ export default function Form() {
 
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setData(old => ({ ...old, [e.currentTarget.name]: e.currentTarget.value }));
+        setData(old => ({ ...old, [e.target.name]: e.target.value }));
     }, []);
 
 

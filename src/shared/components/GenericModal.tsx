@@ -7,7 +7,7 @@ import { Paper } from '@mui/material';
 
 
 interface GenericModalProps {
-  children: React.ReactNode | React.ReactNodeArray,
+  children: React.ReactNode | React.ReactNode[],
   open: boolean,
   sx?: SxProps,
   onClose: React.Dispatch<React.SetStateAction<boolean>>
@@ -37,9 +37,9 @@ export default function GenericModal({
         <Paper sx={{
           bgcolor: 'background.paper',
           position: 'absolute' as 'absolute',
-          borderRadius: (theme) => theme.shape.borderRadius,
+          // borderRadius: (theme) => theme.shape.borderRadius,
           width: '95%',
-          mt: '10vw',
+          mt: '5vw',
           maxWidth: '500px',
           // overflow: 'auto',
           boxShadow: 24,

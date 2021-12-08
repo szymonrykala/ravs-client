@@ -47,7 +47,8 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
                 }}
             >
                 {
-                    props.options.map(opt => <MenuItem
+                    props.options.map((opt, id) => <MenuItem
+                        key={id}
                         onClick={handleClose}
                     >
                         <ListItemIcon>

@@ -87,7 +87,7 @@ export default abstract class Service {
 
         // if user is not authenticated - 
         // redirect to let sessionContext to resolve redirections
-        if (response.status === 401 && !fetchObject.endpoint.match('\/auth|me')) {
+        if (response.status === 401 && !fetchObject.endpoint.match('\/auth|me|activate')) {
             window.location.reload();
         }
 

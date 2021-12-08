@@ -30,7 +30,7 @@ enum Colors {
     error = '#fdeded',
     info = '#e5f6fd',
     warning = '#fff4e5',
-    finished = '#f5f5f5'
+    inert = '#f5f5f5'
 }
 
 interface ReservationStatus {
@@ -89,18 +89,20 @@ class ReservationService extends Service {
         // nie rozpoczęła się
         if (!actualStart) {
             // jest już po czasie, i czeka do +15 minut na odbiór
-            if (start < now && start > now_minus15) return this.emitStatus('Za chwilę zostanie odebrana.', Colors.warning);
+            if (start < now && start > now_minus15) return this.emitStatus('Powinna zostać już odebrana', Colors.warning);
 
             // za 15 minut zaczyna się rezerwacja
-            if (start > now && start < now_plus15) return this.emitStatus('Powinna zostać odebrana', Colors.info);
+            if (start > now && start < now_plus15) return this.emitStatus('Za chwilę zostanie odebrana', Colors.info);
 
             // nie została odbrana w czasie <planowany start + 15 minut>
             if (start < now_plus15) return this.emitStatus('Nieodebrana.', Colors.error)
 
+            return this.emitStatus('Oczekuje', Colors.inert)
+
             // rozpoczęła się
         } else if (actualStart) {
             // zakończyła się
-            if (actualEnd) return this.emitStatus('Rezerwacja zakończona.', Colors.finished);
+            if (actualEnd) return this.emitStatus('Rezerwacja zakończona.', Colors.inert);
 
             // nie zakończyła się
             if (!actualEnd) {
