@@ -4,6 +4,7 @@ import useNotification from "../../../../../contexts/NotificationContext/useNoti
 import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
 import Log from "../../../../../models/Log";
 import LogService, { LogsQueryParams } from "../../../../../services/LogService";
+import useTrigger from "../../../hooks/useTrigger";
 import LogsContextValue from "./LogsContextValue";
 
 
@@ -21,6 +22,7 @@ export default function LogsContextProvider(props: LogsContextProviderProps) {
     const urlParams = useParams();
     const { queryParams, setQueryParams } = useQueryParams<LogsQueryParams>();
     const notify = useNotification();
+    const refresh = useTrigger(60_000);
 
     const [logs, setLogs] = React.useState<Log[]>();
 
@@ -44,13 +46,16 @@ export default function LogsContextProvider(props: LogsContextProviderProps) {
         queryParams.method,
         queryParams.userId,
         notify,
-        urlParams
+        urlParams,
     ]);
 
 
     React.useEffect(() => {
         load()
-    }, [load])
+    }, [
+        load,
+        refresh
+    ])
 
 
     if (!logs) return null;

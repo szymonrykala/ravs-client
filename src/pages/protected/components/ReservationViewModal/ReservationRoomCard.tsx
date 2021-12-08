@@ -19,7 +19,7 @@ export default function ReservationRoomCard({ room }: ReservationRoomCardProps) 
     const buildingLink = React.useMemo(() => getBuildingLink(room.building), [room.building, getBuildingLink]);
 
     return (
-        <Card sx={{ display: 'flex', minHeight: '170px' }}>
+        <Card sx={{ display: 'flex', minHeight: '150px' }}>
             <CardMedia
                 component='img'
                 image={ImageService.getLink(room.image)}
@@ -55,9 +55,8 @@ export default function ReservationRoomCard({ room }: ReservationRoomCardProps) 
                             title="Pokaż budynek"
                         >
                             pokaż budynek
-                        </AppLink>
+                        </AppLink> <br/>
                         Aktualnie {room.occupied ? 'zajęta' : 'wolna'}<br />
-                        Piętro&nbsp;{room.floor}<br />
                     </Typography >
                 </CardContent >
             </Box >

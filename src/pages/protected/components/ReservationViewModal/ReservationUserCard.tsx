@@ -13,7 +13,7 @@ interface ReservationUserCardProps {
 
 export default function ReservationUserCard({ user }: ReservationUserCardProps) {
     return (
-        <Card aria-label="Rezerwujący użytkownik" sx={{ minHeight: '170px' }}>
+        <Card aria-label="Rezerwujący użytkownik" sx={{ minHeight: '150px' }}>
             <CardHeader
                 avatar={<Avatar
                     sx={{ width: 56, height: 56 }}

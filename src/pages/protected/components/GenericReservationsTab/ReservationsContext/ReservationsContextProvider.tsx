@@ -12,6 +12,7 @@ import useResourceMap from "../../../../../contexts/ResourceMapContext/useResour
 import ReservationsContextValue from "./ReservationsContextValue";
 import paths from "../../../../../shared/path";
 import { UserViewParams } from "../../../../../services/UserService";
+import useTrigger from "../../../hooks/useTrigger";
 
 
 export const reservationsContext: any = React.createContext(null);
@@ -30,6 +31,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     const roomContext = useRoomContext();
     const { user } = useSession();
     const urlParams = useParams<AppURLParams>();
+    const refresh = useTrigger(30_000);
 
     const [reservations, setReservations] = React.useState<Reservation[]>();
 
@@ -65,7 +67,10 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     // when loading function is recalculated - trigger the loading
     React.useEffect(() => {
         load();
-    }, [load]);
+    }, [
+        load,
+        refresh
+    ]);
 
 
     const triggerReload = () => setQueryParams(old => Object.assign({}, old));

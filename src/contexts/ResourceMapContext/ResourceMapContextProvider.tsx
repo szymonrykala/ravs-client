@@ -1,6 +1,7 @@
 import React from "react";
 import useSession from "../../auth/useSession";
 import AddressMap from "../../models/AddressMap";
+import useTrigger from "../../pages/protected/hooks/useTrigger";
 import AddressService from "../../services/AddressService";
 import useNotification from "../NotificationContext/useNotification";
 import ResourceMapContextValue from "./ResourceMapContextValue";
@@ -19,6 +20,7 @@ interface ResourceMapContextProviderProps {
 export default function ResourceMapContextProvider(props: ResourceMapContextProviderProps) {
     const [resourceMap, setResources] = React.useState<AddressMap[]>([]);
     const [loaded, setLoaded] = React.useState<boolean>(false);
+    const refresh = useTrigger(120_000);
 
     const { user } = useSession();
     const notify = useNotification();
@@ -39,7 +41,11 @@ export default function ResourceMapContextProvider(props: ResourceMapContextProv
     React.useEffect(() => {
         user && loadResourceMap();
         setLoaded(true);
-    }, [user, loadResourceMap]);
+    }, [
+        user,
+        loadResourceMap,
+        refresh
+    ]);
 
 
     const getRoomLink = React.useCallback((roomId: number): string => {

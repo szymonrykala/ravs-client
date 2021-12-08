@@ -196,8 +196,8 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                         spacing={1}
                         sx={{
                             border: '1px solid',
-                            borderColor: 'grey.400',
-                            borderRadius: ({ shape }) => shape.borderRadius,
+                            borderColor: 'divider',
+                            borderRadius: 1,
                             padding: 0.5,
                             bgcolor: 'background.default',
                             maxHeight: '200px',
@@ -213,7 +213,8 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                                     sx={{
                                         display: 'flex',
                                         alignItems: 'center',
-                                        justifyContent: 'space-evenly',
+                                        justifyContent: 'space-between',
+                                        pl:'3px'
                                     }}>
                                     <Typography component='p' sx={{ color: color }}>
                                         {displayDate(from.toString())}&nbsp;-&nbsp;{displayDate(to.toString())}

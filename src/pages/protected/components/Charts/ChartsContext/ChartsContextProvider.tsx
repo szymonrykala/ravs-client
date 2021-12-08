@@ -3,12 +3,9 @@ import { useParams } from "react-router-dom";
 import useSession from "../../../../../auth/useSession";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
-import { AddressViewParams } from "../../../../../services/AddressService";
-import { BuildingViewParams } from "../../../../../services/BuildingService";
 import ChartService, { ChartsData, ChartsQueryData } from "../../../../../services/ChartService";
 import { AppURLParams } from "../../../../../services/interfaces";
-import { RoomViewParams } from "../../../../../services/RoomService";
-import { UserViewParams } from "../../../../../services/UserService";
+import useTrigger from "../../../hooks/useTrigger";
 
 
 export const chartsContext: any = React.createContext(null);
@@ -24,6 +21,7 @@ interface ChartsContextProviderProps {
 export default function ChartsContextProvider(props: ChartsContextProviderProps) {
     const notify = useNotification();
     const urlParams = useParams<AppURLParams>();
+    const refresh = useTrigger(60_000);
 
     const { user } = useSession();
     const { queryParams } = useQueryParams<ChartsQueryData>();
@@ -47,12 +45,15 @@ export default function ChartsContextProvider(props: ChartsContextProviderProps)
     }, [
         notify,
         queryParams,
-        urlParams
+        urlParams,
     ]);
 
     React.useEffect(() => {
         load();
-    }, [load]);
+    }, [
+        load,
+        refresh
+    ]);
 
 
     if (Object.keys(chartsData).length === 0) return null;

@@ -13,9 +13,9 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
     const open = Boolean(anchorEl);
 
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    };
+    },[]);
 
     const handleClose = () => {
         setAnchorEl(null);

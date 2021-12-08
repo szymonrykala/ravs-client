@@ -3,7 +3,7 @@ import GenericModal from "../../../../shared/components/GenericModal";
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, IconButton, Typography } from '@mui/material';
 import { displayDate } from '../../../../shared/utils';
 import React from 'react';
 import ReservationUserCard from './ReservationUserCard';
@@ -11,11 +11,12 @@ import ReservationRoomCard from './ReservationRoomCard';
 import DeleteModal from '../../../../shared/components/DeleteModal';
 import { CopyForm, EditForm, PingNFCForm } from "./ModalForms";
 import { useReservations } from "../GenericReservationsTab/ReservationsContext";
-
+import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CopyIcon from '@mui/icons-material/CopyAll';
 import NFCIcon from '@mui/icons-material/Nfc';
 import { Edit } from "@mui/icons-material";
+import MoreVertMenu from "../../../../shared/components/MoreVertMenu";
 
 
 
@@ -52,11 +53,36 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
     const [nfcModalOpen, setNFCModalOpen] = React.useState<boolean>(false);
     const [copyModalOpen, setCopyModalOpen] = React.useState<boolean>(false);
 
-    const onDelete = async () => {
+    const onDelete = React.useCallback(async () => {
         if (await deleteReservation(props.reservation.id)) {
             setDeleteModalOpen(false);
         }
-    }
+    }, [props.reservation.id]);
+
+
+    const menuOptions = React.useMemo(() => {
+        const opt = [
+            {
+                icon: <NFCIcon color='primary' />,
+                label: 'Odbij klucz',
+                action: () => setNFCModalOpen(true)
+            }, {
+                icon: <CopyIcon color='primary' />,
+                label: 'Kopiuj',
+                action: () => setCopyModalOpen(true)
+            }, {
+                icon: <Edit color='primary' />,
+                label: 'Edytuj',
+                action: () => setEditModalOpen(true)
+            }, {
+                icon: <DeleteIcon color='error' />,
+                label: 'Usuń',
+                action: () => setDeleteModalOpen(true)
+            },
+        ]
+        return opt;
+    }, []);
+
 
     return (
         <>
@@ -91,53 +117,24 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                 onClose={props.onClose}
                 aria-label="Widok Rezerwacji"
                 sx={{
-                    maxWidth: '1000px',
-                    width: '95%',
-                    minHeight: '80%',
+                    maxWidth: '800px',
                     mt: '4vw'
                 }}
             >
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button
-                        startIcon={<FullscreenExitIcon fontSize="large" />}
-                        onClick={props.onClose}
-                        sx={{}}
-                    >
-                        Zamknij
-                    </Button>
-                </Box>
                 <Stack spacing={4} alignItems='stretch'>
-                    <Typography component="h2" variant="h4">
-                        {props.reservation.title}
-                    </Typography>
 
-                    <Box>
+                    <Stack direction='row' justifyContent='space-between'>
+                        <Typography component="h2" variant="h4">
+                            {props.reservation.title}
+                        </Typography>
+                        <IconButton onClick={props.onClose}>
+                            <CloseIcon />
+                        </IconButton>
+                    </Stack>
+
+                    <Stack direction='row' justifyContent='space-between'>
                         <Button
-                            startIcon={<DeleteIcon color='inherit' />}
-                            onClick={() => setDeleteModalOpen(true)}
-                            color='error'
-                            title="Usuń"
-                            aria-label="Usuń"
-                        >
-                            Usuń
-                        </Button>
-                        <Button
-                            startIcon={<Edit />}
-                            onClick={() => setEditModalOpen(true)}
-                            title="Edytuj"
-                            aria-label="Edytuj"
-                        >
-                            Edytuj
-                        </Button>
-                        <Button
-                            startIcon={<CopyIcon />}
-                            onClick={() => setCopyModalOpen(true)}
-                            title="Kopiuj rezerwację"
-                            aria-label="Kopiuj rezerwację"
-                        >
-                            Kopiuj
-                        </Button>
-                        <Button
+                            color='success'
                             startIcon={<NFCIcon />}
                             onClick={() => setNFCModalOpen(true)}
                             title="Odbij klucz"
@@ -145,7 +142,9 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         >
                             Odbij klucz
                         </Button>
-                    </Box>
+
+                        <MoreVertMenu options={menuOptions} />
+                    </Stack>
 
                     <TextSection title='Planowany czas:'>
                         {`${displayDate(props.reservation.plannedStart)} - ${displayDate(props.reservation.plannedEnd)}`}

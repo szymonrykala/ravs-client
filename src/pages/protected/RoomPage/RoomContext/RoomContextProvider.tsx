@@ -4,9 +4,8 @@ import { DetailedRoom } from "../../../../models/Room";
 import RoomService, { RoomUpdateParams, RoomViewParams } from "../../../../services/RoomService";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
 import RoomContextValue from "./RoomContextValue";
-import Image from "../../../../models/Image";
 import useResourceMap from "../../../../contexts/ResourceMapContext/useResourceMap";
-import ImageService from "../../../../services/ImageService";
+import useTrigger from "../../hooks/useTrigger";
 
 
 interface RoomContextProviderProps {
@@ -23,7 +22,7 @@ export default function RoomContextProvider({
     const notify = useNotification();
     const urlParams = useParams<RoomViewParams>();
     const [room, setRoom] = React.useState<DetailedRoom>();
-
+    const refresh = useTrigger(60_000);
 
     React.useLayoutEffect(() => {
         RoomService.setPath(urlParams);
@@ -33,7 +32,10 @@ export default function RoomContextProvider({
     const getRoom = React.useCallback(async () => {
         const resp = await RoomService.getView();
         setRoom(resp.data as DetailedRoom);
-    }, [urlParams]); // recompute after change of room
+    }, [
+        urlParams,
+        refresh
+    ]); // recompute after change of room
 
 
     const setOccupied = React.useCallback((state: boolean) => {

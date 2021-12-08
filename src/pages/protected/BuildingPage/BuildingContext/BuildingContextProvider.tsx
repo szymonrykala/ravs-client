@@ -7,7 +7,6 @@ import BuildingContextValue from "./BuildingContextValue";
 import { dynamicPaths } from "../../../../shared/path";
 import Room from "../../../../models/Room";
 import { useResourceMap } from "../../../../contexts/ResourceMapContext";
-import ImageService from "../../../../services/ImageService";
 
 
 interface BuildingContextProviderProps {
