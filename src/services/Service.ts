@@ -33,11 +33,23 @@ export interface StatusMessages {
 }
 
 
+function getBackendUrl(): string {
+    switch (process.env.NODE_ENV) {
+        case 'development':
+            return 'http://localhost:8081/v1';
+        case 'test':
+            return 'https://ravsapi-dev.herokuapp.com/v1';
+        case 'production':
+            return 'https://ravsapi.herokuapp.com/v1';
+        default:
+            throw new Error('Nie rozpoznano środowiska');
+    }
+}
 
 
 export default abstract class Service {
 
-    _BASE_URL: string = 'http://localhost:8081/v1';
+    _BASE_URL: string = getBackendUrl();
     _TOKEN_NAME: string = 'auth_token';
     _userId: number = -1;
 
