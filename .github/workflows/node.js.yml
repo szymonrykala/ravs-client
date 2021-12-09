@@ -6,8 +6,6 @@ name: Node.js CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -35,6 +33,6 @@ jobs:
       uses: Cecilapp/GitHub-Pages-deploy@3.2.0
       with:
         email: szymonrykala@gmail.com
-        build_dir: /build
+        build_dir: ./build
         branch: gh-pages
         commit_message: deploy
