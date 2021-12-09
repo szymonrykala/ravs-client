@@ -1,7 +1,8 @@
 
 
 export default interface Model {
+    [index: string]: any,
     id: number,
-    _created: Date,
-    _updated: Date
+    _created: string,
+    _updated: string
 }

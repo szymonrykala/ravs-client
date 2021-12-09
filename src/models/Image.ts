@@ -1,7 +1,7 @@
 import Model from './Model';
 
 
-export default interface Image extends Model{
-    path: string,
+export default interface Image extends Model {
+    url: string,
     size: number,
 }

@@ -3,10 +3,19 @@ import Image from './Image';
 import Address from './Address';
 
 
-export default interface Building extends Model {
+interface BaseBuilding extends Model {
     name: string,
     image: Image,
-    address: number | Address,
-    openTime: Date,
-    closeTime: Date,
+    openTime: string,
+    closeTime: string,
+};
+
+
+export default interface Building extends BaseBuilding {
+    address: number
+}
+
+
+export interface DetailedBuilding extends BaseBuilding {
+    address: Address
 }
