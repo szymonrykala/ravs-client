@@ -19,7 +19,10 @@ interface RoomEditFormProps {
 }
 
 
-export default function RoomEditForm(props: RoomEditFormProps) {
+export default function RoomEditForm({
+    open,
+    onClose,
+}: RoomEditFormProps) {
     const { room, updateRoom } = useRoomContext();
     const { allBuildings } = useResourceMap();
 
@@ -61,29 +64,33 @@ export default function RoomEditForm(props: RoomEditFormProps) {
 
     const handleSubmit = React.useCallback(async () => {
         if (await updateRoom(data)) {
-            props.onClose();
+            onClose();
         }
-    }, [data, updateRoom, props.onClose]);
+    }, [
+        data,
+        updateRoom,
+        onClose
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno usuwania obiektu"
             sx={{
                 maxWidth: "450px",
             }}
         >
             <Stack spacing={2}>
-                <ImageUploadField image={room.image}/>
+                <ImageUploadField image={room.image} />
                 <Divider />
 
                 <FormGridContainer
                     title='Edycja sali'
                     subtitle="Zmień właściwości pokoju i zatwierdź zmiany."
                     onSubmit={handleSubmit}
-                    onCancel={props.onClose}
+                    onCancel={onClose}
                 >
 
                     <Grid item xs={12}>

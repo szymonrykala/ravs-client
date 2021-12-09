@@ -1,7 +1,6 @@
 import { Button, InputBase } from "@mui/material";
 import Box from "@mui/system/Box";
 import React from "react";
-import useSession from "../../../auth/useSession";
 import SaveIcon from '@mui/icons-material/Save';
 import useNotification from "../../../contexts/NotificationContext/useNotification";
 import SmallCard from "../../../shared/components/SmallCard";
@@ -10,7 +9,6 @@ import MetadataService from "../../../services/MetadataService";
 
 
 export default function Notebook() {
-    const { user } = useSession();
     const notify = useNotification();
 
     const [data, setData] = React.useState<string>();
@@ -18,7 +16,7 @@ export default function Notebook() {
 
     React.useEffect(() => {
         setData(MetadataService.notes)
-    }, [user]);
+    }, []);
 
 
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
@@ -33,7 +31,10 @@ export default function Notebook() {
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [data, user, notify]);
+    }, [
+        data,
+        notify,
+    ]);
 
 
     const handleChange = React.useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {

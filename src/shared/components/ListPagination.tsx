@@ -9,20 +9,24 @@ import { APIPagination } from '../../services/interfaces';
 export default function ListPagination() {
     const { queryParams, setQueryParams } = useQueryParams<APIPagination>();
 
-    
+
     const handlePageChange = React.useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setQueryParams(old => ({
             ...old,
             currentPage: value
         }));
-    }, []);
+    }, [
+        setQueryParams
+    ]);
 
     const handleCountChange = React.useCallback((event: SelectChangeEvent<number>, child: React.ReactNode) => {
         setQueryParams(old => ({
             ...old,
             itemsOnPage: Number(event.target.value)
         }));
-    }, []);
+    }, [
+        setQueryParams
+    ]);
 
 
     return (

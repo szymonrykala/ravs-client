@@ -52,7 +52,11 @@ export default function RoomTableInfo({
                 value: <YesNoIcon value={!room.blocked} />
             },
         ];
-    }, [room, deleteTag]);
+    }, [
+        room,
+        deleteTag,
+        getBuildingLink,
+    ]);
 
 
     const RenderedRows = React.useMemo(() => {

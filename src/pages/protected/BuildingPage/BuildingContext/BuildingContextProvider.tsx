@@ -27,13 +27,15 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
 
     React.useLayoutEffect(() => {
         BuildingService.setPath(urlParams);
-    }, [urlParams.buildingId])
+    }, [urlParams])
 
 
     const getBuilding = React.useCallback(async () => {
         const resp = await BuildingService.getCurrentOne();
         setBuilding(resp.data as DetailedBuilding);
-    }, [urlParams.buildingId]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlParams]);
 
 
     React.useEffect(() => {
@@ -48,7 +50,9 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
         } catch (err: any) {
             return [];
         }
-    }, [urlParams.buildingId])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlParams])
 
 
     const updateBuilding = React.useCallback(async (data: BuildingUpdateParams) => {

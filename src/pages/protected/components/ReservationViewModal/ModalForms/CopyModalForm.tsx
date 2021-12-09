@@ -104,7 +104,11 @@ export default function CopyModalForm(props: CopyModalFormProps) {
             });
             return Object.assign([], old);
         });
-    }, [dates, copyDates]);
+    }, [
+        dates,
+        notify,
+        copyDates,
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -214,7 +218,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'space-between',
-                                        pl:'3px'
+                                        pl: '3px'
                                     }}>
                                     <Typography component='p' sx={{ color: color }}>
                                         {displayDate(from.toString())}&nbsp;-&nbsp;{displayDate(to.toString())}

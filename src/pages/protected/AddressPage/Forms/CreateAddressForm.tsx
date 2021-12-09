@@ -14,7 +14,10 @@ interface CreateAddressFormProps {
 }
 
 
-export default function CreateAddressForm(props: CreateAddressFormProps) {
+export default function CreateAddressForm({
+    open,
+    onClose,
+}: CreateAddressFormProps) {
     const notify = useNotification();
     const { reloadMap } = useResourceMap();
 
@@ -40,24 +43,29 @@ export default function CreateAddressForm(props: CreateAddressFormProps) {
             await AddressService.create(data);
             reloadMap();
             notify('Adres został dodany', 'success');
-            props.onClose();
+            onClose();
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [data]);
+    }, [
+        data,
+        notify,
+        onClose,
+        reloadMap,
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno do tworzenia adresu"
         >
             <FormGridContainer
                 title='Dodaj nowy adres!'
                 subtitle="Wypełnij dane nowego adresu i kliknij zatwierdź."
                 onSubmit={handleSubmit}
-                onCancel={props.onClose}
+                onCancel={onClose}
             >
                 <Grid item xs={12}>
                     <TextField

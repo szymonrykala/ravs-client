@@ -27,7 +27,10 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     React.useLayoutEffect(() => {
         let params = (urlParams.userId === 'me' && session.user) ? { userId: session.user.id.toString() } : urlParams;
         UserService.setPath(params);
-    }, [urlParams.userId, session]);
+    }, [
+        urlParams,
+        session
+    ]);
 
 
     const load = React.useCallback(async () => {
@@ -36,12 +39,16 @@ export default function UserContextProvider(props: UserContextProviderProps) {
             setUser(resp.data as DetailedUser);
         } catch (err: any) {
         }
-    }, [urlParams.userId]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlParams]);
 
 
     React.useEffect(() => {
         load()
-    }, [load]);
+    }, [
+        load
+    ]);
 
 
     const deleteUser = React.useCallback(async () => {
@@ -62,7 +69,11 @@ export default function UserContextProvider(props: UserContextProviderProps) {
             notify(err.description, 'error');
         }
         return false;
-    }, [notify]);
+    }, [
+        notify,
+        session,
+        user?.id,
+    ]);
 
 
     const updateUser = React.useCallback(async (data: UpdateUserParams) => {

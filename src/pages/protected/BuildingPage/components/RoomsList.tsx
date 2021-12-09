@@ -26,7 +26,9 @@ export default function RoomsList() {
     const load = React.useCallback(async () => {
         const rooms = await getRoomsInBuilding();
         setRooms(rooms);
-    }, [getRoomsInBuilding])
+    }, [
+        getRoomsInBuilding
+    ]);
 
 
     React.useEffect(() => {
@@ -45,7 +47,12 @@ export default function RoomsList() {
             notify(err.description, 'error');
         }
         return false;
-    }, [notify, reloadMap, load]);
+    }, [
+        notify,
+        reloadMap,
+        load,
+        urlParams,
+    ]);
 
 
     const renderedRooms = React.useMemo(() => {

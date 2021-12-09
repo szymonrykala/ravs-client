@@ -14,7 +14,11 @@ interface CreateAccessModalProps {
 }
 
 
-export default function CreateAccessModal(props: CreateAccessModalProps) {
+export default function CreateAccessModal({
+    open,
+    onClose,
+    onSubmit,
+}: CreateAccessModalProps) {
 
     const [name, setName] = React.useState<string>('');
 
@@ -25,24 +29,30 @@ export default function CreateAccessModal(props: CreateAccessModalProps) {
 
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
         setName('');
-    }, [props.onClose]);
+    }, [
+        onClose
+    ]);
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (await props.onSubmit({
+        if (await onSubmit({
             name: name
         })) {
-            props.onClose();
+            onClose();
             setName('');
         }
-    }, [props.onClose, props.onSubmit, name]);
+    }, [
+        onClose,
+        onSubmit,
+        name
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
+            open={open}
             onClose={close}
         >
             <FormGridContainer

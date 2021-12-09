@@ -20,7 +20,7 @@ interface ResourceMapContextProviderProps {
 export default function ResourceMapContextProvider(props: ResourceMapContextProviderProps) {
     const [resourceMap, setResources] = React.useState<AddressMap[]>([]);
     const [loaded, setLoaded] = React.useState<boolean>(false);
-    const refresh = useTrigger(120_000);
+    const refresh = useTrigger(300_000);
 
     const { user } = useSession();
     const notify = useNotification();

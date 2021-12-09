@@ -52,6 +52,8 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
         } catch (err: any) {
             notify(err.description ?? err.message, 'error');
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         queryParams.currentPage,
         queryParams.itemsOnPage,
@@ -67,13 +69,17 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     // when loading function is recalculated - trigger the loading
     React.useEffect(() => {
         load();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         load,
         refresh
     ]);
 
 
-    const triggerReload = () => setQueryParams(old => Object.assign({}, old));
+    const triggerReload = React.useCallback(() => setQueryParams(old => Object.assign({}, old)), [
+        setQueryParams
+    ]);
 
 
     const pingKeyForReservation = React.useCallback(async (id: number, key: string) => {
@@ -105,7 +111,11 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             return false;
         }
         return true;
-    }, [reservations, roomContext, notify]);
+    }, [
+        reservations,
+        roomContext,
+        notify,
+    ]);
 
 
     const createReservation = React.useCallback(async (data: CreateReservationData) => {
@@ -119,7 +129,10 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             return false;
         }
         return true
-    }, [notify]);
+    }, [
+        notify,
+        triggerReload,
+    ]);
 
 
     const deleteReservation = React.useCallback(async (reservationId: number) => {

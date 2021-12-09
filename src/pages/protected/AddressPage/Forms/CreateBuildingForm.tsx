@@ -11,12 +11,15 @@ import FormGridContainer from "../../../../shared/components/FormGridContainer";
 interface CreateBuildingFormProps {
     open: boolean,
     onClose: () => void,
-    addressId: number,
     handleCreateBuilding: (data: BuildingCreateParams) => Promise<boolean>
 }
 
 
-export default function CreateBuildingForm(props: CreateBuildingFormProps) {
+export default function CreateBuildingForm({
+    open,
+    onClose,
+    handleCreateBuilding,
+}: CreateBuildingFormProps) {
     const [data, setData] = React.useState<BuildingCreateParams>({
         name: '',
         openTime: (new Date(0, 0, 0, 7, 0)).toString(),
@@ -43,30 +46,34 @@ export default function CreateBuildingForm(props: CreateBuildingFormProps) {
 
 
     const handleSubmit = React.useCallback(async () => {
-        const success = await props.handleCreateBuilding({
+        const success = await handleCreateBuilding({
             ...data,
             closeTime: timeFormat.format(new Date(data.closeTime)),
             openTime: timeFormat.format(new Date(data.openTime))
         });
 
         if (success) {
-            props.onClose();
+            onClose();
         }
 
-    }, [data, props.handleCreateBuilding, props.onClose]);
+    }, [
+        data,
+        onClose,
+        handleCreateBuilding,
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno do tworzenia budynku"
         >
             <FormGridContainer
                 title='Dodaj nowy budynek!'
                 subtitle="Wypełnij dane nowego budynku i kliknij zatwierdź."
                 onSubmit={handleSubmit}
-                onCancel={props.onClose}
+                onCancel={onClose}
             >
                 <Grid item xs={12}>
                     <TextField

@@ -15,16 +15,21 @@ interface AddressEditFormProps {
 
 
 
-export default function AddressEditForm(props: AddressEditFormProps) {
+export default function AddressEditForm({
+    open,
+    onClose
+}: AddressEditFormProps) {
     const { address, updateAddress } = useAddress();
 
     const [data, setData] = React.useState<UpdateAddressParams>({});
 
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
         setData({});
-    }, []);
+    }, [
+        onClose
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -39,20 +44,24 @@ export default function AddressEditForm(props: AddressEditFormProps) {
         if (await updateAddress(data)) {
             close();
         }
-    }, [data]);
+    }, [
+        data,
+        close,
+        updateAddress,
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno do edycji budynku"
         >
             <FormGridContainer
                 title='Edycja adresu'
                 subtitle="Zmień właściwości adresu i zatwierdź zmiany."
                 onSubmit={handleSubmit}
-                onCancel={props.onClose}
+                onCancel={onClose}
             >
                 <Grid item xs={12}>
                     <TextField

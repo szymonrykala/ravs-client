@@ -40,7 +40,10 @@ export default function LogsContextProvider(props: LogsContextProviderProps) {
             notify(err.description, 'error');
             setLogs([]);
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
+        setQueryParams,
         queryParams.currentPage,
         queryParams.itemsOnPage,
         queryParams.method,

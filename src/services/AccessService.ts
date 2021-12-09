@@ -1,4 +1,3 @@
-import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 

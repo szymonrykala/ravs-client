@@ -32,17 +32,22 @@ function timeToDate(value: string) {
 }
 
 
-export default function BuildingEditForm(props: BuildingEditFormProps) {
+export default function BuildingEditForm({
+    open,
+    onClose,
+}: BuildingEditFormProps) {
     const { allAddresses } = useResourceMap();
-    const { updateBuilding, building} = useBuilding();
+    const { updateBuilding, building } = useBuilding();
 
     const [data, setData] = React.useState<BuildingUpdateParams>({});
 
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
         setData({});
-    }, []);
+    }, [
+        onClose
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -69,7 +74,6 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
             old[field] = timeFormat.format(value);
             return Object.assign({}, old);
         });
-
     }, [])
 
 
@@ -77,8 +81,11 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
         if (await updateBuilding(data)) {
             close();
         }
-
-    }, [data, updateBuilding]);
+    }, [
+        data,
+        close,
+        updateBuilding,
+    ]);
 
 
     const handleSelectChange = React.useCallback((event: SelectChangeEvent<string | number>): void => {
@@ -94,20 +101,20 @@ export default function BuildingEditForm(props: BuildingEditFormProps) {
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno edycji budynku"
         >
             <Stack spacing={3}>
 
-                <ImageUploadField image={building.image}/>
+                <ImageUploadField image={building.image} />
                 <Divider />
 
                 <FormGridContainer
                     title='Edycja budynku'
                     subtitle="Zmień właściwości budynku i zatwierdź zmiany."
                     onSubmit={handleSubmit}
-                    onCancel={props.onClose}
+                    onCancel={onClose}
                 >
                     <Grid item xs={12}>
                         <TextField

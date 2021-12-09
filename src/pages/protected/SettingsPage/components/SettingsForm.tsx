@@ -51,7 +51,10 @@ export default function SettingsForm() {
         event.preventDefault();
         await updateSettings(data);
         setData({});
-    }, [data]);
+    }, [
+        data,
+        updateSettings,
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {

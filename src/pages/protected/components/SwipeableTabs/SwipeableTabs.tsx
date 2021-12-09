@@ -50,7 +50,11 @@ export default function SwipeableTabs(props: SwipeableTabsProps) {
         >
             {page.component}
         </SwipeablePanel>)
-    }, [props.tabs, tabIndex]);
+    }, [
+        props.tabs,
+        tabIndex,
+        theme.direction,
+    ]);
 
 
     return (

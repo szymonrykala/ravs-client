@@ -8,13 +8,16 @@ interface EditUserFormProps {
     onClose: () => void
 }
 
-export default function PasswordChangeModal(props: EditUserFormProps) {
+export default function PasswordChangeModal({
+    open,
+    onClose
+}: EditUserFormProps) {
     const { logout } = useSession();
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
 
-    }, [props.onClose]);
+    }, [onClose]);
 
     const onSuccess = React.useCallback(() => {
         logout();
@@ -22,7 +25,7 @@ export default function PasswordChangeModal(props: EditUserFormProps) {
 
     return (
         <GenericModal
-            open={props.open}
+            open={open}
             onClose={close}
             sx={{
                 maxWidth: '450px'

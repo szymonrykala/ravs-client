@@ -49,7 +49,13 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [uploadedImage, props, notify, location]);
+    }, [
+        uploadedImage,
+        props,
+        notify,
+        location,
+        urlParams,
+    ]);
 
 
     const handleImageUpload = React.useCallback((evt: any) => {
@@ -71,7 +77,12 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
         } catch (err: any) {
             notify(err.description, "error");
         }
-    }, [props, notify, location]);
+    }, [
+        props,
+        notify,
+        location,
+        urlParams,
+    ]);
 
 
     return (
@@ -84,8 +95,7 @@ export default function ImageUploadField(props: ImageUploadFieldProps) {
             <Grid item xs={12} sm={9}>
                 <StyledImage
                     src={uploadedImage ? URL.createObjectURL(uploadedImage) : ImageService.getLink(props.image)}
-                    alt=''
-                    sx={{ borderRadius: (theme) => theme.shape.borderRadius }}
+                    alt='nowy obraz'
                 />
             </Grid>
             <Grid item xs={12} sm={3} sx={{

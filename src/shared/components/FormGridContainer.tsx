@@ -17,36 +17,44 @@ interface FormGridContainerProps {
 }
 
 
-export default function FormGridContainer(props: FormGridContainerProps) {
+export default function FormGridContainer({
+    title,
+    subtitle,
+    onSubmit,
+    onCancel,
+    children,
+}: FormGridContainerProps) {
 
 
     const handleSubmit = React.useCallback((event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        props.onSubmit();
-    }, [props.onSubmit]);
+        onSubmit();
+    }, [
+        onSubmit
+    ]);
 
 
     return (
         <Stack rowGap={3}>
             <span>
                 <Typography variant="h5" color='primary.dark'>
-                    {props.title}
+                    {title}
                 </Typography>
 
-                {props.subtitle && <Typography variant="body2" color='text.secondary' mt='5px'>
-                    {props.subtitle}
+                {subtitle && <Typography variant="body2" color='text.secondary' mt='5px'>
+                    {subtitle}
                 </Typography>}
             </span>
 
             <Grid container spacing={2} component="form" onSubmit={handleSubmit} >
-                {props.children}
+                {children}
                 <Grid item xs={12}>
                     <Stack direction="row" justifyContent="space-around" mt={1.5}>
                         <Button
                             aria-label="Zamknij"
                             title='Zamknij'
                             startIcon={<CancelIcon />}
-                            onClick={props.onCancel}
+                            onClick={onCancel}
                         >
                             Zamknij
                         </Button>

@@ -37,7 +37,10 @@ export default function AccessesList() {
                 }}
             />).reverse();
 
-    }, [accessesList]);
+    }, [
+        accessesList,
+        openAccess,
+    ]);
 
 
     const handleDelete = React.useCallback(async () => {

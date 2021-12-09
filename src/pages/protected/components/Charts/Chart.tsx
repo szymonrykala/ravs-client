@@ -71,7 +71,8 @@ export default function Chart<DataType>(props: ChartProps<DataType>) {
         return obj;
     }, [
         props.y,
-        props.xKey
+        props.xKey,
+        props.data,
     ]);
 
 

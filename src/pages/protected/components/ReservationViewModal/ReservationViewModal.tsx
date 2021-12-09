@@ -1,9 +1,8 @@
 import Reservation from "../../../../models/Reservation";
 import GenericModal from "../../../../shared/components/GenericModal";
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Box, Grid, IconButton, Typography } from '@mui/material';
+import { Grid, IconButton, Typography } from '@mui/material';
 import { displayDate } from '../../../../shared/utils';
 import React from 'react';
 import ReservationUserCard from './ReservationUserCard';
@@ -53,11 +52,15 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
     const [nfcModalOpen, setNFCModalOpen] = React.useState<boolean>(false);
     const [copyModalOpen, setCopyModalOpen] = React.useState<boolean>(false);
 
+
     const onDelete = React.useCallback(async () => {
         if (await deleteReservation(props.reservation.id)) {
             setDeleteModalOpen(false);
         }
-    }, [props.reservation.id]);
+    }, [
+        props.reservation.id,
+        deleteReservation,
+    ]);
 
 
     const menuOptions = React.useMemo(() => {

@@ -81,12 +81,18 @@ export default function EditUsersAccess() {
 
     React.useEffect(() => {
         loadUsers(access.left).then(data => setLeftUsers(data))
-    }, [access.left]);
+    }, [
+        access.left,
+        loadUsers,
+    ]);
 
 
     React.useEffect(() => {
         loadUsers(access.right).then(data => setRightUsers(data))
-    }, [access.right]);
+    }, [
+        access.right,
+        loadUsers,
+    ]);
 
 
 
@@ -118,7 +124,14 @@ export default function EditUsersAccess() {
 
         setLeftUsers(usersNotUsers(leftUsers, moved)); //not user who is selected
         setChecked(notNumNum(checked, leftChecked)); // uncheck checked elements
-    }, [leftChecked, rightUsers, leftUsers, checked]);
+    }, [
+        leftChecked,
+        rightUsers,
+        leftUsers,
+        checked,
+        access.right,
+        updateUsersAccess,
+    ]);
 
 
     // to the left
@@ -133,7 +146,14 @@ export default function EditUsersAccess() {
         setRightUsers(l); //not user who is selected
         setChecked(notNumNum(checked, rightChecked)); // uncheck checked elements
 
-    }, [rightChecked, leftUsers, rightUsers, checked]);
+    }, [
+        rightChecked,
+        leftUsers,
+        rightUsers,
+        checked,
+        access.left,
+        updateUsersAccess,
+    ]);
 
 
     const handleSelectChange = React.useCallback((event: SelectChangeEvent<number>): void => {

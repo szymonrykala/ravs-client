@@ -44,7 +44,12 @@ export default function BuildingsList() {
             notify(err.description, 'error');
         }
         return false;
-    }, [notify, reloadMap, load]);
+    }, [
+        notify,
+        reloadMap,
+        load,
+        urlParams,
+    ]);
 
 
     const renderedBuildings = React.useMemo(() => {
@@ -58,7 +63,6 @@ export default function BuildingsList() {
     return (
         <>
             <CreateBuildingForm
-                addressId={Number(urlParams.addressId)}
                 open={createBuildingModalOpen}
                 onClose={() => setCreateBuildingModalOpen(false)}
                 handleCreateBuilding={createBuilding}

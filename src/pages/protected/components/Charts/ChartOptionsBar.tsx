@@ -1,7 +1,6 @@
-import { Box, Button, Chip, Link, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import React from "react";
-import { APIResponse } from "../../../../services/interfaces";
 import SelectButtonGroup, { SelectButtonInterface } from "../../../../shared/components/SelectButtonGroup";
 import { useQueryParams } from "../../../../contexts/QueryParamsContext";
 import { ChartsQueryData } from "../../../../services/ChartService";
@@ -29,7 +28,9 @@ export default function ChartOptionsBar() {
             from: buttonValue,
             to: "now"
         });
-    }, [setQueryParams]);
+    }, [
+        setQueryParams
+    ]);
 
 
     const handleSubmitCustomDate = React.useCallback(async (evt: any) => {
@@ -38,7 +39,11 @@ export default function ChartOptionsBar() {
             from: customDates.from?.toISOString(),
             to: customDates.to?.toISOString()
         });
-    }, [customDates.from, customDates.to, setQueryParams]);
+    }, [
+        customDates.from,
+        customDates.to,
+        setQueryParams
+    ]);
 
 
     return (

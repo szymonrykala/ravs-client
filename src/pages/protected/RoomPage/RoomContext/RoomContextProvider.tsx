@@ -32,6 +32,8 @@ export default function RoomContextProvider({
     const getRoom = React.useCallback(async () => {
         const resp = await RoomService.getView();
         setRoom(resp.data as DetailedRoom);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         urlParams,
         refresh
@@ -67,7 +69,11 @@ export default function RoomContextProvider({
             notify(err.description, 'error');
         }
         return false;
-    }, [notify, reloadMap, room]);
+    }, [
+        notify,
+        reloadMap,
+        room
+    ]);
 
 
     const deleteRoom = React.useCallback(async () => {
@@ -81,7 +87,12 @@ export default function RoomContextProvider({
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [notify, room, reloadMap]);
+    }, [
+        notify,
+        room,
+        reloadMap,
+        getBuildingLink,
+    ]);
 
 
     const updateRFIDTag = React.useCallback(async (key: string) => {

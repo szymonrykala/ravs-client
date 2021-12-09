@@ -19,23 +19,33 @@ interface EditUserFormProps {
 }
 
 
-export default function EditUserForm(props: EditUserFormProps) {
-    const { updateUser} = useUser();
+export default function EditUserForm({
+    open,
+    onClose,
+    user,
+}: EditUserFormProps) {
+    const { updateUser } = useUser();
 
     const [data, setData] = React.useState<UpdateUserParams>({});
 
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
         setData({});
-    }, [props.onClose]);
+    }, [
+        onClose
+    ]);
 
 
     const onSubmit = React.useCallback(async () => {
         if (await updateUser(data)) {
             close();
         }
-    }, [data, close]);
+    }, [
+        data,
+        close,
+        updateUser,
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -48,7 +58,7 @@ export default function EditUserForm(props: EditUserFormProps) {
 
     return (
         <GenericModal
-            open={props.open}
+            open={open}
             onClose={close}
             sx={{
                 maxWidth: '450px'
@@ -56,7 +66,7 @@ export default function EditUserForm(props: EditUserFormProps) {
         >
             <Stack spacing={3}>
 
-                <ImageUploadField image={props.user.image}/>
+                <ImageUploadField image={user.image} />
 
                 <Divider />
 
@@ -74,7 +84,7 @@ export default function EditUserForm(props: EditUserFormProps) {
                             label="Imię"
                             name="name"
                             autoFocus
-                            value={data.name ?? props.user.name}
+                            value={data.name ?? user.name}
                             onChange={handleChange}
                         />
                     </Grid>
@@ -85,7 +95,7 @@ export default function EditUserForm(props: EditUserFormProps) {
                             id="surname"
                             label="Nazwisko"
                             name="surname"
-                            value={data.surname ?? props.user.surname}
+                            value={data.surname ?? user.surname}
                             onChange={handleChange}
                         />
                     </Grid>

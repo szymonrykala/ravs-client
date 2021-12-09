@@ -46,6 +46,7 @@ export default function ChartsContextProvider(props: ChartsContextProviderProps)
         notify,
         queryParams,
         urlParams,
+        user?.id,
     ]);
 
     React.useEffect(() => {

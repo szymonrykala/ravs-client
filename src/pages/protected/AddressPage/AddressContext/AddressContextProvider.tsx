@@ -29,13 +29,15 @@ export default function AddressContextProvider(props: AddressContextProviderProp
 
     React.useLayoutEffect(() => {
         AddressService.setPath(urlParams);
-    }, [urlParams.addressId])
+    }, [urlParams])
 
 
     const getAddress = React.useCallback(async () => {
         const resp = await AddressService.getCurrentOne();
         setAddress(resp.data as Address);
-    }, [urlParams.addressId]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlParams]);
 
 
     React.useEffect(() => {
@@ -50,7 +52,8 @@ export default function AddressContextProvider(props: AddressContextProviderProp
         } catch (err: any) {
             return [];
         }
-    }, [urlParams.addressId]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [urlParams]);
 
 
     const updateAddress = React.useCallback(async (data: UpdateAddressParams) => {
@@ -73,7 +76,10 @@ export default function AddressContextProvider(props: AddressContextProviderProp
             notify(err.description, 'error');
         }
         return false;
-    }, [notify])
+    }, [
+        notify,
+        reloadMap,
+    ])
 
 
 
@@ -86,7 +92,11 @@ export default function AddressContextProvider(props: AddressContextProviderProp
             address &&
                 notify(err.description, 'error');
         }
-    }, [notify, address]);
+    }, [
+        notify,
+        address,
+        reloadMap,
+    ]);
 
 
     if (!Boolean(address)) return null;

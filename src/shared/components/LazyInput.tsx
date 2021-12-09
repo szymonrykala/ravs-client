@@ -11,9 +11,15 @@ interface SimpleInputProps {
     sx?: SxProps
 }
 
-export default function LazyInput(props: SimpleInputProps) {
+export default function LazyInput({
+    value,
+    onChange,
+    label,
+    name,
+    sx,
+}: SimpleInputProps) {
     const [trigger, setTrigger] = React.useState<any>();
-    const [str, setStr] = React.useState<string>(props.value);
+    const [str, setStr] = React.useState<string>(value);
 
 
     const handleSearchFieldChange = React.useCallback((evt) => {
@@ -21,24 +27,27 @@ export default function LazyInput(props: SimpleInputProps) {
         clearTimeout(trigger);
 
         let timer = setTimeout(() => {
-            props.onChange(evt);
-        }, 2000);
+            onChange(evt);
+        }, 1000);
         setTrigger(timer);
-    }, [trigger]);
+    }, [
+        trigger,
+        onChange,
+    ]);
 
 
     return <InputBase
-        name={props.name}
+        name={name}
         value={str}
         onChange={handleSearchFieldChange}
-        placeholder={props.label}
+        placeholder={label}
         sx={{
             width: '100%',
             maxWidth: '600px',
             p: 1,
             bgcolor: 'background.default',
-            ...props.sx
+            ...sx
         }}
-        inputProps={{ 'aria-label': props.label }}
+        inputProps={{ 'aria-label': label }}
     />;
 }

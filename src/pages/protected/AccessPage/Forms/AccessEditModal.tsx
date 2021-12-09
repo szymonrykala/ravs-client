@@ -48,7 +48,12 @@ const fields = [
 ];
 
 
-export default function AccessEditModal(props: AccessEditModalProps) {
+export default function AccessEditModal({
+    access,
+    open,
+    onClose,
+    onSubmit,
+}: AccessEditModalProps) {
 
     const [data, setData] = React.useState<AccessUpdateParams>({});
 
@@ -73,22 +78,29 @@ export default function AccessEditModal(props: AccessEditModalProps) {
 
 
     const close = React.useCallback(() => {
-        props.onClose();
+        onClose();
         setData({});
-    }, [props.onClose]);
+    }, [
+        onClose
+    ]);
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (await props.onSubmit(props.access.id, data)) {
-            props.onClose();
+        if (await onSubmit(access.id, data)) {
+            onClose();
             setData({});
         }
-    }, [props.onClose, props.onSubmit, props.access.id, data]);
+    }, [
+        onClose,
+        onSubmit,
+        access.id,
+        data
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
+            open={open}
             onClose={close}
         >
             <FormGridContainer
@@ -103,7 +115,7 @@ export default function AccessEditModal(props: AccessEditModalProps) {
                         name="name"
                         label="nazwa"
                         id="nazwa"
-                        value={data.name ?? props.access.name}
+                        value={data.name ?? access.name}
                         onChange={handleChange}
                     />
                 </Grid>
@@ -118,7 +130,7 @@ export default function AccessEditModal(props: AccessEditModalProps) {
                                     name={field.name}
                                     inputProps={{ 'aria-label': field.label }}
                                     onChange={handleChange}
-                                    checked={(field.name in data) ? data[field.name] : (props.access[field.name])}
+                                    checked={(field.name in data) ? data[field.name] : (access[field.name])}
                                 />}
                                 label={field.label}
                             />
@@ -126,7 +138,7 @@ export default function AccessEditModal(props: AccessEditModalProps) {
                     )
                 }
                 <Grid item xs={12} ml={2}>
-                    <DatesFooter model={props.access} />
+                    <DatesFooter model={access} />
                 </Grid>
             </FormGridContainer>
         </GenericModal>

@@ -64,7 +64,7 @@ export default function MainDrawerList(props: { access?: Access }) {
     list.push(settingsItem);
 
     return list;
-  }, [props.access]);
+  }, []);
 
 
   return (

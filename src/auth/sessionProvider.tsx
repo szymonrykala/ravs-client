@@ -60,7 +60,10 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             notify('Witaj!', 'info', () => <Redirect to={paths.WELCOME} />);
         }
         setLoading(false)
-    }, [notify]);
+    }, [
+        notify,
+        setUpUser
+    ]);
 
 
     React.useEffect(() => {
@@ -84,7 +87,10 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
             notify(message, "error");
         }
-    }, [notify]);
+    }, [
+        notify,
+        setUpUser
+    ]);
 
 
     const logout = React.useCallback(() => {

@@ -18,7 +18,11 @@ interface CreateRoomFormProps {
 }
 
 
-export default function CreateRoomForm(props: CreateRoomFormProps) {
+export default function CreateRoomForm({
+    open,
+    onClose,
+    handleCreateRoom,
+}: CreateRoomFormProps) {
 
     const [data, setData] = React.useState<CreateRoomParams>({
         name: '',
@@ -57,24 +61,28 @@ export default function CreateRoomForm(props: CreateRoomFormProps) {
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (await props.handleCreateRoom(data)) {
-            props.onClose();
+        if (await handleCreateRoom(data)) {
+            onClose();
         }
 
-    }, [data, props.handleCreateRoom, props.onClose]);
+    }, [
+        data,
+        handleCreateRoom,
+        onClose,
+    ]);
 
 
     return (
         <GenericModal
-            open={props.open}
-            onClose={props.onClose}
+            open={open}
+            onClose={onClose}
             aria-label="Okno edycji budynku"
         >
             <FormGridContainer
                 title='Dodaj nową salę'
                 subtitle="Wypełnij dane nowej sali i kliknij zatwierdź."
                 onSubmit={handleSubmit}
-                onCancel={props.onClose}
+                onCancel={onClose}
             >
                 <Grid item xs={12}>
                     <TextField

@@ -28,7 +28,10 @@ export default function FavouriteButton(props: FavouriteButtonProps) {
         }
 
         setMarked(old => !old);
-    }, [marked]);
+    }, [
+        marked,
+        props.data,
+    ]);
 
 
     return (

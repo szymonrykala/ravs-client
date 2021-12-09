@@ -1,5 +1,3 @@
-import { DatesQueryParams } from "./interfaces";
-import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 

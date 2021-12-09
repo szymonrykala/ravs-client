@@ -1,7 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { darkScrollbar as scrollbar } from '@mui/material';
-import { color } from '@mui/system';
 
 
 const light = {

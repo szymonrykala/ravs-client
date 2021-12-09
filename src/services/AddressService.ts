@@ -1,5 +1,3 @@
-import { DatesQueryParams } from "./interfaces";
-import { LogsQueryParams } from "./LogService";
 import Service from "./Service";
 
 
@@ -34,8 +32,8 @@ class AddressService extends Service {
         return this._path;
     }
 
-    public setPath({ addressId }: AddressViewParams) {
-        this._path = `/addresses/${addressId}`;
+    public setPath(params: AddressViewParams) {
+        this._path = this.preparePath(params);
     }
 
     public getCurrentOne() {

@@ -1,10 +1,10 @@
-import { Button, Grid, Link, TextField } from "@mui/material";
+import { Button, Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import UniqueCodeButton from "../../../shared/components/UniqueCodeButton";
 import React from "react";
 import FormStep from "./FormStep";
 import UserService, { ChangePasswordData } from "../../../services/UserService";
-import { Redirect, Link as ReactRouterLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import paths from "../../../shared/path";
 import useNotification from "../../../contexts/NotificationContext/useNotification";
 import AppLink from "../../../shared/components/AppLink";
@@ -47,7 +47,11 @@ export default function Form(props: FormProps) {
 
             notify(message, 'error');
         }
-    }, [data, notify]);
+    }, [
+        data,
+        notify,
+        props
+    ]);
 
     return (
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
