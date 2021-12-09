@@ -1,4 +1,4 @@
-import { Alert, AlertProps, Snackbar } from "@mui/material";
+import { Alert, AlertProps, Snackbar, SnackbarCloseReason } from "@mui/material";
 import React, { createContext } from "react";
 import NotificationContextValue, { NotificationContextDefault } from "./NotificationContextValue";
 
@@ -21,7 +21,10 @@ export default function NotificationContextProvider({
     const [component, setComponent] = React.useState<React.ReactNode>();
 
 
-    const closeSnack = React.useCallback((event?: React.SyntheticEvent, reason?: string) => {
+    const closeSnack = React.useCallback((
+        event?: Event | React.SyntheticEvent<any, Event>,
+        reason?: SnackbarCloseReason
+    ) => {
         if (reason === 'clickaway') {
             return;
         }
