@@ -5,18 +5,17 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import './App.css';
 
 import Theme from './shared/Theme';
 import SessionProvider from './auth/sessionProvider'
-import Tabs from './pages';
-import Footer from './shared/components/Footer';
+import Tabs from './components/pages';
+import Footer from './components/Footer';
 import { BrowserRouter } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import NotificationContextProvider from './contexts/NotificationContext/NotificationContextProvider';
 import { ResourceMapContextProvider } from './contexts/ResourceMapContext';
-import Navigation from './shared/components/Navigation';
+import Navigation from './components/Navigation';
 
 
 
