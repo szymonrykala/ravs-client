@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
-import Model from "../../models/Model";
-import { displayDate } from "../utils";
+import Model from "../../../../models/Model";
+import { displayDate } from "../../../../shared/utils";
 
 
 

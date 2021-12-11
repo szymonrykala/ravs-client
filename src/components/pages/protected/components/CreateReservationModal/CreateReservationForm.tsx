@@ -1,4 +1,3 @@
-import { MobileDateTimePicker } from "@mui/lab";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
@@ -10,6 +9,7 @@ import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import ReservationService, { CreateReservationData } from "../../../../../services/ReservationService";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
+import DateTimePicker from "../DateTimePicker";
 
 
 
@@ -25,8 +25,8 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
     const [data, setData] = React.useState<CreateReservationData>({
         title: '',
         description: '',
-        plannedStart: new Date(),
-        plannedEnd: new Date(),
+        plannedStart: (new Date()).toString(),
+        plannedEnd: (new Date(Date.now() + 3600_000)).toString(),
         roomId: props.roomId ?? 0
     });
 
@@ -87,23 +87,17 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <MobileDateTimePicker
-                    minDate={new Date()}
+                <DateTimePicker
                     label="Początek"
-                    inputFormat="yyyy-MM-dd HH:mm"
                     value={data.plannedStart}
                     onChange={(value: any) => setData(old => ({ ...old, plannedStart: value }))}
-                    renderInput={(params: any) => <TextField sx={{ width: '100%' }} {...params} />}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
-                <MobileDateTimePicker
-                    minDate={new Date()}
+                <DateTimePicker
                     label="Koniec"
-                    inputFormat="yyyy-MM-dd HH:mm"
                     value={data.plannedEnd}
                     onChange={(value: any) => setData(old => ({ ...old, plannedEnd: value }))}
-                    renderInput={(params) => <TextField sx={{ width: '100%' }} {...params} />}
                 />
             </Grid>
             <Grid item xs={12}>

@@ -8,10 +8,10 @@ import { BuildingEditForm } from "../Forms";
 import FavouriteButton from "../../../../../shared/components/FavouriteButton";
 import { FavType } from "../../../../../models/Metadata";
 import MoreVertMenu from "../../../../../shared/components/MoreVertMenu";
-import DatesFooter from "../../../../../shared/components/DatesFooter";
 import ImageService from "../../../../../services/ImageService";
 import AppLink from "../../../../../shared/components/AppLink";
 import { dynamicPaths } from "../../../../../shared/path";
+import DatesFooter from "../../components/DatesFooter";
 
 
 

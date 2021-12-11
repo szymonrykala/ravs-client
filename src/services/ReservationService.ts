@@ -11,8 +11,8 @@ export interface ReservationsQueryParams extends PaginationQueryParams {
 export interface CreateReservationData {
     title: string,
     description: string,
-    plannedStart: Date,
-    plannedEnd: Date,
+    plannedStart: string,
+    plannedEnd: string,
     roomId?: number
 }
 
@@ -20,8 +20,8 @@ export interface UpdateReservationData {
     [index: string]: any,
     title?: string,
     description?: string,
-    plannedStart?: Date,
-    plannedEnd?: Date,
+    plannedStart?: string,
+    plannedEnd?: string,
     roomId?: number
 }
 
@@ -77,15 +77,15 @@ class ReservationService extends Service {
         const nowTimestamp = Date.now();
 
         const now = new Date(nowTimestamp);
-        const now_minus15 = new Date(nowTimestamp - 900);
-        const now_plus15 = new Date(nowTimestamp + 900);
-
+        const now_minus15 = new Date(nowTimestamp - 900_000);
+        const now_plus15 = new Date(nowTimestamp + 900_000);
         const { actualStart, plannedStart, actualEnd, plannedEnd } = reservation;
+        
 
         const start = new Date(actualStart ? actualStart : plannedStart);
         const end = new Date(actualEnd ? actualEnd : plannedEnd);
-
-
+        
+        
         // nie rozpoczęła się
         if (!actualStart) {
             // jest już po czasie, i czeka do +15 minut na odbiór
@@ -107,7 +107,7 @@ class ReservationService extends Service {
             // nie zakończyła się
             if (!actualEnd) {
                 // kończy się w ciągu 15 minut
-                if (now < end && now_minus15 > end) return this.emitStatus('Za chwilę się kończy.', Colors.info);
+                if (now < end && now_plus15 > end) return this.emitStatus('Za chwilę się kończy.', Colors.info);
 
                 // powinna się już zakończyć, ale dajemy +15 minut na zkończenie 
                 if (now > end && end > now_plus15) return this.emitStatus('Powinna się zakończyć.', Colors.warning);

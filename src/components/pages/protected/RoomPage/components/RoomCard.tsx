@@ -9,11 +9,11 @@ import { useRoomContext } from "../RoomContext";
 import Loading from "../../../../../shared/components/Loading";
 import CreateReservationModal from "../../components/CreateReservationModal/CreateReservationModal";
 import { RoomEditForm } from "../Forms";
-import DatesFooter from "../../../../../shared/components/DatesFooter";
 import FavouriteButton from "../../../../../shared/components/FavouriteButton";
 import { FavType } from "../../../../../models/Metadata";
 import ImageService from "../../../../../services/ImageService";
 import MoreVertMenu from "../../../../../shared/components/MoreVertMenu";
+import DatesFooter from "../../components/DatesFooter";
 
 
 

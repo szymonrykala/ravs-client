@@ -10,12 +10,12 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import ImageService from "../../../../../services/ImageService";
-import DatesFooter from "../../../../../shared/components/DatesFooter";
 import CardContent from "@mui/material/CardContent";
 import { displayDate } from "../../../../../shared/utils";
 import { Link, Typography } from "@mui/material";
 import paths from "../../../../../shared/path";
 import AppLink from "../../../../../shared/components/AppLink";
+import DatesFooter from "../../components/DatesFooter";
 
 
 

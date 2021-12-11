@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import GenericModal from "../../../../../../shared/components/GenericModal";
-import { MobileDateTimePicker } from "@mui/lab";
 import Reservation from "../../../../../../models/Reservation";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
@@ -20,6 +19,7 @@ import { displayDate } from "../../../../../../shared/utils";
 import { CreateReservationData } from "../../../../../../services/ReservationService";
 import useNotification from "../../../../../../contexts/NotificationContext/useNotification";
 import FormGridContainer from "../../../../../../shared/components/FormGridContainer";
+import DateTimePicker from "../../DateTimePicker";
 
 
 interface CopyModalFormProps {
@@ -30,8 +30,8 @@ interface CopyModalFormProps {
 
 interface DateTimeSlot {
     color: string | null,
-    from: Date,
-    to: Date,
+    from: string,
+    to: string,
 }
 
 interface CopyReservationData {
@@ -48,8 +48,8 @@ export default function CopyModalForm(props: CopyModalFormProps) {
 
     const [dates, setDates] = React.useState<DateTimeSlot>({
         color: '',
-        from: new Date(props.reservation.plannedStart),
-        to: new Date(props.reservation.plannedEnd),
+        from: props.reservation.plannedStart,
+        to: props.reservation.plannedEnd,
     });
 
     const [copyDates, setCopyDates] = React.useState<DateTimeSlot[]>([]);
@@ -160,24 +160,18 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                 </Grid>
 
                 <Grid item xs={12} sm={5}>
-                    <MobileDateTimePicker
-                        minDate={new Date()}
+                    <DateTimePicker
                         label="Początek"
-                        inputFormat="yyyy-MM-dd HH:mm"
                         value={dates.from}
-                        onChange={(value: any) => setDates(old => ({ ...old, from: value }))}
-                        renderInput={(params: any) => <TextField sx={{ width: '100%' }} {...params} />}
+                        onChange={(value) => setDates(old => ({ ...old, from: value }))}
                     />
                 </Grid>
 
                 <Grid item xs={12} sm={5}>
-                    <MobileDateTimePicker
-                        minDate={new Date()}
+                    <DateTimePicker
                         label="Koniec"
-                        inputFormat="yyyy-MM-dd HH:mm"
                         value={dates.to}
-                        onChange={(value: any) => setDates(old => ({ ...old, to: value }))}
-                        renderInput={(params) => <TextField sx={{ width: '100%' }} {...params} />}
+                        onChange={(value) => setDates(old => ({ ...old, to: value }))}
                     />
                 </Grid>
 
