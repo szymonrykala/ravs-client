@@ -2,8 +2,8 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
-import { FavouriteBuilding, FavouriteRoom } from '../../models/Metadata';
-import MetadataService from '../../services/MetadataService';
+import { FavouriteBuilding, FavouriteRoom } from '../../../../models/Metadata';
+import MetadataService from '../../../../services/MetadataService';
 
 
 

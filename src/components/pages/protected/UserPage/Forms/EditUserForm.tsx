@@ -6,8 +6,8 @@ import React from "react";
 import { DetailedUser } from "../../../../../models/User";
 import { UpdateUserParams } from "../../../../../services/UserService";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
-import GenericModal from "../../../../../shared/components/GenericModal";
-import ImageUploadField from "../../../../../shared/components/ImageUploadField";
+import GenericModal from "../../components/GenericModal";
+import ImageUploadField from "../../components/ImageUploadField";
 import { useUser } from "../UserContext";
 
 

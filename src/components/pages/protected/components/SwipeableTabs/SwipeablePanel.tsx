@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import SmallCard from "../../../../../shared/components/SmallCard";
+import SmallCard from "../../components/SmallCard";
 
 
 interface TabPanelProps {

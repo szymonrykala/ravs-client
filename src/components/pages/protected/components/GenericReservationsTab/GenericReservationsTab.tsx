@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import { QueryParamsContext } from "../../../../../contexts/QueryParamsContext";
 import ReservationsContext from "./ReservationsContext";
 import { ReservationsQueryParams } from "../../../../../services/ReservationService";
-import ListPagination from "../../../../../shared/components/ListPagination";
+import ListPagination from "../../components/ListPagination";
 import ReservationsList from "./ReservationsList";
 import ReservationTabBar from "./ReservationTabBar";
 

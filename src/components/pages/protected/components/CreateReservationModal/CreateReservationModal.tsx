@@ -1,4 +1,4 @@
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import CreateReservationForm from "./CreateReservationForm";
 
 

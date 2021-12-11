@@ -1,5 +1,5 @@
 import Reservation from "../../../../../models/Reservation";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Grid, IconButton, Typography } from '@mui/material';
@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CopyIcon from '@mui/icons-material/CopyAll';
 import NFCIcon from '@mui/icons-material/Nfc';
 import { Edit } from "@mui/icons-material";
-import MoreVertMenu from "../../../../../shared/components/MoreVertMenu";
+import MoreVertMenu from "../../components/MoreVertMenu";
 
 
 

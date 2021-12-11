@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import { RoomType, RoomTypes } from "../../../../../models/Room";
 import { CreateRoomParams } from "../../../../../services/RoomService";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 
 

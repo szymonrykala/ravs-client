@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import GenericModal from "../../../../../../shared/components/GenericModal";
+import GenericModal from "../../../components/GenericModal";
 import Reservation from "../../../../../../models/Reservation";
 import { UpdateReservationData } from "../../../../../../services/ReservationService";
 import InputLabel from "@mui/material/InputLabel";

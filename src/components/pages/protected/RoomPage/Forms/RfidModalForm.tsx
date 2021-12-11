@@ -1,5 +1,5 @@
-import GenericModal from "../../../../../shared/components/GenericModal";
-import RfidForm from "../../../../../shared/components/RfidForm";
+import GenericModal from "../../components/GenericModal";
+import RfidForm from "../../components/RfidForm";
 import { useRoomContext } from "../RoomContext";
 
 

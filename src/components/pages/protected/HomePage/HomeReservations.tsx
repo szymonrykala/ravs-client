@@ -1,5 +1,5 @@
 import GenericReservationsTab from "../components/GenericReservationsTab";
-import SmallCard from "../../../../shared/components/SmallCard";
+import SmallCard from "../components/SmallCard";
 
 
 

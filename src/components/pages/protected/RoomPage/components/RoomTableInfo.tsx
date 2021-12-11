@@ -3,9 +3,9 @@ import React from "react";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import { DetailedRoom } from "../../../../../models/Room";
 import AppLink from "../../../../../shared/components/AppLink";
-import YesNoIcon from "../../../../../shared/components/YesNoIcon";
 import { RfidForm } from "../Forms";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import YesNoIcon from "./YesNoIcon";
 
 
 interface RoomTableInfoProps {

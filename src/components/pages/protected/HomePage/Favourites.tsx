@@ -4,7 +4,7 @@ import useSession from "../../../../auth/useSession";
 import { FavouriteBuilding, FavouriteRoom, FavType } from "../../../../models/Metadata";
 import MetadataService from "../../../../services/MetadataService";
 import AppLink from "../../../../shared/components/AppLink";
-import SmallCard from "../../../../shared/components/SmallCard";
+import SmallCard from "../components/SmallCard";
 import { dynamicPaths } from "../../../../shared/path";
 
 

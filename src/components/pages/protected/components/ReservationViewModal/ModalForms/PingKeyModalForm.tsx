@@ -1,7 +1,7 @@
-import GenericModal from "../../../../../../shared/components/GenericModal";
-import RfidForm from "../../../../../../shared/components/RfidForm";
 import { useReservations } from "../../GenericReservationsTab/ReservationsContext";
 import React from "react";
+import GenericModal from "../../GenericModal";
+import RfidForm from "../../RfidForm";
 
 
 interface PingKeyModalFormProps {

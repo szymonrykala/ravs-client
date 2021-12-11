@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { BuildingViewParams } from "../../../../../services/BuildingService";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
-import SmallCard from "../../../../../shared/components/SmallCard";
+import SmallCard from "../../components/SmallCard";
 
 
 

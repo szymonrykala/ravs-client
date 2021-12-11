@@ -1,5 +1,5 @@
 import React from "react";
-import MoreVertMenu from "../../../../../shared/components/MoreVertMenu";
+import MoreVertMenu from "../../components/MoreVertMenu";
 import { useUser } from "../UserContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 import PasswordIcon from '@mui/icons-material/Password';

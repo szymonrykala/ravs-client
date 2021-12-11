@@ -1,15 +1,17 @@
 import { Button, Grid } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import React from "react";
-import useNotification from "../../contexts/NotificationContext/useNotification";
-import Image from "../../models/Image";
-import ImageService from "../../services/ImageService";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import { Redirect, useLocation, useParams } from "react-router-dom";
-import { UserViewParams } from "../../services/UserService";
-import { BuildingViewParams } from "../../services/BuildingService";
-import { RoomViewParams } from "../../services/RoomService";
+import Image from "../../../../models/Image";
+import useNotification from "../../../../contexts/NotificationContext/useNotification";
+import { UserViewParams } from "../../../../services/UserService";
+import { BuildingViewParams } from "../../../../services/BuildingService";
+import { RoomViewParams } from "../../../../services/RoomService";
+import ImageService from "../../../../services/ImageService";
+
+
 
 const Input = styled('input')({
     display: 'none',
