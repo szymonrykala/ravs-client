@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import Access from "../../../../../models/Access";
 import { AccessUpdateParams } from "../../../../../services/AccessService";
-import DatesFooter from "../../../../../shared/components/DatesFooter";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
+import DatesFooter from "../../components/DatesFooter";
 
 
 

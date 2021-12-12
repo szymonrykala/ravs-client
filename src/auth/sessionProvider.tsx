@@ -6,6 +6,7 @@ import { SessionUser } from "../models/User";
 
 import AuthService, { LoginFormData } from "../services/AuthService";
 import ImageService from "../services/ImageService";
+import LogService from "../services/LogService";
 import MetadataService from "../services/MetadataService";
 import ReservationService from "../services/ReservationService";
 import StorageService from "../services/StorageService";
@@ -37,6 +38,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         MetadataService.metadata = user.metadata;
         MetadataService.userId = user.id;
         ReservationService.userId = user.id;
+        LogService.userId = user.id;
         ImageService.userId = user.id;
         UserService.userId = user.id;
     }, []);

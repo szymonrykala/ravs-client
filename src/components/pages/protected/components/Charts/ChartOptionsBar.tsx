@@ -1,7 +1,7 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import React from "react";
-import SelectButtonGroup, { SelectButtonInterface } from "../../../../../shared/components/SelectButtonGroup";
+import SelectButtonGroup, { SelectButtonInterface } from "../../components/SelectButtonGroup";
 import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
 import { ChartsQueryData } from "../../../../../services/ChartService";
 

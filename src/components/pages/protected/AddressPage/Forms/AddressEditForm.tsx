@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import { useAddress } from "../AddressContext";
 import { UpdateAddressParams } from "../../../../../services/AddressService";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";

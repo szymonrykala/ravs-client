@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import GenericModal from "../../../../../../shared/components/GenericModal";
-import { MobileDateTimePicker } from "@mui/lab";
+import GenericModal from "../../../components/GenericModal";
 import Reservation from "../../../../../../models/Reservation";
 import { UpdateReservationData } from "../../../../../../services/ReservationService";
 import InputLabel from "@mui/material/InputLabel";
@@ -12,6 +11,7 @@ import { useResourceMap } from "../../../../../../contexts/ResourceMapContext";
 import React from "react";
 import useReservations from "../../GenericReservationsTab/ReservationsContext/useReservations";
 import FormGridContainer from "../../../../../../shared/components/FormGridContainer";
+import DateTimePicker from "../../DateTimePicker";
 
 
 interface EditModalFormProps {
@@ -30,22 +30,37 @@ export default function EditModalForm(props: EditModalFormProps) {
     const closeForm = React.useCallback(() => {
         props.onClose();
         setData({});
-    }, [props]);
+    }, [
+        props
+    ]);
 
 
     const handleSubmit = React.useCallback(async () => {
-        if (await updateReservation(props.reservation.id, data)){
+        if (await updateReservation(props.reservation.id, data)) {
             closeForm();
             setData({});
         }
 
-    }, [props, data, closeForm, updateReservation]);
+    }, [
+        props,
+        data,
+        closeForm,
+        updateReservation,
+    ]);
 
 
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setData((old) => ({
             ...old,
             [event.target.name]: event.target.value
+        }));
+    }, []);
+
+
+    const handleDateChange = React.useCallback((name: keyof UpdateReservationData, value: string) => {
+        value && setData(old => ({
+            ...old,
+            [name]: value
         }));
     }, []);
 
@@ -91,24 +106,18 @@ export default function EditModalForm(props: EditModalFormProps) {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                    <MobileDateTimePicker
-                        minDate={new Date()}
-                        label="Początek"
-                        inputFormat="yyyy-MM-dd HH:mm"
+                    <DateTimePicker
                         value={data.plannedStart ?? props.reservation.plannedStart}
-                        onChange={(value: any) => setData(old => ({ ...old, plannedStart: value }))}
-                        renderInput={(params: any) => <TextField sx={{ width: '100%' }} {...params} />}
+                        label="Początek"
+                        onChange={(value) => handleDateChange('plannedStart', value)}
                     />
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                    <MobileDateTimePicker
-                        minDate={new Date()}
-                        label="Koniec"
-                        inputFormat="yyyy-MM-dd HH:mm"
+                    <DateTimePicker
                         value={data.plannedEnd ?? props.reservation.plannedEnd}
-                        onChange={(value: any) => setData(old => ({ ...old, plannedEnd: value }))}
-                        renderInput={(params) => <TextField sx={{ width: '100%' }} {...params} />}
+                        label="Koniec"
+                        onChange={(value) => handleDateChange('plannedEnd', value)}
                     />
                 </Grid>
 

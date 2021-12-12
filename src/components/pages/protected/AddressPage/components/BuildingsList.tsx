@@ -6,7 +6,7 @@ import Building from "../../../../../models/Building";
 import { AddressViewParams } from "../../../../../services/AddressService";
 import BuildingService, { BuildingCreateParams } from "../../../../../services/BuildingService";
 import ScrollableList, { ScrollableListItem } from "../../components/ScrollableList";
-import SmallCard from "../../../../../shared/components/SmallCard";
+import SmallCard from "../../components/SmallCard";
 import { useAddress } from "../AddressContext";
 import { CreateBuildingForm } from "../Forms";
 

@@ -2,8 +2,8 @@ import * as React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { useQueryParams } from '../../contexts/QueryParamsContext';
-import { APIPagination } from '../../services/interfaces';
+import { useQueryParams } from '../../../../contexts/QueryParamsContext';
+import { APIPagination } from '../../../../services/interfaces';
 
 
 export default function ListPagination() {

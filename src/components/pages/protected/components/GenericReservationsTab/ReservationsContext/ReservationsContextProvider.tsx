@@ -95,9 +95,9 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
                     if (item.id !== id) return;
 
                     if (item.actualStart) {
-                        item.actualEnd = new Date().toISOString();
+                        item.actualEnd = new Date().toString();
                     } else {
-                        item.actualStart = new Date().toISOString();
+                        item.actualStart = new Date().toString();
                     }
 
                 });

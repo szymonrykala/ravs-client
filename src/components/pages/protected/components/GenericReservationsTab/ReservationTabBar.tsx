@@ -6,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
 import { ReservationsQueryParams } from "../../../../../services/ReservationService";
-import SelectButtonGroup from "../../../../../shared/components/SelectButtonGroup";
-import LazyInput from "../../../../../shared/components/LazyInput";
+import SelectButtonGroup from "../../components/SelectButtonGroup";
+import LazyInput from "../../components/LazyInput";
 import { isDate } from "../../../../../shared/utils";
 
 

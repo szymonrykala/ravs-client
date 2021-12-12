@@ -4,11 +4,11 @@ import { Divider, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeE
 import { RoomUpdateParams } from '../../../../../services/RoomService';
 import { RoomType, RoomTypes } from '../../../../../models/Room';
 import { useRoomContext } from '../RoomContext';
-import ImageUploadField from '../../../../../shared/components/ImageUploadField';
+import ImageUploadField from '../../components/ImageUploadField';
 import { useResourceMap } from '../../../../../contexts/ResourceMapContext';
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import GenericModal from '../../../../../shared/components/GenericModal';
+import GenericModal from '../../components/GenericModal';
 import FormGridContainer from '../../../../../shared/components/FormGridContainer';
 
 

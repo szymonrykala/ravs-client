@@ -2,7 +2,7 @@ import { FormControlLabel, Grid, Switch } from "@mui/material";
 import { useQueryParams } from "../../../../../../contexts/QueryParamsContext";
 import { UserQueryParams } from "../../../../../../services/UserService";
 import React from "react";
-import LazyInput from "../../../../../../shared/components/LazyInput";
+import LazyInput from "../../../components/LazyInput";
 
 
 export default function SearchBar() {

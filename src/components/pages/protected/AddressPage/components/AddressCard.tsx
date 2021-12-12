@@ -6,8 +6,8 @@ import { useAddress } from "../AddressContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { AddressEditForm } from "../Forms";
-import MoreVertMenu from "../../../../../shared/components/MoreVertMenu";
-import DatesFooter from "../../../../../shared/components/DatesFooter";
+import MoreVertMenu from "../../components/MoreVertMenu";
+import DatesFooter from "../../components/DatesFooter";
 
 
 

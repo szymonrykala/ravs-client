@@ -3,7 +3,7 @@ import Box from "@mui/system/Box";
 import React from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import SmallCard from "../../../../shared/components/SmallCard";
+import SmallCard from "../components/SmallCard";
 import MetadataService from "../../../../services/MetadataService";
 
 

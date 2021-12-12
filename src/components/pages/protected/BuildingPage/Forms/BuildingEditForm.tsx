@@ -3,7 +3,7 @@ import { SelectChangeEvent } from "@mui/material/Select/SelectInput";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import React from "react";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useBuilding } from "../BuildingContext";
 import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import { timeFormat } from "../../../../../shared/utils";
-import ImageUploadField from "../../../../../shared/components/ImageUploadField";
+import ImageUploadField from "../../components/ImageUploadField";
 import Divider from "@mui/material/Divider";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 

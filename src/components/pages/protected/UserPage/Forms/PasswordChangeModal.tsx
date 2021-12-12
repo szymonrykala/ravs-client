@@ -1,6 +1,6 @@
 import React from "react";
 import useSession from "../../../../../auth/useSession";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 import PasswordChangeForm from '../../../public/ChangePassword/Form';
 
 interface EditUserFormProps {

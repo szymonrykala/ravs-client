@@ -3,7 +3,7 @@ import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import CancelIcon from '@mui/icons-material/Cancel';
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
-import GenericModal from "../../../../../shared/components/GenericModal";
+import GenericModal from "../../components/GenericModal";
 
 
 interface DeleteModalProps {
