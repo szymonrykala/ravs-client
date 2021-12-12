@@ -90,7 +90,7 @@ export default abstract class Service {
 
     protected preparePath(urlParams: AppURLParams): string {
         let endp = '';
-        let url = window.location.pathname;
+        let url = window.location.toString();
         const map = {
             '/accesses': '/accesses',
             '/settings': '/configurations',
