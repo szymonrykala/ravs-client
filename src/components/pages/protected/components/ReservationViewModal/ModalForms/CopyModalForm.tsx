@@ -15,7 +15,6 @@ import useReservations from "../../GenericReservationsTab/ReservationsContext/us
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
-import { displayDate } from "../../../../../../shared/utils";
 import { CreateReservationData } from "../../../../../../services/ReservationService";
 import useNotification from "../../../../../../contexts/NotificationContext/useNotification";
 import FormGridContainer from "../../../../../../shared/components/FormGridContainer";
