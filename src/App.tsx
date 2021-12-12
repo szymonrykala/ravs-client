@@ -10,7 +10,7 @@ import Theme from './shared/Theme';
 import SessionProvider from './auth/sessionProvider'
 import Tabs from './components/pages';
 import Footer from './components/Footer';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import NotificationContextProvider from './contexts/NotificationContext/NotificationContextProvider';
@@ -25,7 +25,7 @@ function App() {
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<CssBaseline />
 				<Box component="div" className="App" sx={{ backgroundColor: 'background.default' }}>
-					<BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
+					<HashRouter>
 						<NotificationContextProvider>
 							<SessionProvider >
 								<ResourceMapContextProvider>
@@ -37,7 +37,7 @@ function App() {
 								</ResourceMapContextProvider>
 							</SessionProvider>
 						</NotificationContextProvider>
-					</BrowserRouter>
+					</HashRouter>
 				</Box>
 			</LocalizationProvider>
 		</Theme>
