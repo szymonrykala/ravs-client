@@ -215,7 +215,10 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                                         pl: '3px'
                                     }}>
                                     <Typography component='p' sx={{ color: color }}>
-                                        {displayDate(from.toString())}&nbsp;-&nbsp;{displayDate(to.toString())}
+                                        <>
+                                        {console.log(from)}
+                                        {from}&nbsp;-&nbsp;{to} 
+                                        </>
                                     </Typography>
                                     <IconButton
                                         onClick={() => handleDeleteCopyDate(index)}
