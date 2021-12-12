@@ -25,7 +25,7 @@ function App() {
 			<LocalizationProvider dateAdapter={AdapterDateFns}>
 				<CssBaseline />
 				<Box component="div" className="App" sx={{ backgroundColor: 'background.default' }}>
-					<BrowserRouter basename='/'>
+					<BrowserRouter basename={process.env.REACT_APP_BASE_URL}>
 						<NotificationContextProvider>
 							<SessionProvider >
 								<ResourceMapContextProvider>
