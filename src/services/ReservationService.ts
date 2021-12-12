@@ -80,12 +80,12 @@ class ReservationService extends Service {
         const now_minus15 = new Date(nowTimestamp - 900_000);
         const now_plus15 = new Date(nowTimestamp + 900_000);
         const { actualStart, plannedStart, actualEnd, plannedEnd } = reservation;
-        
+
 
         const start = new Date(actualStart ? actualStart : plannedStart);
         const end = new Date(actualEnd ? actualEnd : plannedEnd);
-        
-        
+
+
         // nie rozpoczęła się
         if (!actualStart) {
             // jest już po czasie, i czeka do +15 minut na odbiór
@@ -109,11 +109,16 @@ class ReservationService extends Service {
                 // kończy się w ciągu 15 minut
                 if (now < end && now_plus15 > end) return this.emitStatus('Za chwilę się kończy.', Colors.info);
 
-                // powinna się już zakończyć, ale dajemy +15 minut na zkończenie 
-                if (now > end && end > now_plus15) return this.emitStatus('Powinna się zakończyć.', Colors.warning);
+                // czas zakończenia już minął
+                if (now > end) {
+                    const end_plus15 = new Date(Date.parse(end.toString()) + 900_000)
 
-                // powinna się już zakończyć, ale dajemy +15 minut na zkończenie 
-                if (now > end && end < now_plus15) return this.emitStatus('Czas minął, klucz nie oddany.', Colors.error);
+                    // dodajemy 15 minut
+                    if (now < end_plus15) return this.emitStatus('Powinna się zakończyć.', Colors.warning);
+
+                    // dodane 15 minut już minęło
+                    if (now > end_plus15) return this.emitStatus('Czas minął, klucz nie oddany.', Colors.error);
+                }
 
                 return this.emitStatus('Rezerwacja trwa.', Colors.success);
             }
