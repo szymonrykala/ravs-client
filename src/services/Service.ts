@@ -58,6 +58,9 @@ export default abstract class Service {
     }
 
     public get userId(): number {
+        if (this._userId === -1)
+            throw Error('user id was not set');
+
         return this._userId;
     }
 
