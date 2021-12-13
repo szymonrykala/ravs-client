@@ -1,4 +1,5 @@
 import Reservation from "../models/Reservation";
+import paths from "../shared/path";
 import { AppURLParams, PaginationQueryParams } from "./interfaces";
 import Service from "./Service";
 
@@ -46,11 +47,22 @@ class ReservationService extends Service {
         return { message: mess, color: color };
     }
 
+    private localPreparPath(urlParams: AppURLParams): string {
+        if (
+            window.location.toString().includes(paths.HOME)
+            && Object.keys(urlParams).length === 0
+        ) {
+            return '/users/' + this.userId.toString();
+        }
+        return this.preparePath(urlParams);
+    }
+
+
     public getReservations(
         urlParams: AppURLParams,
         queryParams: ReservationsQueryParams
     ) {
-        return this.get(`${this.preparePath(urlParams)}/reservations`, queryParams);
+        return this.get(`${this.localPreparPath(urlParams)}/reservations`, queryParams);
     }
 
 
