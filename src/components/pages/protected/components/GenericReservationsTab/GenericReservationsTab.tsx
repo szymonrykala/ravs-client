@@ -16,7 +16,7 @@ export default function GenericReservationsTab() {
             from: 'today'
         } as ReservationsQueryParams}>
             <ReservationsContext>
-                <Stack rowGap={5}>
+                <Stack rowGap={3}>
                     <ReservationTabBar />
                     <ReservationsList />
                     <ListPagination />

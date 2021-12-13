@@ -126,7 +126,7 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
             >
                 <Stack spacing={4} alignItems='stretch'>
 
-                    <Stack direction='row' justifyContent='space-between'>
+                    <Stack direction='row' justifyContent='space-between' alignItems='flex-start'>
                         <Typography component="h2" variant="h4">
                             {props.reservation.title}
                         </Typography>
