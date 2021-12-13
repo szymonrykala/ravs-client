@@ -1,4 +1,4 @@
-import { List, ListItemText } from "@mui/material";
+import { IconButton, List, ListItem, ListItemText } from "@mui/material";
 import React from "react";
 import useSession from "../../../../auth/useSession";
 import { FavouriteBuilding, FavouriteRoom, FavType } from "../../../../models/Metadata";
@@ -6,7 +6,7 @@ import MetadataService from "../../../../services/MetadataService";
 import AppLink from "../../../../shared/components/AppLink";
 import SmallCard from "../components/SmallCard";
 import { dynamicPaths } from "../../../../shared/path";
-
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 
 
@@ -35,12 +35,24 @@ export default function Favourites() {
         setData(MetadataService.favourites);
     }, [user])
 
+    const handleRemoveFavourite = React.useCallback((item: FavouriteBuilding | FavouriteRoom) => {
+        MetadataService.removeFavourite(item);
+        setData(MetadataService.favourites);
+    }, []);
 
     return (
         <SmallCard title='Ulubione'>
             <List>
                 {
-                    data?.map(item => getCorrectListItem(item))
+                    data?.map(item => <ListItem disablePadding>
+                        {getCorrectListItem(item)}
+                        <IconButton
+                            onClick={() => handleRemoveFavourite(item)}
+                            size='small'>
+                            <RemoveCircleIcon fontSize="small" />
+                        </IconButton>
+                    </ListItem>
+                    )
                 }
                 {
                     data?.length === 0 &&
