@@ -24,10 +24,11 @@ export default function ChartOptionsBar() {
     });
 
     const handleButtonChange = React.useCallback(async (buttonValue: string) => {
-        setQueryParams({
+        setQueryParams(old => ({
+            ...old,
             from: buttonValue,
             to: "now"
-        });
+        }));
     }, [
         setQueryParams
     ]);
@@ -35,9 +36,10 @@ export default function ChartOptionsBar() {
 
     const handleSubmitCustomDate = React.useCallback(async (evt: any) => {
         evt.preventDefault();
+
         setQueryParams({
-            from: customDates.from?.toISOString(),
-            to: customDates.to?.toISOString()
+            from: customDates.from?.toDateString(),
+            to: customDates.to?.toDateString()
         });
     }, [
         customDates.from,
@@ -60,8 +62,8 @@ export default function ChartOptionsBar() {
 
             </Box>
             <Box component="form" onSubmit={handleSubmitCustomDate}>
-                <Typography variant="subtitle2">
-                    Zakres niestandardowy:&nbsp;
+                <Typography variant="subtitle2" pb='5px'>
+                    Zakres niestandardowy:
                 </Typography>
                 <Stack direction="row" spacing={1}>
                     <MobileDatePicker
@@ -78,7 +80,12 @@ export default function ChartOptionsBar() {
                         onChange={(value) => setCustomDates({ ...customDates, to: value ?? new Date() })}
                         renderInput={(params) => <TextField {...params} size='small' />}
                     />
-                    <Button type="submit" variant="outlined"> OK</Button>
+                    <Button
+                        type="submit"
+                        variant={queryParams?.from === customDates.from.toDateString() ? 'contained' : 'outlined'}
+                    >
+                        OK
+                    </Button>
                 </Stack>
             </Box>
         </Stack>
