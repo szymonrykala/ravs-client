@@ -1,18 +1,13 @@
 import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
 import React from "react";
 import DeleteModal from "../../../components/DeleteModal";
 import TabHeadLine from "../../../../../../shared/components/TabHeadLine";
 
 import { useAccess } from "../../AccessContext";
 import { CreateForm } from "../../Forms";
+import AccessListItem from "./AccessListItem";
+import { List } from "@mui/material";
 import AddItem from "./AddItem";
-import RowItem from "./RowItem";
 
 
 
@@ -26,7 +21,7 @@ export default function AccessesList() {
 
     const renderedRows = React.useMemo(() => {
         return accessesList.map(({ id, name }) =>
-            <RowItem
+            <AccessListItem
                 key={id}
                 id={id}
                 name={name}
@@ -77,24 +72,10 @@ export default function AccessesList() {
                     subtitle="Twórz, edytuj i usuwaj klasy dostępu."
                 />
 
-                <TableContainer>
-                    <Table sx={{ maxWidth: 550 }} size="small" aria-label="tabela klas dostępów">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>nr id</TableCell>
-                                <TableCell align="left">nazwa</TableCell>
-                                <TableCell align="center">opcje</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-
-                            {renderedRows}
-
-                            <AddItem onClick={() => setCreateModalOpen(true)} />
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-
+                <List sx={{ maxWidth: '400px' }}>
+                    <AddItem onClick={() => setCreateModalOpen(true)} />
+                    {renderedRows}
+                </List>
             </Stack >
         </>
     );

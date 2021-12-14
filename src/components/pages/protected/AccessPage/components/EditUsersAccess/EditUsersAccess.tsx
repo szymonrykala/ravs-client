@@ -18,9 +18,9 @@ import User from '../../../../../../models/User';
 import useNotification from '../../../../../../contexts/NotificationContext/useNotification';
 import UserService from '../../../../../../services/UserService';
 import LinkIcon from '@mui/icons-material/Link';
-import AppLink from '../../../../../../shared/components/AppLink';
 import { dynamicPaths } from '../../../../../../shared/path';
 import TabHeadLine from '../../../../../../shared/components/TabHeadLine';
+import { Link } from '@mui/material';
 
 
 function usersNotUsers(a: readonly User[], b: readonly User[]) {
@@ -223,9 +223,9 @@ export default function EditUsersAccess() {
                             <ListItemText id={labelId} primary={user.email} />
 
                             <ListItemIcon onClick={(ev: any) => ev.stopPropagation()} color='primary'>
-                                <AppLink to={dynamicPaths.toUser(user.id)}>
+                                <Link href={dynamicPaths.toUser(user.id)}>
                                     <LinkIcon />
-                                </AppLink>
+                                </Link>
                             </ListItemIcon>
                         </ListItem>
                     );
