@@ -38,9 +38,9 @@ export default function AvatarView({
                 {user?.name}&nbsp;{user?.surname}
             </Typography>
             <Typography>
-                <Link href={`mailto:${user?.email}`}>
+                <a href={`mailto:${user?.email}`}>
                     {user?.email}
-                </Link>
+                </a>
             </Typography>
         </Box>
     );
