@@ -22,16 +22,7 @@ export default function UserItem({
             </ListItemAvatar>
             <ListItemText
                 primary={`${user.name} ${user.surname}`}
-                secondary={<>
-                    <a
-                        onClick={(e) => e.stopPropagation()}
-                        aria-label="wyślij email"
-                        title="wyślij email"
-                        href={`mailto:${user.email}`}
-                    >
-                        {user.email}
-                    </a>
-                </>}
+                secondary={user.email}
             />
         </ListItem>
     );

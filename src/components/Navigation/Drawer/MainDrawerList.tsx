@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListItemIcon, ListItemText, SvgIconTypeMap } from "@mui/material";
+import { Link, List, ListItem, ListItemIcon, ListItemText, SvgIconTypeMap } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -8,7 +8,6 @@ import PeopleIcon from '@mui/icons-material/People';
 import React from "react";
 import Access from "../../../models/Access";
 import paths from "../../../shared/path";
-import AppLink from "../../../shared/components/AppLink";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 
 
@@ -71,12 +70,12 @@ export default function MainDrawerList(props: { access?: Access }) {
     <List>
       {
         result.map((item, key) => (
-          <ListItemButton key={key} component="li">
+          <ListItem button key={key} component={Link} href={item.href}>
             <ListItemIcon color="primary">
               {<item.icon color='primary' />}
             </ListItemIcon>
-            <ListItemText primary={<AppLink color='text.primary' to={item.href}>{item.label}</AppLink>} />
-          </ListItemButton>
+            <ListItemText primary={item.label} />
+          </ListItem >
         ))
       }
     </List>

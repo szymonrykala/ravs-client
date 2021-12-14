@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardMedia } from "@mui/material";
+import { Card, CardContent, CardHeader, CardMedia, Link } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
@@ -9,7 +9,6 @@ import FavouriteButton from "../../components/FavouriteButton";
 import { FavType } from "../../../../../models/Metadata";
 import MoreVertMenu from "../../components/MoreVertMenu";
 import ImageService from "../../../../../services/ImageService";
-import AppLink from "../../../../../shared/components/AppLink";
 import { dynamicPaths } from "../../../../../shared/path";
 import DatesFooter from "../../components/DatesFooter";
 
@@ -75,9 +74,9 @@ export default function BuildingView() {
                     alt={building.name}
                 />
                 <CardContent>
-                    <AppLink withIcon to={dynamicPaths.toAddress(building.address.id)}>
+                    <Link href={dynamicPaths.toAddress(building.address.id)}>
                         {building.address.town},&nbsp;{building.address.street}&nbsp;{building.address.number}
-                    </AppLink>
+                    </Link>
                     <br />
                     <DatesFooter model={building} />
                 </CardContent>

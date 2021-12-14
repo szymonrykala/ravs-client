@@ -1,5 +1,4 @@
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import React from "react";
 import { CreateAddressForm } from "../../pages/protected/AddressPage/Forms";
@@ -21,17 +20,15 @@ export default function CreateAddressButton() {
                 open={formOpen}
                 onClose={() => setFormOpen(false)}
             />
-            <ListItem
+            <ListItem button
                 component='div'
-                disablePadding
                 onClick={handleClick}
-                sx={{ color: 'primary.dark' }}>
-                <ListItemButton>
-                    <ListItemIcon>
-                        <AddIcon color='primary' />
-                    </ListItemIcon>
-                    Dodaj adres
-                </ListItemButton>
+                sx={{ color: 'primary.dark' }}
+            >
+                <ListItemIcon>
+                    <AddIcon color='primary' />
+                </ListItemIcon>
+                Dodaj adres
             </ListItem>
         </>
     );

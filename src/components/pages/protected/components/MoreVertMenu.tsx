@@ -15,7 +15,7 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
 
     const handleClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    },[]);
+    }, []);
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -40,21 +40,19 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
                 id="card-menu"
                 open={open}
                 onClose={handleClose}
-                PaperProps={{
-                    style: {
-                        width: '20ch',
-                    },
-                }}
             >
                 {
                     props.options.map((opt, id) => <MenuItem
                         key={id}
-                        onClick={handleClose}
+                        onClick={()=>{
+                            opt.action();
+                            handleClose();
+                        }}
                     >
                         <ListItemIcon>
                             {opt.icon}
                         </ListItemIcon>
-                        <Typography onClick={opt.action}>{opt.label}</Typography>
+                        <Typography>{opt.label}</Typography>
                     </MenuItem>)
                 }
             </Menu>

@@ -1,6 +1,5 @@
-import { ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import AppLink from "../../../../../shared/components/AppLink";
+import { Link, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import LinkIcon from '@mui/icons-material/Link';
 
 
 interface ScrollableListItemProps {
@@ -11,11 +10,15 @@ interface ScrollableListItemProps {
 
 export default function ScrollableListItem(props: ScrollableListItemProps) {
     return (
-        <ListItem sx={{ py: '2px' }}>
+        <ListItem button
+            component={Link}
+            href={props.link}
+            sx={{ py: '2px' }}
+        >
             <ListItemIcon>
-                <ArrowRightIcon />
+                <LinkIcon />
             </ListItemIcon>
-            <ListItemText primary={<AppLink withIcon to={props.link}>{props.primary}</AppLink>} />
+            <ListItemText primary={props.primary} />
         </ListItem>
     );
 }

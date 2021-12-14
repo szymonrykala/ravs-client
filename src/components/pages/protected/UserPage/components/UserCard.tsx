@@ -14,7 +14,6 @@ import CardContent from "@mui/material/CardContent";
 import { displayDate } from "../../../../../shared/utils";
 import { Link, Typography } from "@mui/material";
 import paths from "../../../../../shared/path";
-import AppLink from "../../../../../shared/components/AppLink";
 import DatesFooter from "../../components/DatesFooter";
 
 
@@ -70,9 +69,9 @@ export default function UserCard() {
                 <CardHeader
                     action={<MoreVertMenu options={options} />}
                     title={<>{user.name} {user.surname}</>}
-                    subheader={<Link href={`mailto:${user.email}`}>
+                    subheader={<a href={`mailto:${user.email}`}>
                         {user.email}
-                    </Link>}
+                    </a>}
                 />
                 <CardMedia
                     component="img"
@@ -83,7 +82,7 @@ export default function UserCard() {
                 <CardContent>
                     <Typography color='text.secondary' variant="subtitle1">
                         Ostatnio aktywny: {displayDate(user.lastActivity)}<br />
-                        Klasa dostępu: {<AppLink to={paths.ACCESS}>{user.access.name}</AppLink>}
+                        Klasa dostępu: {<Link href={paths.ACCESS}>{user.access.name}</Link>}
                     </Typography>
                     <br />
                     <DatesFooter model={user} />

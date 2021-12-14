@@ -1,6 +1,6 @@
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import MapIcon from '@mui/icons-material/Map';
-import { List } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useResourceMap } from '../../../../contexts/ResourceMapContext';
 import paths from '../../../../shared/path';
 import CollapseableListItem from "./CollapseableListItem";
@@ -28,8 +28,7 @@ export default function ResourcesList() {
                         icon={<BungalowIcon color="primary" />}
                         sx={{
                             pl: 6,
-                            width: 'inherit',
-                            backgroundColor: 'background.default'
+                            width: '100%',
                         }}
                     >
                         {rooms.map((roomEntry, key) => <RoomListItem key={key} {...roomEntry} />)}
@@ -39,9 +38,9 @@ export default function ResourcesList() {
     }, [resourceMap]);
 
     return (
-        <List>
+        <Stack>
             {rendered}
-        </List>
+        </Stack>
     );
 }
 

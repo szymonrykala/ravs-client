@@ -1,8 +1,7 @@
-import { Chip, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Chip, IconButton, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React from "react";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import { DetailedRoom } from "../../../../../models/Room";
-import AppLink from "../../../../../shared/components/AppLink";
 import { RfidForm } from "../Forms";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import YesNoIcon from "./YesNoIcon";
@@ -33,7 +32,7 @@ export default function RoomTableInfo({
                 value: room.seatsCount
             }, {
                 label: "Budynek",
-                value: <AppLink withIcon to={getBuildingLink(room.building.id)}> {room.building.name} </AppLink>
+                value: <Link href={getBuildingLink(room.building.id)}> {room.building.name} </Link>
             }, {
                 label: "Aktualnie wolny",
                 value: <YesNoIcon value={!room.occupied} />

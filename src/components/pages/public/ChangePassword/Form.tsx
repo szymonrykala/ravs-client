@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, Link, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import UniqueCodeButton from "../../../../shared/components/UniqueCodeButton";
 import React from "react";
@@ -7,7 +7,6 @@ import UserService, { ChangePasswordData } from "../../../../services/UserServic
 import { Redirect } from 'react-router-dom';
 import paths from "../../../../shared/path";
 import useNotification from "../../../../contexts/NotificationContext/useNotification";
-import AppLink from "../../../../shared/components/AppLink";
 
 
 interface FormProps {
@@ -115,9 +114,9 @@ export default function Form(props: FormProps) {
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item>
-                    <AppLink to={paths.LOGIN}>
+                    <Link href={paths.LOGIN}>
                         Hasło zmienione? Zaloguj się!
-                    </AppLink>
+                    </Link>
                 </Grid>
             </Grid>
         </Box>

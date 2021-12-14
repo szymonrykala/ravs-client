@@ -1,7 +1,6 @@
-import { Grid, List, ListItem } from "@mui/material";
+import { Grid, Link, List, ListItem } from "@mui/material";
 import React from "react";
 import paths from "../../shared/path";
-import AppLink from "../../shared/components/AppLink";
 
 
 interface LinkListItem {
@@ -12,7 +11,6 @@ interface LinkListItem {
 
 const linksList: LinkListItem[][] = [
     [
-        { name: 'FAQ', link: paths.FAQ },
         { name: 'Logowanie', link: paths.LOGIN },
         { name: 'Rejestracja', link: paths.REGISTER },
         { name: 'Aktywacja Konta', link: paths.ACTIVATE },
@@ -21,7 +19,6 @@ const linksList: LinkListItem[][] = [
     [
         { name: 'Home', link: paths.HOME },
         { name: 'Profil', link: paths.MY_PROFILE },
-        { name: 'Zasoby', link: paths.INFRASTRUCTURE },
     ]
 ];
 
@@ -33,13 +30,12 @@ export default function Links() {
         linksList.map((list, index) => <Grid key={index} item>
             <List>
                 {list.map(({ name, link }) => <ListItem key={name}>
-                    <AppLink
-                        to={link}
-                        withIcon
+                    <Link
+                        href={link}
                         sx={{ color: 'background.default' }}
                     >
                         {name}
-                    </AppLink>
+                    </Link>
                 </ListItem>)}
             </List>
         </Grid>), []);
