@@ -2,11 +2,9 @@ import Reservation from "../../../../../models/Reservation";
 import GenericModal from "../../components/GenericModal";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { Grid, IconButton, Typography } from '@mui/material';
+import { IconButton, List, Typography } from '@mui/material';
 import { displayDate } from '../../../../../shared/utils';
 import React from 'react';
-import ReservationUserCard from './ReservationUserCard';
-import ReservationRoomCard from './ReservationRoomCard';
 import DeleteModal from '../DeleteModal';
 import { CopyForm, EditForm, PingNFCForm } from "./ModalForms";
 import { useReservations } from "../GenericReservationsTab/ReservationsContext";
@@ -16,6 +14,8 @@ import CopyIcon from '@mui/icons-material/CopyAll';
 import NFCIcon from '@mui/icons-material/Nfc';
 import { Edit } from "@mui/icons-material";
 import MoreVertMenu from "../../components/MoreVertMenu";
+import UserItem from "./UserItem";
+import RoomItem from "./RoomItem";
 
 
 
@@ -168,18 +168,10 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                         {props.reservation.description}
                     </TextSection>
 
-                    <Grid container>
-                        {
-                            [
-                                { title: 'Użytkownik:', component: <ReservationUserCard user={props.reservation.user} /> },
-                                { title: 'Zarezerwowana sala:', component: <ReservationRoomCard room={props.reservation.room} /> },
-                            ].map(({ title, component }, index) =>
-                                <Grid key={index} item xs={12} lg={6} pr='10px'>
-                                    <Typography sx={{ p: '25px 0px 10px 0px', color: 'text.secondary' }} variant='subtitle2'>{title}</Typography>
-                                    {component}
-                                </Grid>)
-                        }
-                    </Grid>
+                    <List component='div'>
+                        <UserItem user={props.reservation.user} />
+                        <RoomItem room={props.reservation.room} />
+                    </List>
 
                 </Stack>
             </GenericModal>
