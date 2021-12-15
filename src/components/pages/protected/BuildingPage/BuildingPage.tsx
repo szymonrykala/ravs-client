@@ -7,18 +7,23 @@ import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
 import BuildingCard from "./components/BuildingCard";
 import RoomsList from "./components/RoomsList";
+import useResolvedAccess from "../hooks/useResolvedAccess";
 
 
 export default function BuildingPage() {
+    const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
-        arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
-        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
+        statsViewer && arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
+        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
-    }, []);
+    }, [
+        logsAdmin,
+        statsViewer
+    ]);
 
 
     return (

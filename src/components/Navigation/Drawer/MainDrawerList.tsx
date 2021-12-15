@@ -9,6 +9,7 @@ import React from "react";
 import Access from "../../../models/Access";
 import paths from "../../../shared/path";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import useResolvedAccess from "../../pages/protected/hooks/useResolvedAccess";
 
 
 
@@ -54,16 +55,20 @@ const usersLinkItem: NavListItem = {
 
 
 export default function MainDrawerList(props: { access?: Access }) {
+  const { accessAdmin, owner } = useResolvedAccess();
 
   const result = React.useMemo(() => {
     let list = Object.assign([], navListItems) as NavListItem[];
 
     list.push(usersLinkItem);
-    list.push(accessLinkItem);
-    list.push(settingsItem);
+    accessAdmin && list.push(accessLinkItem);
+    owner && list.push(settingsItem);
 
     return list;
-  }, []);
+  }, [
+    accessAdmin,
+    owner
+  ]);
 
 
   return (

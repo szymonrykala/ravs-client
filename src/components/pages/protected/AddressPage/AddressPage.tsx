@@ -3,6 +3,7 @@ import React from "react";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
+import useResolvedAccess from "../hooks/useResolvedAccess";
 import AddressContext from "./AddressContext";
 import AddressCard from "./components/AddressCard";
 import AddressCharts from "./components/AddressCharts";
@@ -10,15 +11,19 @@ import BuildingsList from "./components/BuildingsList";
 
 
 export default function AddressPage() {
+    const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
-        arr.push({ name: 'Statystyki', component: <AddressCharts /> });
-        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
+        statsViewer && arr.push({ name: 'Statystyki', component: <AddressCharts /> });
+        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
-    }, []);
+    }, [
+        logsAdmin,
+        statsViewer
+    ]);
 
 
     return (
