@@ -5,7 +5,11 @@
     "url": "https://github.com/szymonrykala/ravs-client"
   },
   "keywords": [
-    "rooms", "reservations", "charts", "room reservation system", "material UI"
+    "rooms",
+    "reservations",
+    "charts",
+    "room reservation system",
+    "material UI"
   ],
   "author": {
     "email": "szymonrykala@gmail.com",
