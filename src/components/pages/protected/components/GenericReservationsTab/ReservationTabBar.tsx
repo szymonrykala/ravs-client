@@ -15,6 +15,7 @@ import { useParams } from "react-router-dom";
 import { RoomViewParams } from "../../../../../services/RoomService";
 import { BuildingViewParams } from "../../../../../services/BuildingService";
 import { AddressViewParams } from "../../../../../services/AddressService";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 const buttons = [
@@ -25,6 +26,7 @@ const buttons = [
 
 
 export default function ReservationTabBar() {
+    const { reservationsAbility } = useResolvedAccess();
     const { setQueryParams, queryParams } = useQueryParams<ReservationsQueryParams>();
     const urlParams = useParams<RoomViewParams | BuildingViewParams | AddressViewParams>();
 
@@ -49,11 +51,13 @@ export default function ReservationTabBar() {
 
     return (
         <>
-            <CreateReservationModal
-                open={createReservationModalOpen}
-                onClose={() => setCreateReservationModalOpen(false)}
-                roomId={'roomId' in urlParams ? Number(urlParams.roomId) : undefined}
-            />
+            {reservationsAbility &&
+                <CreateReservationModal
+                    open={createReservationModalOpen}
+                    onClose={() => setCreateReservationModalOpen(false)}
+                    roomId={'roomId' in urlParams ? Number(urlParams.roomId) : undefined}
+                />
+            }
 
             <Grid container
                 component='form'
@@ -92,14 +96,17 @@ export default function ReservationTabBar() {
                         onChange={handleSearchFieldChange}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <Button
-                        startIcon={<AddIcon />}
-                        onClick={() => setCreateReservationModalOpen(true)}
-                    >
-                        Stwórz rezerwację
-                    </Button>
-                </Grid>
+                
+                {reservationsAbility &&
+                    <Grid item xs={12}>
+                        <Button
+                            startIcon={<AddIcon />}
+                            onClick={() => setCreateReservationModalOpen(true)}
+                        >
+                            Stwórz rezerwację
+                        </Button>
+                    </Grid>
+                }
             </Grid>
         </>
     );

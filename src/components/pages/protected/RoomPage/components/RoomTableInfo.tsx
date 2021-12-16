@@ -5,6 +5,7 @@ import { DetailedRoom } from "../../../../../models/Room";
 import { RfidForm } from "../Forms";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import YesNoIcon from "./YesNoIcon";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 interface RoomTableInfoProps {
@@ -16,11 +17,12 @@ interface RoomTableInfoProps {
 export default function RoomTableInfo({
     room, deleteTag
 }: RoomTableInfoProps) {
+    const { keysAdmin } = useResolvedAccess();
     const { getBuildingLink } = useResourceMap();
     const [rfidTagModalOpen, setRfidTagModalOpen] = React.useState<boolean>(false);
 
     const tableRows = React.useMemo(() => {
-        return [
+        const rows = [
             {
                 label: "Ilość miejsc",
                 value: room.seatsCount
@@ -36,22 +38,27 @@ export default function RoomTableInfo({
             }, {
                 label: "Aktualnie wolny",
                 value: <YesNoIcon value={!room.occupied} />
-            }, {
-                label: "Tag RFID",
-                value: room.RFIDTag ?
-                    <Chip label={room.RFIDTag} onDelete={deleteTag} />
-                    : <IconButton size="small"
-                        onClick={() => setRfidTagModalOpen(true)}
-                        sx={{ p: '0px' }}
-                    >
-                        <AddCircleIcon />
-                    </IconButton>
-            }, {
-                label: "Dostępny do rezerwacji",
-                value: <YesNoIcon value={!room.blocked} />
-            },
+            }
         ];
+        keysAdmin && rows.push({
+            label: "Tag RFID",
+            value: room.RFIDTag ?
+                <Chip label={room.RFIDTag} onDelete={deleteTag} sx={{ maxWidth: '120px' }} />
+                : <IconButton size="small"
+                    onClick={() => setRfidTagModalOpen(true)}
+                    sx={{ p: '0px' }}
+                >
+                    <AddCircleIcon />
+                </IconButton>
+        });
+        rows.push({
+            label: "Dostępny do rezerwacji",
+            value: <YesNoIcon value={!room.blocked} />
+        });
+
+        return rows;
     }, [
+        keysAdmin,
         room,
         deleteTag,
         getBuildingLink,

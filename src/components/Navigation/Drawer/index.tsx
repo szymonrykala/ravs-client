@@ -6,6 +6,7 @@ import AvatarView from './AvatarView';
 import useSession from "../../../auth/useSession";
 import ResourcesList from "./ResourcesList";
 import CreateAddressButton from "./CreateAddressButton";
+import useResolvedAccess from "../../pages/protected/hooks/useResolvedAccess";
 
 
 interface AppDrawerProps {
@@ -14,6 +15,7 @@ interface AppDrawerProps {
 }
 
 export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
+    const { premisesAdmin } = useResolvedAccess();
     const { user } = useSession();
 
     return (
@@ -45,7 +47,9 @@ export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
                 <ResourcesList />
 
             </DrawerPanel>
-            <CreateAddressButton />
+            {
+                premisesAdmin && <CreateAddressButton />
+            }
         </Drawer>
     );
 }

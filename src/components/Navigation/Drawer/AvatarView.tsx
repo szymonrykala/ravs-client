@@ -1,4 +1,4 @@
-import { Avatar, Link, Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { SessionUser } from "../../../models/User";
 import ImageService from "../../../services/ImageService";

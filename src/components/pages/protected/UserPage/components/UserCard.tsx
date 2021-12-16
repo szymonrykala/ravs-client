@@ -15,10 +15,12 @@ import { displayDate } from "../../../../../shared/utils";
 import { Link, Typography } from "@mui/material";
 import paths from "../../../../../shared/path";
 import DatesFooter from "../../components/DatesFooter";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 
 export default function UserCard() {
+    const { myId, owner } = useResolvedAccess();
     const { user, deleteUser } = useUser();
 
     const [editModal, setEditModal] = React.useState(false);
@@ -46,28 +48,30 @@ export default function UserCard() {
     return (
         <>
 
-            <DeleteModal
-                objectName={`${user.email}`}
-                open={deleteModal}
-                onClose={() => setDeleteModal(false)}
-                onSuccess={deleteUser}
-            />
+            {(myId(user.id) || owner) && <>
+                <DeleteModal
+                    objectName={`${user.email}`}
+                    open={deleteModal}
+                    onClose={() => setDeleteModal(false)}
+                    onSuccess={deleteUser}
+                />
 
-            <UserEditForm
-                user={user}
-                open={editModal}
-                onClose={() => setEditModal(false)}
-            />
+                <UserEditForm
+                    user={user}
+                    open={editModal}
+                    onClose={() => setEditModal(false)}
+                />
 
-            <ChangePasswordForm
-                open={passModal}
-                onClose={() => setPassModal(false)}
-            />
-
+                <ChangePasswordForm
+                    open={passModal}
+                    onClose={() => setPassModal(false)}
+                />
+            </>
+            }
 
             <Card elevation={0}>
                 <CardHeader
-                    action={<MoreVertMenu options={options} />}
+                    action={(myId(user.id) || owner) && <MoreVertMenu options={options} />}
                     title={<>{user.name} {user.surname}</>}
                     subheader={<a href={`mailto:${user.email}`}>
                         {user.email}

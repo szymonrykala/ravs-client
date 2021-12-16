@@ -44,20 +44,30 @@ export default function Notebook() {
 
     return (
         <SmallCard title='Notatnik'>
-            <Box component='form' onSubmit={handleSubmit} sx={{ display: 'flex', justifyContent: 'flex-end', flexDirection: 'column' }}>
+            <Box component='form' onSubmit={handleSubmit} sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                flexDirection: 'column',
+            }}>
                 <InputBase
                     aria-label="twoje notatki"
                     title='twoje notatki'
-
                     multiline
-                    minRows={3}
+                    minRows={4}
                     maxRows={10}
                     name='search'
                     value={data ?? MetadataService.notes ?? ''}
                     onChange={handleChange}
                     placeholder="Twoje notatki"
-                    sx={{ width: '100%', height: '100%', p: 1, bgcolor: 'background.default' }}
-                    inputProps={{ 'aria-label': 'Twoje notatki' }}
+                    sx={{
+                        width: '100%',
+                        height: '100%',
+                        p: 1,
+                        bgcolor: 'background.default'
+                    }}
+                    inputProps={{
+                        'aria-label': 'Twoje notatki'
+                    }}
                 />
                 <Button
                     title='Zapisz notatki'

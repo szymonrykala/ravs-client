@@ -40,7 +40,7 @@ export default function Favourites() {
 
     return (
         <SmallCard title='Ulubione'>
-            <List>
+            <List sx={{minHeight:'160px'}}>
                 {
                     data?.map((item,key) => <ListItem disablePadding key={key}>
                         {getCorrectListItem(item)}
