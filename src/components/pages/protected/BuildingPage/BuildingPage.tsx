@@ -3,11 +3,18 @@ import React from "react";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
-import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
 import BuildingCard from "./components/BuildingCard";
 import RoomsList from "./components/RoomsList";
 import useResolvedAccess from "../hooks/useResolvedAccess";
+import Loading from "../../../../shared/components/Loading";
+
+
+
+const LazyRoomOrBuildingChartTab = React.lazy(() => import("../components/RoomOrBuildingChartTab"));
+const RoomOrBuildingChartTab = () => <React.Suspense fallback={<Loading />}>
+    <LazyRoomOrBuildingChartTab />
+</React.Suspense>
 
 
 export default function BuildingPage() {

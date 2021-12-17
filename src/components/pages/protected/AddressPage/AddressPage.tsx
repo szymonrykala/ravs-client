@@ -1,13 +1,19 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
+import Loading from "../../../../shared/components/Loading";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import useResolvedAccess from "../hooks/useResolvedAccess";
 import AddressContext from "./AddressContext";
 import AddressCard from "./components/AddressCard";
-import AddressCharts from "./components/AddressCharts";
 import BuildingsList from "./components/BuildingsList";
+
+const LazyAddressCharts = React.lazy(() => import("./components/AddressCharts"));
+const AddressCharts = () => <React.Suspense fallback={<Loading />}>
+    <LazyAddressCharts />
+</React.Suspense>
+
 
 
 export default function AddressPage() {

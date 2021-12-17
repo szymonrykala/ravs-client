@@ -27,7 +27,7 @@ export default function ChartOptionsBar() {
         setQueryParams(old => ({
             ...old,
             from: buttonValue,
-            to: "now"
+            to: "1 hour"
         }));
     }, [
         setQueryParams

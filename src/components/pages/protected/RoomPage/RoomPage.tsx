@@ -1,13 +1,18 @@
 import { RoomContextProvider } from "./RoomContext";
 import React from "react";
-import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import Grid from "@mui/material/Grid";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import RoomCard from "./components/RoomCard";
 import useResolvedAccess from "../hooks/useResolvedAccess";
+import Loading from "../../../../shared/components/Loading";
 
+
+const LazyRoomOrBuildingChartTab = React.lazy(() => import("../components/RoomOrBuildingChartTab"));
+const RoomOrBuildingChartTab = () => <React.Suspense fallback={<Loading />}>
+    <LazyRoomOrBuildingChartTab />
+</React.Suspense>
 
 
 export default function RoomPage() {
