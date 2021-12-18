@@ -24,9 +24,6 @@ export default function Tabs() {
             <Switch>
                 <Route path={paths.HOME} component={ProtectedPages} />
                 <Route path={paths.PUBLIC} component={PublicPages} />
-                <Route path={paths.FAQ}>
-                    Częste pytania i odpowiedzi FAQ
-                </Route>
                 <Route path='*'> 
                     <Redirect to={paths.PUBLIC} />
                 </Route>
