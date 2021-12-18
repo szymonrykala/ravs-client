@@ -74,8 +74,8 @@ export default function MainDrawerList(props: { access?: Access }) {
   return (
     <List>
       {
-        result.map((item, key) => (
-          <ListItem button key={key} component={Link} href={item.href}>
+        result.map((item) => (
+          <ListItem button key={item.label} component={Link} href={item.href}>
             <ListItemIcon color="primary">
               {<item.icon color='primary' />}
             </ListItemIcon>

@@ -16,7 +16,7 @@ export default function UsersList() {
                 </ListItem>
             }
             {
-                users.map((item, index) => <UserListItem key={index} user={item} />)
+                users.map((item) => <UserListItem key={item.id} user={item} />)
             }
         </List>
     );

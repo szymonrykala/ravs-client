@@ -40,9 +40,9 @@ export default function Favourites() {
 
     return (
         <SmallCard title='Ulubione'>
-            <List sx={{minHeight:'160px'}}>
+            <List sx={{ minHeight: '160px' }}>
                 {
-                    data?.map((item,key) => <ListItem disablePadding key={key}>
+                    data?.map((item) => <ListItem disablePadding key={`${item.name}-${item.id}`}>
                         {getCorrectListItem(item)}
                         <IconButton
                             onClick={() => handleRemoveFavourite(item)}

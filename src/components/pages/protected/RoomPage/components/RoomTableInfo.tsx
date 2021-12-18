@@ -66,8 +66,8 @@ export default function RoomTableInfo({
 
 
     const RenderedRows = React.useMemo(() => {
-        return tableRows.map(({ label, value }, index) =>
-            <TableRow hover key={index}>
+        return tableRows.map(({ label, value }) =>
+            <TableRow hover key={label}>
                 <TableCell sx={{ color: "text.secondary" }} align="left">{label}</TableCell>
                 <TableCell sx={{ color: "primary.main", fontWeight: "bold" }} align="left">{value}</TableCell>
             </TableRow>

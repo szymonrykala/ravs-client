@@ -31,7 +31,7 @@ export default function ResourcesList() {
                             width: '100%',
                         }}
                     >
-                        {rooms.map((roomEntry, key) => <RoomListItem key={key} {...roomEntry} />)}
+                        {rooms.map((roomEntry) => <RoomListItem key={roomEntry.id} {...roomEntry} />)}
 
                     </CollapseableListItem>)}
             </CollapseableListItem>)

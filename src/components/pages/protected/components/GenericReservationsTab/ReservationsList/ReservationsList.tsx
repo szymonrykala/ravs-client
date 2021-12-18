@@ -16,8 +16,8 @@ export default function ReservationsList() {
                 <ListItem>
                     <ListItemText primary='Brak rezerwacji spełniających kryteria.' />
                 </ListItem> :
-                reservations.map((item, index) => <ReservationListItem
-                    key={index}
+                reservations.map((item) => <ReservationListItem
+                    key={item.id}
                     data={item}
                     onClick={() => showReservation(item.id)}
                 />)}
