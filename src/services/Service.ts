@@ -72,7 +72,7 @@ export default abstract class Service {
         );
         const data = await response.json() as ResponseData;
 
-        console.debug(data);
+        if (process.env.NODE_ENV !== 'production') console.debug(data);
 
         // if user is not authenticated - 
         // redirect to let sessionContext to resolve redirections
@@ -81,7 +81,7 @@ export default abstract class Service {
         }
 
         if (!response.ok) {
-            console.error(`${response.status} ${data?.error?.type} ${data?.error?.description}`);
+            if (process.env.NODE_ENV !== 'production') console.error(`${response.status} ${data?.error?.type} ${data?.error?.description}`);
             throw new APIServiceError(data);
         }
 
