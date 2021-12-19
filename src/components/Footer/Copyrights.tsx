@@ -12,7 +12,7 @@ function Copyright() {
                 color: "primary.light"
             }}
         >
-            &copy; Szymon Rykała 2021
+            &copy; Szymon Rykała 2021/2022
         </Typography>
     );
 }

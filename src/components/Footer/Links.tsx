@@ -1,4 +1,4 @@
-import { Container, Link, List, ListItem } from "@mui/material";
+import { Container, Link, List, ListItem, Typography } from "@mui/material";
 import Box from "@mui/system/Box";
 import React from "react";
 import useSession from "../../auth/useSession";
@@ -12,17 +12,10 @@ interface LinkListItem {
 }
 
 
-const linksList: LinkListItem[] = [
-    { name: 'Logowanie', link: paths.LOGIN },
-    { name: 'Rejestracja', link: paths.REGISTER },
-    { name: 'Aktywacja Konta', link: paths.ACTIVATE },
-];
-
-
-const LinkItem = React.memo((props: LinkListItem) =>
+const LinkItem = (props: LinkListItem) =>
     <ListItem
         sx={{
-            width: '50%',
+            width: '30%',
             minWidth: '200px'
         }}>
         <Link
@@ -31,7 +24,8 @@ const LinkItem = React.memo((props: LinkListItem) =>
         >
             {props.name}
         </Link>
-    </ListItem>);
+    </ListItem>
+    ;
 
 
 function Links() {
@@ -39,12 +33,19 @@ function Links() {
     const access = useResolvedAccess();
 
 
-    const resolvedLinksList = React.useMemo(() => {
-        const list = [...linksList];
+    const linksList = React.useMemo(() => {
+        const list = [];
         if (user) {
             list.push({ name: 'Mój Profil', link: paths.MY_PROFILE }, { name: 'Home', link: paths.HOME });
             access.accessAdmin && list.push({ name: 'Dostępy', link: paths.ACCESS });
             access.owner && list.push({ name: 'Ustawienia', link: paths.SETTINGS });
+        } else {
+            list.push(
+                { name: 'Strona główna', link: paths.PUBLIC },
+                { name: 'Logowanie', link: paths.LOGIN },
+                { name: 'Rejestracja', link: paths.REGISTER },
+                { name: 'Aktywacja Konta', link: paths.ACTIVATE }
+            );
         }
         return list;
     }, [
@@ -56,10 +57,10 @@ function Links() {
 
     const links = React.useMemo(() => {
 
-        return resolvedLinksList.filter(item => item.link)
+        return linksList.filter(item => item.link)
             .map((item) => <LinkItem key={item.name} {...item} />);
     }, [
-        resolvedLinksList
+        linksList
     ]);
 
     return (
@@ -69,6 +70,9 @@ function Links() {
             }}
         >
             <Container>
+                <Typography sx={{ pt: 2 }} component='p' variant='body2' color='background.default'>
+                    Przydatne linki:
+                </Typography>
                 <List sx={{
                     display: 'flex',
                     flexDirection: 'row',
