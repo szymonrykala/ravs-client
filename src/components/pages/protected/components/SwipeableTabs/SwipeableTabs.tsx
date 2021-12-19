@@ -71,7 +71,7 @@ export default function SwipeableTabs(props: SwipeableTabsProps) {
             </Tabs>
             <br />
             <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                axis='x'
                 index={tabIndex}
                 onChangeIndex={handleChangeIndex}
             >

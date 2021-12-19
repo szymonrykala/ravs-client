@@ -2,10 +2,11 @@ import { Box, Link, ListItem, ListItemIcon } from "@mui/material";
 import { MapItem } from "../../../../models/AddressMap";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import paths from "../../../../shared/path";
+import React from "react";
 
 
 
-export default function RoomListItem(props: MapItem) {
+function RoomListItem(props: MapItem) {
     return (
         <ListItem button component={Link} href={`${paths.HOME}${props.href}`}>
             <Box sx={{ width: '100%' }} >
@@ -17,3 +18,5 @@ export default function RoomListItem(props: MapItem) {
         </ListItem>
     );
 }
+
+export default React.memo(RoomListItem);

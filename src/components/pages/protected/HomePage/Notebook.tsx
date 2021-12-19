@@ -8,7 +8,7 @@ import MetadataService from "../../../../services/MetadataService";
 
 
 
-export default function Notebook() {
+function Notebook() {
     const notify = useNotification();
 
     const [data, setData] = React.useState<string>();
@@ -81,3 +81,5 @@ export default function Notebook() {
         </SmallCard >
     );
 }
+
+export default React.memo(Notebook);

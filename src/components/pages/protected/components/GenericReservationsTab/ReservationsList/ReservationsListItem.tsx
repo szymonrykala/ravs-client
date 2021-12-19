@@ -8,12 +8,17 @@ import ImageService from "../../../../../../services/ImageService";
 import { displayDate } from "../../../../../../shared/utils";
 import ReservationService from "../../../../../../services/ReservationService";
 import { Link } from "@mui/material";
+import React from "react";
+import Image from "../../../../../../models/Image";
 
 
 interface ReservationListItemProps {
     data: Reservation,
     onClick: () => void
 }
+
+// memoize avatar
+const MemAvatar = React.memo((props: { img: Image }) => <Avatar alt="użytkownik" src={ImageService.getLink(props.img)} />)
 
 
 export default function ReservationListItem({
@@ -26,7 +31,7 @@ export default function ReservationListItem({
             component='li'
             button
             sx={{
-                mb:'2px',
+                mb: '2px',
                 bgcolor: color,
                 '&:hover, &:focus': {
                     bgcolor: color,
@@ -37,7 +42,7 @@ export default function ReservationListItem({
         >
             <ListItemAvatar>
                 <Link href={dynamicPaths.toUser(data.user.id)}>
-                    <Avatar src={ImageService.getLink(data.user.image)} />
+                    <MemAvatar img={data.user.image} />
                 </Link>
             </ListItemAvatar>
 

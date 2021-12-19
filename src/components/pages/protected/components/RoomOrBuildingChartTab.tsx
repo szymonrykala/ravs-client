@@ -1,3 +1,4 @@
+import React from "react";
 import { BuildingOrRoomChartsData } from "../../../../models/Stats";
 import { ChartsTab, Chart, ChartSection, useCharts } from "./Charts";
 import MonthlyChartsSection from "./MonthlyChartsSection";
@@ -5,7 +6,7 @@ import WeeklyChartsSection from "./WeeklyChartsSection";
 
 
 
-export default function RoomOrBuildingChartTab() {
+function RoomOrBuildingChartTab() {
     return (
         <ChartsTab>
             <ActualLoader />
@@ -14,7 +15,7 @@ export default function RoomOrBuildingChartTab() {
 }
 
 // need to use actual loading component to access charts context in ChartsTab
-function ActualLoader() {
+const ActualLoader = React.memo(() => {
     const { chartsData } = useCharts<BuildingOrRoomChartsData>();
 
     return (
@@ -25,7 +26,7 @@ function ActualLoader() {
 
             <ChartSection defaultOpen title='Wykresy odnośnie użytkowników'>
                 <Chart
-                    fullWidth
+                    fullWidth={chartsData.users.length > 2}
                     title="Średnie czasy rezerwacji"
                     data={chartsData.users}
                     xKey='email'
@@ -35,7 +36,7 @@ function ActualLoader() {
                     ]}
                 />
                 <Chart
-                    fullWidth
+                    fullWidth={chartsData.users.length > 2}
                     title='Ilość rezerwacji użytkowników'
                     data={chartsData.users}
                     xKey='email'
@@ -44,7 +45,7 @@ function ActualLoader() {
                     ]}
                 />
                 <Chart
-                    fullWidth
+                    fullWidth={chartsData.users.length > 2}
                     title="Czas wszystkich reserwacji danego użytkownika"
                     data={chartsData.users}
                     xKey='email'
@@ -55,4 +56,6 @@ function ActualLoader() {
             </ChartSection>
         </>
     )
-}
+});
+
+export default React.memo(RoomOrBuildingChartTab);

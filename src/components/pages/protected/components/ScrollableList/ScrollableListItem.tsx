@@ -1,5 +1,6 @@
 import { Link, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import LinkIcon from '@mui/icons-material/Link';
+import React from "react";
 
 
 interface ScrollableListItemProps {
@@ -8,7 +9,7 @@ interface ScrollableListItemProps {
 }
 
 
-export default function ScrollableListItem(props: ScrollableListItemProps) {
+function ScrollableListItem(props: ScrollableListItemProps) {
     return (
         <ListItem button
             component={Link}
@@ -22,3 +23,5 @@ export default function ScrollableListItem(props: ScrollableListItemProps) {
         </ListItem>
     );
 }
+
+export default React.memo(ScrollableListItem);

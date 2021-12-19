@@ -28,6 +28,9 @@ export default function ListPagination() {
         setQueryParams
     ]);
 
+    const onPageList = React.useMemo(() =>
+        [5, 10, 15, 20].map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)
+        , []);
 
     return (
         <Stack spacing={2} sx={{
@@ -53,9 +56,7 @@ export default function ListPagination() {
                     value={queryParams.itemsOnPage ?? 5}
                     onChange={handleCountChange}
                 >
-                    {
-                        [5, 10, 15, 20].map(num => <MenuItem key={num} value={num}>{num}</MenuItem>)
-                    }
+                    {onPageList}
                     <MenuItem value={10000}>wszystko</MenuItem>
                 </Select>
             </FormControl>

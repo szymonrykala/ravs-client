@@ -23,7 +23,7 @@ function getCorrectListItem(data: FavouriteBuilding | FavouriteRoom): React.Reac
 }
 
 
-export default function Favourites() {
+function Favourites() {
     const { user } = useSession();
 
     const [data, setData] = React.useState<(FavouriteBuilding | FavouriteRoom)[]>()
@@ -61,4 +61,4 @@ export default function Favourites() {
     )
 }
 
-
+export default React.memo(Favourites);

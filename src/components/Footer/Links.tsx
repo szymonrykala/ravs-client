@@ -19,8 +19,22 @@ const linksList: LinkListItem[] = [
 ];
 
 
+const LinkItem = React.memo((props: LinkListItem) =>
+    <ListItem
+        sx={{
+            width: '50%',
+            minWidth: '200px'
+        }}>
+        <Link
+            sx={{ color: 'background.default' }}
+            href={props.link}
+        >
+            {props.name}
+        </Link>
+    </ListItem>);
 
-export default function Links() {
+
+function Links() {
     const { user } = useSession();
     const access = useResolvedAccess();
 
@@ -43,21 +57,7 @@ export default function Links() {
     const links = React.useMemo(() => {
 
         return resolvedLinksList.filter(item => item.link)
-            .map(({ name, link }) =>
-                <ListItem
-                    key={name}
-                    sx={{
-                        width: '50%',
-                        minWidth: '200px'
-                    }}>
-                    <Link
-                        sx={{ color: 'background.default' }}
-                        href={link}
-                    >
-                        {name}
-                    </Link>
-                </ListItem>
-            );
+            .map((item) => <LinkItem key={item.name} {...item} />);
     }, [
         resolvedLinksList
     ]);
@@ -83,3 +83,5 @@ export default function Links() {
         </Box>
     );
 }
+
+export default React.memo(Links);

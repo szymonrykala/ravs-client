@@ -35,7 +35,7 @@ export default function DatesView(props: Props) {
                 >
                     {
                         props.children.map(({ label, value }) =>
-                            <div>
+                            <div key={label} >
                                 {label}:&nbsp;<Chip label={value} />
                             </div>
                         )

@@ -32,7 +32,7 @@ export default function AppDrawer({ toggleOpen, open }: AppDrawerProps) {
                 <AvatarView user={user} />
 
                 <Divider />
-                <MainDrawerList access={user?.access} />
+                <MainDrawerList />
 
                 <Divider />
                 <ListItem

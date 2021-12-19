@@ -6,7 +6,6 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PeopleIcon from '@mui/icons-material/People';
 
 import React from "react";
-import Access from "../../../models/Access";
 import paths from "../../../shared/path";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import useResolvedAccess from "../../pages/protected/hooks/useResolvedAccess";
@@ -54,7 +53,17 @@ const usersLinkItem: NavListItem = {
 };
 
 
-export default function MainDrawerList(props: { access?: Access }) {
+const MainListItem = React.memo((props: NavListItem) =>
+  <ListItem button component={Link} href={props.href}>
+    <ListItemIcon color="primary">
+      {<props.icon color='primary' />}
+    </ListItemIcon>
+    <ListItemText primary={props.label} />
+  </ListItem >
+);
+
+
+export default function MainDrawerList() {
   const { accessAdmin, owner } = useResolvedAccess();
 
   const result = React.useMemo(() => {
@@ -71,18 +80,14 @@ export default function MainDrawerList(props: { access?: Access }) {
   ]);
 
 
+  const renderedList = React.useMemo(() =>
+    result.map((item) => <MainListItem key={item.label} {...item} />)
+    , [result]);
+
+
   return (
     <List>
-      {
-        result.map((item) => (
-          <ListItem button key={item.label} component={Link} href={item.href}>
-            <ListItemIcon color="primary">
-              {<item.icon color='primary' />}
-            </ListItemIcon>
-            <ListItemText primary={item.label} />
-          </ListItem >
-        ))
-      }
+      {renderedList}
     </List>
   );
 }

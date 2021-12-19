@@ -16,16 +16,16 @@ import paths from "../../../../shared/path";
 
 
 
-function WhiteWrap(props: {
+const WhiteWrap = React.memo((props: {
     children: React.ReactNode | React.ReactNode[],
     sx?: SxProps
-}) {
+}) => {
     return (
         <Box component={Paper} elevation={0} sx={{ p: '15px', ...props.sx }}>
             {props.children}
         </Box>
     );
-}
+});
 
 
 const iconsList = [
@@ -44,7 +44,7 @@ const iconsList = [
 </ListItem>);
 
 
-export default function Welcome() {
+function Welcome() {
     return (
         <Grid spacing={2} container >
             <Grid item xs={12} lg={8}>
@@ -158,3 +158,5 @@ export default function Welcome() {
         </Grid>
     );
 }
+
+export default React.memo(Welcome);

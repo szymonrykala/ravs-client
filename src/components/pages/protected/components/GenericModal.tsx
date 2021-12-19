@@ -13,7 +13,7 @@ interface GenericModalProps {
   onClose: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function GenericModal({
+function GenericModal({
   children, open, sx, onClose
 }: GenericModalProps) {
 
@@ -36,12 +36,10 @@ export default function GenericModal({
       <Fade in={open}>
         <Paper sx={{
           bgcolor: 'background.paper',
-          position: 'absolute' as 'absolute',
-          // borderRadius: (theme) => theme.shape.borderRadius,
+          position: 'absolute',
           width: '95%',
           mt: '5vw',
           maxWidth: '500px',
-          // overflow: 'auto',
           boxShadow: 24,
           p: 3,
           ...sx
@@ -52,3 +50,5 @@ export default function GenericModal({
     </Modal >
   );
 }
+
+export default React.memo(GenericModal);

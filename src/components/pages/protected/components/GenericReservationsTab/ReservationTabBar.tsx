@@ -25,7 +25,7 @@ const buttons = [
 ];
 
 
-export default function ReservationTabBar() {
+function ReservationTabBar() {
     const { reservationsAbility } = useResolvedAccess();
     const { setQueryParams, queryParams } = useQueryParams<ReservationsQueryParams>();
     const urlParams = useParams<RoomViewParams | BuildingViewParams | AddressViewParams>();
@@ -96,7 +96,7 @@ export default function ReservationTabBar() {
                         onChange={handleSearchFieldChange}
                     />
                 </Grid>
-                
+
                 {reservationsAbility &&
                     <Grid item xs={12}>
                         <Button
@@ -111,3 +111,5 @@ export default function ReservationTabBar() {
         </>
     );
 }
+
+export default React.memo(ReservationTabBar);

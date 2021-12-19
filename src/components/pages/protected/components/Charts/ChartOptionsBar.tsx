@@ -15,7 +15,7 @@ const predefinedButtons: SelectButtonInterface[] = [
 
 
 
-export default function ChartOptionsBar() {
+function ChartOptionsBar() {
     const { queryParams, setQueryParams } = useQueryParams<ChartsQueryData>();
 
     const [customDates, setCustomDates] = React.useState<{ from: Date, to: Date }>({
@@ -91,3 +91,5 @@ export default function ChartOptionsBar() {
         </Stack>
     );
 }
+
+export default React.memo(ChartOptionsBar);

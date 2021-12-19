@@ -26,7 +26,7 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
     return (
         <Box sx={props.sx}>
             <IconButton
-                aria-label='card-more-button'
+                aria-label='more-options'
                 aria-controls="card-menu"
                 aria-expanded={open ? 'true' : undefined}
                 aria-haspopup="true"
@@ -36,7 +36,7 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
             </IconButton>
             <Menu
                 MenuListProps={{
-                    'aria-labelledby': 'card-more-button',
+                    'aria-labelledby': 'more-options',
                 }}
                 anchorEl={anchorEl}
                 id="card-menu"

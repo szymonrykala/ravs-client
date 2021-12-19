@@ -17,7 +17,7 @@ const RoomOrBuildingChartTab = () => <React.Suspense fallback={<Loading />}>
 </React.Suspense>
 
 
-export default function BuildingPage() {
+function BuildingPage() {
     const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
@@ -50,4 +50,6 @@ export default function BuildingPage() {
             </Grid>
         </BuildingContext>
     );
-}
+};
+
+export default React.memo(BuildingPage);

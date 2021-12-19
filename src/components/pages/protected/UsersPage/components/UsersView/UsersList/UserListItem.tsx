@@ -6,7 +6,6 @@ import ListItemText from "@mui/material/ListItemText";
 import User from "../../../../../../../models/User";
 import ImageService from "../../../../../../../services/ImageService";
 import { dynamicPaths } from "../../../../../../../shared/path";
-import { displayDate } from "../../../../../../../shared/utils";
 
 
 
@@ -31,8 +30,6 @@ export default function UserListItem({ user }: UserListItemProps) {
                 secondary={
                     <>
                         {user.email}
-                        <br />
-                        {displayDate(user.lastActivity)}
                     </>
                 }
             />

@@ -1,7 +1,8 @@
 import { Typography } from "@mui/material";
+import React from "react";
 
 
-export default function Copyright() {
+function Copyright() {
     return (
         <Typography
             align="center"
@@ -15,3 +16,5 @@ export default function Copyright() {
         </Typography>
     );
 }
+
+export default React.memo(Copyright);

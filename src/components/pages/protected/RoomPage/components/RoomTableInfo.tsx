@@ -30,9 +30,6 @@ export default function RoomTableInfo({
                 label: "Piętro",
                 value: room.floor === 0 ? "parter" : room.floor
             }, {
-                label: "Ilość miejsc",
-                value: room.seatsCount
-            }, {
                 label: "Budynek",
                 value: <Link href={getBuildingLink(room.building.id)}> {room.building.name} </Link>
             }, {

@@ -16,7 +16,7 @@ const AddressCharts = () => <React.Suspense fallback={<Loading />}>
 
 
 
-export default function AddressPage() {
+function AddressPage() {
     const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
@@ -50,3 +50,5 @@ export default function AddressPage() {
         </AddressContext>
     );
 }
+
+export default React.memo(AddressPage);

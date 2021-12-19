@@ -11,7 +11,7 @@ import { useAddress } from "../AddressContext";
 import { CreateBuildingForm } from "../Forms";
 
 
-export default function BuildingsList() {
+function BuildingsList() {
     const { getBuildingsInAddress } = useAddress();
     const { reloadMap } = useResourceMap();
     const notify = useNotification();
@@ -79,3 +79,5 @@ export default function BuildingsList() {
         </>
     );
 }
+
+export default React.memo(BuildingsList);
