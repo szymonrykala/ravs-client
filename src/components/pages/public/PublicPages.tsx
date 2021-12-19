@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import paths from "../../../shared/path";
 import Loading from "../../../shared/components/Loading";
 import React from "react";
+import useSession from "../../../auth/useSession";
 
 
 const Activation = React.lazy(() => import('./Activation'));
@@ -12,6 +13,9 @@ const Welcome = React.lazy(() => import('./Welcome'));
 
 
 export default function PublicPages() {
+    const { user } = useSession();
+
+    if (user) return <Redirect to={paths.HOME} />
 
     return (
         <Switch>

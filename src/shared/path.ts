@@ -6,7 +6,6 @@ interface AppPathsInterface {
     REGISTER: string,
     ACTIVATE: string,
     REMIND_PASSWORD: string,
-    FAQ: string,
 
     HOME: string,
     SETTINGS: string,
@@ -32,7 +31,6 @@ interface AppDynamicPaths {
 
 const paths: { [index: string]: string } = {
     PUBLIC: '/public',
-    FAQ: '/faq',
     HOME: '/app',
 }
 

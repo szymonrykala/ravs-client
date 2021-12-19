@@ -13,7 +13,7 @@ import PublicPages from './public';
 
 
 const tabStyle = {
-    minHeight: "80vh",
+    minHeight: "84vh",
     padding: "1.5vh 0px"
 }
 

@@ -1,4 +1,5 @@
 import { Redirect, Route, Switch } from "react-router-dom";
+import useSession from "../../../auth/useSession";
 import paths from "../../../shared/path";
 import AccessPage from "./AccessPage";
 import AddressPage from "./AddressPage";
@@ -12,6 +13,9 @@ import UsersPage from "./UsersPage";
 
 
 export default function ProtectedPages() {
+    const { user } = useSession();
+
+    if (!user) return <Redirect to={paths.PUBLIC} />
 
     return (
         <Switch>
@@ -23,7 +27,7 @@ export default function ProtectedPages() {
             <Route path={paths.ACCESS} component={AccessPage} />
             <Route path={paths.USER} component={UserPage} />
             <Route path={paths.USERS} component={UsersPage} />
-            <Route path={paths.HOME} component={HomePage}/>
+            <Route path={paths.HOME} component={HomePage} />
 
             <Route path={paths.INFRASTRUCTURE}>
                 Zasoby
