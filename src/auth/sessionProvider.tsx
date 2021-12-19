@@ -58,8 +58,6 @@ export default function SessionProvider({ children }: SessionProviderProps) {
             } catch (err: any) {
                 notify(err.description, 'error', () => <Redirect to={paths.WELCOME} />);
             }
-        } else {
-            notify('Witaj!', 'info', () => <Redirect to={paths.WELCOME} />);
         }
         setLoading(false)
     }, [
@@ -96,9 +94,9 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
 
     const logout = React.useCallback(() => {
-        notify("Pomyślnie wylogowano!", "success", () => <Redirect to={paths.WELCOME} />);
-        AuthService.logout();
+        notify("Pomyślnie wylogowano!", "success", () => <Redirect to={paths.PUBLIC} />);
         setUser(null);
+        AuthService.logout();
     }, [notify]);
 
 
