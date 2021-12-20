@@ -45,14 +45,12 @@ export default function SwipeableTabs(props: SwipeableTabsProps) {
         return props.tabs.map((page, index) => <SwipeablePanel
             key={index}
             index={index}
-            hidden={tabIndex !== index}
             dir={theme.direction}
         >
             {page.component}
         </SwipeablePanel>)
     }, [
         props.tabs,
-        tabIndex,
         theme.direction,
     ]);
 
