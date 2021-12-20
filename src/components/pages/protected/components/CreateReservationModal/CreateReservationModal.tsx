@@ -1,3 +1,4 @@
+import React from "react";
 import GenericModal from "../../components/GenericModal";
 import CreateReservationForm from "./CreateReservationForm";
 
@@ -8,7 +9,7 @@ interface CreateReservationModalProps {
     roomId?: number
 }
 
-export default function CreateReservationModal(props: CreateReservationModalProps) {
+function CreateReservationModal(props: CreateReservationModalProps) {
     return (
         <GenericModal
             open={props.open}
@@ -23,3 +24,5 @@ export default function CreateReservationModal(props: CreateReservationModalProp
         </GenericModal>
     );
 }
+
+export default React.memo(CreateReservationModal);

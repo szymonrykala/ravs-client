@@ -10,11 +10,11 @@ interface GenericChartsTabProps {
     children: React.ReactNode[] | React.ReactNode
 }
 
-export default function ChartsTab(props: GenericChartsTabProps) {
+function ChartsTab(props: GenericChartsTabProps) {
     return (
         <QueryParamsContext
             name="charts-query-params"
-            default={{ from: '1 month ago', to: 'now' } as ChartsQueryData}
+            default={{ from: '1 month ago', to: '1 hour' } as ChartsQueryData}
         >
             <ChartsContext>
                 <Stack spacing={4}>
@@ -25,3 +25,5 @@ export default function ChartsTab(props: GenericChartsTabProps) {
         </QueryParamsContext>
     )
 }
+
+export default React.memo(ChartsTab);

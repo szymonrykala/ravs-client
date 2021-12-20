@@ -9,10 +9,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import AccountMenu from './AccountMenu';
 import useSession from '../../../auth/useSession';
-import { Avatar } from '@mui/material';
+import { Avatar, Link } from '@mui/material';
 import paths from '../../../shared/path';
 import ImageService from '../../../services/ImageService';
-import AppLink from '../../../shared/components/AppLink';
 
 
 interface NavigationBarProps {
@@ -51,8 +50,8 @@ export default function NavigationBar(props: NavigationBarProps) {
 						flexGrow: 1,
 						fontFamily: "Dancing Script, cursive",
 					}}>
-						<AppLink
-							to={user ? paths.HOME : paths.PUBLIC}
+						<Link
+							href={user ? paths.HOME : paths.PUBLIC}
 							sx={{
 								width: 'fit-content',
 								color: 'background.default',
@@ -62,7 +61,7 @@ export default function NavigationBar(props: NavigationBarProps) {
 							}}
 						>
 							Rav System
-						</AppLink>
+						</Link>
 					</Typography>
 					{user && (
 						<div>

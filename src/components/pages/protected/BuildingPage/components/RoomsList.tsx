@@ -12,7 +12,7 @@ import SmallCard from "../../components/SmallCard";
 
 
 
-export default function RoomsList() {
+function RoomsList() {
     const { getRoomsInBuilding } = useBuilding();
     const { reloadMap } = useResourceMap();
 
@@ -81,3 +81,5 @@ export default function RoomsList() {
         </>
     );
 }
+
+export default React.memo(RoomsList);

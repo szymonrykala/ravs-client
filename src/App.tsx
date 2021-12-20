@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import { HashRouter } from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import plLocale from 'date-fns/locale/pl';
 import NotificationContextProvider from './contexts/NotificationContext/NotificationContextProvider';
 import { ResourceMapContextProvider } from './contexts/ResourceMapContext';
 import Navigation from './components/Navigation';
@@ -22,7 +23,7 @@ import Navigation from './components/Navigation';
 function App() {
 	return (
 		<Theme>
-			<LocalizationProvider dateAdapter={AdapterDateFns}>
+			<LocalizationProvider dateAdapter={AdapterDateFns} locale={plLocale}>
 				<CssBaseline />
 				<Box component="div" className="App" sx={{ backgroundColor: 'background.default' }}>
 					<HashRouter>

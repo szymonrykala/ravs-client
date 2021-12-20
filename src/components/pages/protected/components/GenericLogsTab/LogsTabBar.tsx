@@ -6,7 +6,7 @@ import LazyInput from "../../components/LazyInput";
 
 
 
-export function LogsTabBar() {
+function LogsTabBar() {
     const { queryParams, setQueryParams } = useQueryParams<LogsQueryParams>();
 
 
@@ -50,3 +50,4 @@ export function LogsTabBar() {
     );
 }
 
+export default React.memo(LogsTabBar);

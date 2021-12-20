@@ -8,11 +8,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { AddressEditForm } from "../Forms";
 import MoreVertMenu from "../../components/MoreVertMenu";
 import DatesFooter from "../../components/DatesFooter";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 
 
 export default function AddressCard() {
+    const { premisesAdmin } = useResolvedAccess();
     const { address, deleteAddress } = useAddress();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState(false);
@@ -32,26 +34,29 @@ export default function AddressCard() {
 
     return (
         <>
-            <DeleteModal
-                objectName={`${address.street} ${address.number}`}
-                open={deleteModalOpen}
-                onClose={() => setDeleteModalOpen(false)}
-                onSuccess={deleteAddress}
-            />
+            {premisesAdmin &&
+                <>
+                    <DeleteModal
+                        objectName={`${address.street} ${address.number}`}
+                        open={deleteModalOpen}
+                        onClose={() => setDeleteModalOpen(false)}
+                        onSuccess={deleteAddress}
+                    />
 
-            <AddressEditForm
-                open={editModalOpen}
-                onClose={() => setEditModalOpen(false)}
-            />
-
+                    <AddressEditForm
+                        open={editModalOpen}
+                        onClose={() => setEditModalOpen(false)}
+                    />
+                </>
+            }
             <Card elevation={0}>
                 <CardHeader
-                    action={<MoreVertMenu options={options} />}
+                    action={premisesAdmin && <MoreVertMenu options={options} />}
                     title={<>{address.country}, {address.town}</>}
                     subheader={<>{address.street} {address.number}</>}
                 />
                 <CardMedia component="div">
-                    <Map address={address}  />
+                    <Map address={address} />
                 </CardMedia>
                 <CardContent>
                     <Typography component='p'>

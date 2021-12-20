@@ -1,3 +1,4 @@
+import React from "react";
 import { DayStatsItem } from "../../../../models/Stats";
 import { Chart, ChartSection } from "./Charts";
 
@@ -6,8 +7,7 @@ interface MonthlyChartsSectionProps {
     data: DayStatsItem[]
 }
 
-
-export default function MonthlyChartsSection(props: MonthlyChartsSectionProps) {
+function MonthlyChartsSection(props: MonthlyChartsSectionProps) {
     return (
         <ChartSection title='Statystyki miesięczne'>
             <Chart
@@ -41,3 +41,6 @@ export default function MonthlyChartsSection(props: MonthlyChartsSectionProps) {
         </ChartSection>
     );
 }
+
+
+export default React.memo(MonthlyChartsSection);

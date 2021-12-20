@@ -3,22 +3,34 @@ import React from "react";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
-import RoomOrBuildingChartTab from "../components/RoomOrBuildingChartTab";
 import BuildingContext from "./BuildingContext";
 import BuildingCard from "./components/BuildingCard";
 import RoomsList from "./components/RoomsList";
+import useResolvedAccess from "../hooks/useResolvedAccess";
+import Loading from "../../../../shared/components/Loading";
 
 
-export default function BuildingPage() {
+
+const LazyRoomOrBuildingChartTab = React.lazy(() => import("../components/RoomOrBuildingChartTab"));
+const RoomOrBuildingChartTab = () => <React.Suspense fallback={<Loading />}>
+    <LazyRoomOrBuildingChartTab />
+</React.Suspense>
+
+
+function BuildingPage() {
+    const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
-        arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
-        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
+        statsViewer && arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
+        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
-    }, []);
+    }, [
+        logsAdmin,
+        statsViewer
+    ]);
 
 
     return (
@@ -38,4 +50,6 @@ export default function BuildingPage() {
             </Grid>
         </BuildingContext>
     );
-}
+};
+
+export default React.memo(BuildingPage);

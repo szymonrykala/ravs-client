@@ -12,6 +12,7 @@ import React from "react";
 import useReservations from "../../GenericReservationsTab/ReservationsContext/useReservations";
 import FormGridContainer from "../../../../../../shared/components/FormGridContainer";
 import DateTimePicker from "../../DateTimePicker";
+import { fromLocaleDateTimeString } from "../../../../../../shared/utils";
 
 
 interface EditModalFormProps {
@@ -57,13 +58,15 @@ export default function EditModalForm(props: EditModalFormProps) {
     }, []);
 
 
-    const handleDateChange = React.useCallback((name: keyof UpdateReservationData, value: string) => {
+    const handleDateChange = React.useCallback((name: keyof UpdateReservationData, value: Date) => {
+        console.log(value)
         value && setData(old => ({
             ...old,
-            [name]: value
+            [name]: value.toLocaleString('pl')
         }));
     }, []);
 
+    console.log(props.reservation.plannedStart)
 
     return (
         <GenericModal
@@ -107,7 +110,11 @@ export default function EditModalForm(props: EditModalFormProps) {
 
                 <Grid item xs={12} sm={6}>
                     <DateTimePicker
-                        value={data.plannedStart ?? props.reservation.plannedStart}
+                        value={
+                            data.plannedStart ?
+                                fromLocaleDateTimeString(data.plannedStart) :
+                                new Date(props.reservation.plannedStart)
+                        }
                         label="Początek"
                         onChange={(value) => handleDateChange('plannedStart', value)}
                     />
@@ -115,7 +122,11 @@ export default function EditModalForm(props: EditModalFormProps) {
 
                 <Grid item xs={12} sm={6}>
                     <DateTimePicker
-                        value={data.plannedEnd ?? props.reservation.plannedEnd}
+                        value={
+                            data.plannedEnd ?
+                                fromLocaleDateTimeString(data.plannedEnd) :
+                                new Date(props.reservation.plannedEnd)
+                        }
                         label="Koniec"
                         onChange={(value) => handleDateChange('plannedEnd', value)}
                     />

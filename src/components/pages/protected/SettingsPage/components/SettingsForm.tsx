@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { SettingsUpdateParams } from "../../../../../services/SettingsService";
-import AppLink from "../../../../../shared/components/AppLink";
 import paths from "../../../../../shared/path";
 import { useSettings } from "../SettingsContext";
 
@@ -91,7 +90,7 @@ export default function SettingsForm() {
                     </Typography>
                     <FormField
                         text={<>Domyślny numer identyfikacyjny klasy deostępowej przypisywany dla każdego nowego użytkownika.
-                            <AppLink withIcon to={paths.ACCESS}>klasy dostępu</AppLink></>}
+                            <Link href={paths.ACCESS}>klasy dostępu</Link></>}
                         name='defaultUserAccess'
                         label='numer ID'
                         value={data.defaultUserAccess ?? settings.defaultUserAccess}

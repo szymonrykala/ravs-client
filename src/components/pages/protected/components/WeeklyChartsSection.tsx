@@ -1,3 +1,4 @@
+import React from "react";
 import { DayStatsItem } from "../../../../models/Stats";
 import { Chart, ChartSection } from "./Charts";
 
@@ -7,7 +8,7 @@ interface WeeklyChartsSectionProps {
 }
 
 
-export default function WeeklyChartsSection(props: WeeklyChartsSectionProps) {
+function WeeklyChartsSection(props: WeeklyChartsSectionProps) {
     return (
         <ChartSection title='Statystyki tygodniowe'>
             <Chart
@@ -44,3 +45,5 @@ export default function WeeklyChartsSection(props: WeeklyChartsSectionProps) {
         </ChartSection>
     );
 }
+
+export default React.memo(WeeklyChartsSection);

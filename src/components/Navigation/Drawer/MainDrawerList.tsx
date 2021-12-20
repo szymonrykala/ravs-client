@@ -1,4 +1,4 @@
-import { List, ListItemButton, ListItemIcon, ListItemText, SvgIconTypeMap } from "@mui/material";
+import { Link, List, ListItem, ListItemIcon, ListItemText, SvgIconTypeMap } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -6,10 +6,9 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PeopleIcon from '@mui/icons-material/People';
 
 import React from "react";
-import Access from "../../../models/Access";
 import paths from "../../../shared/path";
-import AppLink from "../../../shared/components/AppLink";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
+import useResolvedAccess from "../../pages/protected/hooks/useResolvedAccess";
 
 
 
@@ -54,31 +53,41 @@ const usersLinkItem: NavListItem = {
 };
 
 
-export default function MainDrawerList(props: { access?: Access }) {
+const MainListItem = React.memo((props: NavListItem) =>
+  <ListItem button component={Link} href={props.href}>
+    <ListItemIcon color="primary">
+      {<props.icon color='primary' />}
+    </ListItemIcon>
+    <ListItemText primary={props.label} />
+  </ListItem >
+);
+
+
+export default function MainDrawerList() {
+  const { accessAdmin, owner } = useResolvedAccess();
 
   const result = React.useMemo(() => {
     let list = Object.assign([], navListItems) as NavListItem[];
 
     list.push(usersLinkItem);
-    list.push(accessLinkItem);
-    list.push(settingsItem);
+    accessAdmin && list.push(accessLinkItem);
+    owner && list.push(settingsItem);
 
     return list;
-  }, []);
+  }, [
+    accessAdmin,
+    owner
+  ]);
+
+
+  const renderedList = React.useMemo(() =>
+    result.map((item) => <MainListItem key={item.label} {...item} />)
+    , [result]);
 
 
   return (
     <List>
-      {
-        result.map((item, key) => (
-          <ListItemButton key={key} component="li">
-            <ListItemIcon color="primary">
-              {<item.icon color='primary' />}
-            </ListItemIcon>
-            <ListItemText primary={<AppLink color='text.primary' to={item.href}>{item.label}</AppLink>} />
-          </ListItemButton>
-        ))
-      }
+      {renderedList}
     </List>
   );
 }

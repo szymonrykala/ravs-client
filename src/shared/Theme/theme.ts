@@ -1,6 +1,8 @@
-import { createTheme } from '@mui/material/styles';
 import { indigo } from '@mui/material/colors';
 import { darkScrollbar as scrollbar } from '@mui/material';
+import { LinkProps } from '@mui/material/Link';
+import { createTheme } from '@mui/material/styles';
+import LinkBehavior from './LinkBehavior';
 
 
 const light = {
@@ -8,6 +10,8 @@ const light = {
   thumb: '#adadad',
   active: '#959595'
 };
+
+
 
 const theme = createTheme({
   palette: {
@@ -46,11 +50,20 @@ const theme = createTheme({
     MuiButton: {
       defaultProps: {
         sx: {
-          borderRadius: ({ shape }) => Number(shape.borderRadius)/2
+          borderRadius: ({ shape }) => Number(shape.borderRadius) / 2
         }
       },
     },
-
+    MuiLink: {
+      defaultProps: {
+        component: LinkBehavior,
+      } as LinkProps,
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        LinkComponent: LinkBehavior,
+      },
+    },
     MuiSvgIcon: {
       defaultProps: {
         color: 'inherit',

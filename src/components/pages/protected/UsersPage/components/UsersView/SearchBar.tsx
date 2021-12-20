@@ -5,7 +5,7 @@ import React from "react";
 import LazyInput from "../../../components/LazyInput";
 
 
-export default function SearchBar() {
+function SearchBar() {
     const { setQueryParams, queryParams } = useQueryParams<UserQueryParams>();
 
 
@@ -63,3 +63,5 @@ export default function SearchBar() {
         </Grid>
     );
 }
+
+export default React.memo(SearchBar);

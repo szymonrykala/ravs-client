@@ -13,7 +13,7 @@ import PublicPages from './public';
 
 
 const tabStyle = {
-    minHeight: "80vh",
+    minHeight: "84vh",
     padding: "1.5vh 0px"
 }
 
@@ -24,9 +24,6 @@ export default function Tabs() {
             <Switch>
                 <Route path={paths.HOME} component={ProtectedPages} />
                 <Route path={paths.PUBLIC} component={PublicPages} />
-                <Route path={paths.FAQ}>
-                    Częste pytania i odpowiedzi FAQ
-                </Route>
                 <Route path='*'> 
                     <Redirect to={paths.PUBLIC} />
                 </Route>

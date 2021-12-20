@@ -1,20 +1,22 @@
-import { Box, ListItemButton, ListItemIcon } from "@mui/material";
+import { Box, Link, ListItem, ListItemIcon } from "@mui/material";
 import { MapItem } from "../../../../models/AddressMap";
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import paths from "../../../../shared/path";
-import AppLink from "../../../../shared/components/AppLink";
+import React from "react";
 
 
 
-export default function RoomListItem(props: MapItem) {
+function RoomListItem(props: MapItem) {
     return (
-        <ListItemButton component='li' >
-            <Box sx={{ width: '100%' }} component={AppLink} to={`${paths.HOME}${props.href}`}>
+        <ListItem button component={Link} href={`${paths.HOME}${props.href}`}>
+            <Box sx={{ width: '100%' }} >
                 <ListItemIcon >
                     <ArrowRightIcon />
                 </ListItemIcon>
                 {props.name}
             </Box>
-        </ListItemButton>
+        </ListItem>
     );
 }
+
+export default React.memo(RoomListItem);

@@ -1,11 +1,13 @@
 import React from "react";
-import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
+import { ListItemIcon, Menu, MenuItem, SxProps, Typography } from "@mui/material";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
+import { Box } from "@mui/system";
 
 
 interface MoreVertMenuProps {
-    options: { action: () => void, icon?: React.ReactNode, label: string }[]
+    options: { action: () => void, icon?: React.ReactNode, label: string }[],
+    sx?: SxProps
 }
 
 export default function MoreVertMenu(props: MoreVertMenuProps) {
@@ -15,16 +17,16 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
 
     const handleClick = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    },[]);
+    }, []);
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
     return (
-        <div>
+        <Box sx={props.sx}>
             <IconButton
-                aria-label='card-more-button'
+                aria-label='more-options'
                 aria-controls="card-menu"
                 aria-expanded={open ? 'true' : undefined}
                 aria-haspopup="true"
@@ -34,31 +36,35 @@ export default function MoreVertMenu(props: MoreVertMenuProps) {
             </IconButton>
             <Menu
                 MenuListProps={{
-                    'aria-labelledby': 'card-more-button',
+                    'aria-labelledby': 'more-options',
                 }}
                 anchorEl={anchorEl}
                 id="card-menu"
                 open={open}
                 onClose={handleClose}
                 PaperProps={{
-                    style: {
-                        width: '20ch',
-                    },
+                    sx: {
+                        minWidth: 200,
+                        maxWidth: '100%'
+                    }
                 }}
             >
                 {
                     props.options.map((opt, id) => <MenuItem
                         key={id}
-                        onClick={handleClose}
+                        onClick={() => {
+                            opt.action();
+                            handleClose();
+                        }}
                     >
                         <ListItemIcon>
                             {opt.icon}
                         </ListItemIcon>
-                        <Typography onClick={opt.action}>{opt.label}</Typography>
+                        <Typography>{opt.label}</Typography>
                     </MenuItem>)
                 }
             </Menu>
-        </div>
+        </Box>
     );
 }
 

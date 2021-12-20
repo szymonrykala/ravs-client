@@ -28,3 +28,10 @@ export function urlToId(): string {
     let url = window.location.pathname.toLocaleLowerCase()
     return url.replaceAll(/\d/gi, '*')
 }
+
+
+export function fromLocaleDateTimeString(dateTime: string) {
+    const [d, m, y, h, i, s] = dateTime.split(/\.|:|,\s/).map(item => Number(item));
+    
+    return new Date(y, m - 1, d, h, i, s);
+}

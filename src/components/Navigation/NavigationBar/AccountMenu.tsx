@@ -1,8 +1,7 @@
-import { Menu, MenuItem } from "@mui/material";
+import { Link, Menu, MenuItem } from "@mui/material";
 import React from "react";
 import useSession from "../../../auth/useSession";
 import paths from "../../../shared/path";
-import AppLink from "../../../shared/components/AppLink";
 
 
 
@@ -22,10 +21,8 @@ export default function AccountMenu({ trigger, handleClose }: AccountMenuProps) 
 
     const linksComp = React.useMemo(() => {
         return links.map(({ name, link }, i) =>
-            <MenuItem key={i} onClick={handleClose}>
-                <AppLink to={link}>
-                    {name}
-                </AppLink>
+            <MenuItem key={i} onClick={handleClose} href={link} component={Link}>
+                {name}
             </MenuItem>)
     }, [handleClose]);
 

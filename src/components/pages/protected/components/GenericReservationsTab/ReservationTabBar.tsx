@@ -9,6 +9,13 @@ import { ReservationsQueryParams } from "../../../../../services/ReservationServ
 import SelectButtonGroup from "../../components/SelectButtonGroup";
 import LazyInput from "../../components/LazyInput";
 import { isDate } from "../../../../../shared/utils";
+import AddIcon from '@mui/icons-material/Add';
+import CreateReservationModal from "../CreateReservationModal";
+import { useParams } from "react-router-dom";
+import { RoomViewParams } from "../../../../../services/RoomService";
+import { BuildingViewParams } from "../../../../../services/BuildingService";
+import { AddressViewParams } from "../../../../../services/AddressService";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 const buttons = [
@@ -18,9 +25,12 @@ const buttons = [
 ];
 
 
-export default function ReservationTabBar() {
+function ReservationTabBar() {
+    const { reservationsAbility } = useResolvedAccess();
     const { setQueryParams, queryParams } = useQueryParams<ReservationsQueryParams>();
+    const urlParams = useParams<RoomViewParams | BuildingViewParams | AddressViewParams>();
 
+    const [createReservationModalOpen, setCreateReservationModalOpen] = React.useState<boolean>(false);
     const [customDate, setCustomDate] = React.useState(new Date(isDate(queryParams.from) ? queryParams.from ?? 'xxx' : Date.now()));
 
     const handleButtonChange = React.useCallback((value: string) => {
@@ -41,6 +51,14 @@ export default function ReservationTabBar() {
 
     return (
         <>
+            {reservationsAbility &&
+                <CreateReservationModal
+                    open={createReservationModalOpen}
+                    onClose={() => setCreateReservationModalOpen(false)}
+                    roomId={'roomId' in urlParams ? Number(urlParams.roomId) : undefined}
+                />
+            }
+
             <Grid container
                 component='form'
                 onSubmit={handleSubmitCustomDate}
@@ -78,7 +96,20 @@ export default function ReservationTabBar() {
                         onChange={handleSearchFieldChange}
                     />
                 </Grid>
+
+                {reservationsAbility &&
+                    <Grid item xs={12}>
+                        <Button
+                            startIcon={<AddIcon />}
+                            onClick={() => setCreateReservationModalOpen(true)}
+                        >
+                            Stwórz rezerwację
+                        </Button>
+                    </Grid>
+                }
             </Grid>
         </>
     );
 }
+
+export default React.memo(ReservationTabBar);

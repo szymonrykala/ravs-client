@@ -6,7 +6,7 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import React from "react";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
-import ReservationService, { CreateReservationData } from "../../../../../services/ReservationService";
+import ReservationService, { CreateReservationData, UpdateReservationData } from "../../../../../services/ReservationService";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import FormGridContainer from "../../../../../shared/components/FormGridContainer";
 import DateTimePicker from "../DateTimePicker";
@@ -22,11 +22,17 @@ interface CreateReservationFormProps {
 export default function CreateReservationForm(props: CreateReservationFormProps) {
     const notify = useNotification();
     const { allRooms } = useResourceMap();
+
+    const [dates, setDates] = React.useState({
+        start: new Date(),
+        end: (new Date(Date.now() + 3600_000))
+    });
+
     const [data, setData] = React.useState<CreateReservationData>({
         title: '',
         description: '',
-        plannedStart: (new Date()).toString(),
-        plannedEnd: (new Date(Date.now() + 3600_000)).toString(),
+        plannedStart: '',
+        plannedEnd: '',
         roomId: props.roomId ?? 0
     });
 
@@ -40,20 +46,37 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
 
 
     const handleSubmit = React.useCallback(async () => {
+        data.plannedStart = dates.start.toLocaleString('pl');
+        data.plannedEnd = dates.end.toLocaleString('pl');
+
         try {
             await ReservationService.createOne(data);
-            notify("Rezerwacja utworzona prawidłowo!", 'success');
+            notify("Rezerwacja utworzona!", 'success');
             props.onCancel()
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [data, notify, props]);
+    }, [
+        data,
+        notify,
+        props,
+        dates.start,
+        dates.end
+    ]);
+
+
+    const setDate = React.useCallback((key: keyof UpdateReservationData, dateTime: Date) => {
+        setDates(old => ({
+            ...old,
+            [key]: dateTime,
+        }));
+    }, []);
 
 
     return (
         <FormGridContainer
             title='Tworzenie rezerwacji'
-            subtitle="Stwórz rezerwację w wybranym przez siebie pokoju. Aby zobaczyć zmiany, przeładu."
+            subtitle="Stwórz rezerwację w wybranym przez siebie pokoju."
             onSubmit={handleSubmit}
             onCancel={props.onCancel}
         >
@@ -89,15 +112,15 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
             <Grid item xs={12} sm={6}>
                 <DateTimePicker
                     label="Początek"
-                    value={data.plannedStart}
-                    onChange={(value: any) => setData(old => ({ ...old, plannedStart: value }))}
+                    value={dates.start}
+                    onChange={(value) => setDate('start', value)}
                 />
             </Grid>
             <Grid item xs={12} sm={6}>
                 <DateTimePicker
                     label="Koniec"
-                    value={data.plannedEnd}
-                    onChange={(value: any) => setData(old => ({ ...old, plannedEnd: value }))}
+                    value={dates.end}
+                    onChange={(value) => setDate('end', value)}
                 />
             </Grid>
             <Grid item xs={12}>

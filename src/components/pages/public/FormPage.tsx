@@ -14,12 +14,12 @@ export default function FormPage(props: FormPageProps) {
         <Container component="div" maxWidth="xs">
             <Box
                 sx={{
-                    marginTop: 8,
+                    marginTop: '5vw',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: 'background.paper',
-                    padding: '35px',
+                    padding: '4vw',
                     borderRadius: '10px'
                 }}
             >

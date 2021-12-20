@@ -1,27 +1,35 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
+import Loading from "../../../../shared/components/Loading";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
+import useResolvedAccess from "../hooks/useResolvedAccess";
 import UserCard from "./components/UserCard";
-import UserCharts from "./components/UserCharts";
-
-
 import { UserContext } from "./UserContext";
 
 
 
-export default function UserPage() {
+const LazyUserCharts = React.lazy(() => import("./components/UserCharts"));
+const UserCharts = () => <React.Suspense fallback={<Loading />}>
+    <LazyUserCharts />
+</React.Suspense>
 
+
+export default function UserPage() {
+    const { statsViewer, logsAdmin } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr: any = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
-        arr.push({ name: 'Statystyki', component: <UserCharts /> });
-        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
+        statsViewer && arr.push({ name: 'Statystyki', component: <UserCharts /> });
+        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
-    }, []);
+    }, [
+        statsViewer,
+        logsAdmin,
+    ]);
 
 
     return (

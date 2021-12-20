@@ -1,4 +1,4 @@
-import { Avatar, Link, Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { SessionUser } from "../../../models/User";
 import ImageService from "../../../services/ImageService";
@@ -38,9 +38,9 @@ export default function AvatarView({
                 {user?.name}&nbsp;{user?.surname}
             </Typography>
             <Typography>
-                <Link href={`mailto:${user?.email}`}>
+                <a href={`mailto:${user?.email}`}>
                     {user?.email}
-                </Link>
+                </a>
             </Typography>
         </Box>
     );

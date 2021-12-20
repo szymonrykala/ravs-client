@@ -1,7 +1,8 @@
 import { Typography } from "@mui/material";
+import React from "react";
 
 
-export default function Copyright() {
+function Copyright() {
     return (
         <Typography
             align="center"
@@ -11,7 +12,9 @@ export default function Copyright() {
                 color: "primary.light"
             }}
         >
-            &copy; Szymon Rykała 2021
+            &copy; Szymon Rykała 2021/2022
         </Typography>
     );
 }
+
+export default React.memo(Copyright);

@@ -5,10 +5,11 @@ import { ReservationsQueryParams } from "../../../../../services/ReservationServ
 import ListPagination from "../../components/ListPagination";
 import ReservationsList from "./ReservationsList";
 import ReservationTabBar from "./ReservationTabBar";
+import React from "react";
 
 
 
-export default function GenericReservationsTab() {
+function GenericReservationsTab() {
     return (
         <QueryParamsContext name='reservations-query-params' default={{
             itemsOnPage: 5,
@@ -16,7 +17,7 @@ export default function GenericReservationsTab() {
             from: 'today'
         } as ReservationsQueryParams}>
             <ReservationsContext>
-                <Stack rowGap={5}>
+                <Stack rowGap={3}>
                     <ReservationTabBar />
                     <ReservationsList />
                     <ListPagination />
@@ -25,3 +26,5 @@ export default function GenericReservationsTab() {
         </QueryParamsContext>
     );
 }
+
+export default React.memo(GenericReservationsTab);

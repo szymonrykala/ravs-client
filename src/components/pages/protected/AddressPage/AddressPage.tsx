@@ -1,24 +1,35 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
+import Loading from "../../../../shared/components/Loading";
 import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
+import useResolvedAccess from "../hooks/useResolvedAccess";
 import AddressContext from "./AddressContext";
 import AddressCard from "./components/AddressCard";
-import AddressCharts from "./components/AddressCharts";
 import BuildingsList from "./components/BuildingsList";
 
+const LazyAddressCharts = React.lazy(() => import("./components/AddressCharts"));
+const AddressCharts = () => <React.Suspense fallback={<Loading />}>
+    <LazyAddressCharts />
+</React.Suspense>
 
-export default function AddressPage() {
+
+
+function AddressPage() {
+    const { logsAdmin, statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
-        arr.push({ name: 'Statystyki', component: <AddressCharts /> });
-        arr.push({ name: 'Logi', component: <GenericLogsTab /> });
+        statsViewer && arr.push({ name: 'Statystyki', component: <AddressCharts /> });
+        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
-    }, []);
+    }, [
+        logsAdmin,
+        statsViewer
+    ]);
 
 
     return (
@@ -39,3 +50,5 @@ export default function AddressPage() {
         </AddressContext>
     );
 }
+
+export default React.memo(AddressPage);

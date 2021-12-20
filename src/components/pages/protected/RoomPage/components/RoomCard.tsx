@@ -1,36 +1,31 @@
 import { Card, CardContent, CardHeader, CardMedia } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RoomTableInfo from "./RoomTableInfo";
 import React from "react";
 import DeleteModal from "../../components/DeleteModal";
 import { useRoomContext } from "../RoomContext";
 import Loading from "../../../../../shared/components/Loading";
-import CreateReservationModal from "../../components/CreateReservationModal/CreateReservationModal";
 import { RoomEditForm } from "../Forms";
 import FavouriteButton from "../../components/FavouriteButton";
 import { FavType } from "../../../../../models/Metadata";
 import ImageService from "../../../../../services/ImageService";
 import MoreVertMenu from "../../components/MoreVertMenu";
 import DatesFooter from "../../components/DatesFooter";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 
 export default function RoomCard() {
+    const { premisesAdmin} = useResolvedAccess();
     const { room, deleteRoom, deleteRFIDTag } = useRoomContext();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
-    const [createReservationModalOpen, setCreateReservationModalOpen] = React.useState<boolean>(false);
 
 
     const options = React.useMemo(() => [
         {
-            label: 'Zarezerwuj',
-            icon: <AddCircleIcon color='primary' />,
-            action: () => setCreateReservationModalOpen(true)
-        }, {
             label: 'Edytuj',
             action: () => setEditModalOpen(true),
             icon: <EditIcon color='success' />
@@ -45,27 +40,28 @@ export default function RoomCard() {
     return (
         !Boolean(room) ? <Loading /> :
             <>
-                <DeleteModal
-                    objectName={room.name}
-                    open={deleteModalOpen}
-                    onClose={() => setDeleteModalOpen(false)}
-                    onSuccess={deleteRoom}
-                />
+                {premisesAdmin &&
+                    <>
+                        <DeleteModal
+                            objectName={room.name}
+                            open={deleteModalOpen}
+                            onClose={() => setDeleteModalOpen(false)}
+                            onSuccess={deleteRoom}
+                        />
 
-                <RoomEditForm
-                    open={editModalOpen}
-                    onClose={() => setEditModalOpen(false)}
-                />
-
-                <CreateReservationModal
-                    roomId={room && room.id}
-                    open={createReservationModalOpen}
-                    onClose={() => setCreateReservationModalOpen(false)}
-                />
+                        <RoomEditForm
+                            open={editModalOpen}
+                            onClose={() => setEditModalOpen(false)}
+                        />
+                    </>
+                }
 
                 <Card elevation={0}>
                     <CardHeader
-                        action={<MoreVertMenu options={options} />}
+                        action={
+                            premisesAdmin &&
+                            <MoreVertMenu options={options} />
+                        }
                         title={
                             <>
                                 {room.name}

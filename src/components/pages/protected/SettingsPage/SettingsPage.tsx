@@ -7,12 +7,12 @@ import SettingsMain from "./components/SettingsMain";
 
 
 
-export default function SettingsPage() {
+function SettingsPage() {
 
 
     const pages = React.useMemo(() => {
         return [
-            { name: 'Ustawienia', component: < SettingsMain/> },
+            { name: 'Ustawienia', component: < SettingsMain /> },
             { name: 'Logi', component: <GenericLogsTab /> },
             { name: 'Endpointy', component: <EndpointsStats /> }
         ];
@@ -25,3 +25,5 @@ export default function SettingsPage() {
         </SettingsContext>
     );
 }
+
+export default React.memo(SettingsPage);

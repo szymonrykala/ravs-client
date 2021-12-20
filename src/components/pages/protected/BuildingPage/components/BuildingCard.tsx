@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardMedia } from "@mui/material";
+import { Card, CardContent, CardHeader, CardMedia, Link } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React from "react";
@@ -9,14 +9,15 @@ import FavouriteButton from "../../components/FavouriteButton";
 import { FavType } from "../../../../../models/Metadata";
 import MoreVertMenu from "../../components/MoreVertMenu";
 import ImageService from "../../../../../services/ImageService";
-import AppLink from "../../../../../shared/components/AppLink";
 import { dynamicPaths } from "../../../../../shared/path";
 import DatesFooter from "../../components/DatesFooter";
+import useResolvedAccess from "../../hooks/useResolvedAccess";
 
 
 
 
 export default function BuildingView() {
+    const { premisesAdmin } = useResolvedAccess();
     const { building, deleteBuilding } = useBuilding();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
@@ -40,21 +41,28 @@ export default function BuildingView() {
 
     return (
         <>
-            <DeleteModal
-                objectName={building.name}
-                open={deleteModalOpen}
-                onClose={() => setDeleteModalOpen(false)}
-                onSuccess={deleteBuilding}
-            />
+            {premisesAdmin &&
+                <>
+                    <DeleteModal
+                        objectName={building.name}
+                        open={deleteModalOpen}
+                        onClose={() => setDeleteModalOpen(false)}
+                        onSuccess={deleteBuilding}
+                    />
 
-            <BuildingEditForm
-                open={editModalOpen}
-                onClose={() => setEditModalOpen(false)}
-            />
+                    <BuildingEditForm
+                        open={editModalOpen}
+                        onClose={() => setEditModalOpen(false)}
+                    />
+                </>
+            }
 
             <Card elevation={0}>
                 <CardHeader
-                    action={<MoreVertMenu options={options} />}
+                    action={
+                        premisesAdmin &&
+                        <MoreVertMenu options={options} />
+                    }
                     title={
                         <>
                             Budynek {building.name}
@@ -75,9 +83,9 @@ export default function BuildingView() {
                     alt={building.name}
                 />
                 <CardContent>
-                    <AppLink withIcon to={dynamicPaths.toAddress(building.address.id)}>
+                    <Link href={dynamicPaths.toAddress(building.address.id)}>
                         {building.address.town},&nbsp;{building.address.street}&nbsp;{building.address.number}
-                    </AppLink>
+                    </Link>
                     <br />
                     <DatesFooter model={building} />
                 </CardContent>
