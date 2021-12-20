@@ -16,7 +16,7 @@
     "name": "Szymon Rykała",
     "url": "https://www.linkedin.com/in/szymon-ryka%C5%82a/"
   },
-  "version": "0.0.2",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^1.3.13",
