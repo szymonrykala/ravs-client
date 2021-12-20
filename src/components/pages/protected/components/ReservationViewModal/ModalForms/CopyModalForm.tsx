@@ -29,8 +29,8 @@ interface CopyModalFormProps {
 
 interface DateTimeSlot {
     color: string | null,
-    from: string,
-    to: string,
+    from: Date,
+    to: Date,
 }
 
 interface CopyReservationData {
@@ -47,8 +47,8 @@ export default function CopyModalForm(props: CopyModalFormProps) {
 
     const [dates, setDates] = React.useState<DateTimeSlot>({
         color: '',
-        from: props.reservation.plannedStart,
-        to: props.reservation.plannedEnd,
+        from: new Date(props.reservation.plannedStart),
+        to: new Date(props.reservation.plannedEnd),
     });
 
     const [copyDates, setCopyDates] = React.useState<DateTimeSlot[]>([]);
@@ -70,8 +70,8 @@ export default function CopyModalForm(props: CopyModalFormProps) {
         const createCalls = copyDates.map(async (date) => {
             const success = await createReservation({
                 ...data,
-                plannedStart: date.from,
-                plannedEnd: date.to
+                plannedStart: date.from.toLocaleString('pl'),
+                plannedEnd: date.to.toLocaleString('pl')
             } as CreateReservationData);
             date.color = success ? 'green' : 'red';
             return date;
@@ -87,6 +87,14 @@ export default function CopyModalForm(props: CopyModalFormProps) {
             old.splice(index, 1);
             return Object.assign([], old);
         });
+    }, []);
+
+
+    const setDate = React.useCallback((key: keyof DateTimeSlot, dateTime: Date) => {
+        setDates(old => ({
+            ...old,
+            [key]: dateTime,
+        }));
     }, []);
 
 
@@ -162,7 +170,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                     <DateTimePicker
                         label="Początek"
                         value={dates.from}
-                        onChange={(value) => setDates(old => ({ ...old, from: value }))}
+                        onChange={(value) => setDate('from', value)}
                     />
                 </Grid>
 
@@ -170,7 +178,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                     <DateTimePicker
                         label="Koniec"
                         value={dates.to}
-                        onChange={(value) => setDates(old => ({ ...old, to: value }))}
+                        onChange={(value) => setDate('to', value)}
                     />
                 </Grid>
 
@@ -215,8 +223,7 @@ export default function CopyModalForm(props: CopyModalFormProps) {
                                     }}>
                                     <Typography component='p' sx={{ color: color }}>
                                         <>
-                                        {console.log(from)}
-                                        {from}&nbsp;-&nbsp;{to} 
+                                            {from.toLocaleString('pl')}&nbsp;-&nbsp;{to.toLocaleString('pl')}
                                         </>
                                     </Typography>
                                     <IconButton

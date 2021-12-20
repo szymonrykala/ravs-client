@@ -13,6 +13,7 @@ import ReservationsContextValue from "./ReservationsContextValue";
 import paths from "../../../../../../shared/path";
 import { UserViewParams } from "../../../../../../services/UserService";
 import useTrigger from "../../../hooks/useTrigger";
+import { fromLocaleDateTimeString } from "../../../../../../shared/utils";
 
 
 export const reservationsContext: any = React.createContext(null);
@@ -154,13 +155,20 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
             //update state
             setReservations((old) => {
                 return old && old.map(item => {
-                    if (item.id === id)
-                        ['plannedStart', 'plannedEnd', 'description', 'title']
+                    if (item.id === id) {
+                        ['plannedStart', 'plannedEnd']
+                            .forEach(field => {
+                                if (field in data) {
+                                    item[field] = fromLocaleDateTimeString(data[field]).toUTCString();
+                                }
+                            });
+                        ['description', 'title']
                             .forEach(field => {
                                 if (field in data) {
                                     item[field] = data[field];
                                 }
                             });
+                    }
                     return item;
                 });
             });
