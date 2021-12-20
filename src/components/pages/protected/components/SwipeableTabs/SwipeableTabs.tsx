@@ -71,6 +71,7 @@ export default function SwipeableTabs(props: SwipeableTabsProps) {
             </Tabs>
             <br />
             <SwipeableViews
+                enableMouseEvents
                 axis='x'
                 index={tabIndex}
                 onChangeIndex={handleChangeIndex}

@@ -18,7 +18,7 @@ export default function SwipeablePanel(props: TabPanelProps) {
     const render = React.useMemo(() =>
         <Box
             role="tabpanel"
-            hidden={hidden}
+            hidden={false}
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
