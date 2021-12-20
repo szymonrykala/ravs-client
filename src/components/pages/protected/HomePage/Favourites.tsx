@@ -45,6 +45,8 @@ function Favourites() {
                     data?.map((item) => <ListItem disablePadding key={`${item.name}-${item.id}`}>
                         {getCorrectListItem(item)}
                         <IconButton
+                            title='usuń z ulubionych'
+                            aria-label='usuń z ulubionych'
                             onClick={() => handleRemoveFavourite(item)}
                             size='small'>
                             <RemoveCircleOutlineIcon fontSize="small" />
