@@ -6,25 +6,26 @@ import SmallCard from "../../components/SmallCard";
 interface TabPanelProps {
     children?: React.ReactNode;
     dir?: string;
+    hidden: boolean,
     index: number
 }
 
 
 export default function SwipeablePanel(props: TabPanelProps) {
-    const { children, index, ...other } = props;
+    const { children, hidden, index, ...other } = props;
 
     // should component update
     const render = React.useMemo(() =>
         <Box
             role="tabpanel"
-            hidden={false}
+            hidden={hidden}
             id={`full-width-tabpanel-${index}`}
             aria-labelledby={`full-width-tab-${index}`}
             {...other}
         >
             <SmallCard>{children}</SmallCard>
         </Box>
-        , [index, children, other]);
+        , [hidden, index, children, other]);
 
     return render;
 }
