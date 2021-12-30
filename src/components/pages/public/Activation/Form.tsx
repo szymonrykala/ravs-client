@@ -26,7 +26,7 @@ export default function Form() {
         try {
             await UserService.activate(data);
             notify("Twoje konto zostało aktywowane", 'success',
-                () => setTimeout(() => <Redirect to={paths.LOGIN} />, 2000)
+                () => <Redirect to={paths.LOGIN} />
             );
         } catch (err: any) {
             let message = err.description;
