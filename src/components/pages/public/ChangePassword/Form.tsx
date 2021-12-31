@@ -35,10 +35,10 @@ export default function Form(props: FormProps) {
             await UserService.changePassword(data);
 
             notify("Hasło zostało zmienione", 'success',
-                () => setTimeout(() => {
+                () => {
                     if (props.onSuccess) props.onSuccess();
                     return <Redirect to={paths.LOGIN} />
-                }, 2000)
+                }
             );
         } catch (err: any) {
             let message = err.description;

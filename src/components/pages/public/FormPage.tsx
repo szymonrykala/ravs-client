@@ -19,7 +19,7 @@ export default function FormPage(props: FormPageProps) {
                     flexDirection: 'column',
                     alignItems: 'center',
                     backgroundColor: 'background.paper',
-                    padding: '4vw',
+                    padding: '25px',
                     borderRadius: '10px'
                 }}
             >

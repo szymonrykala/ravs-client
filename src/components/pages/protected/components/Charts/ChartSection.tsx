@@ -7,14 +7,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from "@mui/material/IconButton";
 import { Divider } from "@mui/material";
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 
 interface ChartSectionProps {
     title: string,
     children: React.ReactNode[] | React.ReactNode,
     defaultOpen?: boolean,
-    onClick?: () => void
 }
 
 
@@ -34,11 +32,6 @@ export default function ChartSection(props: ChartSectionProps) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </Typography>
-                <IconButton
-                    onClick={props.onClick}
-                >
-                    <PictureAsPdfIcon />
-                </IconButton>
             </Box>
             <Collapse in={open} timeout="auto" >
                 <Grid container spacing={2}>
