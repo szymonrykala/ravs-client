@@ -4,6 +4,7 @@ import useSession from "../../../../../auth/useSession";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import { DetailedUser } from "../../../../../models/User";
 import UserService, { UpdateUserParams, UserViewParams } from "../../../../../services/UserService";
+import Loading from "../../../../../shared/components/Loading";
 import paths from "../../../../../shared/path";
 
 
@@ -93,7 +94,7 @@ export default function UserContextProvider(props: UserContextProviderProps) {
     }, [notify]);
 
 
-    if (!user) return null;
+    if (!user) return <Loading />;
 
     return (
         <userContext.Provider value={{

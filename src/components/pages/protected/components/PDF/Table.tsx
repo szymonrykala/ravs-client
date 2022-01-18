@@ -11,23 +11,21 @@ const styles = StyleSheet.create({
 
     },
     row: {
-        display:'flex',
-        flexDirection:'row',
+        display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         borderBottom: '1px solid black',
     },
     cell: {
         padding: '5px',
         width: '80px',
-        // minWidth: '30px',
-        // maxWidth: '80px',
-        alignItems:'center',
+        alignItems: 'center',
     },
-    text:{
+    text: {
         margin: '0px',
         padding: '0px',
         wordBreak: 'keep-all',
-        textAlign:'center',
+        textAlign: 'center',
     }
 });
 
@@ -62,11 +60,17 @@ function Cell(props: CellProps) {
 }
 
 
+type TRow = (number | string)[];
 
 export interface TableProps {
     title: string,
-    rows: (number | string)[][]
-}
+    rows: TRow[]
+};
+
+function emptyMonthList(rows: TRow[]): boolean {
+    // if every item in list except first element is 0
+    return rows.every(row => row.slice(1).every(val => val === 0));
+};
 
 export default function Table({
     rows,
@@ -75,7 +79,11 @@ export default function Table({
     return (
         <View>
             <Text style={styles.title}>{title}</Text>
-            {rows.map((row, id) => <Row key={id} cols={row} />)}
+            {
+                emptyMonthList(rows.slice(1)) ?
+                    <Text style={styles.text}>Brak danych w wybranym przedziale czasu</Text>
+                    : rows.map((row, id) => <Row key={id} cols={row} />)
+            }
         </View>
     )
 }

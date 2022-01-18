@@ -61,8 +61,6 @@ export default function LogsContextProvider(props: LogsContextProviderProps) {
     ])
 
 
-    if (!logs) return null;
-
     return (
         <logsContext.Provider value={{
             logs

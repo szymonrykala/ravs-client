@@ -5,6 +5,7 @@ import useNotification from "../../../../../../contexts/NotificationContext/useN
 import { useQueryParams } from "../../../../../../contexts/QueryParamsContext";
 import ChartService, { ChartsData, ChartsQueryData } from "../../../../../../services/ChartService";
 import { AppURLParams } from "../../../../../../services/interfaces";
+import Loading from "../../../../../../shared/components/Loading";
 import useTrigger from "../../../hooks/useTrigger";
 
 
@@ -56,8 +57,7 @@ export default function ChartsContextProvider(props: ChartsContextProviderProps)
         refresh
     ]);
 
-
-    if (Object.keys(chartsData).length === 0) return null;
+    if (Object.keys(chartsData).length === 0) return <Loading />;
 
     return (
         <chartsContext.Provider value={{

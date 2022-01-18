@@ -7,6 +7,7 @@ import AddressContextValue from "./AddressContextValue";
 import Address from "../../../../../models/Address";
 import Building from "../../../../../models/Building";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
+import Loading from "../../../../../shared/components/Loading";
 
 
 
@@ -99,7 +100,7 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     ]);
 
 
-    if (!Boolean(address)) return null;
+    if (!Boolean(address)) return <Loading />;
 
     return (
         <addressContext.Provider value={{
