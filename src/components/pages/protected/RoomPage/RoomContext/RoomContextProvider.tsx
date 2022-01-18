@@ -6,6 +6,7 @@ import useNotification from "../../../../../contexts/NotificationContext/useNoti
 import RoomContextValue from "./RoomContextValue";
 import useResourceMap from "../../../../../contexts/ResourceMapContext/useResourceMap";
 import useTrigger from "../../hooks/useTrigger";
+import Loading from "../../../../../shared/components/Loading";
 
 
 interface RoomContextProviderProps {
@@ -132,8 +133,10 @@ export default function RoomContextProvider({
     }, [getRoom]);
 
 
+    if (!Boolean(room)) return <Loading />;
+
     return (
-        !Boolean(room) ? null : <RoomContext.Provider value={{
+        <RoomContext.Provider value={{
             room,
             updateRoom,
             deleteRoom,

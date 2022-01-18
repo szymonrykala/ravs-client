@@ -3,6 +3,7 @@ import useNotification from "../../../../../contexts/NotificationContext/useNoti
 import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
 import User from "../../../../../models/User";
 import UserService, { UserQueryParams } from "../../../../../services/UserService";
+import Loading from "../../../../../shared/components/Loading";
 import UsersContextValue from "./UsersContextValue";
 
 
@@ -50,7 +51,7 @@ export default function UsersContextProvider(props: UsersContextProviderProps) {
     }, [load]);
 
 
-    if (!users) return null;
+    if (!users) return <Loading />;
 
     return (
         <usersContext.Provider value={{

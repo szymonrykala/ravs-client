@@ -3,6 +3,7 @@ import { AccessContextValue } from ".";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import Access from "../../../../../models/Access";
 import AccessService, { AccessCreateParams, AccessUpdateParams } from "../../../../../services/AccessService";
+import Loading from "../../../../../shared/components/Loading";
 import { EditForm } from "../Forms";
 
 
@@ -117,7 +118,7 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     }, []);
 
 
-    if (!accessesList) return null;
+    if (!accessesList) return <Loading />;
 
     return (
         <accessContext.Provider value={{

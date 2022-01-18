@@ -3,6 +3,7 @@ import useReservationModalContext from "../ReservationsContext/ModalContext/useR
 import { useReservations } from "../ReservationsContext";
 import ReservationListItem from "./ReservationsListItem";
 import React from "react";
+import Loading from "../../../../../../shared/components/Loading";
 
 
 
@@ -12,7 +13,7 @@ export default function ReservationsList() {
 
 
     const renderedList = React.useMemo(() =>
-        reservations.map((item) => <ReservationListItem
+        reservations?.map((item) => <ReservationListItem
             key={item.id}
             data={item}
             onClick={() => showReservation(item.id)}
@@ -22,6 +23,7 @@ export default function ReservationsList() {
             showReservation
         ]);
 
+    if (!reservations) return <Loading />;
 
     return (
         <List aria-label='lista rezerwacji'>

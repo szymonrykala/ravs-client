@@ -7,12 +7,15 @@ import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import LogRow from './LogRow';
 import { useLogs } from './LogsContext';
+import Loading from '../../../../../shared/components/Loading';
 
 
 
 
 export default function LogsTable() {
     const { logs } = useLogs();
+
+    if (!logs) return <Loading />;
 
     return (
         <TableContainer>

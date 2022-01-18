@@ -192,7 +192,7 @@ export default function ReservationsContextProvider(props: ReservationsContextPr
     }, [getRoomLink, notify]);
 
 
-    if (!reservations) return null;
+    // if (!reservations) return <Loading />;
 
     return (
         <reservationsContext.Provider value={{

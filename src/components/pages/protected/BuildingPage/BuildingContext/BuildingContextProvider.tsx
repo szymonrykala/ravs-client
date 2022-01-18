@@ -7,6 +7,7 @@ import BuildingContextValue from "./BuildingContextValue";
 import { dynamicPaths } from "../../../../../shared/path";
 import Room from "../../../../../models/Room";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
+import Loading from "../../../../../shared/components/Loading";
 
 
 interface BuildingContextProviderProps {
@@ -102,7 +103,7 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     }, [notify, building]);
 
 
-    if (!Boolean(building)) return null;
+    if (!Boolean(building)) return <Loading />;
 
     return (
         <buildingContext.Provider value={{

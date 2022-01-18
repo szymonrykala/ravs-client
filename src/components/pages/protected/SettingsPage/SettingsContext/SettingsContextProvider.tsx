@@ -2,6 +2,7 @@ import React from "react";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import Settings from "../../../../../models/Settings";
 import SettingsService, { SettingsUpdateParams } from "../../../../../services/SettingsService";
+import Loading from "../../../../../shared/components/Loading";
 import SettingsContextValue from "./SettingsContextValue";
 
 
@@ -50,7 +51,7 @@ export default function SettingsContextProvider(props: SettingsContextProviderPr
     }, [notify]);
 
 
-    if (!settings) return null;
+    if (!settings) return <Loading />;
 
     return (
         <settingsContext.Provider value={{
