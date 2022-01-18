@@ -59,14 +59,12 @@ export default function EditModalForm(props: EditModalFormProps) {
 
 
     const handleDateChange = React.useCallback((name: keyof UpdateReservationData, value: Date) => {
-        console.log(value)
         value && setData(old => ({
             ...old,
             [name]: value.toLocaleString('pl')
         }));
     }, []);
 
-    console.log(props.reservation.plannedStart)
 
     return (
         <GenericModal
