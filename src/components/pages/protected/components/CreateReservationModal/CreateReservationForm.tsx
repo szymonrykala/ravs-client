@@ -24,8 +24,8 @@ export default function CreateReservationForm(props: CreateReservationFormProps)
     const { allRooms } = useResourceMap();
 
     const [dates, setDates] = React.useState({
-        start: new Date(),
-        end: (new Date(Date.now() + 3600_000))
+        start: (new Date(Date.now() + 3_600_000)),
+        end: (new Date(Date.now() + (3_600_000 * 2)))
     });
 
     const [data, setData] = React.useState<CreateReservationData>({
