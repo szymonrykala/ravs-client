@@ -37,7 +37,7 @@ export default function LogRow(props: LogRowProps) {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box component="pre" sx={{ margin: 1 }}>
-                            <Link component={RouterLink} to={`/users/${row.user}`}>Pokaż użytkownika</Link> <br />
+                            <Link component={RouterLink} to={`/app/users/${row.user}`}>Pokaż użytkownika (id: {row.user})</Link> <br />
                             {displayDate(row._created)}&nbsp;|&nbsp;{row.method}&nbsp;{row.endpoint}<br />
                             czas przetwarzania: {row.time} [s]<br />
                             Ciało zapytania <br />
