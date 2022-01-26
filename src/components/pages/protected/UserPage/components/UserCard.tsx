@@ -50,7 +50,6 @@ export default function UserCard() {
 
             {(myId(user.id) || owner) && <>
                 <DeleteModal
-                    objectName={`${user.email}`}
                     open={deleteModal}
                     onClose={() => setDeleteModal(false)}
                     onSuccess={deleteUser}

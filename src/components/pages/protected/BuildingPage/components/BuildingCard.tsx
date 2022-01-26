@@ -44,7 +44,6 @@ export default function BuildingView() {
             {premisesAdmin &&
                 <>
                     <DeleteModal
-                        objectName={building.name}
                         open={deleteModalOpen}
                         onClose={() => setDeleteModalOpen(false)}
                         onSuccess={deleteBuilding}

@@ -112,7 +112,6 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
                     <DeleteModal
                         open={deleteModalOpen}
                         onClose={() => setDeleteModalOpen(false)}
-                        objectName={props.reservation.title}
                         onSuccess={onDelete}
                     />
 

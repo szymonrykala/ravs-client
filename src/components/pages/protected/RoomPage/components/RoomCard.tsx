@@ -43,7 +43,6 @@ export default function RoomCard() {
                 {premisesAdmin &&
                     <>
                         <DeleteModal
-                            objectName={room.name}
                             open={deleteModalOpen}
                             onClose={() => setDeleteModalOpen(false)}
                             onSuccess={deleteRoom}
