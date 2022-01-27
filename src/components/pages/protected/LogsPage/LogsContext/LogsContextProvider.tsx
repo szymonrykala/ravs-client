@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useNotification from "../../../../../../contexts/NotificationContext/useNotification";
-import { useQueryParams } from "../../../../../../contexts/QueryParamsContext";
-import Log from "../../../../../../models/Log";
-import LogService, { LogsQueryParams } from "../../../../../../services/LogService";
-import useTrigger from "../../../hooks/useTrigger";
+import useNotification from "../../../../../contexts/NotificationContext/useNotification";
+import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
+import Log from "../../../../../models/Log";
+import LogService, { LogsQueryParams } from "../../../../../services/LogService";
+import useTrigger from "../../hooks/useTrigger";
 import LogsContextValue from "./LogsContextValue";
 
 

@@ -1,10 +1,10 @@
 import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import React from "react";
 import { useLocation } from "react-router-dom";
-import useSession from "../../../../../auth/useSession";
-import { useQueryParams } from "../../../../../contexts/QueryParamsContext";
-import { LogsQueryParams } from "../../../../../services/LogService";
-import LazyInput from "../../components/LazyInput";
+import useSession from "../../../../auth/useSession";
+import { useQueryParams } from "../../../../contexts/QueryParamsContext";
+import { LogsQueryParams } from "../../../../services/LogService";
+import LazyInput from "../components/LazyInput";
 
 
 

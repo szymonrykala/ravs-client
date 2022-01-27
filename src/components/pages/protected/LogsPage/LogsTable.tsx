@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import LogRow from './LogRow';
 import { useLogs } from './LogsContext';
-import Loading from '../../../../../shared/components/Loading';
+import Loading from '../../../../shared/components/Loading';
 
 
 
