@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
 import Loading from "../../../../shared/components/Loading";
-import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import useResolvedAccess from "../hooks/useResolvedAccess";
@@ -17,18 +16,16 @@ const UserCharts = () => <React.Suspense fallback={<Loading />}>
 
 
 export default function UserPage() {
-    const { statsViewer, logsAdmin } = useResolvedAccess();
+    const { statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr: any = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
         statsViewer && arr.push({ name: 'Statystyki', component: <UserCharts /> });
-        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
     }, [
         statsViewer,
-        logsAdmin,
     ]);
 
 
