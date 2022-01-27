@@ -26,7 +26,13 @@ export default function LogsTable() {
                         <TableCell align="left">Id</TableCell>
                         {/* <TableCell align="left">Metoda</TableCell> */}
                         <TableCell align="left">Cel/endpoint</TableCell>
-                        <TableCell align="left">Czas wykonania&nbsp;[ms]</TableCell>
+                        <TableCell
+                            align="left"
+                            sx={{ display: { xs: 'none', sm: 'none', md: 'table-cell' } }}
+                        >
+                            Czas wykonania&nbsp;[ms]
+                        </TableCell>
+                        <TableCell align="left">Data</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

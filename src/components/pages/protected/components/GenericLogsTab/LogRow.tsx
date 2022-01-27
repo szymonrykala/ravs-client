@@ -28,10 +28,16 @@ export default function LogRow(props: LogRowProps) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row">{row.id}</TableCell>
+                <TableCell component="th">{row.id}</TableCell>
                 {/* <TableCell align="left">{row.method}</TableCell> */}
                 <TableCell align="left">{row.endpoint}</TableCell>
-                <TableCell align="left">{Math.fround(row.time * 1000).toPrecision(6)}</TableCell>
+                <TableCell
+                    align="left"
+                    sx={{ display: { xs: 'none', sm: 'none', md: 'table-cell' } }}
+                >
+                    {Math.fround(row.time * 1000).toPrecision(6)}
+                </TableCell>
+                <TableCell align='left'>{displayDate(row._created)}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
