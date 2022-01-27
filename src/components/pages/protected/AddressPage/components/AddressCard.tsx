@@ -37,7 +37,6 @@ export default function AddressCard() {
             {premisesAdmin &&
                 <>
                     <DeleteModal
-                        objectName={`${address.street} ${address.number}`}
                         open={deleteModalOpen}
                         onClose={() => setDeleteModalOpen(false)}
                         onSuccess={deleteAddress}

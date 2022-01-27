@@ -9,20 +9,20 @@ import GenericModal from "../../components/GenericModal";
 interface DeleteModalProps {
     open: boolean,
     onClose: () => void,
-    objectName: string,
     onSuccess: () => void
 }
 
 export default function DeleteModal({
-    open, onSuccess, onClose, objectName
+    open, onSuccess, onClose
 }: DeleteModalProps) {
     const notify = useNotification();
     const [input, setInput] = React.useState<string>('');
 
+    const objectName = React.useMemo(()=> (Math.random()).toString(36).substring(5).toUpperCase() ,[]);
 
     const handleConfirm = React.useCallback(async () => {
         if (input !== objectName) {
-            notify("Wpisana nazwa jest niepoprawna", 'error');
+            notify("Wpisany tekst jest niepoprawny", 'error');
             return;
         }
         onSuccess();
@@ -52,12 +52,12 @@ export default function DeleteModal({
                 <Typography variant="body1" color='text.secondary'>
                     Tej operacji nie da się cofnąć.
                     <br />
-                    1. Przepisz nazwę <b>{objectName}</b><br />
-                    2. Naciśnij 'Zatwierdź'
+                    1. Przepisz tekst: <b>{objectName}</b><br />
+                    2. Naciśnij "Zatwierdź"
                 </Typography>
                 <TextField
-                    id="resource-name"
-                    label="nazwa"
+                    id="random-tekst"
+                    label="tekst"
                     variant="outlined"
                     value={input}
                     onChange={(evt) => setInput(evt.target.value)}

@@ -57,7 +57,6 @@ export default function AccessesList() {
             />
 
             <DeleteModal
-                objectName={toDelete?.name ?? ''}
                 open={deleteModalOpen}
                 onClose={() => {
                     setToDelete(null);

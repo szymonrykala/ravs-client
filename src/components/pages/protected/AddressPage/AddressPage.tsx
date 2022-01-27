@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React from "react";
 import Loading from "../../../../shared/components/Loading";
-import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
 import useResolvedAccess from "../hooks/useResolvedAccess";
@@ -17,17 +16,15 @@ const AddressCharts = () => <React.Suspense fallback={<Loading />}>
 
 
 function AddressPage() {
-    const { logsAdmin, statsViewer } = useResolvedAccess();
+    const { statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
         statsViewer && arr.push({ name: 'Statystyki', component: <AddressCharts /> });
-        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
     }, [
-        logsAdmin,
         statsViewer
     ]);
 

@@ -2,7 +2,6 @@ import { RoomContextProvider } from "./RoomContext";
 import React from "react";
 import Grid from "@mui/material/Grid";
 import SwipeableTabs from "../components/SwipeableTabs/SwipeableTabs";
-import GenericLogsTab from "../components/GenericLogsTab";
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import RoomCard from "./components/RoomCard";
 import useResolvedAccess from "../hooks/useResolvedAccess";
@@ -16,17 +15,15 @@ const RoomOrBuildingChartTab = () => <React.Suspense fallback={<Loading />}>
 
 
 export default function RoomPage() {
-    const { logsAdmin, statsViewer } = useResolvedAccess();
+    const { statsViewer } = useResolvedAccess();
 
     const pages = React.useMemo(() => {
         let arr = [];
         arr.push({ name: 'Rezerwacje', component: <GenericReservationsTab /> });
         statsViewer && arr.push({ name: 'Statystyki', component: <RoomOrBuildingChartTab /> });
-        logsAdmin && arr.push({ name: 'Logi', component: <GenericLogsTab /> });
 
         return arr;
     }, [
-        logsAdmin,
         statsViewer
     ]);
 

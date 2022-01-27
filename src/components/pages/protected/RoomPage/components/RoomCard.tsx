@@ -13,28 +13,44 @@ import ImageService from "../../../../../services/ImageService";
 import MoreVertMenu from "../../components/MoreVertMenu";
 import DatesFooter from "../../components/DatesFooter";
 import useResolvedAccess from "../../hooks/useResolvedAccess";
+import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from "react-router-dom";
+import paths from "../../../../../shared/path";
 
 
 
 export default function RoomCard() {
-    const { premisesAdmin} = useResolvedAccess();
+    const { premisesAdmin, logsAdmin } = useResolvedAccess();
     const { room, deleteRoom, deleteRFIDTag } = useRoomContext();
+    const history = useHistory();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
 
 
-    const options = React.useMemo(() => [
-        {
-            label: 'Edytuj',
-            action: () => setEditModalOpen(true),
-            icon: <EditIcon color='success' />
-        }, {
-            label: 'Usuń',
-            action: () => setDeleteModalOpen(true),
-            icon: <DeleteIcon color='error' />
-        }
-    ], []);
+    const options = React.useMemo(() => {
+        const opt = [
+            {
+                label: 'Edytuj',
+                action: () => setEditModalOpen(true),
+                icon: <EditIcon color='success' />
+            }, {
+                label: 'Usuń',
+                action: () => setDeleteModalOpen(true),
+                icon: <DeleteIcon color='error' />
+            }
+        ];
+        logsAdmin && opt.push({
+            icon: <SearchIcon color='primary' />,
+            label: 'Logs Explorer',
+            action: () => history.push(`${paths.LOGS}?endpoint=%/rooms/${room.id}`)
+        });
+        return opt;
+    }, [
+        history,
+        logsAdmin,
+        room.id
+    ]);
 
 
     return (
@@ -43,7 +59,6 @@ export default function RoomCard() {
                 {premisesAdmin &&
                     <>
                         <DeleteModal
-                            objectName={room.name}
                             open={deleteModalOpen}
                             onClose={() => setDeleteModalOpen(false)}
                             onSuccess={deleteRoom}

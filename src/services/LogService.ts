@@ -4,7 +4,8 @@ import Service from "./Service";
 
 export interface LogsQueryParams extends PaginationQueryParams {
     method?: "GET" | "POST" | "PATCH" | "DELETE",
-    userId?: string | number
+    userId?: string | number,
+    endpoint: string
 }
 
 
