@@ -48,6 +48,7 @@ export default function LogsContextProvider(props: LogsContextProviderProps) {
         queryParams.itemsOnPage,
         queryParams.method,
         queryParams.userId,
+        queryParams.endpoint,
         notify,
         urlParams,
     ]);

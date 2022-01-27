@@ -13,36 +13,52 @@ import ImageService from "../../../../../services/ImageService";
 import CardContent from "@mui/material/CardContent";
 import { displayDate } from "../../../../../shared/utils";
 import { Link, Typography } from "@mui/material";
-import paths from "../../../../../shared/path";
 import DatesFooter from "../../components/DatesFooter";
 import useResolvedAccess from "../../hooks/useResolvedAccess";
+import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from "react-router-dom";
+import paths from "../../../../../shared/path";
 
 
 
 export default function UserCard() {
-    const { myId, owner } = useResolvedAccess();
+    const { myId, owner, logsAdmin } = useResolvedAccess();
     const { user, deleteUser } = useUser();
+    const history = useHistory();
 
     const [editModal, setEditModal] = React.useState(false);
     const [passModal, setPassModal] = React.useState(false);
     const [deleteModal, setDeleteModal] = React.useState(false);
 
 
-    const options = React.useMemo(() => [
-        {
-            label: 'Edytuj',
-            action: () => setEditModal(true),
-            icon: <EditIcon color='success' />
-        }, {
-            label: 'Zmień hasło',
-            action: () => setPassModal(true),
-            icon: <PasswordIcon color='warning' />
-        }, {
-            label: 'Usuń konto',
-            action: () => setDeleteModal(true),
-            icon: <DeleteIcon color='error' />
-        }
-    ], []);
+    const options = React.useMemo(() => {
+        const opt = [
+            {
+                label: 'Edytuj',
+                action: () => setEditModal(true),
+                icon: <EditIcon color='success' />
+            }, {
+                label: 'Zmień hasło',
+                action: () => setPassModal(true),
+                icon: <PasswordIcon color='warning' />
+            }, {
+                label: 'Usuń konto',
+                action: () => setDeleteModal(true),
+                icon: <DeleteIcon color='error' />
+            }
+        ];
+        logsAdmin && opt.push({
+            icon: <SearchIcon color='primary' />,
+            label: 'Logs Explorer',
+            action: () => history.push(`${paths.LOGS}?endpoint=%/users/${user.id}`)
+        });
+        
+        return opt;
+    }, [
+        history,
+        logsAdmin,
+        user.id
+    ]);
 
 
     return (

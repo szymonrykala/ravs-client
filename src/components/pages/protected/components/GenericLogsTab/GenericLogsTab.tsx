@@ -12,6 +12,7 @@ function GenericLogsTab() {
     return (
         <QueryParamsContextProvider name="logs-query-params" default={{ method: 'PATCH', itemsOnPage: 5 }}>
             <LogsContext>
+                <br />
                 <Stack spacing={3}>
                     <LogsTabBar />
                     <LogsTable />

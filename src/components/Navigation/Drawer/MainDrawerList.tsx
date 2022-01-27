@@ -4,6 +4,7 @@ import AccountIcon from '@mui/icons-material/AccountCircle';
 import SettingsIcon from '@mui/icons-material/Settings';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PeopleIcon from '@mui/icons-material/People';
+import SearchIcon from '@mui/icons-material/Search';
 
 import React from "react";
 import paths from "../../../shared/path";
@@ -52,6 +53,11 @@ const usersLinkItem: NavListItem = {
   icon: PeopleIcon
 };
 
+const logsLinkItem: NavListItem = {
+  label: 'Logs Explorer',
+  href: paths.LOGS,
+  icon: SearchIcon
+};
 
 const MainListItem = React.memo((props: NavListItem) =>
   <ListItem button component={Link} href={props.href}>
@@ -64,18 +70,20 @@ const MainListItem = React.memo((props: NavListItem) =>
 
 
 export default function MainDrawerList() {
-  const { accessAdmin, owner } = useResolvedAccess();
+  const { accessAdmin, owner, logsAdmin } = useResolvedAccess();
 
   const result = React.useMemo(() => {
     let list = Object.assign([], navListItems) as NavListItem[];
 
     list.push(usersLinkItem);
     accessAdmin && list.push(accessLinkItem);
+    logsAdmin && list.push(logsLinkItem);
     owner && list.push(settingsItem);
 
     return list;
   }, [
     accessAdmin,
+    logsAdmin,
     owner
   ]);
 

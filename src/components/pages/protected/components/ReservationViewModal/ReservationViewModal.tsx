@@ -11,12 +11,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CopyIcon from '@mui/icons-material/CopyAll';
 import NFCIcon from '@mui/icons-material/Nfc';
+import SearchIcon from '@mui/icons-material/Search';
 import { Edit } from '@mui/icons-material';
 import MoreVertMenu from '../../components/MoreVertMenu';
 import UserItem from './UserItem';
 import RoomItem from './RoomItem';
 import useResolvedAccess from '../../hooks/useResolvedAccess';
 import DatesView from './DatesView';
+import { useHistory } from 'react-router-dom';
+import paths from '../../../../../shared/path';
 
 
 
@@ -52,8 +55,9 @@ function TextSection(props: {
 
 
 export default function ReservationViewModal(props: ReservationViewModalProps) {
-    const { reservationsAdmin, keysAdmin, myId } = useResolvedAccess();
+    const { reservationsAdmin, keysAdmin, myId, logsAdmin } = useResolvedAccess();
     const { deleteReservation } = useReservations();
+    const history = useHistory();
 
     const [deleteModalOpen, setDeleteModalOpen] = React.useState<boolean>(false);
     const [editModalOpen, setEditModalOpen] = React.useState<boolean>(false);
@@ -85,6 +89,12 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
             action: () => setNFCModalOpen(true)
         });
 
+        logsAdmin && opt.push({
+            icon: <SearchIcon color='primary' />,
+            label: 'Logs Explorer',
+            action: () => history.push(`${paths.LOGS}?endpoint=%/reservations/${props.reservation.id}`)
+        })
+
         if (myId(props.reservation.user.id) || reservationsAdmin)
             opt.push({
                 icon: <Edit color='primary' />,
@@ -100,8 +110,11 @@ export default function ReservationViewModal(props: ReservationViewModalProps) {
     }, [
         myId,
         keysAdmin,
+        logsAdmin,
         props.reservation.user.id,
-        reservationsAdmin
+        props.reservation.id,
+        reservationsAdmin,
+        history
     ]);
 
 

@@ -5,6 +5,7 @@ import AccessPage from "./AccessPage";
 import AddressPage from "./AddressPage";
 import BuildingPage from "./BuildingPage";
 import HomePage from "./HomePage";
+import LogsPage from "./LogsPage";
 import RoomPage from "./RoomPage";
 import SettingsPage from "./SettingsPage";
 import UserPage from "./UserPage";
@@ -27,6 +28,7 @@ export default function ProtectedPages() {
             <Route path={paths.ACCESS} component={AccessPage} />
             <Route path={paths.USER} component={UserPage} />
             <Route path={paths.USERS} component={UsersPage} />
+            <Route path={paths.LOGS} component={LogsPage} />
             <Route path={paths.HOME} component={HomePage} />
 
             <Route path={paths.INFRASTRUCTURE}>

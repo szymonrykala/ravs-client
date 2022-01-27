@@ -16,6 +16,7 @@ interface AppPathsInterface {
     ROOM: string,
     USERS: string,
     ACCESS: string,
+    LOGS:string,
 };
 
 
@@ -50,7 +51,7 @@ paths.INFRASTRUCTURE = paths.HOME + '/infrastructure';
 paths.ADDRESS = paths.HOME + '/addresses/:addressId';
 paths.BUILDING = paths.ADDRESS + '/buildings/:buildingId';
 paths.ROOM = paths.BUILDING + '/rooms/:roomId';
-
+paths.LOGS = paths.HOME + '/logsexplorer';
 
 export const dynamicPaths: AppDynamicPaths = {
     toAddress: (addressId: number) => `/app/addresses/${addressId}`,
