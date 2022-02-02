@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { Link as ReactRouterLink, Redirect } from 'react-router-dom';
 import useNotification from '../../../../contexts/NotificationContext/useNotification';
-import UserService, { RegisterUserData } from '../../../../services/UserService';
+import UserService, { RegisterState, RegisterUserData } from '../../../../services/UserService';
 import paths from '../../../../shared/path';
 
 
@@ -31,12 +31,17 @@ export default function Form() {
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await UserService.register(data);
-            notify("Zarejestrowano", 'success', () => <Redirect to={paths.ACTIVATE} />);
+            const state = await UserService.register(data);
+            switch(state){
+                case RegisterState.ACTIVATION_NEEDED:
+                    notify("Zarejestrowano", 'success', () => <Redirect to={paths.ACTIVATE} />);
+                    break;
+                case RegisterState.NO_ACTIVATION_NEEDED:
+                    notify("Zarejestrowano i aktywowano", 'success', () => <Redirect to={paths.LOGIN} />);
+                    break;
+            }
         } catch (err: any) {
             let message = err.description;
-            // if (err.code === 422) message = "Wprowadzono nieprawidłowe dane";
-
             notify(message, 'error');
         }
     }, [data, notify]);

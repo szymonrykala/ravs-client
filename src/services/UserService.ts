@@ -40,6 +40,11 @@ export interface UserQueryParams extends PaginationQueryParams {
     activated?: boolean,
 }
 
+export enum RegisterState {
+    ACTIVATION_NEEDED,
+    NO_ACTIVATION_NEEDED
+}
+
 
 class UserService extends Service {
     _path = '/users';
@@ -65,8 +70,12 @@ class UserService extends Service {
         return this.get('/users', data);
     }
 
-    public register(data: RegisterUserData) {
-        return this.post('/users', data);
+    public async register(data: RegisterUserData) {
+        const message = (await this.post('/users', data)).data as string;
+        if(message.search(/aktywacji|mailowy/) > 0){
+            return RegisterState.NO_ACTIVATION_NEEDED
+        }
+        return RegisterState.ACTIVATION_NEEDED
     }
 
     public activate(data: ActivationData) {
