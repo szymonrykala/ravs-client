@@ -9,6 +9,7 @@ import { BuildingViewParams } from "../../../../../services/BuildingService";
 import useNotification from "../../../../../contexts/NotificationContext/useNotification";
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import SmallCard from "../../components/SmallCard";
+import { Tip } from "../../components/Tutorial";
 
 
 
@@ -72,11 +73,13 @@ function RoomsList() {
                 onClose={() => setCreateRoomModalOpen(false)}
             />
 
-            <SmallCard title="Sale w budynku">
-                <ScrollableList onAddItem={() => setCreateRoomModalOpen(true)}>
-                    {renderedRooms}
-                </ScrollableList>
-            </SmallCard>
+            <Tip text='Lista Sal znajdujących się w wybranym budynku.' priority={1}>
+                <SmallCard title="Sale w budynku">
+                    <ScrollableList onAddItem={() => setCreateRoomModalOpen(true)}>
+                        {renderedRooms}
+                    </ScrollableList>
+                </SmallCard>
+            </Tip>
             <br />
         </>
     );

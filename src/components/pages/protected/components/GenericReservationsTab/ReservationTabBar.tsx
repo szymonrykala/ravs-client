@@ -16,6 +16,7 @@ import { RoomViewParams } from "../../../../../services/RoomService";
 import { BuildingViewParams } from "../../../../../services/BuildingService";
 import { AddressViewParams } from "../../../../../services/AddressService";
 import useResolvedAccess from "../../hooks/useResolvedAccess";
+import { Tip } from "../Tutorial";
 
 
 const buttons = [
@@ -65,28 +66,31 @@ function ReservationTabBar() {
                 spacing={2}
                 alignItems='center'
             >
+
                 <Grid item xs={12} md={12}>
-                    <SelectButtonGroup
-                        onChange={handleButtonChange}
-                        buttons={buttons}
-                        value={isDate(queryParams.from) ? '' : queryParams?.from ?? buttons[0].value}
-                    />
-                    <Box display='inline-flex' >
-                        <MobileDatePicker
-                            label="Od daty"
-                            inputFormat="yyyy-MM-dd"
-                            value={customDate}
-                            onChange={(value: Date | null) => value && setCustomDate(value)}
-                            renderInput={(params) => <TextField {...params} size='small' />}
+                    <Tip text='Możesz wyszukiwać rezerwacje według daty lub używając słów kluczowych' priority={2}>
+                        <SelectButtonGroup
+                            onChange={handleButtonChange}
+                            buttons={buttons}
+                            value={isDate(queryParams.from) ? '' : queryParams?.from ?? buttons[0].value}
                         />
-                        <Button
-                            variant={queryParams?.from === customDate.toISOString() ? 'contained' : 'outlined'}
-                            type='submit'
-                            sx={{ ml: 1 }}
-                        >
-                            OK
-                        </Button>
-                    </Box>
+                        <Box display='inline-flex' >
+                            <MobileDatePicker
+                                label="Od daty"
+                                inputFormat="yyyy-MM-dd"
+                                value={customDate}
+                                onChange={(value: Date | null) => value && setCustomDate(value)}
+                                renderInput={(params) => <TextField {...params} size='small' />}
+                            />
+                            <Button
+                                variant={queryParams?.from === customDate.toISOString() ? 'contained' : 'outlined'}
+                                type='submit'
+                                sx={{ ml: 1 }}
+                            >
+                                OK
+                            </Button>
+                        </Box>
+                    </Tip>
                 </Grid>
                 <Grid item xs={12}>
                     <LazyInput
@@ -99,12 +103,14 @@ function ReservationTabBar() {
 
                 {reservationsAbility &&
                     <Grid item xs={12}>
-                        <Button
-                            startIcon={<AddIcon />}
-                            onClick={() => setCreateReservationModalOpen(true)}
-                        >
-                            Stwórz rezerwację
-                        </Button>
+                        <Tip text='Kliknij ten przycisk, aby stworzyć rezerwację!' priority={10}>
+                            <Button
+                                startIcon={<AddIcon />}
+                                onClick={() => setCreateReservationModalOpen(true)}
+                            >
+                                Stwórz rezerwację
+                            </Button>
+                        </Tip>
                     </Grid>
                 }
             </Grid>

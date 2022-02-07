@@ -6,6 +6,7 @@ import { Button } from "@mui/material";
 import PDFPage from "../../components/PDF/PDFPage";
 import Table from "../../components/PDF/Table";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { Tip } from "../../components/Tutorial";
 
 
 
@@ -54,11 +55,13 @@ function ActualLoader() {
                 (PDF.loading || !PDF.url) ?
                     <p>loading pdf ...</p>
                     :
-                    <Button startIcon={<PictureAsPdfIcon />}>
-                        <a href={PDF.url} download={'stats.pdf'} title='pobierz tabele pdf'>
-                            Pobierz raport pdf
-                        </a>
-                    </Button>
+                    <Tip text='Kliknij tutaj aby pobrać raport w formacie PDF.'>
+                        <Button startIcon={<PictureAsPdfIcon />}>
+                            <a href={PDF.url} download={'stats.pdf'} title='pobierz tabele pdf'>
+                                Pobierz raport pdf
+                            </a>
+                        </Button>
+                    </Tip>
             }
             <ChartSection defaultOpen title='Statystyki budynków'>
                 <Chart

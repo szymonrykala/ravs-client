@@ -8,6 +8,7 @@ import { CreateForm } from "../../Forms";
 import AccessListItem from "./AccessListItem";
 import { List } from "@mui/material";
 import AddItem from "./AddItem";
+import { Tip } from "../../../components/Tutorial";
 
 
 
@@ -70,11 +71,12 @@ export default function AccessesList() {
                     title="Lista klas dostępu"
                     subtitle="Twórz, edytuj i usuwaj klasy dostępu."
                 />
-
-                <List sx={{ maxWidth: '400px' }}>
-                    <AddItem onClick={() => setCreateModalOpen(true)} />
-                    {renderedRows}
-                </List>
+                <Tip text='Kliknij element, aby zobaczyć uprawnienia.'>
+                    <List sx={{ maxWidth: '400px' }}>
+                        <AddItem onClick={() => setCreateModalOpen(true)} />
+                        {renderedRows}
+                    </List>
+                </Tip>
             </Stack >
         </>
     );

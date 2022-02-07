@@ -12,6 +12,7 @@ import WeeklyChartsSection from "./WeeklyChartsSection";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { useRoomContext } from "../RoomPage/RoomContext";
 import { useBuilding } from "../BuildingPage/BuildingContext";
+import { Tip } from "./Tutorial";
 
 
 function RoomOrBuildingChartTab() {
@@ -105,11 +106,13 @@ const ActualLoader = React.memo(() => {
                 (PDF.loading || !PDF.url) ?
                     <p>loading pdf ...</p>
                     :
-                    <Button startIcon={<PictureAsPdfIcon />}>
-                        <a href={PDF.url} download={'stats.pdf'} title='pobierz tabele pdf'>
-                            Pobierz raport pdf
-                        </a>
-                    </Button>
+                    <Tip text='Kliknij tutaj aby pobrać raport w formacie PDF.'>
+                        <Button startIcon={<PictureAsPdfIcon />}>
+                            <a href={PDF.url} download={'stats.pdf'} title='pobierz tabele pdf'>
+                                Pobierz raport pdf
+                            </a>
+                        </Button>
+                    </Tip>
             }
 
             <WeeklyChartsSection data={chartsData.weekly} />

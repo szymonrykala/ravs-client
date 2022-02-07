@@ -13,7 +13,7 @@ export const resourceMapContext: any = React.createContext(null);
 
 
 interface ResourceMapContextProviderProps {
-    children?: React.ReactNode[]
+    children?: React.ReactNode[] | React.ReactNode
 }
 
 

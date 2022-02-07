@@ -7,6 +7,7 @@ import { AddressViewParams } from "../../../../../services/AddressService";
 import BuildingService, { BuildingCreateParams } from "../../../../../services/BuildingService";
 import ScrollableList, { ScrollableListItem } from "../../components/ScrollableList";
 import SmallCard from "../../components/SmallCard";
+import { Tip } from "../../components/Tutorial";
 import { useAddress } from "../AddressContext";
 import { CreateBuildingForm } from "../Forms";
 
@@ -68,13 +69,15 @@ function BuildingsList() {
                 handleCreateBuilding={createBuilding}
             />
 
-            <SmallCard title='Budynki pod adresem'>
-                <ScrollableList
-                    onAddItem={() => setCreateBuildingModalOpen(true)}
-                >
-                    {renderedBuildings}
-                </ScrollableList>
-            </SmallCard>
+            <Tip text='To jest lista budynków pod tym adresem.' priority={10}>
+                <SmallCard title='Budynki pod adresem'>
+                    <ScrollableList
+                        onAddItem={() => setCreateBuildingModalOpen(true)}
+                    >
+                        {renderedBuildings}
+                    </ScrollableList>
+                </SmallCard>
+            </Tip>
             <br />
         </>
     );

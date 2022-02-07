@@ -16,6 +16,7 @@ import useResolvedAccess from "../../hooks/useResolvedAccess";
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from "react-router-dom";
 import paths from "../../../../../shared/path";
+import { Tip } from "../../components/Tutorial";
 
 
 
@@ -100,7 +101,9 @@ export default function RoomCard() {
                         alt={room.name}
                     />
                     <CardContent>
-                        <RoomTableInfo room={room} deleteTag={deleteRFIDTag} />
+                        <Tip text='Tutaj znajdują się informacje na temat Sali' priority={20}>
+                            <RoomTableInfo room={room} deleteTag={deleteRFIDTag} />
+                        </Tip>
                         <br />
                         <DatesFooter model={room} />
                     </CardContent>
