@@ -6,6 +6,7 @@ import { RfidForm } from "../Forms";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import YesNoIcon from "./YesNoIcon";
 import useResolvedAccess from "../../hooks/useResolvedAccess";
+import { Tip } from "../../components/Tutorial";
 
 
 interface RoomTableInfoProps {
@@ -41,12 +42,14 @@ export default function RoomTableInfo({
             label: "Tag RFID",
             value: room.RFIDTag ?
                 <Chip label={room.RFIDTag} onDelete={deleteTag} sx={{ maxWidth: '120px' }} />
-                : <IconButton size="small"
-                    onClick={() => setRfidTagModalOpen(true)}
-                    sx={{ p: '0px' }}
-                >
-                    <AddCircleIcon />
-                </IconButton>
+                : <Tip text='Kliknij "+" by przypisać klucz RFID' priority={10}>
+                    <IconButton size="small"
+                        onClick={() => setRfidTagModalOpen(true)}
+                        sx={{ p: '0px' }}
+                    >
+                        <AddCircleIcon />
+                    </IconButton>
+                </Tip>
         });
         rows.push({
             label: "Dostępny do rezerwacji",

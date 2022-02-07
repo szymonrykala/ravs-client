@@ -240,7 +240,7 @@ export default function EditUsersAccess() {
             <Grid item xs={12}>
                 <TabHeadLine
                     title='Administracja klasami dostępu'
-                    subtitle='Wybierz stworzone klasy dostępu i przydzielaj role dla użytkowników'
+                    subtitle='Wybierz stworzone klasy dostępu i przemieszczaj użytkowników pomiędzy kolumnami, przypisując im wybraną role.'
                 />
             </Grid>
 
