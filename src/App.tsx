@@ -17,6 +17,7 @@ import plLocale from 'date-fns/locale/pl';
 import NotificationContextProvider from './contexts/NotificationContext/NotificationContextProvider';
 import { ResourceMapContextProvider } from './contexts/ResourceMapContext';
 import Navigation from './components/Navigation';
+import { Tutorial } from './components/pages/protected/components/Tutorial';
 
 
 
@@ -30,11 +31,13 @@ function App() {
 						<NotificationContextProvider>
 							<SessionProvider >
 								<ResourceMapContextProvider>
-									<Navigation />
-									<Container>
-										<Tabs />
-									</Container>
-									<Footer />
+									<Tutorial>
+										<Navigation />
+										<Container>
+											<Tabs />
+										</Container>
+										<Footer />
+									</Tutorial>
 								</ResourceMapContextProvider>
 							</SessionProvider>
 						</NotificationContextProvider>

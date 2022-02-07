@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { FavouriteBuilding, FavouriteRoom } from '../../../../models/Metadata';
 import MetadataService from '../../../../services/MetadataService';
+import { Tip } from './Tutorial';
 
 
 
@@ -35,8 +36,10 @@ export default function FavouriteButton(props: FavouriteButtonProps) {
 
 
     return (
-        <IconButton sx={{display:'inline'}} onClick={addToFavourites} color='warning'>
-            {marked ? <StarIcon /> : <StarBorderIcon />}
-        </IconButton>
+        <Tip text='Kliknij aby dodać do ulubionych' priority={0}>
+            <IconButton sx={{ display: 'inline' }} onClick={addToFavourites} color='warning'>
+                {marked ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+        </Tip>
     );
 }
