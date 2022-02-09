@@ -15,6 +15,9 @@ import paths from '../../../../shared/path';
 export default function Form() {
     const notify = useNotification();
 
+    const [repeatPass, setRepeatPass] = React.useState<string>('');
+    const [passError, setPassError] = React.useState<string | null>(null);
+
     const [data, setData] = React.useState<RegisterUserData>({
         email: "",
         password: "",
@@ -22,6 +25,19 @@ export default function Form() {
         surname: ""
     });
 
+    const onRepeatPasswordChange = React.useCallback((evt: React.ChangeEvent<HTMLInputElement>) => {
+        const repeated = evt.target.value as string;
+
+        if (repeated !== data.password) {
+            setPassError('Podane hasła się różnią');
+        } else {
+            setPassError(null)
+        }
+        setRepeatPass(repeated);
+
+    }, [
+        data.password
+    ]);
 
     const onChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setData(old => ({ ...old, [e.target.name]: e.target.value }));
@@ -30,9 +46,15 @@ export default function Form() {
 
     const handleSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        if (repeatPass !== data.password) {
+            notify('Podane hasła muszą być takie same', 'error');
+            return;
+        }
+
         try {
             const state = await UserService.register(data);
-            switch(state){
+            switch (state) {
                 case RegisterState.ACTIVATION_NEEDED:
                     notify("Zarejestrowano", 'success', () => <Redirect to={paths.ACTIVATE} />);
                     break;
@@ -44,7 +66,11 @@ export default function Form() {
             let message = err.description;
             notify(message, 'error');
         }
-    }, [data, notify]);
+    }, [
+        data, 
+        notify,
+        repeatPass
+    ]);
 
 
     return (
@@ -98,6 +124,22 @@ export default function Form() {
                         autoComplete="new-password"
                         value={data.password}
                         onChange={onChange}
+                    />
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        required
+                        fullWidth
+                        name="repeatPassword"
+                        label="Powtórz Hasło"
+                        type="password"
+                        id="repeatPassword"
+                        autoComplete="repeatPassword"
+                        value={repeatPass}
+                        onChange={onRepeatPasswordChange}
+
+                        error={Boolean(passError)}
+                        helperText={passError}
                     />
                 </Grid>
                 <Grid item xs={12}>
