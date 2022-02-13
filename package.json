@@ -16,7 +16,7 @@
     "name": "Szymon Rykała",
     "url": "https://www.linkedin.com/in/szymon-ryka%C5%82a/"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "homepage": "https://szymonrykala.github.io/ravs-client/",
   "dependencies": {
