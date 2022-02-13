@@ -35,8 +35,8 @@ export default function SessionProvider({ children }: SessionProviderProps) {
 
         // config services which require identity data
         StorageService.setIdentity(user.id);
-        MetadataService.metadata = user.metadata;
         MetadataService.userId = user.id;
+        MetadataService.metadata = user.metadata;
         ReservationService.userId = user.id;
         LogService.userId = user.id;
         ImageService.userId = user.id;

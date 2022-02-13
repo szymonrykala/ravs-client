@@ -13,7 +13,7 @@ class MetadataService {
 
 
     constructor() {
-        this.data = StorageService.read(this.STORAGE_NAME) ?? {
+        this.data = {
             notes: '',
             favourites: []
         };
@@ -34,6 +34,10 @@ class MetadataService {
 
     public set userId(id: number) {
         this._userId = id;
+        this.data = StorageService.read(this.STORAGE_NAME) ?? {
+            notes: '',
+            favourites: []
+        };
     }
 
     public set metadata(value: Metadata) {
