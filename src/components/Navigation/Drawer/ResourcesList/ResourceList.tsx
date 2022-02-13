@@ -1,3 +1,4 @@
+import React from 'react';
 import BungalowIcon from '@mui/icons-material/Bungalow';
 import MapIcon from '@mui/icons-material/Map';
 import { Stack } from "@mui/material";
@@ -5,7 +6,6 @@ import { useResourceMap } from '../../../../contexts/ResourceMapContext';
 import paths from '../../../../shared/path';
 import CollapseableListItem from "./CollapseableListItem";
 import RoomListItem from "./RoomListItem";
-import React from 'react';
 
 
 export default function ResourcesList() {

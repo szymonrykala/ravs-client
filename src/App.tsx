@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Container, CssBaseline } from '@mui/material';
 
 import '@fontsource/roboto/300.css';

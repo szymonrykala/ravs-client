@@ -1,3 +1,4 @@
+import React from 'react';
 import FormPage from "../FormPage";
 import Form from "./Form";
 import LoginIcon from '@mui/icons-material/Login';

@@ -1,3 +1,4 @@
+import React from 'react';
 import FormPage from "../FormPage";
 import RemindPassowordForm from "./Form";
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';

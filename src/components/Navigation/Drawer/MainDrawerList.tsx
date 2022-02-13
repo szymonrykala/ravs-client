@@ -1,3 +1,4 @@
+import React from "react";
 import { Link, List, ListItem, ListItemIcon, ListItemText, SvgIconTypeMap } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import AccountIcon from '@mui/icons-material/AccountCircle';
@@ -6,7 +7,6 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PeopleIcon from '@mui/icons-material/People';
 import SearchIcon from '@mui/icons-material/Search';
 
-import React from "react";
 import paths from "../../../shared/path";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
 import useResolvedAccess from "../../pages/protected/hooks/useResolvedAccess";

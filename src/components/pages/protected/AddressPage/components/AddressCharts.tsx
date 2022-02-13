@@ -1,3 +1,4 @@
+import React from 'react';
 import { BuildingsOrRoomsChartsData } from "../../../../../models/Stats";
 import { Chart, ChartSection, ChartsTab, useCharts } from "../../components/Charts";
 import { useAddress } from "../AddressContext";

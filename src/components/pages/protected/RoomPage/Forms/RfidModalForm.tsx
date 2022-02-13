@@ -1,3 +1,4 @@
+import React from 'react';
 import GenericModal from "../../components/GenericModal";
 import RfidForm from "../../components/RfidForm";
 import { useRoomContext } from "../RoomContext";

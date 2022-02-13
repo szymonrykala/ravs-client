@@ -1,3 +1,4 @@
+import React from 'react';
 import GenericReservationsTab from "../components/GenericReservationsTab";
 import SmallCard from "../components/SmallCard";
 

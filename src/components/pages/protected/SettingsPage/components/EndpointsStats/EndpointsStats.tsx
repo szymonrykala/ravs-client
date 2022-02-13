@@ -1,3 +1,4 @@
+import React from 'react';
 import Box from '@mui/material/Box';
 import TabHeadLine from '../../../../../../shared/components/TabHeadLine';
 import { ChartsContext } from '../../../components/Charts/ChartsContext';

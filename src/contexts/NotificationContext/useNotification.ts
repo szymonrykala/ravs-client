@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { notificationContext } from "./NotificationContextProvider";
-import NotificationContextValue from "./NotificationContextValue";
+import { NotificationContextValue } from "./NotificationContextValue";
 
 
 
