@@ -101,7 +101,11 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
         } catch (err: any) {
             notify(err.description, 'error');
         }
-    }, [notify, building]);
+    }, [
+        notify,
+        building,
+        reloadMap
+    ]);
 
 
     if (!Boolean(building)) return <Loading />;
