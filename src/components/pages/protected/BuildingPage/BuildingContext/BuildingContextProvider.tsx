@@ -96,6 +96,7 @@ export default function BuildingContextProvider(props: BuildingContextProviderPr
     const deleteBuilding = React.useCallback(async () => {
         try {
             await BuildingService.remove();
+            reloadMap();
             building && notify("Budynek usunięty", 'success', () => <Redirect to={dynamicPaths.toAddress(building.address.id)} />);
         } catch (err: any) {
             notify(err.description, 'error');
