@@ -1,3 +1,4 @@
+import React from 'react';
 import { AllUsersChartsData } from "../../../../../models/Stats";
 import { Chart, ChartSection, ChartsTab, useCharts } from "../../components/Charts";
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';

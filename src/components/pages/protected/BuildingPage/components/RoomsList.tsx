@@ -10,6 +10,7 @@ import useNotification from "../../../../../contexts/NotificationContext/useNoti
 import { useResourceMap } from "../../../../../contexts/ResourceMapContext";
 import SmallCard from "../../components/SmallCard";
 import { Tip } from "../../components/Tutorial";
+import { EmptyScrollableListItem } from "../../components/ScrollableList/ScrollableListItem";
 
 
 
@@ -57,11 +58,15 @@ function RoomsList() {
 
 
     const renderedRooms = React.useMemo(() => {
-        return rooms?.map(item => <ScrollableListItem
-            key={item.id}
-            primary={`Sala ${item.name}`}
-            link={`./${item.building}/rooms/${item.id}`}
-        />)
+        if (rooms && rooms.length > 0) {
+            return rooms?.map(item => <ScrollableListItem
+                key={item.id}
+                primary={`Sala ${item.name}`}
+                link={`./${item.building}/rooms/${item.id}`}
+            />)
+        } else{
+            return <EmptyScrollableListItem text="Aktualnie brak sal dla budynku."/>
+        }
     }, [rooms])
 
 

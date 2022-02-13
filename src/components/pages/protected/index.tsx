@@ -1,3 +1,4 @@
+import React from 'react';
 import { Redirect, Route, Switch } from "react-router-dom";
 import useSession from "../../../auth/useSession";
 import paths from "../../../shared/path";

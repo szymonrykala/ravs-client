@@ -1,3 +1,4 @@
+import React from 'react';
 import { Page, Font, View, Document, StyleSheet, Text } from '@react-pdf/renderer';
 
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { UserChartsData } from "../../../../../models/Stats";
 import { Chart, ChartSection, ChartsTab, useCharts } from "../../components/Charts";
 import MonthlyChartsSection from "../../components/MonthlyChartsSection";

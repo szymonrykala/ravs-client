@@ -24,4 +24,14 @@ function ScrollableListItem(props: ScrollableListItemProps) {
     );
 }
 
+export function EmptyScrollableListItem(props: { text: string }) {
+    return (
+        <ListItem
+            sx={{ py: '2px' }}
+        >
+            <ListItemText primary={props.text} />
+        </ListItem>
+    );
+}
+
 export default React.memo(ScrollableListItem);

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Stack, Typography } from "@mui/material";
 import QueryParamsContextProvider from "../../../../contexts/QueryParamsContext/QueryParamsContextProvider";
 import ListPagination from "../components/ListPagination";
