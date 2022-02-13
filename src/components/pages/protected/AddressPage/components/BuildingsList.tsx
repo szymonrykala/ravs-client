@@ -6,6 +6,7 @@ import Building from "../../../../../models/Building";
 import { AddressViewParams } from "../../../../../services/AddressService";
 import BuildingService, { BuildingCreateParams } from "../../../../../services/BuildingService";
 import ScrollableList, { ScrollableListItem } from "../../components/ScrollableList";
+import { EmptyScrollableListItem } from "../../components/ScrollableList/ScrollableListItem";
 import SmallCard from "../../components/SmallCard";
 import { Tip } from "../../components/Tutorial";
 import { useAddress } from "../AddressContext";
@@ -39,7 +40,7 @@ function BuildingsList() {
             await BuildingService.create(urlParams, data);
             load();
             reloadMap();
-            notify('Nowa sala utworzona!', 'success');
+            notify('Nowy Budynek utworzony!', 'success');
             return true;
         } catch (err: any) {
             notify(err.description, 'error');
@@ -54,10 +55,15 @@ function BuildingsList() {
 
 
     const renderedBuildings = React.useMemo(() => {
-        return buildings?.map(item => <ScrollableListItem key={item.id}
-            primary={`Budynek ${item.name}`}
-            link={`./${item.address}/buildings/${item.id}`}
-        />)
+        if (buildings && buildings.length > 0) {
+
+            return buildings?.map(item => <ScrollableListItem key={item.id}
+                primary={`Budynek ${item.name}`}
+                link={`./${item.address}/buildings/${item.id}`}
+            />)
+        } else {
+            return <EmptyScrollableListItem text="Aktualnie brak budynków dla adresu."/>
+        }
     }, [buildings]);
 
 
