@@ -19,8 +19,8 @@ function ChartOptionsBar() {
     const { queryParams, setQueryParams } = useQueryParams<ChartsQueryData>();
 
     const [customDates, setCustomDates] = React.useState<{ from: Date, to: Date }>({
-        from: new Date(),
-        to: new Date()
+        from: new Date(queryParams?.from ?? (Date.now() - 21600)),
+        to: new Date(queryParams?.to ?? (Date.now() + (21600 * 24)) )
     });
 
     const handleButtonChange = React.useCallback(async (buttonValue: string) => {
