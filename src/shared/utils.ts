@@ -24,6 +24,7 @@ export function isDate(str: string | undefined): boolean {
     return Boolean(date.getDate())
 }
 
+// creates unique id from url
 export function urlToId(): string {
     let url = window.location.pathname.toLocaleLowerCase()
     return url.replaceAll(/\d/gi, '*')

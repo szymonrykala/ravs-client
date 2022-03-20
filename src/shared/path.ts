@@ -35,6 +35,7 @@ const paths: { [index: string]: string } = {
     HOME: '/app',
 }
 
+// set of client application paths
 
 paths.LOGIN = paths.PUBLIC + '/login';
 paths.REGISTER = paths.PUBLIC + '/register';

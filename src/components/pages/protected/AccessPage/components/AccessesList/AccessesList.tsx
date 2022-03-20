@@ -20,6 +20,7 @@ export default function AccessesList() {
 
     const [toDelete, setToDelete] = React.useState<{ id: number, name: string } | null>(null);
 
+    // prerendered access rows
     const renderedRows = React.useMemo(() => {
         return accessesList.map(({ id, name }) =>
             <AccessListItem
@@ -39,6 +40,7 @@ export default function AccessesList() {
     ]);
 
 
+    // higher order delete access handler
     const handleDelete = React.useCallback(async () => {
         if (!toDelete) return;
 

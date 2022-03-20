@@ -27,7 +27,7 @@ export default function AddressContextProvider(props: AddressContextProviderProp
 
     const [address, setAddress] = React.useState<Address>();
 
-
+    // set service params before render component
     React.useLayoutEffect(() => {
         AddressService.setPath(urlParams);
     }, [urlParams])
@@ -41,6 +41,7 @@ export default function AddressContextProvider(props: AddressContextProviderProp
     }, [urlParams]);
 
 
+    // get address on render
     React.useEffect(() => {
         getAddress();
     }, [getAddress]);

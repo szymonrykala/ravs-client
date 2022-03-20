@@ -35,8 +35,8 @@ export interface StatusMessages {
 
 export default abstract class Service {
 
-    _BASE_URL: string = process.env.REACT_APP_API_URL as string;
-    _TOKEN_NAME: string = 'auth_token';
+    _BASE_URL: string = process.env.REACT_APP_API_URL as string; // api url from env
+    _TOKEN_NAME: string = 'auth_token'; // local storage token variable name
     _userId: number = -1;
 
     public set userId(value: number) {
@@ -50,10 +50,18 @@ export default abstract class Service {
         return this._userId;
     }
 
+    /**
+     * gets auth token
+     */
     protected get authToken() {
         return 'Bearer ' + window.localStorage.getItem(this._TOKEN_NAME);
     }
-
+ 
+    /**
+     * fetch wrap function to implement unified respoonse and handle authorization header
+     * @param fetchObject 
+     * @returns 
+     */
     private async _fetch(fetchObject: FetchData): Promise<APIResponse> {
         const response = await fetch(
             this._BASE_URL + fetchObject.endpoint,
@@ -61,11 +69,9 @@ export default abstract class Service {
                 method: fetchObject.method,
                 cache: 'no-cache',
                 mode: 'cors',
-                // credentials: 'omit',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': this.authToken,
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: JSON.stringify(fetchObject.body)
             }
@@ -88,6 +94,11 @@ export default abstract class Service {
         return data as APIResponse;
     }
 
+    /**
+     * parsing path with current url params
+     * @param urlParams 
+     * @returns 
+     */
     protected preparePath(urlParams: AppURLParams): string {
         let endp = '';
         let url = window.location.toString();
@@ -121,6 +132,12 @@ export default abstract class Service {
         return endp;
     }
 
+    /**
+     * HTTP GET
+     * @param endpoint 
+     * @param query 
+     * @returns 
+     */
     protected get(endpoint: string, query = {}) {
         return this._fetch({
             method: 'GET',
@@ -128,6 +145,12 @@ export default abstract class Service {
         });
     }
 
+    /**
+     * HTTP POST
+     * @param endpoint 
+     * @param body 
+     * @returns 
+     */
     protected post(endpoint: string, body: object) {
         return this._fetch({
             method: 'POST',
@@ -136,6 +159,12 @@ export default abstract class Service {
         });
     }
 
+    /**
+     * HTTP PATCH
+     * @param endpoint 
+     * @param body 
+     * @returns 
+     */
     protected patch(endpoint: string, body: object) {
         if (Object.keys(body).length === 0) return;
 
@@ -146,6 +175,11 @@ export default abstract class Service {
         });
     }
 
+    /**
+     * HTTP DELETE
+     * @param endpoint 
+     * @returns 
+     */
     protected delete(endpoint: string) {
         return this._fetch({
             method: 'DELETE',
