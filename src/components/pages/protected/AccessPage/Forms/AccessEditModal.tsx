@@ -77,9 +77,10 @@ export default function AccessEditModal({
     }, []);
 
 
+    // close form handler
     const close = React.useCallback(() => {
         onClose();
-        setData({});
+        setData({}); // flush data
     }, [
         onClose
     ]);

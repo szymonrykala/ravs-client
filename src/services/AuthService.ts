@@ -37,6 +37,10 @@ class AuthService extends Service {
         return Boolean(localStorage.getItem(this._TOKEN_NAME));
     }
 
+    /**
+     * checks if user session and token are valid
+     * @returns boolean
+     */
     async hasSession(): Promise<boolean> {
         try {
             if (this.hasToken()) {

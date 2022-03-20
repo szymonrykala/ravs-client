@@ -17,6 +17,10 @@ class SettingsService extends Service {
         return this.get('/configurations');
     }
 
+    /**
+     * @param data 
+     * @returns 
+     */
     public update(data: SettingsUpdateParams) {
         return this.patch('/configurations', data);
     }

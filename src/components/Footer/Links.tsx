@@ -33,6 +33,7 @@ function Links() {
     const access = useResolvedAccess();
 
 
+    // generates list of helpful links in case of user is logged in or not
     const linksList = React.useMemo(() => {
         const list = [];
         if (user) {

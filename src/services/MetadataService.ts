@@ -4,7 +4,10 @@ import UserService from "./UserService";
 
 
 
-
+/**
+ * handles synchronization with user's metadata field and local storage
+ * favourites and notes
+ */
 class MetadataService {
     private STORAGE_NAME = 'user-metadata';
 

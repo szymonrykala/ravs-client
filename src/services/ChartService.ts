@@ -20,6 +20,11 @@ export type ChartsData = (
 
 class ChartService extends Service {
 
+    /**
+     * prepares path for charts service because different placement of resources charts
+     * @param urlParams 
+     * @returns 
+     */
     protected preparePath(urlParams: AppURLParams): string {
         let endp = '';
         let url = window.location.toString();

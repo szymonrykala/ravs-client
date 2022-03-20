@@ -84,6 +84,11 @@ class ReservationService extends Service {
         return this.delete(`/reservations/${id}`);
     }
 
+    /**
+     * resolves status 
+     * @param reservation
+     * @returns 
+     */
     public resolveStatus(reservation: Reservation): ReservationStatus {
 
         const nowTimestamp = Date.now();

@@ -23,7 +23,7 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     const [selectedAccessId, setSelectedAccessId] = React.useState<number>();
     const [accessesList, setAccessesList] = React.useState<Access[]>();
 
-
+    // load accesses items form the api
     const load = React.useCallback(async () => {
         try {
             const resp = await AccessService.getAll();
@@ -35,11 +35,13 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     }, [notify]);
 
 
+    // load accesses on render the component
     React.useEffect(() => {
         load();
     }, [load]);
 
 
+    // handle updating the single access class
     const updateAccess = React.useCallback(async (accessId: number, data: AccessUpdateParams) => {
         try {
             if (await AccessService.update(accessId, data)) {
@@ -66,6 +68,7 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     }, [notify]);
 
 
+    // deleting the access class
     const deleteAccess = React.useCallback(async (id?: number) => {
         try {
             await AccessService.remove(id);
@@ -84,6 +87,7 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     }, [notify]);
 
 
+    // create access class handler
     const createAccess = React.useCallback(async (data: AccessCreateParams) => {
         try {
             const resp = await AccessService.create(data);
@@ -107,17 +111,20 @@ export default function AccessContextProvider(props: AccessContextProviderProps)
     }, [notify]);
 
 
+    // marks selected by the user access class to display
     const selectedAccess = React.useMemo(() => {
         return accessesList?.find(({ id }) => id === selectedAccessId);
     }, [selectedAccessId, accessesList]);
 
 
+    // opnes access details
     const openAccess = React.useCallback((id: number) => {
         setSelectedAccessId(id);
         setModalOpen(true);
     }, []);
 
 
+    // is list is not loaded, return loader component
     if (!accessesList) return <Loading />;
 
     return (

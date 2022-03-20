@@ -23,19 +23,22 @@ export default function CreateAccessModal({
     const [name, setName] = React.useState<string>('');
 
 
+    // handle change of the input
     const handleChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setName(event.target.value);
     }, []);
 
 
+    // on close form
     const close = React.useCallback(() => {
         onClose();
-        setName('');
+        setName(''); // remove old name
     }, [
         onClose
     ]);
 
 
+    // subit handler for the form
     const handleSubmit = React.useCallback(async () => {
         if (await onSubmit({
             name: name

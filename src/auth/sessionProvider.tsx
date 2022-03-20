@@ -30,10 +30,10 @@ export default function SessionProvider({ children }: SessionProviderProps) {
     const [user, setUser] = useState<SessionUser | null>(null);
 
 
+    // config services which require identity data
     const setUpUser = React.useCallback((user: SessionUser) => {
         setUser(user);
 
-        // config services which require identity data
         StorageService.setIdentity(user.id);
         MetadataService.userId = user.id;
         MetadataService.metadata = user.metadata;
@@ -43,7 +43,7 @@ export default function SessionProvider({ children }: SessionProviderProps) {
         UserService.userId = user.id;
     }, []);
 
-
+    // chceck if user token aand session is valid
     const checkIfUserHasSession = React.useCallback(async () => {
         setLoading(true);
         if (AuthService.hasToken()) {
