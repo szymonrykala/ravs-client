@@ -1,6 +1,6 @@
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
-const VERSION = '0.2.2';
+const VERSION = '0.2.3';
 // This service worker can be customized!
 // See https://developers.google.com/web/tools/workbox/modules
 // for the list of available Workbox modules, or add any other
