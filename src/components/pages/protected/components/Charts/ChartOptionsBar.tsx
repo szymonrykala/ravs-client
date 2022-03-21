@@ -14,14 +14,24 @@ const predefinedButtons: SelectButtonInterface[] = [
 ];
 
 
+function isProperDate(date: Date): boolean {
+
+    if (date.getDate()) {
+        return true;
+    }
+
+    return false;
+}
+
 
 function ChartOptionsBar() {
     const { queryParams, setQueryParams } = useQueryParams<ChartsQueryData>();
 
     const [customDates, setCustomDates] = React.useState<{ from: Date, to: Date }>({
-        from: new Date(queryParams?.from ?? (Date.now() - 21600)),
-        to: new Date(queryParams?.to ?? (Date.now() + (21600 * 24)) )
+        from: new Date(isProperDate(new Date(queryParams.from)) ? queryParams.from : (Date.now() - (21600 * 24000))),
+        to: new Date(isProperDate(new Date(queryParams?.to))? queryParams.to : (Date.now() + (21600 * 24)))
     });
+
 
     const handleButtonChange = React.useCallback(async (buttonValue: string) => {
         setQueryParams(old => ({
