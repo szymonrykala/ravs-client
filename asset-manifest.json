@@ -3,8 +3,8 @@
     "static/js/0.47cf3207.chunk.js": "/ravs-client/static/js/0.47cf3207.chunk.js",
     "static/js/0.47cf3207.chunk.js.map": "/ravs-client/static/js/0.47cf3207.chunk.js.map",
     "main.css": "/ravs-client/static/css/main.5908a508.chunk.css",
-    "main.js": "/ravs-client/static/js/main.9de97e63.chunk.js",
-    "main.js.map": "/ravs-client/static/js/main.9de97e63.chunk.js.map",
+    "main.js": "/ravs-client/static/js/main.3331abe8.chunk.js",
+    "main.js.map": "/ravs-client/static/js/main.3331abe8.chunk.js.map",
     "runtime-main.js": "/ravs-client/static/js/runtime-main.8da0ad55.js",
     "runtime-main.js.map": "/ravs-client/static/js/runtime-main.8da0ad55.js.map",
     "static/css/3.f249ba37.chunk.css": "/ravs-client/static/css/3.f249ba37.chunk.css",
@@ -46,6 +46,6 @@
     "static/css/3.f249ba37.chunk.css",
     "static/js/3.3f7103f2.chunk.js",
     "static/css/main.5908a508.chunk.css",
-    "static/js/main.9de97e63.chunk.js"
+    "static/js/main.3331abe8.chunk.js"
   ]
 }
